@@ -6,8 +6,7 @@
       "name": "When chat message received",
       "type": "@n8n/n8n-nodes-langchain.chatTrigger",
       "typeVersion": 1.1,
-      "position": [-400, 0],
-      "webhookId": "beacon-ai-brief-demo",
+      "position": [-620, 0],
       "parameters": {
         "public": true,
         "options": {
@@ -17,14 +16,50 @@
       }
     },
     {
+      "id": "config",
+      "name": "Config",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [-400, 0],
+      "notes": "Fill both fields in from the n8n UI (don't commit real values here): bridgeUrl = your current cloudflared/ngrok tunnel URL for src/bridge_server.py (e.g. https://xxxx.trycloudflare.com), bridgeToken = the BRIDGE_TOKEN value from your local .env.",
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "bridge-url",
+              "name": "bridgeUrl",
+              "type": "string",
+              "value": "https://REPLACE-WITH-YOUR-TUNNEL-URL"
+            },
+            {
+              "id": "bridge-token",
+              "name": "bridgeToken",
+              "type": "string",
+              "value": "REPLACE-WITH-YOUR-BRIDGE_TOKEN"
+            }
+          ]
+        },
+        "options": {}
+      }
+    },
+    {
       "id": "get-sectors",
       "name": "Get Sectors",
-      "type": "n8n-nodes-base.executeCommand",
-      "typeVersion": 1,
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
       "position": [-160, 0],
-      "notes": "Adjust the project path below if this repo lives somewhere else on the n8n host.",
       "parameters": {
-        "command": "cd /Users/muditairan/Desktop/Ironhack/beacon-ai && .venv/bin/python -m src.list_sectors"
+        "url": "={{ $json.bridgeUrl }}/sectors",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-Bridge-Token",
+              "value": "={{ $json.bridgeToken }}"
+            }
+          ]
+        },
+        "options": {}
       }
     },
     {
@@ -34,7 +69,7 @@
       "typeVersion": 2,
       "position": [80, 0],
       "parameters": {
-        "jsCode": "const sectors = JSON.parse($input.first().json.stdout);\nconst chatInput = ($('When chat message received').first().json.chatInput || '').trim();\nconst matchedSector = sectors.find(s => s.toLowerCase() === chatInput.toLowerCase()) || null;\n\nreturn [{ json: { sectors, chatInput, matchedSector } }];"
+        "jsCode": "const sectors = $input.first().json.sectors;\nconst chatInput = ($('When chat message received').first().json.chatInput || '').trim();\nconst matchedSector = sectors.find(s => s.toLowerCase() === chatInput.toLowerCase()) || null;\n\nreturn [{ json: { sectors, chatInput, matchedSector } }];"
       }
     },
     {
@@ -70,12 +105,31 @@
     {
       "id": "generate-brief",
       "name": "Generate Brief",
-      "type": "n8n-nodes-base.executeCommand",
-      "typeVersion": 1,
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
       "position": [560, -100],
-      "notes": "matchedSector only ever holds a value copied verbatim from the sectors list (validated in the Match Sector node above), so it is safe to interpolate into the shell command here.",
+      "notes": "matchedSector only ever holds a value copied verbatim from the sectors list (validated in Match Sector above), so it's safe to pass straight through.",
       "parameters": {
-        "command": "=cd /Users/muditairan/Desktop/Ironhack/beacon-ai && .venv/bin/python -m src.generate_brief_for_sector --sector \"{{ $json.matchedSector }}\""
+        "url": "={{ $('Config').first().json.bridgeUrl }}/brief",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-Bridge-Token",
+              "value": "={{ $('Config').first().json.bridgeToken }}"
+            }
+          ]
+        },
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "sector",
+              "value": "={{ $json.matchedSector }}"
+            }
+          ]
+        },
+        "options": {}
       }
     },
     {
@@ -91,7 +145,7 @@
               "id": "output-field",
               "name": "output",
               "type": "string",
-              "value": "={{ $json.stdout }}"
+              "value": "={{ $json.brief }}"
             }
           ]
         },
@@ -121,6 +175,13 @@
   ],
   "connections": {
     "When chat message received": {
+      "main": [
+        [
+          { "node": "Config", "type": "main", "index": 0 }
+        ]
+      ]
+    },
+    "Config": {
       "main": [
         [
           { "node": "Get Sectors", "type": "main", "index": 0 }

@@ -52,6 +52,11 @@ beacon-ai/
 │   └── dashboard/              # PowerBI-ready extracts
 ├── tests/
 │   └── test_clean.py
+├── research/                    # sector research, sources, Round 1 deck (PDF)
+├── n8n/                         # automation POC: workflow export + documentation
+├── langsmith/                   # LangSmith monitoring evidence (screenshot + note)
+├── feedback/
+│   └── round1_decision.md       # keep or change industry/use case + why
 ├── .env.example
 ├── requirements.txt
 ├── plan.md                     # this file

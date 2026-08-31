@@ -1,14 +1,14 @@
-"""CLI: print unique sectors from sector_year_features.csv as JSON (n8n dropdown demo)."""
+"""CLI: print sectors with a computed transfer_score as JSON (n8n dropdown demo)."""
 
 import json
 
 import pandas as pd
 
-from src.config import DATA_PROCESSED
+from src.config import OUTPUTS_SIGNALS
 
 
 def list_sectors() -> list[str]:
-    df = pd.read_csv(DATA_PROCESSED / "sector_year_features.csv")
+    df = pd.read_csv(OUTPUTS_SIGNALS / "transfer_scores.csv")
     return sorted(df["sector"].dropna().unique().tolist())
 
 
