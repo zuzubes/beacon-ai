@@ -1,4 +1,4 @@
-# Cross-Border Trend Radar
+# Beacon AI - Cross-Border Trend Intelligence
 
 Detects rising categories/business models in China & US that historically transfer to India,
 and generates ranked "transfer probability" briefs for Indian VC partners. See [plan.md](plan.md)
@@ -10,7 +10,7 @@ for the full build plan.
 python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
-cp .env.example .env  # fill in OPENAI_API_KEY/ANTHROPIC_API_KEY + LANGCHAIN_API_KEY
+cp .env.example .env  # fill in OPENAI_API_KEY + LANGSMITH_API_KEY
 ```
 
 ## Structure

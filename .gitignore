@@ -3,8 +3,9 @@ __pycache__/
 *.pyc
 .env
 .DS_Store
-
-data/raw/
+.vscode/
+data/raw/*
+!data/raw/vc_trend_data.csv
 data/interim/
 data/processed/
 

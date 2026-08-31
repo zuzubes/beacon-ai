@@ -1,4 +1,4 @@
-# Cross-Border Trend Radar — Python Project Plan
+# Beacon AI — Cross-Border Trend Intelligence — Python Project Plan
 **Primary Use Case**: Detect rising categories / business models in China & US that historically transfer to India.
 **Output**: Ranked "transfer probability" briefs + analogous Indian opportunity sizing.
 **Target**: Small Indian VC firms (micro / emerging managers).
@@ -28,7 +28,7 @@
 ## 2. Recommended Project Structure
 
 ```
-trend-radar/
+beacon-ai/
 ├── data/
 │   ├── raw/                  # original Kaggle CSVs (do not edit)
 │   ├── interim/              # cleaned intermediate files
