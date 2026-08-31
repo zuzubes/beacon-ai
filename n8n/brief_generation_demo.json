@@ -1,0 +1,167 @@
+{
+  "name": "Beacon AI - Sector Brief Generation (Demo)",
+  "nodes": [
+    {
+      "id": "chat-trigger",
+      "name": "When chat message received",
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [-400, 0],
+      "webhookId": "beacon-ai-brief-demo",
+      "parameters": {
+        "public": true,
+        "options": {
+          "title": "Beacon AI - Sector Brief Generator",
+          "subtitle": "Type one of the listed sectors to generate a partner-ready brief"
+        }
+      }
+    },
+    {
+      "id": "get-sectors",
+      "name": "Get Sectors",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [-160, 0],
+      "notes": "Adjust the project path below if this repo lives somewhere else on the n8n host.",
+      "parameters": {
+        "command": "cd /Users/muditairan/Desktop/Ironhack/beacon-ai && .venv/bin/python -m src.list_sectors"
+      }
+    },
+    {
+      "id": "match-sector",
+      "name": "Match Sector",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [80, 0],
+      "parameters": {
+        "jsCode": "const sectors = JSON.parse($input.first().json.stdout);\nconst chatInput = ($('When chat message received').first().json.chatInput || '').trim();\nconst matchedSector = sectors.find(s => s.toLowerCase() === chatInput.toLowerCase()) || null;\n\nreturn [{ json: { sectors, chatInput, matchedSector } }];"
+      }
+    },
+    {
+      "id": "sector-selected-if",
+      "name": "Sector Selected?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [320, 0],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "sector-not-empty",
+              "leftValue": "={{ $json.matchedSector }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ]
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "generate-brief",
+      "name": "Generate Brief",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [560, -100],
+      "notes": "matchedSector only ever holds a value copied verbatim from the sectors list (validated in the Match Sector node above), so it is safe to interpolate into the shell command here.",
+      "parameters": {
+        "command": "=cd /Users/muditairan/Desktop/Ironhack/beacon-ai && .venv/bin/python -m src.generate_brief_for_sector --sector \"{{ $json.matchedSector }}\""
+      }
+    },
+    {
+      "id": "format-brief-output",
+      "name": "Format Brief Output",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [800, -100],
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "output-field",
+              "name": "output",
+              "type": "string",
+              "value": "={{ $json.stdout }}"
+            }
+          ]
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "ask-for-sector",
+      "name": "Ask For Sector",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [560, 100],
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "output-field",
+              "name": "output",
+              "type": "string",
+              "value": "=Pick a sector to generate a brief for. Reply with the exact sector name from this list:\n\n{{ $json.sectors.map(s => '- ' + s).join('\\n') }}"
+            }
+          ]
+        },
+        "options": {}
+      }
+    }
+  ],
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          { "node": "Get Sectors", "type": "main", "index": 0 }
+        ]
+      ]
+    },
+    "Get Sectors": {
+      "main": [
+        [
+          { "node": "Match Sector", "type": "main", "index": 0 }
+        ]
+      ]
+    },
+    "Match Sector": {
+      "main": [
+        [
+          { "node": "Sector Selected?", "type": "main", "index": 0 }
+        ]
+      ]
+    },
+    "Sector Selected?": {
+      "main": [
+        [
+          { "node": "Generate Brief", "type": "main", "index": 0 }
+        ],
+        [
+          { "node": "Ask For Sector", "type": "main", "index": 0 }
+        ]
+      ]
+    },
+    "Generate Brief": {
+      "main": [
+        [
+          { "node": "Format Brief Output", "type": "main", "index": 0 }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "pinData": {}
+}

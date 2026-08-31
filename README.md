@@ -18,3 +18,5 @@ cp .env.example .env  # fill in OPENAI_API_KEY + LANGSMITH_API_KEY
 - `data/raw/` — source datasets (not edited in place)
 - `src/` — pipeline modules (`load` → `clean` → `features` → `score` → `briefs` → `export`)
 - `outputs/` — signals, briefs, and dashboard-ready extracts for PowerBI/n8n
+- `feedback/`
+  - `round1_decision.md` — keep or change industry/use case + why
