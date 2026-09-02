@@ -40,14 +40,14 @@ def _wsgi_app(environ, start_response):  # noqa: ANN001
         else '<p class="hint">Set <code>STREAMLIT_APP_URL</code> to link this page to the interactive Streamlit deployment.</p>'
     )
     body = dedent(
-        f"""
+        """
         <!doctype html>
         <html lang="en">
         <head>
           <meta charset="utf-8">
           <meta name="viewport" content="width=device-width, initial-scale=1">
           <title>Beacon AI</title>
-          {f'<link rel="icon" type="image/png" href="{favicon_uri}">' if favicon_uri else ""}
+          __FAVICON__
           <style>
             :root {
               --navy: #0f172a;
@@ -182,15 +182,19 @@ def _wsgi_app(environ, start_response):  # noqa: ANN001
               </div>
             </div>
             <div class="actions">
-              {launch_link}
+              __LAUNCH_LINK__
             </div>
-            {launch_note}
+            __LAUNCH_NOTE__
           </div>
           </div>
         </body>
         </html>
         """
-    ).strip().encode("utf-8")
+    )
+    body = body.replace("__FAVICON__", f'<link rel="icon" type="image/png" href="{favicon_uri}">' if favicon_uri else "")
+    body = body.replace("__LAUNCH_LINK__", launch_link)
+    body = body.replace("__LAUNCH_NOTE__", launch_note)
+    body = body.encode("utf-8")
 
     start_response(
         "200 OK",
