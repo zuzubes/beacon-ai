@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Beacon AI final analysis</title>
+  <style>
+    :root {
+      --ink: #0f172a;
+      --muted: #64748b;
+      --line: #e2e8f0;
+      --accent: #4f46e5;
+      --panel: #f8fafc;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Source Sans 3", Arial, sans-serif;
+      color: var(--ink);
+      background: #fff;
+    }
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 40px 32px 56px;
+    }
+    .hero {
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 18px;
+      margin-bottom: 24px;
+    }
+    h1, h2, h3 {
+      margin: 0;
+      line-height: 1.15;
+    }
+    h1 { font-size: 34px; letter-spacing: -0.03em; }
+    h2 { font-size: 20px; margin: 26px 0 10px; }
+    h3 { font-size: 15px; margin: 18px 0 8px; }
+    p, li { color: #334155; line-height: 1.55; }
+    .meta { margin-top: 8px; color: var(--muted); font-size: 14px; }
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 16px 18px;
+      margin-bottom: 14px;
+    }
+    .floating-actions {
+      position: fixed;
+      top: 18px;
+      right: 18px;
+      display: flex;
+      gap: 10px;
+      z-index: 20;
+    }
+    .icon-btn {
+      width: 42px;
+      height: 42px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--ink);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      box-shadow: 0 8px 18px rgba(15, 23, 42, 0.08);
+      cursor: pointer;
+      font-size: 18px;
+    }
+    .icon-btn:hover { border-color: var(--accent); color: var(--accent); }
+    pre {
+      white-space: pre-wrap;
+      word-break: break-word;
+      background: #f8fafc;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 14px;
+      overflow-x: auto;
+    }
+    table { width: 100%; border-collapse: collapse; margin: 10px 0 18px; }
+    th, td { border: 1px solid var(--line); padding: 8px 10px; text-align: left; vertical-align: top; }
+    th { background: #eef2ff; }
+    a { color: var(--accent); }
+  </style>
+</head>
+<body>
+  <div class="floating-actions">
+    <a class="icon-btn" href="#" aria-label="share">↗</a>
+    <a class="icon-btn" href="#" aria-label="download">⬇</a>
+  </div>
+  <main class="page">
+    <section class="hero">
+      <h1>Beacon AI final analysis</h1>
+      <div class="meta">Template for exported final analysis reports.</div>
+    </section>
+    <section class="panel">
+      <h2>Executive summary</h2>
+      <p>Place the final narrative here.</p>
+    </section>
+  </main>
+</body>
+</html>

@@ -1,0 +1,62 @@
+/*
+ * Design tokens extracted from the Streamlit Design System (Community) Figma file.
+ * fileKey: IZHqj7ZUjkUFYQFQ5bPNKd
+ * See tokens.json for the same values with source notes.
+ */
+:root {
+  /* Color */
+  --sds-color-text: #31333f;
+  --sds-color-text-placeholder: rgba(49, 51, 63, 0.6);
+  --sds-color-text-disabled: rgba(49, 51, 63, 0.4);
+  --sds-color-icon: rgba(49, 51, 63, 0.6);
+  --sds-color-background: #ffffff;
+  --sds-color-background-secondary: #f0f2f6;
+  --sds-color-widget: #f0f2f6;
+  --sds-color-widget-hover: rgba(49, 51, 63, 0.1);
+  --sds-color-widget-border: rgba(49, 51, 63, 0.2);
+  --sds-color-selected-border: #ff4b4b;
+  --sds-color-primary: #ff4b4b;
+
+  --sds-color-success-bg: rgba(33, 195, 84, 0.1);
+  --sds-color-success-text: #158237;
+  --sds-color-info-bg: rgba(28, 131, 255, 0.1);
+  --sds-color-info-text: #0054a3;
+  --sds-color-warning-bg: rgba(255, 255, 18, 0.1);
+  --sds-color-warning-text: #926c05;
+  --sds-color-error-bg: rgba(255, 43, 43, 0.09);
+  --sds-color-error-text: #bd4043;
+
+  --sds-color-chart-red-60: #ff6c6c;
+  --sds-color-chart-red-70: #ff4b4b;
+  --sds-color-chart-blue-40: #83c9ff;
+  --sds-color-chart-blue-80: #0068c9;
+
+  /* Typography */
+  --sds-font-family: "Source Sans 3", sans-serif;
+  --sds-font-size-label: 14px;
+  --sds-font-weight-label: 400;
+  --sds-font-size-widget: 16px;
+  --sds-font-weight-widget: 400;
+
+  /* Border */
+  --sds-border-radius: 8px;
+  --sds-border-weight: 1px;
+
+  /* Shadow */
+  --sds-shadow-soft: 0px 10px 5px -5px rgba(49, 51, 63, 0.1);
+  --sds-shadow-hard: 0px 1px 1px -0.5px rgba(49, 51, 63, 0.1);
+  --sds-shadow: var(--sds-shadow-hard), var(--sds-shadow-soft);
+}
+
+/*
+ * Dark theme values were NOT extracted via get_variable_defs (the Figma MCP call budget
+ * ran out before a dark-mode variable pull). These are Streamlit's stock dark-theme
+ * defaults, included as a placeholder — re-run get_variable_defs against a dark-mode
+ * node in this file to confirm/replace them.
+ */
+[data-theme="dark"] {
+  --sds-color-text: #fafafa;
+  --sds-color-background: #0e1117;
+  --sds-color-background-secondary: #262730;
+  --sds-color-widget: #262730;
+}

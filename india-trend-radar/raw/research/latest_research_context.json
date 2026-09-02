@@ -1,0 +1,62 @@
+{
+  "query": "consumer_goods trends 2026 United States after:2026-08-02 before:2026-09-01",
+  "countries": [
+    "us"
+  ],
+  "language": "en",
+  "time_range": "Past 1 month",
+  "search_window": "2026-08-02..2026-09-01",
+  "providers_used": [],
+  "keywords": [],
+  "hits": [],
+  "report_matches": [],
+  "knowledge_graph": {},
+  "raw_attempts": [
+    {
+      "provider": "serper",
+      "country": "us",
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://google.serper.dev/search"
+    },
+    {
+      "provider": "serpapi",
+      "country": "us",
+      "response": {
+        "search_metadata": {
+          "id": "6a9722dfc986affb93ef13f8",
+          "status": "Success",
+          "json_endpoint": "https://serpapi.com/searches/sDB6DBfeMSl_mAx8sU1LfYRpHdJN0AJ87yW1eIs8-rs/6a9722dfc986affb93ef13f8.json",
+          "markdown_endpoint": "https://serpapi.com/searches/sDB6DBfeMSl_mAx8sU1LfYRpHdJN0AJ87yW1eIs8-rs/6a9722dfc986affb93ef13f8.md",
+          "pixel_position_endpoint": "https://serpapi.com/searches/sDB6DBfeMSl_mAx8sU1LfYRpHdJN0AJ87yW1eIs8-rs/6a9722dfc986affb93ef13f8.json_with_pixel_position",
+          "created_at": "2026-09-01 19:09:19 UTC",
+          "processed_at": "2026-09-01 19:09:19 UTC",
+          "google_url": "https://www.google.com/search?q=consumer_goods+trends+2026+United+States+after%3A2026-08-02+before%3A2026-09-01&oq=consumer_goods+trends+2026+United+States+after%3A2026-08-02+before%3A2026-09-01&hl=en&gl=us&tbs=sbd:1&sourceid=chrome&ie=UTF-8",
+          "raw_html_file": "https://serpapi.com/searches/sDB6DBfeMSl_mAx8sU1LfYRpHdJN0AJ87yW1eIs8-rs/6a9722dfc986affb93ef13f8.html",
+          "total_time_taken": 4.33
+        },
+        "search_parameters": {
+          "engine": "google",
+          "q": "consumer_goods trends 2026 United States after:2026-08-02 before:2026-09-01",
+          "google_domain": "google.com",
+          "hl": "en",
+          "gl": "us",
+          "device": "desktop",
+          "tbs": "sbd:1"
+        },
+        "search_information": {
+          "query_displayed": "consumer_goods trends 2026 United States after:2026-08-02 before:2026-09-01",
+          "total_results": 0,
+          "time_taken_displayed": 0.23,
+          "organic_results_state": "Fully empty",
+          "spelling_fix": "consumer goods trends 2026 United States after:2026-08-02 before:2026-09-01",
+          "showing_results_for": "consumer goods trends 2026 United States after:2026-08-02 before:2026-09-01"
+        },
+        "error": "Google hasn't returned any results for this query."
+      }
+    },
+    {
+      "provider": "tavily",
+      "country": "us",
+      "error": "HTTPError: 400 Client Error: Bad Request for url: https://api.tavily.com/search"
+    }
+  ]
+}
