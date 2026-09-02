@@ -20,6 +20,7 @@ from __future__ import annotations
 import hashlib
 import json
 import random
+from datetime import date, timedelta
 
 MODEL = "gpt-4.1-mini"
 
@@ -154,12 +155,18 @@ This is a directional estimate based on your training knowledge, not a live data
 Sub-trend: {sub_trend}
 Industry / Sector: {industry}
 Region: {region}
+Today's date: {today}
+Requested recency window: {time_range} (i.e. only the period from {window_start} to {today})
+
+Every post idea, hashtag, and "why it's relevant" note must read as current within that window --
+do not reference a specific past year (e.g. "in 2024") or any event/dataset that would date it \
+outside the requested window.
 
 Give:
 - 5 trending or plausible TikTok hashtags related to this sub-trend
 - 5 trending or plausible Instagram hashtags related to this sub-trend
 - 3 representative Reddit post ideas (title + subreddit + why it's relevant) that capture the kind \
-of discussion this sub-trend is generating
+of discussion this sub-trend is generating right now, within the requested window
 
 Respond with ONLY valid JSON (no markdown fences, no commentary), shaped exactly:
 {{
@@ -241,16 +248,31 @@ def call_live_companies(
     return normalized[:count]
 
 
-def call_live_social_signals(sub_trend_name: str, industry: str, region: str, api_key: str) -> dict:
+_TIME_RANGE_DAYS = {
+    "Past 3 days": 3,
+    "Past 1 week": 7,
+    "Past 2 weeks": 14,
+    "Past 1 month": 30,
+}
+
+
+def call_live_social_signals(
+    sub_trend_name: str, industry: str, region: str, api_key: str, time_range: str = "Past 1 month"
+) -> dict:
     """Calls the OpenAI API for estimated social-media signal color. Raises on failure --
     callers should fall back to generate_mock_social_signals."""
     from openai import OpenAI
 
     client = OpenAI(api_key=api_key)
+    today = date.today()
+    window_start = today - timedelta(days=_TIME_RANGE_DAYS.get(time_range, 30))
     prompt = SOCIAL_SIGNALS_PROMPT_TEMPLATE.format(
         sub_trend=sub_trend_name or "General",
         industry=industry or "General",
         region=region or "Global",
+        today=today.isoformat(),
+        time_range=time_range or "Past 1 month",
+        window_start=window_start.isoformat(),
     )
     response = client.responses.create(model=MODEL, input=prompt, max_output_tokens=1500)
     data = _parse_json(_extract_text(response), dict)

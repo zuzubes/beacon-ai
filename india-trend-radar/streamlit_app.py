@@ -70,48 +70,168 @@ st.set_page_config(
 st.markdown(
     """
     <style>
-        /* Design tokens from assets/design-system/tokens.css (Streamlit Design System, Figma).
-           Status colors (success/info/warning/error) and radius/shadow are adopted as-is so
-           pills and banners read consistently with Streamlit's own component kit. Beacon AI's
-           indigo brand color stays driven by .streamlit/config.toml's primaryColor and is left
-           untouched here. */
         :root {
+            --paper: #f6efe3;
+            --paper-2: #fbf7ef;
+            --paper-3: #fffdf8;
+            --ink: #1b2030;
+            --muted: #6f6a61;
+            --line: rgba(27, 32, 48, 0.12);
+            --line-strong: rgba(27, 32, 48, 0.2);
+            --accent: #d46334;
+            --pine: #20423c;
+            --ochre: #ca9726;
+            --slate: #557096;
+            --clay: #c94f31;
+            --shadow: 0 20px 50px rgba(62, 35, 13, 0.08);
+            --shadow-soft: 0 10px 25px rgba(62, 35, 13, 0.05);
+            --serif: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
+            --sans: "Source Sans 3", "Source Sans Pro", sans-serif;
             --sds-radius: 8px;
             --sds-shadow: 0px 1px 1px -0.5px rgba(49, 51, 63, 0.1), 0px 10px 5px -5px rgba(49, 51, 63, 0.1);
             --sds-success-bg: rgba(33, 195, 84, 0.1);
             --sds-success-text: #158237;
             --sds-info-bg: rgba(28, 131, 255, 0.1);
-            --sds-info-text: #0054A3;
-            --sds-warning-bg: rgba(255, 196, 18, 0.15);
-            --sds-warning-text: #926C05;
+            --sds-info-text: #0054a3;
+            --sds-warning-bg: rgba(255, 255, 18, 0.1);
+            --sds-warning-text: #926c05;
             --sds-error-bg: rgba(255, 43, 43, 0.09);
-            --sds-error-text: #BD4043;
+            --sds-error-text: #bd4043;
         }
 
-        html, body, [class*="css"] { font-family: "Source Sans 3", "Source Sans Pro", sans-serif; }
-        /* Streamlit's own fixed header bar is ~60px tall (position: absolute, opaque white,
-           z-index 999990) -- padding-top must clear it or content (like the logo) renders
-           partly underneath it and looks clipped. */
-        .block-container { padding-top: 5rem; padding-bottom: 3rem; max-width: 1200px; }
-        h1, h2, h3 { font-weight: 650; }
-        [data-testid="stSidebar"] { border-right: 1px solid #EEF2F6; }
+        [data-testid="stAppViewContainer"] {
+            background:
+                radial-gradient(circle at 0% 0%, rgba(212, 99, 52, 0.08), transparent 32%),
+                radial-gradient(circle at 100% 0%, rgba(85, 112, 150, 0.08), transparent 30%),
+                linear-gradient(180deg, #f7f1e7 0%, #f4eee2 45%, #fbf8f1 100%);
+            color: var(--ink);
+        }
+        html, body, [class*="css"] {
+            font-family: var(--sans);
+            color: var(--ink);
+        }
+        h1, h2, h3, h4 {
+            font-family: var(--serif);
+            letter-spacing: -0.03em;
+            color: var(--ink);
+        }
+        .block-container {
+            padding-top: 1.6rem;
+            padding-bottom: 3rem;
+            max-width: 1280px;
+        }
+        [data-testid="stSidebar"] {
+            background: linear-gradient(180deg, rgba(251, 247, 239, 0.98) 0%, rgba(245, 238, 224, 0.98) 100%);
+            border-right: 1px solid var(--line);
+        }
+        [data-testid="stSidebar"] > div:first-child {
+            background: transparent;
+        }
         .brand-header {
             display: flex;
             align-items: center;
             gap: 16px;
-            margin-bottom: 0.2rem;
+            margin-bottom: 0.15rem;
         }
         .brand-logo {
-            width: 64px;
-            height: 64px;
+            width: 72px;
+            height: 72px;
             flex: 0 0 auto;
         }
         .brand-title {
-            font-size: 3rem;
+            font-size: 3.1rem;
             line-height: 1;
-            font-weight: 750;
-            color: #0F172A;
+            font-weight: 800;
+            color: var(--ink);
+            letter-spacing: -0.04em;
+        }
+        .page-hero {
+            border: 1px solid var(--line);
+            border-radius: 30px;
+            background:
+                linear-gradient(180deg, rgba(255, 253, 248, 0.88) 0%, rgba(247, 240, 229, 0.92) 100%);
+            box-shadow: var(--shadow);
+            padding: 28px 28px 22px;
+            margin-bottom: 1.25rem;
+            overflow: hidden;
+        }
+        .page-hero-kicker {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.74rem;
+            font-weight: 700;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 0.8rem;
+        }
+        .page-hero-title {
+            font-family: var(--serif);
+            font-size: clamp(2.6rem, 4.6vw, 4.9rem);
+            line-height: 0.92;
+            letter-spacing: -0.05em;
+            color: var(--ink);
+            max-width: 12ch;
+            margin-bottom: 0.75rem;
+        }
+        .page-hero-copy {
+            max-width: 72ch;
+            font-size: 1.06rem;
+            line-height: 1.55;
+            color: var(--muted);
+            margin-bottom: 1rem;
+        }
+        .page-hero-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 1.1rem;
+        }
+        .tone-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            border: 1px solid var(--line);
+            background: rgba(255, 255, 255, 0.72);
+            color: var(--ink);
+            border-radius: 999px;
+            padding: 6px 12px;
+            font-size: 0.78rem;
+            font-weight: 700;
+        }
+        .page-hero-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 12px;
+        }
+        .hero-stat {
+            border: 1px solid var(--line);
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.76);
+            padding: 14px 14px 13px;
+            min-height: 88px;
+            box-shadow: var(--shadow-soft);
+        }
+        .hero-stat-label {
+            font-size: 0.71rem;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            color: var(--muted);
+            margin-bottom: 0.35rem;
+        }
+        .hero-stat-value {
+            font-size: 1.12rem;
+            font-weight: 800;
+            color: var(--ink);
             letter-spacing: -0.03em;
+            margin-bottom: 0.2rem;
+            word-break: break-word;
+        }
+        .hero-stat-copy {
+            font-size: 0.83rem;
+            line-height: 1.45;
+            color: var(--muted);
         }
 
         .context-card {
@@ -129,67 +249,214 @@ st.markdown(
         .context-item b { color: #0F172A; }
 
         .trend-card {
-            border: 1px solid #E2E8F0;
-            border-radius: var(--sds-radius);
-            box-shadow: var(--sds-shadow);
-            padding: 16px 18px;
-            margin-bottom: 14px;
-            background: #FFFFFF;
+            border: 1px solid var(--line);
+            border-radius: 26px;
+            box-shadow: var(--shadow-soft);
+            background:
+                linear-gradient(180deg, rgba(255, 255, 255, 0.88) 0%, rgba(251, 248, 241, 0.96) 100%);
+            overflow: hidden;
         }
-        .trend-card .trend-title { font-size: 1.02rem; font-weight: 650; color: #0F172A; margin-bottom: 4px; }
-        .trend-card .trend-parent { font-size: 0.75rem; color: #94A3B8; margin-bottom: 6px; }
-        .trend-card .trend-desc { font-size: 0.86rem; color: #475569; line-height: 1.45; margin-bottom: 10px; min-height: 60px; }
+        .trend-card-inner {
+            padding: 18px 18px 16px;
+        }
+        .trend-card-kicker {
+            font-size: 0.72rem;
+            font-weight: 800;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 0.45rem;
+        }
+        .trend-card-title {
+            font-family: var(--serif);
+            font-size: 1.65rem;
+            line-height: 1.02;
+            letter-spacing: -0.04em;
+            margin-bottom: 0.35rem;
+            color: var(--ink);
+        }
+        .trend-card-parent {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--muted);
+            margin-bottom: 0.7rem;
+        }
+        .trend-card-desc {
+            font-size: 0.92rem;
+            color: var(--ink);
+            line-height: 1.55;
+            margin-bottom: 0.95rem;
+        }
+        .trend-stat-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 8px;
+        }
+        .trend-stat {
+            border: 1px solid var(--line);
+            background: rgba(255, 255, 255, 0.76);
+            border-radius: 16px;
+            padding: 10px 11px;
+        }
+        .trend-stat-label {
+            font-size: 0.68rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 0.3rem;
+        }
+        .trend-stat-value {
+            font-size: 1.02rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            color: var(--ink);
+        }
+        .trend-action-row {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 12px;
+            flex-wrap: wrap;
+        }
+        .trend-action-note {
+            font-size: 0.78rem;
+            line-height: 1.4;
+            color: var(--muted);
+        }
 
         .pill { display: inline-block; border-radius: 999px; padding: 2px 10px; font-size: 0.74rem;
                 font-weight: 600; margin-right: 6px; margin-bottom: 4px; }
         .pill-growth-pos { background: var(--sds-success-bg); color: var(--sds-success-text); }
         .pill-growth-neg { background: var(--sds-error-bg); color: var(--sds-error-text); }
-        .pill-strength { background: #EEF2FF; color: #4338CA; }
-        .pill-horizon { background: #F1F5F9; color: #475569; }
+        .pill-strength { background: rgba(85, 112, 150, 0.12); color: var(--slate); }
+        .pill-horizon { background: rgba(202, 151, 38, 0.14); color: #8b6512; }
         .pill-invest { background: var(--sds-success-bg); color: var(--sds-success-text); }
-        .pill-strategize { background: #EEF2FF; color: #4338CA; }
+        .pill-strategize { background: rgba(85, 112, 150, 0.12); color: var(--slate); }
         .pill-watch { background: var(--sds-warning-bg); color: var(--sds-warning-text); }
         .pill-stayaway { background: #F1F5F9; color: #64748B; }
 
-        .signal-card { border: 1px solid #E2E8F0; border-radius: var(--sds-radius); padding: 12px 16px; margin-bottom: 10px; }
-        .signal-title { font-size: 0.92rem; font-weight: 600; color: #0F172A; margin-bottom: 4px; }
-        .signal-meta { font-size: 0.76rem; color: #94A3B8; }
-        .signal-tag { display: inline-block; background: #F8FAFC; border: 1px solid #E2E8F0; color: #64748B;
-                      border-radius: 6px; padding: 1px 8px; font-size: 0.7rem; margin-right: 5px; }
+        .signal-card {
+            border: 1px solid var(--line);
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.84);
+            padding: 14px 16px;
+            margin-bottom: 10px;
+            box-shadow: var(--shadow-soft);
+        }
+        .signal-title { font-size: 1rem; font-weight: 800; color: var(--ink); margin-bottom: 4px; }
+        .signal-meta { font-size: 0.76rem; color: var(--muted); }
+        .signal-tag {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.84);
+            border: 1px solid var(--line);
+            color: var(--ink);
+            border-radius: 999px;
+            padding: 3px 9px;
+            font-size: 0.72rem;
+            margin-right: 5px;
+            margin-bottom: 6px;
+        }
 
         /* News signal tile -- fixed-frame thumbnail (background-image + cover, so mixed source
            aspect ratios crop consistently instead of the tile stretching to fit the image). */
-        .news-row { display: flex; gap: 16px; align-items: flex-start; padding: 14px;
-                    border: 1px solid #E2E8F0; border-radius: var(--sds-radius); background: #FFFFFF;
-                    margin-bottom: 10px; }
+        .news-row {
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+            padding: 14px;
+            border: 1px solid var(--line);
+            border-radius: 22px;
+            background: rgba(255, 255, 255, 0.84);
+            margin-bottom: 10px;
+            box-shadow: var(--shadow-soft);
+        }
         .news-thumb-link { flex: 0 0 auto; display: block; }
-        .news-thumb { width: 160px; height: 110px; border-radius: 8px; background-color: #F1F5F9;
+        .news-thumb { width: 160px; height: 110px; border-radius: 14px; background-color: #F1F5F9;
                       background-size: cover; background-position: center; flex: 0 0 auto; }
-        .news-thumb.news-thumb-empty { display: flex; align-items: center; justify-content: center;
-                      color: #94A3B8; font-size: 0.72rem; border: 1px solid #E2E8F0; }
+        .news-thumb.news-thumb-empty {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #94A3B8;
+            font-size: 0.72rem;
+            border: 1px solid var(--line);
+        }
         .news-body { flex: 1 1 auto; min-width: 0; }
         .news-keywords { font-size: 0.76rem; color: #64748B; margin-bottom: 6px; }
         .news-keywords .dot { margin: 0 6px; color: #CBD5E1; }
-        .news-title, .news-title:link, .news-title:visited { display: block; font-size: 1.02rem; font-weight: 650;
-                      color: #0F172A; text-decoration: none; line-height: 1.35; margin-bottom: 6px; }
-        .news-title:hover { color: var(--sds-color-primary, #4F46E5); text-decoration: none; }
+        .news-title, .news-title:link, .news-title:visited {
+            display: block;
+            font-size: 1.04rem;
+            font-weight: 800;
+            color: var(--ink);
+            text-decoration: none;
+            line-height: 1.4;
+            margin-bottom: 6px;
+        }
+        .news-title:hover { color: var(--accent); text-decoration: none; }
         .news-meta { display: flex; align-items: center; font-size: 0.8rem; color: #64748B; }
         .news-meta .dot { margin: 0 6px; color: #CBD5E1; }
         .news-avatar { display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px;
                       border-radius: 50%; color: #FFFFFF; font-size: 0.62rem; font-weight: 700; margin-right: 6px; flex: 0 0 auto; }
 
         /* "Showing sample data" is informational, not a warning — mapped to the kit's st.info tokens. */
-        .sample-banner { background: var(--sds-info-bg); border: none; color: var(--sds-info-text);
-                          border-radius: var(--sds-radius); padding: 12px 16px; font-size: 0.84rem; margin-bottom: 14px; }
-        .loading-banner { background: #F8FAFC; border: 1px solid #E2E8F0; color: #334155; border-radius: var(--sds-radius);
-                          padding: 10px 14px; font-size: 0.84rem; margin: 1rem 0 1.25rem; }
-        .empty-state { text-align: center; padding: 70px 20px; color: #94A3B8; }
+        .sample-banner {
+            background: var(--sds-info-bg);
+            border: none;
+            color: var(--sds-info-text);
+            border-radius: 18px;
+            padding: 12px 16px;
+            font-size: 0.84rem;
+            margin-bottom: 14px;
+        }
+        .loading-banner {
+            background: rgba(255, 255, 255, 0.82);
+            border: 1px solid var(--line);
+            color: var(--ink);
+            border-radius: 18px;
+            padding: 11px 14px;
+            font-size: 0.84rem;
+            margin: 1rem 0 1.25rem;
+        }
+        .empty-state {
+            text-align: center;
+            padding: 70px 20px;
+            color: var(--muted);
+        }
+        .landing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 14px;
+            margin-top: 1rem;
+        }
+        .landing-card {
+            border: 1px solid var(--line);
+            border-radius: 22px;
+            background: rgba(255, 255, 255, 0.76);
+            padding: 18px;
+            box-shadow: var(--shadow-soft);
+        }
+        .landing-card-title {
+            font-family: var(--serif);
+            font-size: 1.45rem;
+            line-height: 1.02;
+            letter-spacing: -0.03em;
+            color: var(--ink);
+            margin-bottom: 0.45rem;
+        }
+        .landing-card-copy {
+            color: var(--muted);
+            font-size: 0.92rem;
+            line-height: 1.5;
+        }
 
         .analysis-report {
-            border: 1px solid #E2E8F0;
-            border-radius: 16px;
-            background: #FFFFFF;
-            box-shadow: 0 16px 30px rgba(15, 23, 42, 0.05);
+            border: 1px solid var(--line);
+            border-radius: 24px;
+            background: rgba(255, 255, 255, 0.82);
+            box-shadow: var(--shadow);
             overflow: hidden;
         }
         .analysis-header {
@@ -198,19 +465,20 @@ st.markdown(
             justify-content: space-between;
             gap: 16px;
             padding: 18px 20px;
-            border-bottom: 1px solid #E2E8F0;
-            background: linear-gradient(180deg, #F8FAFC 0%, #FFFFFF 100%);
+            border-bottom: 1px solid var(--line);
+            background: linear-gradient(180deg, rgba(248, 242, 230, 0.9) 0%, rgba(255, 255, 255, 0.9) 100%);
         }
         .analysis-header-title {
-            font-size: 1.25rem;
-            font-weight: 750;
-            color: #0F172A;
-            letter-spacing: -0.02em;
+            font-family: var(--serif);
+            font-size: 1.32rem;
+            font-weight: 700;
+            color: var(--ink);
+            letter-spacing: -0.03em;
             margin-bottom: 3px;
         }
         .analysis-header-meta {
             font-size: 0.82rem;
-            color: #64748B;
+            color: var(--muted);
             display: flex;
             flex-wrap: wrap;
             gap: 10px 14px;
@@ -225,37 +493,38 @@ st.markdown(
             width: 42px;
             height: 42px;
             border-radius: 999px;
-            border: 1px solid #E2E8F0;
-            background: #FFFFFF;
-            color: #0F172A;
+            border: 1px solid var(--line);
+            background: rgba(255, 255, 255, 0.92);
+            color: var(--ink);
             display: inline-flex;
             align-items: center;
             justify-content: center;
             text-decoration: none;
-            box-shadow: 0 10px 22px rgba(15, 23, 42, 0.08);
+            box-shadow: var(--shadow-soft);
             font-size: 18px;
         }
-        .analysis-action:hover { color: #4F46E5; border-color: #4F46E5; }
+        .analysis-action:hover { color: var(--accent); border-color: var(--accent); }
         .analysis-body { padding: 20px; }
 
         .hierarchy-overview {
-            border: 1px solid #E2E8F0;
-            border-radius: 16px;
-            background: linear-gradient(180deg, #FAFBFC 0%, #FFFFFF 100%);
-            box-shadow: 0 16px 30px rgba(15, 23, 42, 0.05);
+            border: 1px solid var(--line);
+            border-radius: 26px;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.86) 0%, rgba(250, 245, 236, 0.94) 100%);
+            box-shadow: var(--shadow);
             padding: 18px 20px;
             margin-bottom: 1.25rem;
         }
         .hierarchy-overview-title {
-            font-size: 1.12rem;
-            font-weight: 750;
-            color: #0F172A;
-            letter-spacing: -0.02em;
+            font-family: var(--serif);
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--ink);
+            letter-spacing: -0.03em;
             margin-bottom: 4px;
         }
         .hierarchy-overview-subtitle {
             font-size: 0.84rem;
-            color: #64748B;
+            color: var(--muted);
             margin-bottom: 14px;
         }
         .hierarchy-metric-grid {
@@ -265,9 +534,9 @@ st.markdown(
             margin-bottom: 18px;
         }
         .hierarchy-metric {
-            border: 1px solid #E2E8F0;
-            border-radius: 14px;
-            background: #FFFFFF;
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.8);
             padding: 10px 14px;
             min-width: 120px;
         }
@@ -275,38 +544,39 @@ st.markdown(
             font-size: 0.72rem;
             text-transform: uppercase;
             letter-spacing: 0.08em;
-            color: #94A3B8;
+            color: var(--muted);
             margin-bottom: 4px;
         }
         .hierarchy-metric-value {
             font-size: 1.25rem;
-            font-weight: 750;
-            color: #0F172A;
+            font-weight: 800;
+            color: var(--ink);
             letter-spacing: -0.02em;
         }
         .hierarchy-macro {
-            border: 1px solid #E2E8F0;
-            border-radius: 16px;
-            background: #FFFFFF;
-            box-shadow: 0 10px 20px rgba(15, 23, 42, 0.04);
+            border: 1px solid var(--line);
+            border-radius: 22px;
+            background: rgba(255, 255, 255, 0.84);
+            box-shadow: var(--shadow-soft);
             padding: 14px 16px;
             margin-bottom: 14px;
         }
         .hierarchy-macro-title {
-            font-size: 1.02rem;
-            font-weight: 750;
-            color: #0F172A;
+            font-family: var(--serif);
+            font-size: 1.28rem;
+            font-weight: 700;
+            color: var(--ink);
             margin-bottom: 2px;
         }
         .hierarchy-macro-meta {
             font-size: 0.76rem;
-            color: #64748B;
+            color: var(--muted);
             margin-bottom: 10px;
         }
         .hierarchy-macro-desc {
-            font-size: 0.86rem;
-            line-height: 1.45;
-            color: #334155;
+            font-size: 0.92rem;
+            line-height: 1.55;
+            color: var(--ink);
             margin-bottom: 12px;
         }
         .hierarchy-chip-row {
@@ -319,9 +589,9 @@ st.markdown(
             display: inline-flex;
             align-items: center;
             border-radius: 999px;
-            border: 1px solid #E2E8F0;
-            background: #F8FAFC;
-            color: #0F172A;
+            border: 1px solid var(--line);
+            background: rgba(255, 255, 255, 0.82);
+            color: var(--ink);
             padding: 3px 9px;
             font-size: 0.72rem;
             font-weight: 600;
@@ -329,33 +599,101 @@ st.markdown(
         .hierarchy-mega-label {
             font-size: 0.78rem;
             font-weight: 700;
-            color: #0F172A;
+            color: var(--ink);
             margin-bottom: 4px;
         }
         .hierarchy-mega-desc {
             font-size: 0.8rem;
             line-height: 1.45;
-            color: #475569;
-        }
-        .trend-action-row {
-            display: flex;
-            gap: 8px;
-            align-items: center;
-            justify-content: space-between;
-            margin-top: 10px;
-        }
-        .trend-action-note {
-            font-size: 0.74rem;
-            color: #64748B;
+            color: var(--muted);
         }
         .drilldown-ready {
-            border: 1px solid rgba(79, 70, 229, 0.2);
-            background: rgba(79, 70, 229, 0.06);
-            color: #312E81;
-            border-radius: 12px;
+            border: 1px solid rgba(212, 99, 52, 0.22);
+            background: rgba(212, 99, 52, 0.08);
+            color: #7a3b1a;
+            border-radius: 16px;
             padding: 10px 14px;
             font-size: 0.84rem;
             margin-bottom: 14px;
+        }
+        [data-testid="stVerticalBlockBorderWrapper"] {
+            border-color: var(--line) !important;
+            border-radius: 26px !important;
+            background: rgba(255, 255, 255, 0.78) !important;
+            box-shadow: var(--shadow-soft);
+        }
+        [data-testid="stVerticalBlockBorderWrapper"] > div {
+            padding: 0.2rem;
+        }
+        [data-baseweb="tab-list"] {
+            gap: 6px;
+            background: transparent;
+            border-bottom: 1px solid var(--line);
+        }
+        [data-baseweb="tab"] {
+            font-family: var(--sans);
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--muted);
+            letter-spacing: 0.01em;
+            padding-top: 0.8rem;
+            padding-bottom: 0.9rem;
+        }
+        [data-baseweb="tab"][aria-selected="true"] {
+            color: var(--accent);
+        }
+        [data-baseweb="tab-highlight"] {
+            background: var(--accent);
+        }
+        [data-testid="stButton"] button,
+        [data-testid="stDownloadButton"] button {
+            border-radius: 999px;
+            border: 1px solid var(--line-strong);
+            background: var(--ink);
+            color: #fff8ef;
+            font-weight: 700;
+            padding-top: 0.6rem;
+            padding-bottom: 0.6rem;
+            box-shadow: var(--shadow-soft);
+        }
+        [data-testid="stButton"] button:hover,
+        [data-testid="stDownloadButton"] button:hover {
+            border-color: var(--accent);
+            background: var(--accent);
+            color: #fffaf1;
+        }
+        [data-testid="stButton"] button:disabled,
+        [data-testid="stDownloadButton"] button:disabled {
+            background: rgba(27, 32, 48, 0.1);
+            color: rgba(27, 32, 48, 0.35);
+            border-color: rgba(27, 32, 48, 0.08);
+            box-shadow: none;
+        }
+        @media (max-width: 960px) {
+            .page-hero-grid,
+            .landing-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+            .page-hero-title {
+                max-width: none;
+            }
+        }
+        @media (max-width: 720px) {
+            .page-hero-grid,
+            .landing-grid,
+            .trend-stat-grid {
+                grid-template-columns: 1fr;
+            }
+            .news-row {
+                flex-direction: column;
+            }
+            .news-thumb {
+                width: 100%;
+                height: 180px;
+            }
+            .page-hero {
+                padding: 22px 18px 18px;
+            }
         }
     </style>
     """,
@@ -389,6 +727,87 @@ INDUSTRY_OPTIONS = [
 
 def _slugify(label: str) -> str:
     return re.sub(r"[^a-z0-9]+", "_", label.lower()).strip("_") or "custom_sector"
+
+
+def _trend_counts(trends_data: list[dict] | None) -> dict[str, int]:
+    counts = {"Macro": 0, "Mega": 0, "Sub": 0}
+    for trend in trends_data or []:
+        tier = trend.get("tier")
+        if tier in counts:
+            counts[tier] += 1
+    return counts
+
+
+def render_page_hero(context: dict | None, trends_data: list[dict] | None = None) -> None:
+    counts = _trend_counts(trends_data)
+    if context:
+        company = html.escape(context.get("company") or "Beacon AI")
+        time_range = html.escape(context.get("time_range") or "Past 1 week")
+        region = html.escape(context.get("region") or "United States")
+        industry = html.escape(context.get("industry") or "All sectors")
+        copy = (
+            "Macro, mega, and sub-trends mapped into a single editorial workflow, "
+            "with momentum, news, and the summary report layered on top."
+        )
+    else:
+        company = "Beacon AI"
+        time_range = "Past 1 week"
+        region = "US & China"
+        industry = "Trend intelligence"
+        copy = (
+            "A Beacon editorial dashboard for reading the signal from macro, mega, and sub-trends "
+            "before moving into momentum, news, and drill-down analysis."
+        )
+    scope_chip = f"<span class='tone-chip'>{industry}</span>" if context else ""
+
+    stats_html = dedent(
+        f"""
+        <div class="page-hero-grid">
+            <div class="hero-stat">
+                <div class="hero-stat-label">Macro</div>
+                <div class="hero-stat-value">{counts["Macro"]}</div>
+                <div class="hero-stat-copy">Long-horizon forces shaping the market.</div>
+            </div>
+            <div class="hero-stat">
+                <div class="hero-stat-label">Mega</div>
+                <div class="hero-stat-value">{counts["Mega"]}</div>
+                <div class="hero-stat-copy">The tension points where macro forces collide.</div>
+            </div>
+            <div class="hero-stat">
+                <div class="hero-stat-label">Sub</div>
+                <div class="hero-stat-value">{counts["Sub"]}</div>
+                <div class="hero-stat-copy">The actionable trend tiles that feed drill-down.</div>
+            </div>
+            <div class="hero-stat">
+                <div class="hero-stat-label">Scope</div>
+                <div class="hero-stat-value">{company}</div>
+                <div class="hero-stat-copy">{time_range} · {region}</div>
+            </div>
+        </div>
+        """
+    )
+
+    st.markdown(
+        dedent(
+            f"""
+            <section class="page-hero">
+                <div class="page-hero-kicker">Beacon AI trend system</div>
+                <div class="page-hero-title">The signal, ahead of the crowd.</div>
+                <div class="page-hero-copy">{copy}</div>
+                <div class="page-hero-meta">
+                    <span class="tone-chip">Trend Hierarchy</span>
+                    <span class="tone-chip">Momentum</span>
+                    <span class="tone-chip">News Signals</span>
+                    <span class="tone-chip">Drill-Down</span>
+                    <span class="tone-chip">Summary Report</span>
+                    {scope_chip}
+                </div>
+                {stats_html}
+            </section>
+            """
+        ),
+        unsafe_allow_html=True,
+    )
 
 
 st.session_state.setdefault("industry_options", list(INDUSTRY_OPTIONS))
@@ -535,13 +954,14 @@ if run_clicked:
                 industry_label,
                 newsapi_key_default,
                 region=region,
+                count=8,
             )
         except Exception as exc:  # noqa: BLE001
             warnings.append("We couldn't fetch live news for this query, so sample articles are shown instead.")
 
     if news_data is None:
         try:
-            news_data = news.generate_mock_news("", time_range, region, industry_label)
+            news_data = news.generate_mock_news("", time_range, region, industry_label, count=8)
         except Exception:  # noqa: BLE001
             warnings.append("Something went wrong while preparing the news signals. Please try again.")
             news_data = []
@@ -561,14 +981,26 @@ if run_clicked:
     loading_slot.empty()
 
 if "trends" not in st.session_state:
+    render_page_hero(None, None)
     st.markdown(
-        """
-        <div class="empty-state">
-            <h3>No analysis yet</h3>
-            <p>Enter a company/fund, time range, region, and industry in the sidebar, then click
-            <b>Run Analysis</b> to generate the trend hierarchy, momentum diagram, and news signals.</p>
-        </div>
-        """,
+        dedent(
+            """
+            <div class="landing-grid">
+                <div class="landing-card">
+                    <div class="landing-card-title">Set the frame</div>
+                    <div class="landing-card-copy">Choose a company or fund, then pick the time range, region, and sector from the sidebar.</div>
+                </div>
+                <div class="landing-card">
+                    <div class="landing-card-title">Read the hierarchy</div>
+                    <div class="landing-card-copy">The Trend Hierarchy view lands on a compact map of macro, mega, and sub-trends.</div>
+                </div>
+                <div class="landing-card">
+                    <div class="landing-card-title">Open the drill-down</div>
+                    <div class="landing-card-copy">Generate company, social, and product signals from any sub-trend tile.</div>
+                </div>
+            </div>
+            """
+        ),
         unsafe_allow_html=True,
     )
     st.stop()
@@ -579,19 +1011,7 @@ research_context = st.session_state.get("research_context")
 if research_context and research_context.providers_used:
     st.caption("This analysis was informed by live, up-to-date research.")
 
-st.markdown(
-    dedent(
-        f"""
-        <div class="context-card">
-            <div class="context-item">\U0001F4CA <b>{ctx['company']}</b></div>
-            <div class="context-item">⏱ Time Range: <b>{ctx['time_range']}</b></div>
-            <div class="context-item">\U0001F30D Region: <b>{ctx['region']}</b></div>
-            <div class="context-item">\U0001F3E2 Industry: <b>{ctx['industry']}</b></div>
-        </div>
-        """
-    ),
-    unsafe_allow_html=True,
-)
+render_page_hero(ctx, st.session_state.get("trends"))
 
 all_trends = st.session_state["trends"]
 all_news = st.session_state["news"]
@@ -608,27 +1028,61 @@ def render_trend_card(t: dict, show_drilldown_action: bool = False) -> None:
     growth_sign = "▲" if t["growth_pct"] >= 0 else "▼"
     rec_class = REC_PILL_CLASS.get(t["recommendation"], "pill-watch")
     with st.container(border=True):
-        st.markdown(f"### {t['name']}")
-        if t.get("parent"):
-            st.caption(f"via {t['parent']}")
-        st.write(t["description"])
         st.markdown(
-            " ".join(
-                [
-                    f"<span class='pill {growth_class}'>{growth_sign} {t['growth_pct']:+.0f}%</span>",
-                    f"<span class='pill pill-strength'>Strength {t['strength']:.1f}</span>",
-                    f"<span class='pill pill-horizon'>{t['time_horizon']}</span>",
-                    f"<span class='pill {rec_class}'>{t['recommendation']}</span>",
-                ]
+            dedent(
+                f"""
+                <div class="trend-card-inner">
+                    <div class="trend-card-kicker">{html.escape(t['tier'])} trend</div>
+                </div>
+                """
             ),
             unsafe_allow_html=True,
         )
+        left_col, right_col = st.columns([3, 1], vertical_alignment="top")
+        with left_col:
+            st.markdown(f"<div class='trend-card-title'>{html.escape(t['name'])}</div>", unsafe_allow_html=True)
+            if t.get("parent"):
+                st.markdown(f"<div class='trend-card-parent'>via {html.escape(t['parent'])}</div>", unsafe_allow_html=True)
+            st.markdown(f"<div class='trend-card-desc'>{html.escape(t['description'])}</div>", unsafe_allow_html=True)
+            st.markdown(
+                " ".join(
+                    [
+                        f"<span class='pill {growth_class}'>{growth_sign} {t['growth_pct']:+.0f}%</span>",
+                        f"<span class='pill pill-strength'>Strength {t['strength']:.1f}</span>",
+                        f"<span class='pill pill-horizon'>{html.escape(t['time_horizon'])}</span>",
+                        f"<span class='pill {rec_class}'>{html.escape(t['recommendation'])}</span>",
+                    ]
+                ),
+                unsafe_allow_html=True,
+            )
+        with right_col:
+            st.markdown(
+                dedent(
+                    f"""
+                    <div class="trend-stat-grid">
+                        <div class="trend-stat">
+                            <div class="trend-stat-label">Growth</div>
+                            <div class="trend-stat-value">{growth_sign} {t['growth_pct']:+.0f}%</div>
+                        </div>
+                        <div class="trend-stat">
+                            <div class="trend-stat-label">Strength</div>
+                            <div class="trend-stat-value">{t['strength']:.1f}</div>
+                        </div>
+                        <div class="trend-stat">
+                            <div class="trend-stat-label">Horizon</div>
+                            <div class="trend-stat-value">{html.escape(t['time_horizon'])}</div>
+                        </div>
+                    </div>
+                    """
+                ),
+                unsafe_allow_html=True,
+            )
         if show_drilldown_action and t["tier"] == "Sub":
             st.markdown(
                 dedent(
                     """
                     <div class="trend-action-row">
-                        <div class="trend-action-note">Generate the company and signal explorer from this sub-trend.</div>
+                        <div class="trend-action-note">Generate the sub-trend drill-down from this tile.</div>
                     </div>
                     """
                 ),
@@ -747,7 +1201,7 @@ def render_company_card(company: dict) -> None:
             <div class="signal-card">
                 <div class="signal-title">{name}</div>
                 <div class="signal-meta">{html.escape(meta)}</div>
-                <div style="margin-top:6px;font-size:0.86rem;color:#334155;line-height:1.4;">{reason}</div>
+                <div style="margin-top:6px;font-size:0.88rem;color:var(--ink);line-height:1.45;">{reason}</div>
             </div>
             """
         ),
@@ -800,7 +1254,7 @@ def build_drilldown_payload(selected_sub: dict, product_region: str) -> dict:
     if use_live:
         try:
             social = growth_companies.call_live_social_signals(
-                selected_sub["name"], ctx["industry"], ctx["region"], openai_key_default
+                selected_sub["name"], ctx["industry"], ctx["region"], openai_key_default, ctx["time_range"]
             )
             social_is_sample = False
         except Exception:  # noqa: BLE001
@@ -809,7 +1263,7 @@ def build_drilldown_payload(selected_sub: dict, product_region: str) -> dict:
         social = growth_companies.generate_mock_social_signals(selected_sub["name"], ctx["industry"], ctx["region"])
         social_is_sample = True
 
-    products = product_trends.get_trending_products(product_region)
+    products = product_trends.get_trending_products(product_region, ctx["industry"])
     return dict(
         companies=companies,
         companies_is_sample=companies_is_sample,
@@ -855,7 +1309,10 @@ def render_drilldown_results(cached: dict) -> None:
 
     st.markdown(f"### Top Trending Products - {cached['product_region']}")
     if not cached["products"]:
-        render_empty_state("No product-trend reports were found for this region yet.")
+        render_empty_state(
+            f"No trending-product data mentioning {html.escape(ctx['industry'])} was found for "
+            f"{html.escape(cached['product_region'])} yet."
+        )
     else:
         rows = [
             {
@@ -866,16 +1323,25 @@ def render_drilldown_results(cached: dict) -> None:
             }
             for p in cached["products"]
         ]
-        st.dataframe(rows, hide_index=True, use_container_width=True)
+        st.dataframe(
+            rows,
+            hide_index=True,
+            use_container_width=True,
+            column_config={
+                "#": st.column_config.NumberColumn(width="small"),
+                "Product": st.column_config.TextColumn(width="medium"),
+                "Signal / Source": st.column_config.TextColumn(width="large"),
+                "Year": st.column_config.NumberColumn(width="small"),
+            },
+        )
 
 
 def render_subtrend_explorer(sub_trends: list[dict]) -> None:
     st.caption(
-        "Pick a Sub-trend to research the companies growing in this region for that sector, "
-        "with social-signal color and the region's top trending consumer products."
+        "Pick a sub-trend to generate the company, social, and product drill-down for this region."
     )
     if not sub_trends:
-        render_empty_state("No explorer content is available yet. Run an analysis to populate it.")
+        render_empty_state("No drill-down content is available yet. Run an analysis to populate it.")
         return
 
     sub_trend_by_id = {t["id"]: t for t in sub_trends}
@@ -906,7 +1372,7 @@ def render_subtrend_explorer(sub_trends: list[dict]) -> None:
 
     cached = st.session_state.get(cache_key)
     if not cached:
-        render_empty_state("Click Generate Drill-Down to load companies, social signals, and products.")
+        render_empty_state("Click Generate drill-down to load companies, social signals, and products.")
         return
 
     render_drilldown_results(cached)
@@ -929,8 +1395,8 @@ def render_trend_hierarchy_overview(trends_data: list[dict]) -> None:
             <div class="hierarchy-overview">
                 <div class="hierarchy-overview-title">Trend Hierarchy</div>
                 <div class="hierarchy-overview-subtitle">
-                    A compact map of the current macro, mega, and sub-trends. Use the Sub-Trends tab or any sub-trend tile
-                    to open the Sub-Trend Explorer.
+                    A compact landing page for the current macro, mega, and sub-trends. Open the Sub-Trend Drill-Down from
+                    any sub-trend tile when you want to research companies and signals.
                 </div>
             </div>
             """
@@ -938,34 +1404,71 @@ def render_trend_hierarchy_overview(trends_data: list[dict]) -> None:
         unsafe_allow_html=True,
     )
 
-    metric_cols = st.columns(3)
-    metric_cols[0].markdown(
-        f"<div class='hierarchy-metric'><div class='hierarchy-metric-label'>Macro trends</div><div class='hierarchy-metric-value'>{len(macro_trends)}</div></div>",
-        unsafe_allow_html=True,
-    )
-    metric_cols[1].markdown(
-        f"<div class='hierarchy-metric'><div class='hierarchy-metric-label'>Mega trends</div><div class='hierarchy-metric-value'>{len(mega_trends)}</div></div>",
-        unsafe_allow_html=True,
-    )
-    metric_cols[2].markdown(
-        f"<div class='hierarchy-metric'><div class='hierarchy-metric-label'>Sub-trends</div><div class='hierarchy-metric-value'>{len(sub_trends)}</div></div>",
+    st.markdown(
+        dedent(
+            f"""
+            <div class="hierarchy-metric-grid">
+                <div class='hierarchy-metric'><div class='hierarchy-metric-label'>Macro trends</div><div class='hierarchy-metric-value'>{len(macro_trends)}</div></div>
+                <div class='hierarchy-metric'><div class='hierarchy-metric-label'>Mega trends</div><div class='hierarchy-metric-value'>{len(mega_trends)}</div></div>
+                <div class='hierarchy-metric'><div class='hierarchy-metric-label'>Sub-trends</div><div class='hierarchy-metric-value'>{len(sub_trends)}</div></div>
+            </div>
+            """
+        ),
         unsafe_allow_html=True,
     )
 
     for macro in macro_trends:
         megas = mega_by_parent.get(macro["name"], [])
         with st.container(border=True):
-            st.markdown(f"#### {macro['name']}")
-            st.caption(f"{macro['category']} · Strength {macro['strength']:.1f} · {macro['time_horizon']}")
-            st.write(macro["description"])
+            left_col, right_col = st.columns([3, 1], vertical_alignment="top")
+            with left_col:
+                st.markdown(
+                    f"<div class='hierarchy-macro-title'>{html.escape(macro['name'])}</div>",
+                    unsafe_allow_html=True,
+                )
+                st.markdown(
+                    f"<div class='hierarchy-macro-meta'>{html.escape(macro['category'])} · Strength {macro['strength']:.1f} · {html.escape(macro['time_horizon'])}</div>",
+                    unsafe_allow_html=True,
+                )
+                st.markdown(
+                    f"<div class='hierarchy-macro-desc'>{html.escape(macro['description'])}</div>",
+                    unsafe_allow_html=True,
+                )
+            with right_col:
+                st.markdown(
+                    dedent(
+                        f"""
+                        <div class="trend-stat">
+                            <div class="trend-stat-label">Mega trends</div>
+                            <div class="trend-stat-value">{len(megas)}</div>
+                        </div>
+                        <div style="height:8px"></div>
+                        <div class="trend-stat">
+                            <div class="trend-stat-label">Sub-trends</div>
+                            <div class="trend-stat-value">{len(sub_by_parent.get(macro["name"], []))}</div>
+                        </div>
+                        """
+                    ),
+                    unsafe_allow_html=True,
+                )
             if not megas:
                 continue
-            mega_cols = st.columns(max(len(megas), 1))
+            st.markdown("**Building blocks underneath this macro trend**")
+            mega_cols = st.columns(min(max(len(megas), 1), 3))
             for i, mega in enumerate(megas):
-                with mega_cols[i]:
-                    st.markdown(f"**{mega['name']}**")
-                    st.caption(f"Strength {mega['strength']:.1f} · {mega['time_horizon']}")
-                    st.write(mega["description"])
+                with mega_cols[i % len(mega_cols)]:
+                    st.markdown(
+                        f"<div class='hierarchy-mega-label'>{html.escape(mega['name'])}</div>",
+                        unsafe_allow_html=True,
+                    )
+                    st.markdown(
+                        f"<div class='hierarchy-macro-meta'>Strength {mega['strength']:.1f} · {html.escape(mega['time_horizon'])}</div>",
+                        unsafe_allow_html=True,
+                    )
+                    st.markdown(
+                        f"<div class='hierarchy-mega-desc'>{html.escape(mega['description'])}</div>",
+                        unsafe_allow_html=True,
+                    )
                     sub_items = sub_by_parent.get(mega["name"], [])
                     if sub_items:
                         chip_html = "".join(
@@ -988,7 +1491,10 @@ def render_reddit_signal(post: dict) -> None:
     title = html.escape(post.get("title") or "Untitled")
     subreddit = html.escape(post.get("subreddit") or "")
     why = html.escape(post.get("why_relevant") or "")
-    st.markdown(f"- **{title}** — {subreddit}<br><span style='color:#64748B;font-size:0.82rem;'>{why}</span>", unsafe_allow_html=True)
+    st.markdown(
+        f"- **{title}** — {subreddit}<br><span style='color:var(--muted);font-size:0.82rem;'>{why}</span>",
+        unsafe_allow_html=True,
+    )
 
 
 def render_empty_state(message: str) -> None:
@@ -1025,33 +1531,12 @@ def _is_public_share_url(url: str | None) -> bool:
     return parsed.scheme in {"http", "https"} and parsed.netloc in {"0x0.st", "transfer.sh"}
 
 
-research_source_count = len(getattr(research_context, "hits", []) or []) if research_context else 0
-research_report_count = len(getattr(research_context, "report_matches", []) or []) if research_context else 0
-research_provider_label = ", ".join(getattr(research_context, "providers_used", []) or []) if research_context else "sample only"
-analysis_pdf_state = "saved and ready" if _analysis_pdf_bytes(analysis_result) else "unavailable"
-share_state = "public URL ready" if analysis_result and _is_public_share_url(getattr(analysis_result, "share_url", None)) else "not published"
-
-st.markdown(
-    dedent(
-        f"""
-        <div class="context-card">
-            <div class="context-item"><b>Journey</b>: Research search → trend hierarchy → sub-trend explorer → final analysis → PDF/share</div>
-            <div class="context-item"><b>Sources</b>: {research_source_count} live hits, {research_report_count} local reports</div>
-            <div class="context-item"><b>Providers</b>: {html.escape(research_provider_label)}</div>
-            <div class="context-item"><b>Outputs</b>: PDF {html.escape(analysis_pdf_state)}, share {html.escape(share_state)}</div>
-        </div>
-        """
-    ),
-    unsafe_allow_html=True,
-)
-
-
 # ---------------------------------------------------------------------------
 # Navigation
 # ---------------------------------------------------------------------------
 
-tab_hierarchy, tab_momentum, tab_news, tab_analysis = st.tabs(
-    ["Trend Hierarchy", "Momentum", "News Signals", "Final Analysis"]
+tab_hierarchy, tab_momentum, tab_news, tab_drilldown, tab_analysis = st.tabs(
+    ["Trend Hierarchy", "Momentum", "News Signals", "Sub-Trend Drill-Down", "Summary Report"]
 )
 
 with tab_hierarchy:
@@ -1062,32 +1547,42 @@ with tab_hierarchy:
                 unsafe_allow_html=True,
             )
 
-        overview_tab, macro_tab, mega_tab, sub_tab, explorer_tab = st.tabs(
-            ["Overview", "Macro-Trends", "Mega-Trends", "Sub-Trends", "Sub-Trend Explorer"]
+        overview_tab, macro_tab, mega_tab, sub_tab = st.tabs(
+            ["Overview", "Macro-Trends", "Mega-Trends", "Sub-Trends"]
         )
         with overview_tab:
             render_trend_hierarchy_overview(all_trends)
         with macro_tab:
-            st.caption("Long-term, macro changes playing out across years to decades — the major forces across society, technology, economy, ecology, and politics shaping consumer and business behavior.")
+            st.caption("Long-term macro changes playing out across years to decades — the major forces shaping consumer and business behavior.")
             render_trend_grid([t for t in all_trends if t["tier"] == "Macro"])
         with mega_tab:
-            st.caption("The building blocks of the arena — points of tension created where macro-trends intersect with basic consumer or business needs.")
+            st.caption("The building blocks of the arena — the tension points created where macro trends intersect with basic needs.")
             render_trend_grid([t for t in all_trends if t["tier"] == "Mega"])
         with sub_tab:
-            st.caption("Emerging, actionable trends arising from that tension — where you can start acting on emerging expectations today.")
+            st.caption("Emerging, actionable trends arising from that tension — where the market starts behaving differently.")
             render_trend_grid([t for t in all_trends if t["tier"] == "Sub"], show_drilldown_action=True)
             if st.session_state.get("drilldown_last_generated"):
                 last_id = st.session_state["drilldown_last_generated"]
                 last_name = next((t["name"] for t in all_trends if t["id"] == last_id), "that sub-trend")
                 st.markdown(
-                    f'<div class="drilldown-ready">Drill-down ready for <b>{html.escape(last_name)}</b>. Open the Sub-Trend Explorer to review the generated companies, social signals, and product signals.</div>',
+                    f'<div class="drilldown-ready">Drill-down ready for <b>{html.escape(last_name)}</b>. Open the Sub-Trend Drill-Down tab to review the generated companies, social signals, and product signals.</div>',
                     unsafe_allow_html=True,
                 )
-        with explorer_tab:
-            render_subtrend_explorer([t for t in all_trends if t["tier"] == "Sub"])
     except Exception as exc:  # noqa: BLE001
         page_errors.append("Trend hierarchy is unavailable right now.")
         render_empty_state("The trend hierarchy is unavailable right now. Run a new analysis to try again.")
+
+with tab_drilldown:
+    try:
+        if st.session_state.get("is_mock_trends"):
+            st.markdown(
+                '<div class="sample-banner">Sample drill-down. Add an OpenAI key to .env for a live read.</div>',
+                unsafe_allow_html=True,
+            )
+        render_subtrend_explorer([t for t in all_trends if t["tier"] == "Sub"])
+    except Exception as exc:  # noqa: BLE001
+        page_errors.append("Sub-trend drill-down is unavailable right now.")
+        render_empty_state("The sub-trend drill-down is unavailable right now. Run a new analysis to try again.")
 
 with tab_momentum:
     try:
@@ -1096,16 +1591,12 @@ with tab_momentum:
                 '<div class="sample-banner">Momentum diagram uses the sample trend data above.</div>',
                 unsafe_allow_html=True,
             )
-        momentum_tab, adoption_tab, radar_tab = st.tabs(["Momentum Diagram", "Adoption S-curve", "Trend Radar"])
+        momentum_tab, radar_tab = st.tabs(["Momentum Diagram", "Trend Radar"])
         with momentum_tab:
             color_by = st.radio("Color by", ["Category", "Recommendation"], horizontal=True, label_visibility="collapsed")
             fig = momentum.build_momentum_figure(all_trends, color_by=color_by.lower())
             st.plotly_chart(fig, use_container_width=True)
             st.caption("Radius = trend strength (0-10). Each colored rim segment groups one trend cluster; dot size shrinks from Macro to Sub-trend.")
-        with adoption_tab:
-            fig = momentum.build_adoption_s_curve_figure(all_trends)
-            st.plotly_chart(fig, use_container_width=True)
-            st.caption("Illustrative adoption trajectory by trend tier.")
         with radar_tab:
             fig = momentum.build_trend_radar_figure(all_trends)
             st.plotly_chart(fig, use_container_width=True)

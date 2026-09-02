@@ -253,7 +253,9 @@ def call_live_news(
     # industry like "Climate Tech"); requiring each word separately keeps results genuinely
     # on-topic without demanding the exact phrase appear verbatim.
     industry_label = re.sub(r"[_-]+", " ", industry).strip() or industry
-    industry_words = re.findall(r"[\w&-]+", industry_label) or ["India"]
+    # Drop tokens with no letters/digits (e.g. a lone "&" from "Food & Beverages" splitting
+    # off its own space-separated token) -- a bare "+&" required term breaks NewsAPI's query.
+    industry_words = [w for w in re.findall(r"[\w&-]+", industry_label) if re.search(r"\w", w)] or ["India"]
     query = " ".join(f"+{w}" for w in industry_words)
     # Currents' /search takes a plain keyword string -- it doesn't support NewsAPI's "+"
     # required-term operator, so this is the unprefixed word list instead of `query`.
@@ -295,7 +297,7 @@ def call_live_news(
                     _fetch_currentnews_page(
                         currentnews_query,
                         page_number=page_number,
-                        page_size=3,
+                        page_size=count,
                         api_key=fallback_key,
                     )
                 )
@@ -320,6 +322,11 @@ def call_live_news(
         text = f"{item.get('title', '')} {item.get('description', '')}".lower()
         if any(term in text for term in region_terms):
             score -= 1
+        # NewsAPI's "+word" operator matches full article body text, so a piece that only
+        # mentions the industry deep in its body (not in the title/description a reader
+        # actually sees) can still outrank genuinely on-topic articles -- push those down.
+        if industry_words and not any(w.lower() in text for w in industry_words):
+            score += 100
         return score
 
     ordered_items = [
@@ -367,7 +374,7 @@ def call_live_news(
                 _fetch_currentnews_page(
                     keyword,
                     page_number=page_number,
-                    page_size=3,
+                    page_size=count,
                     api_key=fallback_key,
                 )
             )
@@ -386,7 +393,12 @@ def call_live_news(
 
 def _normalize_currents_articles(currents_articles: list[dict], industry: str, count: int) -> list[dict]:
     now = datetime.now(timezone.utc)
-    articles = []
+    # Currents' /search keyword matching is loose and can surface completely off-topic
+    # results (e.g. "safari tents" for "Food & Beverages"), so filter for on-topic articles
+    # first and only fall back to the raw pool if nothing actually mentions the industry.
+    relevance_words = [w.lower() for w in re.findall(r"[\w&-]+", industry) if re.search(r"\w", w)]
+    on_topic = []
+    off_topic = []
     for index, item in enumerate(currents_articles):
         title = item.get("title") or "Untitled"
         description = item.get("description")
@@ -406,18 +418,22 @@ def _normalize_currents_articles(currents_articles: list[dict], industry: str, c
                 else:
                     parsed = parsed.replace(tzinfo=timezone.utc)
                 hours_ago = int((now - parsed).total_seconds() // 3600)
-        articles.append(
-            dict(
-                title=title,
-                source=item.get("author") or (item.get("source") or "Currents"),
-                published_at=published,
-                hours_ago=hours_ago,
-                tags=_extract_topic_keywords(title, description, industry),
-                url=item.get("url"),
-                urlToImage=item.get("image"),
-                is_sample=False,
-            )
+        entry = dict(
+            title=title,
+            source=item.get("author") or (item.get("source") or "Currents"),
+            published_at=published,
+            hours_ago=hours_ago,
+            tags=_extract_topic_keywords(title, description, industry),
+            url=item.get("url"),
+            urlToImage=item.get("image"),
+            is_sample=False,
         )
+        text = f"{title} {description or ''}".lower()
+        if relevance_words and any(word in text for word in relevance_words):
+            on_topic.append(entry)
+        else:
+            off_topic.append(entry)
+    articles = on_topic or off_topic
     articles.sort(key=lambda a: a["hours_ago"])
     deduped = []
     seen = set()

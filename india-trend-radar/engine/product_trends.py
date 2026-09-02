@@ -132,13 +132,30 @@ def _normalize_product_name(name: str) -> str:
     return re.sub(r"\s+", " ", value).strip()
 
 
+def _industry_words(industry: str) -> list[str]:
+    return [w.lower().rstrip("s") for w in re.findall(r"[\w-]+", industry) if len(w) > 2]
+
+
+def _matches_industry(row: dict, words: list[str]) -> bool:
+    text = f"{row.get('category') or ''} {row['product']} {row['signal_and_source']}".lower()
+    return any(w in text for w in words)
+
+
 def get_trending_products(
-    region: str, limit: int = 20, report_dir: Path | None = None
+    region: str, industry: str | None = None, limit: int = 20, report_dir: Path | None = None
 ) -> list[dict]:
     """Top trending products for `region`, merged across every year found in
     data/raw/reports/ (currently 2025 + 2026), newest year winning on
     duplicate products. Returns [] if no report files are found for the
     region -- callers should treat that as "no data available", not an error.
+
+    The curated reports span every consumer-product category (fashion,
+    skincare, electronics, food, ...), not just one industry, so when
+    `industry` is given the merged list is filtered down to rows that
+    actually mention it -- otherwise an "Apparel & Fashion" trend list would
+    get shown as-is under e.g. a Food & Beverages analysis. Returns []
+    (rather than the unfiltered list) if nothing matches, since a generic
+    top-20 list mislabeled as industry-specific is worse than no data.
     """
     files = _discover_report_files(region, report_dir)
     if not files:
@@ -165,6 +182,11 @@ def get_trending_products(
                 continue
             seen.add(key)
             merged.append(row)
+
+    if industry:
+        words = _industry_words(industry)
+        if words:
+            merged = [row for row in merged if _matches_industry(row, words)]
 
     merged = merged[:limit]
     for display_rank, row in enumerate(merged, start=1):
