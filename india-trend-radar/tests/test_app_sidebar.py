@@ -1,4 +1,4 @@
-"""Tests for app.py's sidebar: the Detect Industry button and the Industry/Sector dropdown.
+"""Tests for streamlit_app.py's sidebar: the Detect Industry button and the Industry/Sector dropdown.
 
 Uses Streamlit's own AppTest harness (streamlit.testing.v1) to drive the real script instead
 of hand-rolling a fake Streamlit environment.
@@ -11,7 +11,7 @@ from streamlit.testing.v1 import AppTest
 from engine import company_sectors, news, trend_analysis, trends
 from engine.company_sectors import SectorDetectionResult
 
-APP_PATH = Path(__file__).resolve().parent.parent / "app.py"
+APP_PATH = Path(__file__).resolve().parent.parent / "streamlit_app.py"
 
 DEFAULT_INDUSTRY_LABELS = [
     "Apparel & Fashion",
@@ -116,7 +116,7 @@ def test_run_analysis_does_not_pass_company_to_trend_generation(monkeypatch):
     monkeypatch.setattr(trends, "generate_mock_trends", fake_generate_mock_trends)
     monkeypatch.setattr(news, "generate_mock_news", fake_generate_mock_news)
     monkeypatch.setattr(trend_analysis, "build_trend_analysis_report", lambda *a, **k: None)
-    # app.py's own _load_env_file() re-reads the real .env on every fresh script execution and
+    # streamlit_app.py's own _load_env_file() re-reads the real .env on every fresh script execution and
     # only skips a key that's *already present* in os.environ -- so these must be set to an
     # empty string (falsy, but present) rather than deleted, or the real key just gets reloaded
     # from disk and this test would fire a live, unmocked network/OpenAI call.

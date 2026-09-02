@@ -16,32 +16,32 @@
     {
       "provider": "serper",
       "country": "us",
-      "error": "ConnectionError: HTTPSConnectionPool(host='google.serper.dev', port=443): Max retries exceeded with url: /search (Caused by NameResolutionError(\"<urllib3.connection.HTTPSConnection object at 0x11a755940>: Failed to resolve 'google.serper.dev' ([Errno 8] nodename nor servname provided, or not known)\"))"
+      "error": "ConnectionError: HTTPSConnectionPool(host='google.serper.dev', port=443): Max retries exceeded with url: /search (Caused by NameResolutionError(\"<urllib3.connection.HTTPSConnection object at 0x1098b5940>: Failed to resolve 'google.serper.dev' ([Errno 8] nodename nor servname provided, or not known)\"))"
     },
     {
       "provider": "serper",
       "country": "cn",
-      "error": "ConnectionError: HTTPSConnectionPool(host='google.serper.dev', port=443): Max retries exceeded with url: /search (Caused by NameResolutionError(\"<urllib3.connection.HTTPSConnection object at 0x11b578050>: Failed to resolve 'google.serper.dev' ([Errno 8] nodename nor servname provided, or not known)\"))"
+      "error": "ConnectionError: HTTPSConnectionPool(host='google.serper.dev', port=443): Max retries exceeded with url: /search (Caused by NameResolutionError(\"<urllib3.connection.HTTPSConnection object at 0x10aa1c7d0>: Failed to resolve 'google.serper.dev' ([Errno 8] nodename nor servname provided, or not known)\"))"
     },
     {
       "provider": "serpapi",
       "country": "us",
-      "error": "ConnectionError: HTTPSConnectionPool(host='serpapi.com', port=443): Max retries exceeded with url: /search?engine=google&q=Apparel+%26+Fashion+trends+2026+US+and+China+after%3A2026-08-26+before%3A2026-09-02&page=1&gl=us&hl=en&num=10&api_key=7d1e4ad24f3fbffd3834263757dbf7955f16dc43bbbdb2c7929c0acf2e31a725&tbs=sbd%3A1 (Caused by NameResolutionError(\"<urllib3.connection.HTTPSConnection object at 0x11a75ad50>: Failed to resolve 'serpapi.com' ([Errno 8] nodename nor servname provided, or not known)\"))"
+      "error": "ConnectionError: HTTPSConnectionPool(host='serpapi.com', port=443): Max retries exceeded with url: /search?engine=google&q=Apparel+%26+Fashion+trends+2026+US+and+China+after%3A2026-08-26+before%3A2026-09-02&page=1&gl=us&hl=en&num=10&api_key=7d1e4ad24f3fbffd3834263757dbf7955f16dc43bbbdb2c7929c0acf2e31a725&tbs=sbd%3A1 (Caused by NameResolutionError(\"<urllib3.connection.HTTPSConnection object at 0x10aa1c410>: Failed to resolve 'serpapi.com' ([Errno 8] nodename nor servname provided, or not known)\"))"
     },
     {
       "provider": "serpapi",
       "country": "cn",
-      "error": "ConnectionError: HTTPSConnectionPool(host='serpapi.com', port=443): Max retries exceeded with url: /search?engine=google&q=Apparel+%26+Fashion+trends+2026+US+and+China+after%3A2026-08-26+before%3A2026-09-02&page=1&gl=cn&hl=en&num=10&api_key=7d1e4ad24f3fbffd3834263757dbf7955f16dc43bbbdb2c7929c0acf2e31a725&tbs=sbd%3A1 (Caused by NameResolutionError(\"<urllib3.connection.HTTPSConnection object at 0x11a75b4d0>: Failed to resolve 'serpapi.com' ([Errno 8] nodename nor servname provided, or not known)\"))"
+      "error": "ConnectionError: HTTPSConnectionPool(host='serpapi.com', port=443): Max retries exceeded with url: /search?engine=google&q=Apparel+%26+Fashion+trends+2026+US+and+China+after%3A2026-08-26+before%3A2026-09-02&page=1&gl=cn&hl=en&num=10&api_key=7d1e4ad24f3fbffd3834263757dbf7955f16dc43bbbdb2c7929c0acf2e31a725&tbs=sbd%3A1 (Caused by NameResolutionError(\"<urllib3.connection.HTTPSConnection object at 0x10abc8f50>: Failed to resolve 'serpapi.com' ([Errno 8] nodename nor servname provided, or not known)\"))"
     },
     {
       "provider": "tavily",
       "country": "us",
-      "error": "ConnectionError: HTTPSConnectionPool(host='api.tavily.com', port=443): Max retries exceeded with url: /search (Caused by NameResolutionError(\"<urllib3.connection.HTTPSConnection object at 0x11a75a350>: Failed to resolve 'api.tavily.com' ([Errno 8] nodename nor servname provided, or not known)\"))"
+      "error": "ConnectionError: HTTPSConnectionPool(host='api.tavily.com', port=443): Max retries exceeded with url: /search (Caused by NameResolutionError(\"<urllib3.connection.HTTPSConnection object at 0x10abc9810>: Failed to resolve 'api.tavily.com' ([Errno 8] nodename nor servname provided, or not known)\"))"
     },
     {
       "provider": "tavily",
       "country": "cn",
-      "error": "ConnectionError: HTTPSConnectionPool(host='api.tavily.com', port=443): Max retries exceeded with url: /search (Caused by NameResolutionError(\"<urllib3.connection.HTTPSConnection object at 0x11a759a90>: Failed to resolve 'api.tavily.com' ([Errno 8] nodename nor servname provided, or not known)\"))"
+      "error": "ConnectionError: HTTPSConnectionPool(host='api.tavily.com', port=443): Max retries exceeded with url: /search (Caused by NameResolutionError(\"<urllib3.connection.HTTPSConnection object at 0x10abc82d0>: Failed to resolve 'api.tavily.com' ([Errno 8] nodename nor servname provided, or not known)\"))"
     }
   ]
 }

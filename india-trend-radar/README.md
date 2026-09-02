@@ -15,11 +15,110 @@ A minimalist internal tool for a micro-VC fund partner to scan macro-level trend
 6. The app writes a timestamped markdown trend-analysis report for every run under `raw/analysis/`, then combines that report with the `trends.py` output into a final analysis file.
 7. A **News Signals** tab lists relevant articles for the query.
 
+## Real tools, validation, and fallback behavior
+
+This app now documents the exact behavior expected from the real API layer, including how failures are handled.
+
+### Input / output contract
+
+- `research_search.py` returns a `ResearchContext` object with `providers_used`, `keywords`, `hits`, `report_matches`, and a prompt string for the trend generator.
+- `trends.py` returns a list of trend dictionaries with the required fields: `tier`, `id`, `parent`, `category`, `name`, `description`, `strength`, `growth_pct`, `time_horizon`, and `recommendation`.
+- `news.py` returns a list of article dictionaries with title, source, timestamps, tags, and a sample/live flag.
+- `trend_analysis.py` returns a `TrendAnalysisResult` with markdown, HTML, PDF bytes, file paths, and a public share URL when upload succeeds.
+
+### Provider order and orchestration
+
+- Research search tries Serper first, then SerpAPI, then Tavily.
+- News tries NewsAPI first, then Currents Search if NewsAPI is empty or fails.
+- Trend generation uses OpenAI when a key is present, otherwise deterministic sample output.
+- Growth-company drill-down uses OpenAI when available, otherwise deterministic sample companies and social signals.
+- Final-analysis sharing uploads the generated PDF to a free public host and returns a direct URL when the upload succeeds.
+
+### Validation and fallback rules
+
+- Truncated OpenAI responses are rejected instead of being shown as partial output.
+- Invalid or empty provider responses fall back to the next provider or to deterministic sample data.
+- The final-analysis PDF download reads the saved PDF from disk, so the button does not depend only on in-memory state.
+- The share link is only shown when it is a real public URL.
+
+### Contradiction handling
+
+- The structured trend hierarchy is the source of record for the app.
+- The prose report is generated to stay aligned with that hierarchy and the appended trend table.
+- If a live provider disagrees with the rest of the pipeline or returns malformed output, the app does not try to merge contradictory content; it falls back to the next valid provider or to sample data.
+
+### Failure modes and cost profile
+
+- OpenAI calls only happen when a live key is enabled. If the API is unavailable or the response is truncated, the app falls back to sample content.
+- Research search can fan out across up to three search providers, so the request cost is driven by how many fallbacks are needed.
+- News can make one NewsAPI call and, if necessary, one Currents call.
+- PDF sharing uses a free public upload host. If that host fails, sharing is disabled for that run but the local PDF download still works.
+
+### Evidence
+
+The behavior above is covered by tests:
+
+- `tests/test_research_search.py` checks provider precedence and fallback.
+- `tests/test_trend_analysis.py` checks public upload behavior.
+- `tests/test_growth_companies.py` checks live-vs-sample behavior.
+- `tests/test_final_analysis_render.py` checks branded HTML rendering and sanitization.
+- `tests/test_app_sidebar.py` checks the app still boots cleanly.
+
+The "Detect Industry from Website" button (`engine/company_sectors.py`) is additionally scored
+against a hand-curated ground-truth set via a LangSmith eval — see
+[`../langsmith/eval_website_to_industry.py`](../langsmith/eval_website_to_industry.py) and its
+results in [`../langsmith/langsmith_documentation.md`](../langsmith/langsmith_documentation.md).
+
+### Agent journey and metrics
+
+The app now shows the tracked journey in the UI itself so the flow is visible during review:
+
+- `research_search.py` writes `raw/research/latest_research_context.json` with the query, countries, provider order, live hits, report matches, extracted keywords, and prompt input.
+- `trend_analysis.py` writes the markdown source, the combined markdown, the branded HTML report, and the PDF export under `raw/analysis/`.
+- `streamlit_app.py` surfaces a compact run summary with live-hits count, local-report count, provider order, PDF state, and share state.
+- The final-analysis tab keeps the download/share path tied to the saved PDF file so the UI is backed by an actual artifact on disk.
+
+These fields are the main validation and metric points reviewers should inspect when checking orchestration quality.
+
+### Feasibility and Responsible AI
+
+This MVP is narrow on purpose:
+
+- Single-user local tool.
+- No authentication.
+- No shared database.
+- Inputs stay limited to company/fund, time range, region, and sector.
+- Deterministic sample data keeps the app usable when live APIs are absent.
+- Live providers are optional and sit behind clear fallbacks.
+
+Security and retention stay lightweight for the prototype:
+
+- API keys are read from local `.env` files only.
+- Generated research context and analysis artifacts are stored on disk under `raw/research/` and `raw/analysis/`.
+- There is no server-side retention policy; files persist locally until deleted.
+- Public sharing uses a free file host only for the final PDF. If that host fails, local download still works.
+
+Validation and monitoring are explicit:
+
+- Provider failures fall back to deterministic sample outputs instead of surfacing partial results.
+- Truncated model responses are rejected.
+- The bottom-of-page warning area keeps user-facing error text readable while hiding stack details.
+- The test suite checks provider precedence, upload behavior, sanitization, and app boot.
+
+Define these launch KPIs before the pilot, then track them on every run:
+
+- Time from query to final brief.
+- Run completion rate without manual intervention.
+- Share/download success rate.
+- Percentage of runs with live research coverage.
+- Percentage of sections with supporting evidence.
+- Analyst satisfaction or usefulness score on the final report.
+
 ## Setup
 
 ```bash
 pip install -r requirements.txt
-streamlit run app.py
+streamlit run streamlit_app.py
 ```
 
 Requires Python 3.9+.
@@ -41,7 +140,8 @@ The app reads `openai_api_key` and `NEWSAPI_KEY` from the local `.env` file in `
 ## Project structure
 
 ```
-app.py                 Main Streamlit app: layout, navigation, cards
+app.py                 Vercel landing page entrypoint
+streamlit_app.py       Main Streamlit app: layout, navigation, cards
 engine/
   trends.py             Macro/Mega/Sub trend generation (mock + live OpenAI)
   research_search.py    Live search preprocessing and report cross-reference

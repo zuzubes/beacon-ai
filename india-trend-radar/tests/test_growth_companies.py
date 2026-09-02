@@ -99,7 +99,7 @@ def test_call_live_social_signals_raises_on_non_object_json(fake_openai):
 
 
 def test_a_live_call_failure_falls_back_to_mock_in_app_pattern(fake_openai):
-    """Mirrors how app.py is expected to use this module: try the live call, fall back to
+    """Mirrors how streamlit_app.py is expected to use this module: try the live call, fall back to
     mock on any exception, exactly like trends.py's call_live_trends / generate_mock_trends."""
     fake_openai("not valid json")
     try:

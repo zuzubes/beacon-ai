@@ -3,7 +3,7 @@ LangSmith evaluation harness for engine/company_sectors.py's company -> website 
 industry/sector detection pipeline (the "Detect Industry from Website" sidebar button
 in india-trend-radar/app.py).
 
-Ground truth: ../eval-website-to-industry (repo root) -- a small hand-curated set of
+Ground truth: eval-website-to-industry (in this langsmith/ folder) -- a small hand-curated set of
 VC funds with their real website and the sectors they actually invest in.
 
 Builds/refreshes a LangSmith dataset from that file, then runs the real detection
@@ -38,8 +38,9 @@ import sys
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
+LANGSMITH_ROOT = Path(__file__).resolve().parent
 INDIA_TREND_RADAR = REPO_ROOT / "india-trend-radar"
-EVAL_FILE = REPO_ROOT / "eval-website-to-industry"
+EVAL_FILE = LANGSMITH_ROOT / "eval-website-to-industry"
 DATASET_NAME = "website-to-industry"
 
 # engine/ is a package inside india-trend-radar/, not on sys.path by default outside
