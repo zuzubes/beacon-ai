@@ -29,10 +29,13 @@ Short summary.
         industry="Apparel",
     )
 
-    assert "Beacon AI final analysis" in html
+    assert "Beacon AI analysis" in html
+    assert "Beacon AI final analysis" not in html
     assert "Trend Analysis: Apparel in US" in html
     assert "Trend A" in html
     assert "example.com" in html
+    assert "Local reports" not in html
+    assert "Top signal" not in html
 
 
 def test_render_final_analysis_html_strips_script_tags():

@@ -1,47 +1,515 @@
 {
-  "query": "Apparel & Fashion trends 2026 US and China after:2026-08-26 before:2026-09-02",
+  "query": "Functional Beverage Innovations (Food & Beverages) trends 2026 United States after:2026-08-03 before:2026-09-02",
   "countries": [
-    "us",
-    "cn"
+    "us"
   ],
   "language": "en",
-  "time_range": "Past 1 week",
-  "search_window": "2026-08-26..2026-09-02",
-  "providers_used": [],
-  "keywords": [],
-  "hits": [],
-  "report_matches": [],
+  "time_range": "Past 1 month",
+  "search_window": "2026-08-03..2026-09-02",
+  "providers_used": [
+    "serpapi"
+  ],
+  "keywords": [
+    "functional beverages",
+    "market size",
+    "functional drinks",
+    "drinks market",
+    "functional beverage",
+    "beverages market",
+    "food beverage",
+    "global functional",
+    "grow billion",
+    "billion cagr"
+  ],
+  "hits": [
+    {
+      "title": "Wellness beverage trends guide 2026 market insights",
+      "url": "https://www.newhope.com/toolkits-downloads/2026-wellness-beverage-trends-eguide",
+      "snippet": "The functional beverage category has reached $92 billion with projections to hit $106.93 billion in 2026, driven by consumer demand for targeted wellness ...",
+      "position": 1,
+      "source": "us",
+      "provider": "serpapi"
+    },
+    {
+      "title": "Functional Beverages Market Size, Trends & Forecast 2035",
+      "url": "https://www.datamintelligence.com/research-report/functional-beverages-market",
+      "snippet": "June 2026: PepsiCo expanded its functional beverages portfolio by introducing new nutrient-fortified and hydration-focused drinks enriched with vitamins, ...",
+      "position": 2,
+      "source": "us",
+      "provider": "serpapi"
+    },
+    {
+      "title": "Functional Drinks Market Companies, Size & Trends 2026- ...",
+      "url": "https://www.precedenceresearch.com/functional-drinks-market",
+      "snippet": "The functional drinks market was valued at USD 265.14 billion in 2026, with leading companies including The Coca-Cola Company, Red Bull, Monster Beverage ...",
+      "position": 3,
+      "source": "us",
+      "provider": "serpapi"
+    },
+    {
+      "title": "Functional Beverages Drive U.S. Market Shift | Vita Forte ...",
+      "url": "https://www.linkedin.com/posts/vitaforte_functionalbeverages-foodinnovation-beverageindustry-activity-7498076777437876224-4upT",
+      "snippet": "The beverage aisle is changing, and so are consumer expectations. Consumers are increasingly choosing beverages based on what they can do, not just what ...",
+      "position": 4,
+      "source": "us",
+      "provider": "serpapi"
+    },
+    {
+      "title": "Food & Beverage Trends",
+      "url": "https://restaurant.org/education-and-resources/learning-center/food-nutrition/food-and-beverage-trends/",
+      "snippet": "What's Hot in 2026? Healthier, functional beverages. December 10, 2025. With a nod towards wellness, diners prioritize personalization, sustainability, and ...",
+      "position": 5,
+      "source": "us",
+      "provider": "serpapi"
+    },
+    {
+      "title": "Functional Drinks Market Size, Share & Growth, 2026-2034",
+      "url": "https://www.fortunebusinessinsights.com/functional-drinks-market-116398",
+      "snippet": "The global Functional Drinks Market size is projected to grow from $ 194.31 billion in 2026 to $ 376.65 billion by 2034, at CAGR of 8.62% during forecast ...",
+      "position": 6,
+      "source": "us",
+      "provider": "serpapi"
+    },
+    {
+      "title": "National Restaurant Association",
+      "url": "https://www.google.com/goto?url=CAESyQEB6zswFSU7AApTNy6M1siILtT3ETBKxJb8TkEWHO0_0E4F_tF5t1F3rb4FtXtsjx1T_nzHEusvFkozsj0_VucFIQx56HHXuGYum22EbvKlHAdaJJdDu3fNmO_jZUcbAwcbsi38nsukdYntpww15DqU9e59EpRxzri1zAZxhktYIkKka41wiyge5wNBgtsN08VRQnew3EkY0zmQJmows61I4pdQS2oRt4kxBjCFQMCdj7qfllykthBTabXJaEn0rrNOeWwTlaBXmYg",
+      "snippet": "Consumers are looking for more variety, new flavors, and experiences they can't easily recreate at home! Our all-new 2026 Restaurant Beverage Trends report ...",
+      "position": 7,
+      "source": "us",
+      "provider": "serpapi"
+    },
+    {
+      "title": "2026 Food, Flavor & Beverage Trends",
+      "url": "https://datassential.com/resource/food-and-beverage-trends-2026/",
+      "snippet": "Key trends shaping 2026, such as fiber, meat, and teatime · The global cuisine to know in 2026 (hint: think turmeric, curry leaves, and tamarind) · A snapshot of ...",
+      "position": 8,
+      "source": "us",
+      "provider": "serpapi"
+    },
+    {
+      "title": "Post-workout recovery trends in functional beverages ...",
+      "url": "https://www.facebook.com/bevnetcom/posts/post-workout-recovery-is-becoming-one-of-beverages-most-closely-watched-function/1726609186131863/",
+      "snippet": "A recent report predicted the global functional beverages market size is expected to grow from $224.99 billion in 2027 at a CAGR of 11.1%.",
+      "position": 9,
+      "source": "us",
+      "provider": "serpapi"
+    },
+    {
+      "title": "Nutrition & Functional Beverages",
+      "url": "https://www.mccormickflavor.com/nutrition-functional-beverages",
+      "snippet": "Dive into insights behind nutrition & functional beverage flavors & trends ... Trend Bite: 2026 Food & Beverage Trends of Interest · Read More · Trends · Trend ...",
+      "position": 10,
+      "source": "us",
+      "provider": "serpapi"
+    }
+  ],
+  "report_matches": [
+    {
+      "path": "/Users/muditairan/Desktop/Ironhack/beacon-ai/data/raw/reports/China_Top20_Trending_Products_2026.md",
+      "title": "China Top20 Trending Products 2026",
+      "excerpt": "**For cross-border sellers: several of these are China-first trends now exporting globally** — IP merch, smart-home security, robot vacuums, high-end pet products, \"nourishing\" base makeup, functional beverages.",
+      "score": 2
+    },
+    {
+      "path": "/Users/muditairan/Desktop/Ironhack/beacon-ai/data/raw/reports/US-2025-Top20-Trending-Products-Report.md",
+      "title": "Us 2025 Top20 Trending Products Report",
+      "excerpt": "- Driver: Gut-health functional beverage wave — low-sugar, carbonated, kombucha's \"more mainstream cousin.\" - (Sources: Exploding Topics, 2026; Techpoint, Sep 2025)  **6.",
+      "score": 1
+    },
+    {
+      "path": "/Users/muditairan/Desktop/Ironhack/beacon-ai/data/raw/reports/US_Top20_Trending_Products_2026.md",
+      "title": "Us Top20 Trending Products 2026",
+      "excerpt": "---  ## Top 20 Table  | # | Product | Category | 2026 Growth Signal | Retail Price Band | Primary Source(s) | |---|---------|----------|--------------------|-------------------|-------------------| | 1 | Embroidered apparel (hoodies, caps) | Fashion | **+7,043% YoY** search; embroidered hoodies +120% over 5 yrs | $25–$120 | GoDaddy, Mar 2026; Printful, Jun 2026 | | 2 | Exosome serum (anti-aging) |",
+      "score": 1
+    }
+  ],
   "knowledge_graph": {},
   "raw_attempts": [
     {
       "provider": "serper",
       "country": "us",
-      "error": "ConnectionError: HTTPSConnectionPool(host='google.serper.dev', port=443): Max retries exceeded with url: /search (Caused by NameResolutionError(\"<urllib3.connection.HTTPSConnection object at 0x1098b5940>: Failed to resolve 'google.serper.dev' ([Errno 8] nodename nor servname provided, or not known)\"))"
-    },
-    {
-      "provider": "serper",
-      "country": "cn",
-      "error": "ConnectionError: HTTPSConnectionPool(host='google.serper.dev', port=443): Max retries exceeded with url: /search (Caused by NameResolutionError(\"<urllib3.connection.HTTPSConnection object at 0x10aa1c7d0>: Failed to resolve 'google.serper.dev' ([Errno 8] nodename nor servname provided, or not known)\"))"
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://google.serper.dev/search"
     },
     {
       "provider": "serpapi",
       "country": "us",
-      "error": "ConnectionError: HTTPSConnectionPool(host='serpapi.com', port=443): Max retries exceeded with url: /search?engine=google&q=Apparel+%26+Fashion+trends+2026+US+and+China+after%3A2026-08-26+before%3A2026-09-02&page=1&gl=us&hl=en&num=10&api_key=7d1e4ad24f3fbffd3834263757dbf7955f16dc43bbbdb2c7929c0acf2e31a725&tbs=sbd%3A1 (Caused by NameResolutionError(\"<urllib3.connection.HTTPSConnection object at 0x10aa1c410>: Failed to resolve 'serpapi.com' ([Errno 8] nodename nor servname provided, or not known)\"))"
-    },
-    {
-      "provider": "serpapi",
-      "country": "cn",
-      "error": "ConnectionError: HTTPSConnectionPool(host='serpapi.com', port=443): Max retries exceeded with url: /search?engine=google&q=Apparel+%26+Fashion+trends+2026+US+and+China+after%3A2026-08-26+before%3A2026-09-02&page=1&gl=cn&hl=en&num=10&api_key=7d1e4ad24f3fbffd3834263757dbf7955f16dc43bbbdb2c7929c0acf2e31a725&tbs=sbd%3A1 (Caused by NameResolutionError(\"<urllib3.connection.HTTPSConnection object at 0x10abc8f50>: Failed to resolve 'serpapi.com' ([Errno 8] nodename nor servname provided, or not known)\"))"
+      "response": {
+        "search_metadata": {
+          "id": "6a988495018c48c38d698b1c",
+          "status": "Success",
+          "json_endpoint": "https://serpapi.com/searches/X2Am_h9PEJ0LE9uIrAHIIkNxrIPWI-GAB1rPCFXlF28/6a988495018c48c38d698b1c.json",
+          "markdown_endpoint": "https://serpapi.com/searches/X2Am_h9PEJ0LE9uIrAHIIkNxrIPWI-GAB1rPCFXlF28/6a988495018c48c38d698b1c.md",
+          "pixel_position_endpoint": "https://serpapi.com/searches/X2Am_h9PEJ0LE9uIrAHIIkNxrIPWI-GAB1rPCFXlF28/6a988495018c48c38d698b1c.json_with_pixel_position",
+          "created_at": "2026-09-02 20:18:29 UTC",
+          "processed_at": "2026-09-02 20:18:29 UTC",
+          "google_url": "https://www.google.com/search?q=Functional+Beverage+Innovations+%28Food+%26+Beverages%29+trends+2026+United+States+after%3A2026-08-03+before%3A2026-09-02&oq=Functional+Beverage+Innovations+%28Food+%26+Beverages%29+trends+2026+United+States+after%3A2026-08-03+before%3A2026-09-02&hl=en&gl=us&tbs=sbd:1&sourceid=chrome&ie=UTF-8",
+          "raw_html_file": "https://serpapi.com/searches/X2Am_h9PEJ0LE9uIrAHIIkNxrIPWI-GAB1rPCFXlF28/6a988495018c48c38d698b1c.html",
+          "total_time_taken": 3.2
+        },
+        "search_parameters": {
+          "engine": "google",
+          "q": "Functional Beverage Innovations (Food & Beverages) trends 2026 United States after:2026-08-03 before:2026-09-02",
+          "google_domain": "google.com",
+          "hl": "en",
+          "gl": "us",
+          "device": "desktop",
+          "tbs": "sbd:1"
+        },
+        "search_information": {
+          "query_displayed": "Functional Beverage Innovations (Food & Beverages) trends 2026 United States after:2026-08-03 before:2026-09-02",
+          "total_results": 162000,
+          "time_taken_displayed": 0.95,
+          "organic_results_state": "Results for exact spelling"
+        },
+        "organic_results": [
+          {
+            "position": 1,
+            "title": "Wellness beverage trends guide 2026 market insights",
+            "link": "https://www.newhope.com/toolkits-downloads/2026-wellness-beverage-trends-eguide",
+            "redirect_link": "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=CAEShwEB6zswFfbvQwc6H9O-W1VvZDaM4JYJcdBRiDDkzrpn2mVWMYPguM7OLQwFsi8D-e-xcGzmZmJatgOqwycbe6Dwfp_Ci2P1CHSwki2BEPaCN40ki_ACFf4NfZKmf6GGD8N0mDkVu7Y6C1QADgDirRgEX0OqSguAFin61V8qK_1GQebzBB8PsOw&ved=2ahUKEwi76bvp29CWAxXnRCoJHWa_KxUQFnoECBoQAQ&uoh=1",
+            "displayed_link": "https://www.newhope.com › toolkits-downloads › 2026...",
+            "favicon": "https://serpapi.com/images/i/iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAMAAABF0y-mAAAAdVBMVEVHcEwAdY0AdY0AcokAdY0Aj7IAd5AAcokAtOYArdwAvPEAxPEAboMAs-QAcokAtecAsuMAsuMAtukAsuQAc4oAu_AAcokAdIsAdIwAcooAc4sAsuQAc4oAFQEAtOUAa38AdIsAZncAtOUAsuMArNsAs-QAtedXJmA_AAAAJ3RSTlMAHgxH_wUjLa4uIg4V5VWGHM1nQZFcab7feqWRzAxOHvE7V_87un4XDZ68AAABEklEQVR4AX3TRYKEMBBA0d-kcHennfvfcAwZS_OW8ZTwywk9QwFigmUDOC6ezyYQQldUiEQAcUKabcflnhSlLVFWiQWGgWmykioua8GWikZASYCbsKqkJRI76SxfCpR0AGkPgJMNorzRT-mn0TvLhd1Q5D7D1blxJ3x44TgEmG1jAmCJdGQkd548ud8oaWV5M0x5LVV2928mQEbo2NJs4ZhLTpDNLKYeLBaqrovKu4cPVmaS3vOoqOsKaBsRxTSxcTNGkUthAF7MOY97n10c3wLKnOPJo2M1D2J5UFdXmq_cerBwnYMgPEoOwqdeBz7fAq9JWR4C-mRfl2Rry8R9XiUAQFNg7g3DYKMrzaOi3hy0wztyrBjZKwHlpQAAAABJRU5ErkJggg.png",
+            "date": "Aug 20, 2026",
+            "snippet": "The functional beverage category has reached $92 billion with projections to hit $106.93 billion in 2026, driven by consumer demand for targeted wellness ...",
+            "snippet_highlighted_words": [
+              "functional beverage",
+              "2026"
+            ],
+            "about_this_result": {
+              "source": {
+                "description": "The functional beverage category has reached $92 billion with projections to hit $106.93 billion in 2026, driven by consumer demand for targeted wellness ...",
+                "source_info_link": "https://www.newhope.com/toolkits-downloads/2026-wellness-beverage-trends-eguide",
+                "icon": "https://serpapi.com/images/i/iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAMAAABF0y-mAAAAdVBMVEVHcEwAdY0AdY0AcokAdY0Aj7IAd5AAcokAtOYArdwAvPEAxPEAboMAs-QAcokAtecAsuMAsuMAtukAsuQAc4oAu_AAcokAdIsAdIwAcooAc4sAsuQAc4oAFQEAtOUAa38AdIsAZncAtOUAsuMArNsAs-QAtedXJmA_AAAAJ3RSTlMAHgxH_wUjLa4uIg4V5VWGHM1nQZFcab7feqWRzAxOHvE7V_87un4XDZ68AAABEklEQVR4AX3TRYKEMBBA0d-kcHennfvfcAwZS_OW8ZTwywk9QwFigmUDOC6ezyYQQldUiEQAcUKabcflnhSlLVFWiQWGgWmykioua8GWikZASYCbsKqkJRI76SxfCpR0AGkPgJMNorzRT-mn0TvLhd1Q5D7D1blxJ3x44TgEmG1jAmCJdGQkd548ud8oaWV5M0x5LVV2928mQEbo2NJs4ZhLTpDNLKYeLBaqrovKu4cPVmaS3vOoqOsKaBsRxTSxcTNGkUthAF7MOY97n10c3wLKnOPJo2M1D2J5UFdXmq_cerBwnYMgPEoOwqdeBz7fAq9JWR4C-mRfl2Rry8R9XiUAQFNg7g3DYKMrzaOi3hy0wztyrBjZKwHlpQAAAABJRU5ErkJggg.png"
+              },
+              "languages": [
+                "en"
+              ],
+              "regions": [
+                "US"
+              ]
+            },
+            "about_page_link": "https://www.google.com/search?q=About+https://www.newhope.com/toolkits-downloads/2026-wellness-beverage-trends-eguide&tbm=ilp",
+            "about_page_serpapi_link": "https://serpapi.com/search.json?engine=google_about_this_result&google_domain=google.com&q=About+https%3A%2F%2Fwww.newhope.com%2Ftoolkits-downloads%2F2026-wellness-beverage-trends-eguide",
+            "source": "New Hope Network",
+            "read_more_link": "https://www.google.com/goto?url=CAES7QEB6zswFXf9-qGldz4HZ1e-B7FvvVxAJCq4Prf_twLKy09yke70PfolaO5It0Op6LCHsMwxlL3UPG0Rz7Ne_cd-OykJktxQ_91HuzkedQnEOFlG4mZdsCM-5ERND23e-3ERBiVyAutdYq3PpkFcxR5tbStBsjl8XRCAEhVbDbpHp3y6ZsCW1TU7OT_LeUHaW_Xd7IDzRAln2g0cPRZDlH2EfwlTR79N2MGTbISndf0FmPaEUT44Uwb0_MqYqOed0BxsEnwBxXhI0vYPYizPGGk9ZYfRd4nQBCtfa0DzVP9vhH6aYinQUhx5R9iDAbY"
+          },
+          {
+            "position": 2,
+            "title": "Functional Beverages Market Size, Trends & Forecast 2035",
+            "link": "https://www.datamintelligence.com/research-report/functional-beverages-market",
+            "redirect_link": "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=CAEShQEB6zswFS8Q33RWBqnOm-0KbkMNbG6JEj-g3cRBJkFksm2s-0zxzd9e6uKQaMnNU0ncOBAT-FrjDcVPMw78vgNSyJQq_OEP2NBGJeQeZt3F8bDBybDxJlHcbvGqi9y-RTiRdikgNOFnXBtj8anwME7oEOLK1oNAar6y7t8NLIorHjOwSq78&ved=2ahUKEwi76bvp29CWAxXnRCoJHWa_KxUQFnoECBkQAQ&uoh=1",
+            "displayed_link": "https://www.datamintelligence.com › ... › Beverages",
+            "favicon": "https://serpapi.com/images/i/iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAMAAABF0y-mAAAAe1BMVEVHcEweKUgUSqghIigKXt4cL1IfJjcJYekGaPsXO3UfIyoFaf8KXd4XO3YRS6QHZfQJYuoLXt0LWdEKZc4Kc9sNVscQTasYPHgGaP4aN2oGaP0aNWMZN2wdK0UFaPgLW9QURI8cMFMdLlAIY-4TRZQOVMAOUroSSJ0HZvTA2-iRAAAAKXRSTlMAE3S1_ij__4_D7f9B3MH_ESCkCwX____wmqz_6VJb_v-u_cenzf3-3SoJeNoAAAERSURBVHgBdc9VgsQgEEXRl27iLoS4J8z-VzhFu3F_D1KFt4wT9J2Z3kzLdrToeravsyAk1F2NFPqai4Sx_3Y1UaWUkV3RzwEUqhyOr7J5KRRW_jNeA01sX7GNun540DjNoBrGORtLsXQucLtKhyNcWnk5iWibzyZN1TTNGtuMX43aCRc8qgh34KGEXn4bv_Jje31afkjRWuZtXZ_KnjgqNHCtSAnZQ_8U1n3fk6fDMNDq9nG6DRszGqhdLFEDkpaOx5Fx2StryKRCIVtjKIXCQ06TMIEhHvkFxSjbM5PtdEH1koniMTLhwqTwioQyVHiWybalmz1-lV_Qxe82haYG81awDbpqwXItFsKBvlOB1_4BP6saDtfYCNwAAAAASUVORK5CYII.png",
+            "date": "Aug 17, 2026",
+            "snippet": "June 2026: PepsiCo expanded its functional beverages portfolio by introducing new nutrient-fortified and hydration-focused drinks enriched with vitamins, ...",
+            "snippet_highlighted_words": [
+              "PepsiCo expanded its functional beverages portfolio"
+            ],
+            "rich_snippet": {
+              "top": {
+                "detected_extensions": {
+                  "rating": 5.0,
+                  "reviews": 2,
+                  "price_from": 3480.0,
+                  "price_to": 7850.0,
+                  "currency": "$"
+                },
+                "extensions": [
+                  "5.0(2)",
+                  "$3,480.00 to $7,850.00"
+                ]
+              }
+            },
+            "about_this_result": {
+              "source": {
+                "description": "June 2026: PepsiCo expanded its functional beverages portfolio by introducing new nutrient-fortified and hydration-focused drinks enriched with vitamins, ...",
+                "source_info_link": "https://www.datamintelligence.com/research-report/functional-beverages-market",
+                "icon": "https://serpapi.com/images/i/iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAMAAABF0y-mAAAAe1BMVEVHcEweKUgUSqghIigKXt4cL1IfJjcJYekGaPsXO3UfIyoFaf8KXd4XO3YRS6QHZfQJYuoLXt0LWdEKZc4Kc9sNVscQTasYPHgGaP4aN2oGaP0aNWMZN2wdK0UFaPgLW9QURI8cMFMdLlAIY-4TRZQOVMAOUroSSJ0HZvTA2-iRAAAAKXRSTlMAE3S1_ij__4_D7f9B3MH_ESCkCwX____wmqz_6VJb_v-u_cenzf3-3SoJeNoAAAERSURBVHgBdc9VgsQgEEXRl27iLoS4J8z-VzhFu3F_D1KFt4wT9J2Z3kzLdrToeravsyAk1F2NFPqai4Sx_3Y1UaWUkV3RzwEUqhyOr7J5KRRW_jNeA01sX7GNun540DjNoBrGORtLsXQucLtKhyNcWnk5iWibzyZN1TTNGtuMX43aCRc8qgh34KGEXn4bv_Jje31afkjRWuZtXZ_KnjgqNHCtSAnZQ_8U1n3fk6fDMNDq9nG6DRszGqhdLFEDkpaOx5Fx2StryKRCIVtjKIXCQ06TMIEhHvkFxSjbM5PtdEH1koniMTLhwqTwioQyVHiWybalmz1-lV_Qxe82haYG81awDbpqwXItFsKBvlOB1_4BP6saDtfYCNwAAAAASUVORK5CYII.png"
+              },
+              "languages": [
+                "en"
+              ],
+              "regions": [
+                "US"
+              ]
+            },
+            "about_page_link": "https://www.google.com/search?q=About+https://www.datamintelligence.com/research-report/functional-beverages-market&tbm=ilp",
+            "about_page_serpapi_link": "https://serpapi.com/search.json?engine=google_about_this_result&google_domain=google.com&q=About+https%3A%2F%2Fwww.datamintelligence.com%2Fresearch-report%2Ffunctional-beverages-market",
+            "source": "DataM Intelligence",
+            "read_more_link": "https://www.google.com/goto?url=CAES4wEB6zswFXc0BGm9LPIwm7ApB3_ikPlDpoezTp1MNIJMoZaJ8x4GzCFYlOgDtzTa5UFnOS5ToXXED_Whj97Rq7-VXiUzy8DZ_6Jz9lCq8Ry5rJwCxLNbsVL6971i47-4cMYzaq67E7zW1oqenOI50m0JPunTc9kPhhromKLGQaXH6_AORewPAjcsXJPiKT5yN8qkLZ0rUGoziE76IQ_7jI0DO2Gji_1DQsZm2g1ZDFNp7nJNI3DYCeDi-4rIoa3m5VE7RDObTguB4_jdiapXYAguYBmzUrG1epvtmqKTtY1kCyxRgA"
+          },
+          {
+            "position": 3,
+            "title": "Functional Drinks Market Companies, Size & Trends 2026- ...",
+            "link": "https://www.precedenceresearch.com/functional-drinks-market",
+            "redirect_link": "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=CAEScwHrOzAVmfja_zs0Zjze9W3_P_Ug7IvKmJR6ryxsp5jchs81j9sFZ6Df-OrNseA4pom6Pxi9I52qkwTTYR7BksQvv3AWnwzrSYBNRhwW8k3RGxR2wVaiMZtWQdTGmPfccYBaM-aoLeNk6bsn82d34GbQXgU&ved=2ahUKEwi76bvp29CWAxXnRCoJHWa_KxUQFnoECBsQAQ&uoh=1",
+            "displayed_link": "https://www.precedenceresearch.com › functional-drinks...",
+            "favicon": "https://serpapi.com/images/i/iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8_9hAAABKklEQVR4AZTSAUQEQRQG4F8ighZCBCiFZCFEagUoWE5lCQMgcBBATgBgIxBIEIiVgMKkKIh1RBRtAJA7YRV69ztrzI27M4cHY_7P896DiPQUJpIUk0pj6kBj-lBj9lhj7kRj6SLDyo1y__cDNAEhIASEgBAQAgXW7q-w8ZRi6yPwBQoCKYEQ-7KH5K8kIAT0MCAjcE4gNm8Ms_6x_flVAYLdn8gAGItDVmBDbpglWL19sICGC-QYrxVVB3V2EDG0YMLJb8khigVkBqiQgEBOQMwMZo7uumEWNl-aDpAOmkFuDbFlOli-fHeAut8aa99t7LRLrlEsoEUg8AOi5zesPzYdQPkf0uLZNeZPXyugIBCPcokNHpLiISkCofnnC_QLdDYkDEBkZ2IMAAABjD3OGCe0SwAAAABJRU5ErkJggg.png",
+            "date": "Aug 24, 2026",
+            "snippet": "The functional drinks market was valued at USD 265.14 billion in 2026, with leading companies including The Coca-Cola Company, Red Bull, Monster Beverage ...",
+            "snippet_highlighted_words": [
+              "functional drinks",
+              "2026",
+              "Beverage"
+            ],
+            "about_this_result": {
+              "source": {
+                "description": "The functional drinks market was valued at USD 265.14 billion in 2026, with leading companies including The Coca-Cola Company, Red Bull, Monster Beverage ...",
+                "source_info_link": "https://www.precedenceresearch.com/functional-drinks-market",
+                "icon": "https://serpapi.com/images/i/iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8_9hAAABKklEQVR4AZTSAUQEQRQG4F8ighZCBCiFZCFEagUoWE5lCQMgcBBATgBgIxBIEIiVgMKkKIh1RBRtAJA7YRV69ztrzI27M4cHY_7P896DiPQUJpIUk0pj6kBj-lBj9lhj7kRj6SLDyo1y__cDNAEhIASEgBAQAgXW7q-w8ZRi6yPwBQoCKYEQ-7KH5K8kIAT0MCAjcE4gNm8Ms_6x_flVAYLdn8gAGItDVmBDbpglWL19sICGC-QYrxVVB3V2EDG0YMLJb8khigVkBqiQgEBOQMwMZo7uumEWNl-aDpAOmkFuDbFlOli-fHeAut8aa99t7LRLrlEsoEUg8AOi5zesPzYdQPkf0uLZNeZPXyugIBCPcokNHpLiISkCofnnC_QLdDYkDEBkZ2IMAAABjD3OGCe0SwAAAABJRU5ErkJggg.png"
+              },
+              "languages": [
+                "en"
+              ],
+              "regions": [
+                "US"
+              ]
+            },
+            "about_page_link": "https://www.google.com/search?q=About+https://www.precedenceresearch.com/functional-drinks-market&tbm=ilp",
+            "about_page_serpapi_link": "https://serpapi.com/search.json?engine=google_about_this_result&google_domain=google.com&q=About+https%3A%2F%2Fwww.precedenceresearch.com%2Ffunctional-drinks-market",
+            "source": "Precedence Research"
+          },
+          {
+            "position": 4,
+            "title": "Functional Beverages Drive U.S. Market Shift | Vita Forte ...",
+            "link": "https://www.linkedin.com/posts/vitaforte_functionalbeverages-foodinnovation-beverageindustry-activity-7498076777437876224-4upT",
+            "redirect_link": "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=CAEStgEB6zswFYp3UlQwsl9xH7Ja7ZM2JmxgZOBc0B1cWY-uyeFo3qgPEyiY9BL79rMr7x_wWmIfBC337k4cjC57UQWWXeMD3lsLopGH66RY3K7Lqc-Ai1ES7rrueOZjFyWcX08pi8VM4TDVvsizHIIH-4VMVm8Gs_2vUR3dGdbld3QV_iYsiMlaRW157JZ2ha5QXvrUVQOTDpQRqUUKEuh7BMNtmOpL1K2Wq2ysbxLfUls3qqdgFIWJAQ&ved=2ahUKEwi76bvp29CWAxXnRCoJHWa_KxUQFnoECCYQAQ&uoh=1",
+            "displayed_link": "7 reactions",
+            "favicon": "https://serpapi.com/images/i/iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8_9hAAAAm0lEQVR4AWP4__8_RRhMyLfs3sNQvOk_KRikB24ATNB2yhEQJtoQuAEwzVAAYtPVAMJe4Cjf8l-0bsd_RkIGQAGc_ej9t_-TDt_7_-vPXzD_6Yfv_-2nHSXWAAT49P33_z9__4HZl559JM2Aqm3XwXyXGcfA_H___pFmgFj9DjCfp3IrTIgkA5ADbbAbQA6mKDPp9x7YBTOAIgwAVba5DGceMlQAAAAASUVORK5CYII.png",
+            "snippet": "The beverage aisle is changing, and so are consumer expectations. Consumers are increasingly choosing beverages based on what they can do, not just what ...",
+            "snippet_highlighted_words": [
+              "beverage",
+              "beverages"
+            ],
+            "about_this_result": {
+              "source": {
+                "description": "The beverage aisle is changing, and so are consumer expectations. Consumers are increasingly choosing beverages based on what they can do, not just what ...",
+                "source_info_link": "https://www.linkedin.com/posts/vitaforte_functionalbeverages-foodinnovation-beverageindustry-activity-7498076777437876224-4upT",
+                "icon": "https://serpapi.com/images/i/iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8_9hAAAAm0lEQVR4AWP4__8_RRhMyLfs3sNQvOk_KRikB24ATNB2yhEQJtoQuAEwzVAAYtPVAMJe4Cjf8l-0bsd_RkIGQAGc_ej9t_-TDt_7_-vPXzD_6Yfv_-2nHSXWAAT49P33_z9__4HZl559JM2Aqm3XwXyXGcfA_H___pFmgFj9DjCfp3IrTIgkA5ADbbAbQA6mKDPp9x7YBTOAIgwAVba5DGceMlQAAAAASUVORK5CYII.png"
+              },
+              "languages": [
+                "en"
+              ],
+              "regions": [
+                "US"
+              ]
+            },
+            "about_page_link": "https://www.google.com/search?q=About+https://www.linkedin.com/posts/vitaforte_functionalbeverages-foodinnovation-beverageindustry-activity-7498076777437876224-4upT&tbm=ilp",
+            "about_page_serpapi_link": "https://serpapi.com/search.json?engine=google_about_this_result&google_domain=google.com&q=About+https%3A%2F%2Fwww.linkedin.com%2Fposts%2Fvitaforte_functionalbeverages-foodinnovation-beverageindustry-activity-7498076777437876224-4upT",
+            "source": "LinkedIn · Vita Forte Inc."
+          },
+          {
+            "position": 5,
+            "title": "Food & Beverage Trends",
+            "link": "https://restaurant.org/education-and-resources/learning-center/food-nutrition/food-and-beverage-trends/",
+            "redirect_link": "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=CAESnwEB6zswFf4Yt46mfWcX6xpJ3r-cSS3Lzd9qtYsissw7BqGw5OzdCEor2G8CKBQHJmNGgqqeWTzYFgM9hvfTYKQKPhk-5fYuR55YHaQJNx7u75LgsC2R1W7B261ivwx7ZDAU5hCz4bO4fsewyTVf31yqCk4xRPEw9Oo4iY_bIP12GsHgviuoJ79Xc4RCoGB7-TPUv1KMwsPGXzRPrzuC9UI&ved=2ahUKEwi76bvp29CWAxXnRCoJHWa_KxUQFnoECCsQAQ&uoh=1",
+            "displayed_link": "https://restaurant.org › learning-center › food-nutrition",
+            "favicon": "https://serpapi.com/images/i/iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAMAAABF0y-mAAAAaVBMVEUgMHoNI3UVKHcbLHgAHnMeLnmlqcJsc59AS4i4u88YKniPlLT___9iapkAFnFxeKLQ0t-rr8ean7wzQIIqOX8AAm3CxNaUmrjb3OZMVY3z9PdlbZvW2OOIjrEAGXJaY5UACW6ztsvr7PIcaWoIAAAAs0lEQVR4Ac3RhRWEMBAA0eAQF9yh_yIv-OYdBTA4Hwd9NM9Hd0EYuRYn4b2eZil2kFB2KhdSaRMADHJ6ahHLmOgyRCAuD-VlGZOqTgOIuKGbBk2rCakTDznxbFPe0X7o9Qhla2ytTsrOstmB-8J0WLp0RP-FYtOJB-ilqNCbduGbzf0aZwtUYJL2fOQG6m09ldtTegwqtK3QqvsRRnnYqX2HIba3WU3U4CMQH8EP9r3NvtgPqcwLdn9GsWIAAAAASUVORK5CYII.png",
+            "date": "6 days ago",
+            "snippet": "What's Hot in 2026? Healthier, functional beverages. December 10, 2025. With a nod towards wellness, diners prioritize personalization, sustainability, and ...",
+            "snippet_highlighted_words": [
+              "Healthier, functional beverages"
+            ],
+            "about_this_result": {
+              "source": {
+                "description": "What's Hot in 2026? Healthier, functional beverages. December 10, 2025. With a nod towards wellness, diners prioritize personalization, sustainability, and ...",
+                "source_info_link": "https://restaurant.org/education-and-resources/learning-center/food-nutrition/food-and-beverage-trends/",
+                "icon": "https://serpapi.com/images/i/iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAMAAABF0y-mAAAAaVBMVEUgMHoNI3UVKHcbLHgAHnMeLnmlqcJsc59AS4i4u88YKniPlLT___9iapkAFnFxeKLQ0t-rr8ean7wzQIIqOX8AAm3CxNaUmrjb3OZMVY3z9PdlbZvW2OOIjrEAGXJaY5UACW6ztsvr7PIcaWoIAAAAs0lEQVR4Ac3RhRWEMBAA0eAQF9yh_yIv-OYdBTA4Hwd9NM9Hd0EYuRYn4b2eZil2kFB2KhdSaRMADHJ6ahHLmOgyRCAuD-VlGZOqTgOIuKGbBk2rCakTDznxbFPe0X7o9Qhla2ytTsrOstmB-8J0WLp0RP-FYtOJB-ilqNCbduGbzf0aZwtUYJL2fOQG6m09ldtTegwqtK3QqvsRRnnYqX2HIba3WU3U4CMQH8EP9r3NvtgPqcwLdn9GsWIAAAAASUVORK5CYII.png"
+              },
+              "languages": [
+                "en"
+              ],
+              "regions": [
+                "US"
+              ]
+            },
+            "about_page_link": "https://www.google.com/search?q=About+https://restaurant.org/education-and-resources/learning-center/food-nutrition/food-and-beverage-trends/&tbm=ilp",
+            "about_page_serpapi_link": "https://serpapi.com/search.json?engine=google_about_this_result&google_domain=google.com&q=About+https%3A%2F%2Frestaurant.org%2Feducation-and-resources%2Flearning-center%2Ffood-nutrition%2Ffood-and-beverage-trends%2F",
+            "source": "National Restaurant Association",
+            "read_more_link": "https://www.google.com/goto?url=CAESnQIB6zswFdEDKY1qug2kxb1gtRaYfnyGoCu778gBzIW4wxPYBMCA_ZxXMOhqLaUKqTxoPUY6mFCuysptJ33bECfoYysI9XqPYrJjYDerQTJwq_YpN-fIih8A-AOhT6x-EBVa82Z54F8z_0VIJrWN7bSDgNrR81bls3rv9ej1bychVqX6tLOTed5w4Wa5fnz_vyHo4NyTem3itdS_tiUfms6muumvf93823AeY3nUtvpZQJx_RiceCjmYw2G0OVo5oJBwBaQDLKiIWN3WWGeoUDoPMI4-_aYM1vbKbZ_uga89m9kNG8InfoYsMajsPHGwDHLAvI7ScTi0g-SxOouSvzqhkk_krHLuVRhfs0wcL6dRebheBlKiRQDp1O1MN8I"
+          },
+          {
+            "position": 6,
+            "title": "Functional Drinks Market Size, Share & Growth, 2026-2034",
+            "link": "https://www.fortunebusinessinsights.com/functional-drinks-market-116398",
+            "redirect_link": "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=CAESfwHrOzAVEEt3aqi39DpHoDzCQHYQZn-KwFpvHNivdWyGTI3PtzT0uSwHcK5Nh8ZxlLj1TopAVG_G_CPDRc-2xLah7RZs4S6jO4-b1mJ0xgvH1qjpiw95rw4VW9PQwcMtOApKgbZzpPd4YiDiWVIgsRTtrSjr8Eye-SgK4Z5PzOM&ved=2ahUKEwi76bvp29CWAxXnRCoJHWa_KxUQFnoECCkQAQ&uoh=1",
+            "displayed_link": "https://www.fortunebusinessinsights.com › functional-dri...",
+            "favicon": "https://serpapi.com/images/i/iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAARVBMVEVHcEwGeKoMe5wAX4QAZIoAX4QAY4oAaZEAY4oAYYcbncYcnsgal78AY4obnscbmsIAaZEbmMEWk7gamcEcoMoamMAcoMpy3lZ-AAAAF3RSTlMAAQYjvjCc6_9Mv_9NdqL_3v8YdOks00bk72sAAAD-SURBVHgBhNAHFoQgDEXRH-yGEaXtf6kjsfd7OueFhm_0tawmIHUAmqMsFwWV-VGBSVbVowZ5fdSgZU1L8ENZH_3QGcMaJEGB_jpvhsGwlR0u-8v8MGIHFFWar_q9Bp33Q9IqZDJf2mwHFKyWIlpApfPL8ycR2jlQcn6Ji3Y-opB_yH8LUk7ILdnJK873TwYzbM_cKRDT-4eJ15Dg9D-bVklwnt-wV4egsZE3x0vmTdNkCHpHNvNhDkpcOE5b6DUgnOgUmC2APWnNLqgy5flE3sNBgqpR0l9FOwYyb24D1vLMx3luARS9tczmjncY2YJcd8sFzIgIr-gB_qMOAACnoh8nFivC8QAAAABJRU5ErkJggg.png",
+            "date": "Aug 10, 2026",
+            "snippet": "The global Functional Drinks Market size is projected to grow from $ 194.31 billion in 2026 to $ 376.65 billion by 2034, at CAGR of 8.62% during forecast ...",
+            "snippet_highlighted_words": [
+              "Functional Drinks",
+              "2026"
+            ],
+            "about_this_result": {
+              "source": {
+                "description": "The global Functional Drinks Market size is projected to grow from $ 194.31 billion in 2026 to $ 376.65 billion by 2034, at CAGR of 8.62% during forecast ...",
+                "source_info_link": "https://www.fortunebusinessinsights.com/functional-drinks-market-116398",
+                "icon": "https://serpapi.com/images/i/iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAARVBMVEVHcEwGeKoMe5wAX4QAZIoAX4QAY4oAaZEAY4oAYYcbncYcnsgal78AY4obnscbmsIAaZEbmMEWk7gamcEcoMoamMAcoMpy3lZ-AAAAF3RSTlMAAQYjvjCc6_9Mv_9NdqL_3v8YdOks00bk72sAAAD-SURBVHgBhNAHFoQgDEXRH-yGEaXtf6kjsfd7OueFhm_0tawmIHUAmqMsFwWV-VGBSVbVowZ5fdSgZU1L8ENZH_3QGcMaJEGB_jpvhsGwlR0u-8v8MGIHFFWar_q9Bp33Q9IqZDJf2mwHFKyWIlpApfPL8ycR2jlQcn6Ji3Y-opB_yH8LUk7ILdnJK873TwYzbM_cKRDT-4eJ15Dg9D-bVklwnt-wV4egsZE3x0vmTdNkCHpHNvNhDkpcOE5b6DUgnOgUmC2APWnNLqgy5flE3sNBgqpR0l9FOwYyb24D1vLMx3luARS9tczmjncY2YJcd8sFzIgIr-gB_qMOAACnoh8nFivC8QAAAABJRU5ErkJggg.png"
+              },
+              "languages": [
+                "en"
+              ],
+              "regions": [
+                "US"
+              ]
+            },
+            "about_page_link": "https://www.google.com/search?q=About+https://www.fortunebusinessinsights.com/functional-drinks-market-116398&tbm=ilp",
+            "about_page_serpapi_link": "https://serpapi.com/search.json?engine=google_about_this_result&google_domain=google.com&q=About+https%3A%2F%2Fwww.fortunebusinessinsights.com%2Ffunctional-drinks-market-116398",
+            "source": "Fortune Business Insights"
+          },
+          {
+            "position": 7,
+            "title": "National Restaurant Association",
+            "link": "https://www.google.com/goto?url=CAESyQEB6zswFSU7AApTNy6M1siILtT3ETBKxJb8TkEWHO0_0E4F_tF5t1F3rb4FtXtsjx1T_nzHEusvFkozsj0_VucFIQx56HHXuGYum22EbvKlHAdaJJdDu3fNmO_jZUcbAwcbsi38nsukdYntpww15DqU9e59EpRxzri1zAZxhktYIkKka41wiyge5wNBgtsN08VRQnew3EkY0zmQJmows61I4pdQS2oRt4kxBjCFQMCdj7qfllykthBTabXJaEn0rrNOeWwTlaBXmYg",
+            "displayed_link": "1 week ago",
+            "thumbnail": "https://serpapi.com/searches/6a988495018c48c38d698b1c/images/L3TK1tU06edRR14XZtsfO2FUQbMT79x4PpAKdR3a8Yc.jpeg",
+            "favicon": "https://serpapi.com/images/i/iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAMAAABF0y-mAAAAXVBMVEVHcEwHZv8HaP8IZ_8IZ_8IZv8IaP8IZ_8HZv8Haf8IZ_8IaP8IZ_8AXv8AV_8AYv-SqP_P1__m6__e5f9wlP____-tvP9jiv82c_8IZ_8Iaf-fsf________8AW_-wrobhAAAAH3RSTlMAM4bC6v1h7v8Z3UL_______7_________wRiFwenBhp_Z0gAAAOhJREFUeAFtk0UWwzAMBWWHFHOZe_9bBn9Nr7Mdg5AiQjZt17WNFFTTDxwZ-kKNigvUmJw2XGF0dByx1jlnPTPDjiYqDofj8XQ4L9bsL6vozpedq13_3eJk4G-XXPIac8zBHUs5EIl48Q4Tws3ziiAZ5f7j3Vq7O5b0iOGE1Z0cRxpqS3mwSbbU4VHndukW8GwHiQ_BzUO2KceIw7MIqJBHyIZk_WwKSv6KcD_frlsqt_P5joBELJ-3iNZD8YDC_82zz1pWS5U1u5bmmY1JLdMQmVoaOIxmIdVYDXWUxVAD8Xp_FvnN1mEG0f0e5ixC4ikAAAAASUVORK5CYII.png",
+            "snippet": "Consumers are looking for more variety, new flavors, and experiences they can't easily recreate at home! Our all-new 2026 Restaurant Beverage Trends report ...",
+            "duration": "0:15",
+            "about_this_result": {
+              "source": {
+                "description": "Consumers are looking for more variety, new flavors, and experiences they can't easily recreate at home! Our all-new 2026 Restaurant Beverage Trends report ...",
+                "icon": "https://serpapi.com/images/i/iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAMAAABF0y-mAAAAXVBMVEVHcEwHZv8HaP8IZ_8IZ_8IZv8IaP8IZ_8HZv8Haf8IZ_8IaP8IZ_8AXv8AV_8AYv-SqP_P1__m6__e5f9wlP____-tvP9jiv82c_8IZ_8Iaf-fsf________8AW_-wrobhAAAAH3RSTlMAM4bC6v1h7v8Z3UL_______7_________wRiFwenBhp_Z0gAAAOhJREFUeAFtk0UWwzAMBWWHFHOZe_9bBn9Nr7Mdg5AiQjZt17WNFFTTDxwZ-kKNigvUmJw2XGF0dByx1jlnPTPDjiYqDofj8XQ4L9bsL6vozpedq13_3eJk4G-XXPIac8zBHUs5EIl48Q4Tws3ziiAZ5f7j3Vq7O5b0iOGE1Z0cRxpqS3mwSbbU4VHndukW8GwHiQ_BzUO2KceIw7MIqJBHyIZk_WwKSv6KcD_frlsqt_P5joBELJ-3iNZD8YDC_82zz1pWS5U1u5bmmY1JLdMQmVoaOIxmIdVYDXWUxVAD8Xp_FvnN1mEG0f0e5ixC4ikAAAAASUVORK5CYII.png"
+              }
+            },
+            "about_page_link": "https://www.google.com/search?q=About+https://www.google.com/goto?url=CAESyQEB6zswFSU7AApTNy6M1siILtT3ETBKxJb8TkEWHO0_0E4F_tF5t1F3rb4FtXtsjx1T_nzHEusvFkozsj0_VucFIQx56HHXuGYum22EbvKlHAdaJJdDu3fNmO_jZUcbAwcbsi38nsukdYntpww15DqU9e59EpRxzri1zAZxhktYIkKka41wiyge5wNBgtsN08VRQnew3EkY0zmQJmows61I4pdQS2oRt4kxBjCFQMCdj7qfllykthBTabXJaEn0rrNOeWwTlaBXmYg&tbm=ilp",
+            "about_page_serpapi_link": "https://serpapi.com/search.json?engine=google_about_this_result&google_domain=google.com&q=About+https%3A%2F%2Fwww.google.com%2Fgoto%3Furl%3DCAESyQEB6zswFSU7AApTNy6M1siILtT3ETBKxJb8TkEWHO0_0E4F_tF5t1F3rb4FtXtsjx1T_nzHEusvFkozsj0_VucFIQx56HHXuGYum22EbvKlHAdaJJdDu3fNmO_jZUcbAwcbsi38nsukdYntpww15DqU9e59EpRxzri1zAZxhktYIkKka41wiyge5wNBgtsN08VRQnew3EkY0zmQJmows61I4pdQS2oRt4kxBjCFQMCdj7qfllykthBTabXJaEn0rrNOeWwTlaBXmYg",
+            "source": "Facebook · National Restaurant Association"
+          },
+          {
+            "position": 8,
+            "title": "2026 Food, Flavor & Beverage Trends",
+            "link": "https://datassential.com/resource/food-and-beverage-trends-2026/",
+            "redirect_link": "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=CAESeAHrOzAV03OVhzLR_y8ph0dVkwVIsCQEpOAKjw_7d06mUXJxMmSJ6qkVNri0Q6eCRNZ97cotX3AUpAMV2JOSj4Cnr_b-vhHWFH2bMgV0-HZpKWYVDnqLStYjCRMHiLS7q-E58bDzHoDOdEW4g8Jn0IGjBV2Lnhi8tQ&ved=2ahUKEwi76bvp29CWAxXnRCoJHWa_KxUQFnoECCUQAQ&uoh=1",
+            "displayed_link": "https://datassential.com › resource › food-and-beverage...",
+            "favicon": "https://serpapi.com/images/i/iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAMAAABF0y-mAAAAP1BMVEVHcEwA4K4A4K4A4K4A4K4A4K4A4K4A4K4A4K4A4K4A4K4A4K4A4K4A4K4A4K4A4K4A4K4A4K4A4K4A4K4A4K7wJ3QBAAAAFXRSTlMAFyj_ymdQcYa7CFnn1JOwNPUffJxOZUTeAAAAw0lEQVR4AaSSR4IDIQwEW9OECWT4_1edbbEOp61rgTL-iSxP5FNywtg36fyTdSPpoew7Zo5Ao984Ew8gMb5kxkQxtaFzqKSySeECQ1EZ04ONdAuxcKhM2nKgZI9QJ7mbl2WWgERRKQFPDEFYlq9yEHV3dL9kkFm-h93fw2pB4HtBUys2P1pR6cZ9CAfYGsdfGXklN8Sk43vLWeqYBn9sV0nfvfd91FDmlTV3kVjvHAIXaKDsNPZBz29nch56AsOfNCkHAOkzCfaJLtEyAAAAAElFTkSuQmCC.png",
+            "date": "Aug 25, 2026",
+            "snippet": "Key trends shaping 2026, such as fiber, meat, and teatime · The global cuisine to know in 2026 (hint: think turmeric, curry leaves, and tamarind) · A snapshot of ...",
+            "snippet_highlighted_words": [
+              "fiber, meat, and teatime"
+            ],
+            "about_this_result": {
+              "source": {
+                "description": "Key trends shaping 2026, such as fiber, meat, and teatime · The global cuisine to know in 2026 (hint: think turmeric, curry leaves, and tamarind) · A snapshot of ...",
+                "source_info_link": "https://datassential.com/resource/food-and-beverage-trends-2026/",
+                "icon": "https://serpapi.com/images/i/iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAMAAABF0y-mAAAAP1BMVEVHcEwA4K4A4K4A4K4A4K4A4K4A4K4A4K4A4K4A4K4A4K4A4K4A4K4A4K4A4K4A4K4A4K4A4K4A4K4A4K4A4K7wJ3QBAAAAFXRSTlMAFyj_ymdQcYa7CFnn1JOwNPUffJxOZUTeAAAAw0lEQVR4AaSSR4IDIQwEW9OECWT4_1edbbEOp61rgTL-iSxP5FNywtg36fyTdSPpoew7Zo5Ao984Ew8gMb5kxkQxtaFzqKSySeECQ1EZ04ONdAuxcKhM2nKgZI9QJ7mbl2WWgERRKQFPDEFYlq9yEHV3dL9kkFm-h93fw2pB4HtBUys2P1pR6cZ9CAfYGsdfGXklN8Sk43vLWeqYBn9sV0nfvfd91FDmlTV3kVjvHAIXaKDsNPZBz29nch56AsOfNCkHAOkzCfaJLtEyAAAAAElFTkSuQmCC.png"
+              },
+              "languages": [
+                "en"
+              ],
+              "regions": [
+                "US"
+              ]
+            },
+            "about_page_link": "https://www.google.com/search?q=About+https://datassential.com/resource/food-and-beverage-trends-2026/&tbm=ilp",
+            "about_page_serpapi_link": "https://serpapi.com/search.json?engine=google_about_this_result&google_domain=google.com&q=About+https%3A%2F%2Fdatassential.com%2Fresource%2Ffood-and-beverage-trends-2026%2F",
+            "source": "Datassential",
+            "read_more_link": "https://www.google.com/goto?url=CAES7gIB6zswFYeer55Edv8bcP9DFpVQ-kbZNYjJ7n4zznn-BLenfVtRnXk7N3liGd8iVSfqjVv6-AlHvkajYyLxgLCb7WpXzjNOZvnhwl0xAqcFcwb64wTxRhSNCfuR2rfzWg1MXgJHOFqrOcF9pWUT-RGPOiusizBdcP4cVtU2dpB762-7Zgg1Emp6vZPzsZiaJZpu8l_hCCCML280beHiHSz2uleDVLsDsAylqo3b6uAUc49pNXWYx5Q-qOAbIXzipzJMmlgneHjET5ZO99T6eJppIqdQdclSxR18nkE41favGq7tWWMW5bsJpzyIupmkhUk-F_BkIKJAwFOMqtBZAo-Qv1VY2YKwx7sKlLBQUcGavOTGv2T2n06HYwLjf1S4m6bMMMoTFutqEulDrmtqZXyPYsjmrTwhrT9-Hroy-2X-6m02GnTev5IGq3HEOdz78EvRheKqtBnerJnhBFJxisSZUtDbrxaXJYiM7gtywWw"
+          },
+          {
+            "position": 9,
+            "title": "Post-workout recovery trends in functional beverages ...",
+            "link": "https://www.facebook.com/bevnetcom/posts/post-workout-recovery-is-becoming-one-of-beverages-most-closely-watched-function/1726609186131863/",
+            "redirect_link": "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=CAESxAEB6zswFeOLuLwF1xmjmlrysaZU8TbJHFK50emz_qFBl-ikStXkyK3HoG4ClioNa9UKwc-ZU8buAuAw49wj0Fq9hTuK9Bzw8Z9aoZYcq9cFHQPAYiIqiAjrcbBqxMOt-xYuFjbjDJr7e6SPKbW7KX_YpDWMih14E3kktot7WWrWcVUMfoO9hy__EbosMm-xabXIhcJqJlMBvFCAzkk0-55ZFsh7WvM95qOIDTGmNQNDQEnTwbZOIbnYxVsHUTvXP3OqHLQR&ved=2ahUKEwi76bvp29CWAxXnRCoJHWa_KxUQFnoECCgQAQ&uoh=1",
+            "displayed_link": "https://www.facebook.com › bevnetcom › posts › post-...",
+            "favicon": "https://serpapi.com/images/i/iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAMAAABF0y-mAAAAXVBMVEVHcEwHZv8HaP8IZ_8IZ_8IZv8IaP8IZ_8HZv8Haf8IZ_8IaP8IZ_8AXv8AV_8AYv-SqP_P1__m6__e5f9wlP____-tvP9jiv82c_8IZ_8Iaf-fsf________8AW_-wrobhAAAAH3RSTlMAM4bC6v1h7v8Z3UL_______7_________wRiFwenBhp_Z0gAAAOhJREFUeAFtk0UWwzAMBWWHFHOZe_9bBn9Nr7Mdg5AiQjZt17WNFFTTDxwZ-kKNigvUmJw2XGF0dByx1jlnPTPDjiYqDofj8XQ4L9bsL6vozpedq13_3eJk4G-XXPIac8zBHUs5EIl48Q4Tws3ziiAZ5f7j3Vq7O5b0iOGE1Z0cRxpqS3mwSbbU4VHndukW8GwHiQ_BzUO2KceIw7MIqJBHyIZk_WwKSv6KcD_frlsqt_P5joBELJ-3iNZD8YDC_82zz1pWS5U1u5bmmY1JLdMQmVoaOIxmIdVYDXWUxVAD8Xp_FvnN1mEG0f0e5ixC4ikAAAAASUVORK5CYII.png",
+            "snippet": "A recent report predicted the global functional beverages market size is expected to grow from $224.99 billion in 2027 at a CAGR of 11.1%.",
+            "snippet_highlighted_words": [
+              "functional beverages"
+            ],
+            "about_this_result": {
+              "source": {
+                "description": "A recent report predicted the global functional beverages market size is expected to grow from $224.99 billion in 2027 at a CAGR of 11.1%.",
+                "source_info_link": "https://www.facebook.com/bevnetcom/posts/post-workout-recovery-is-becoming-one-of-beverages-most-closely-watched-function/1726609186131863/",
+                "icon": "https://serpapi.com/images/i/iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAMAAABF0y-mAAAAXVBMVEVHcEwHZv8HaP8IZ_8IZ_8IZv8IaP8IZ_8HZv8Haf8IZ_8IaP8IZ_8AXv8AV_8AYv-SqP_P1__m6__e5f9wlP____-tvP9jiv82c_8IZ_8Iaf-fsf________8AW_-wrobhAAAAH3RSTlMAM4bC6v1h7v8Z3UL_______7_________wRiFwenBhp_Z0gAAAOhJREFUeAFtk0UWwzAMBWWHFHOZe_9bBn9Nr7Mdg5AiQjZt17WNFFTTDxwZ-kKNigvUmJw2XGF0dByx1jlnPTPDjiYqDofj8XQ4L9bsL6vozpedq13_3eJk4G-XXPIac8zBHUs5EIl48Q4Tws3ziiAZ5f7j3Vq7O5b0iOGE1Z0cRxpqS3mwSbbU4VHndukW8GwHiQ_BzUO2KceIw7MIqJBHyIZk_WwKSv6KcD_frlsqt_P5joBELJ-3iNZD8YDC_82zz1pWS5U1u5bmmY1JLdMQmVoaOIxmIdVYDXWUxVAD8Xp_FvnN1mEG0f0e5ixC4ikAAAAASUVORK5CYII.png"
+              },
+              "languages": [
+                "en"
+              ],
+              "regions": [
+                "US"
+              ]
+            },
+            "about_page_link": "https://www.google.com/search?q=About+https://www.facebook.com/bevnetcom/posts/post-workout-recovery-is-becoming-one-of-beverages-most-closely-watched-function/1726609186131863/&tbm=ilp",
+            "about_page_serpapi_link": "https://serpapi.com/search.json?engine=google_about_this_result&google_domain=google.com&q=About+https%3A%2F%2Fwww.facebook.com%2Fbevnetcom%2Fposts%2Fpost-workout-recovery-is-becoming-one-of-beverages-most-closely-watched-function%2F1726609186131863%2F",
+            "source": "Facebook",
+            "read_more_link": "https://www.google.com/goto?url=CAESnAIB6zswFflaJZdy--nlSWHrcK25LXoWJQp1dsGTvWn4n7x-MerpDXFONXdKh6z6ITdqP0ryRvPtR0GqV_IsgZdz4KP0YIc8Pe3QvW1kKIJ0r-z359QlE6Q6qo6uHtbYbGELT3-gtJJl2J2tqv7pyGVne8NPl1Jer3ne_FrN10HzYvRTzcKGlV_NGmvUwR6aCwCsmbWH1fkQZn2mpRLZf6Nz2sG6dwKqXZvw98uayurQ6cuWv_sYj3-xl9U-yvX0eVQM0RuPp2nsj_tcHlsWrvAwmWhAg0W5RP-F4-JIjJzjqR9ht3wZLDxABWLopPjMjETcjBvwUKGlSaG5GmSOT6EI1v3zdpkVEbyzrWoethQCscwcyH3u6CNJvrS-Zg"
+          },
+          {
+            "position": 10,
+            "title": "Nutrition & Functional Beverages",
+            "link": "https://www.mccormickflavor.com/nutrition-functional-beverages",
+            "redirect_link": "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=CAESdgHrOzAVg0njdQ9NbeUSMBU0_Hr3TpTSi7JtAfTXCJ92WCTcBYQY_Wg1zRUFvTQwjWqDw84SZDwaCmF--KC_igxBA4dIJqHmsv9HnOqoPDUxio3yQjfnklJUJnd0TLKCKOr1HrbxQqlaiv-mSzRM48WlAeoohXg&ved=2ahUKEwi76bvp29CWAxXnRCoJHWa_KxUQFnoECCwQAQ&uoh=1",
+            "displayed_link": "https://www.mccormickflavor.com › nutrition-functional...",
+            "favicon": "https://serpapi.com/images/i/iVBORw0KGgoAAAANSUhEUgAAACAAAAAbCAMAAAAqGX2oAAAAS1BMVEVHcEwGL4cGL4cFL4cEL4cGL4cGL4cGL4cFL4cGL4cGL4ecHUsGL4cFL4cGL4fPFS3PFS3PFS3PFS3PFS3PFS3PFS3RFCrPFS3QFCwx3Aj1AAAAGXRSTlMAGLJpgyVG_zXHeA_u5XBX_3CdsOXqPsqNimTW5wAAAMlJREFUeAHNkEWCxSAQBV88eBOD-590gsx399pgRRsCRYlIVae1bLBH23VdH-67jgFo1mOFHeouwIWMa1HFpcQ_8T6g8prPHBndVummEcnLEfV-DbGKOgk4EpAFnQX1K0IFQ_aCUGMgovGs0GOiwFycEqTCQo4iyymhhicyllbMyRQIvy2EMaeLTOnthTbna8L0GsFdqyGFsCfnkGfkrJ-X03PwlJiEOC1goYDH4PdS8LBIBMREtGCx1iBQc87rAj1fqZDwIbox4g_obxUmB1CdDgAAAABJRU5ErkJggg.png",
+            "date": "7 days ago",
+            "snippet": "Dive into insights behind nutrition & functional beverage flavors & trends ... Trend Bite: 2026 Food & Beverage Trends of Interest · Read More · Trends · Trend ...",
+            "snippet_highlighted_words": [
+              "functional beverage",
+              "trends",
+              "Trend",
+              "2026 Food",
+              "Beverage Trends",
+              "Trends",
+              "Trend"
+            ],
+            "about_this_result": {
+              "source": {
+                "description": "Dive into insights behind nutrition & functional beverage flavors & trends ... Trend Bite: 2026 Food & Beverage Trends of Interest · Read More · Trends · Trend ...",
+                "source_info_link": "https://www.mccormickflavor.com/nutrition-functional-beverages",
+                "icon": "https://serpapi.com/images/i/iVBORw0KGgoAAAANSUhEUgAAACAAAAAbCAMAAAAqGX2oAAAAS1BMVEVHcEwGL4cGL4cFL4cEL4cGL4cGL4cGL4cFL4cGL4cGL4ecHUsGL4cFL4cGL4fPFS3PFS3PFS3PFS3PFS3PFS3PFS3RFCrPFS3QFCwx3Aj1AAAAGXRSTlMAGLJpgyVG_zXHeA_u5XBX_3CdsOXqPsqNimTW5wAAAMlJREFUeAHNkEWCxSAQBV88eBOD-590gsx399pgRRsCRYlIVae1bLBH23VdH-67jgFo1mOFHeouwIWMa1HFpcQ_8T6g8prPHBndVummEcnLEfV-DbGKOgk4EpAFnQX1K0IFQ_aCUGMgovGs0GOiwFycEqTCQo4iyymhhicyllbMyRQIvy2EMaeLTOnthTbna8L0GsFdqyGFsCfnkGfkrJ-X03PwlJiEOC1goYDH4PdS8LBIBMREtGCx1iBQc87rAj1fqZDwIbox4g_obxUmB1CdDgAAAABJRU5ErkJggg.png"
+              },
+              "languages": [
+                "en"
+              ],
+              "regions": [
+                "US"
+              ]
+            },
+            "about_page_link": "https://www.google.com/search?q=About+https://www.mccormickflavor.com/nutrition-functional-beverages&tbm=ilp",
+            "about_page_serpapi_link": "https://serpapi.com/search.json?engine=google_about_this_result&google_domain=google.com&q=About+https%3A%2F%2Fwww.mccormickflavor.com%2Fnutrition-functional-beverages",
+            "source": "McCormick Flavor Solutions",
+            "read_more_link": "https://www.google.com/goto?url=CAESgQIB6zswFRPqn5UpCM04ZZ-Gu6LcZgwSKXgyzPOj4Tex-axkVGxvSJ0lRpaurAeBMAZnU1JGUFKmW6Jnv1GqWg0KNH5Bh6SkHj9mT7CzjzGgKQeehR6xbT_VOTMHLUjwmP2yA4AZee8Pj2pAmV3cu6qzYCnNph1YE0ewYxPCw6xJGGWMHRqG02SeZvemMM1CljEnE2omyx754cnGblMOJPmZR7Xo4rY9ttMBZRCgtoHvCkDdAcRgG1eZkM2MP5RUaO2KrmlEzRdqcA4JrOGBRXPatAYoPQVrcrbxdwp394pE7KkivsN2McqiM3VLBP3QpWtBXzm4s23SQsBP2rAmnsoBlw"
+          }
+        ],
+        "pagination": {
+          "current": 1,
+          "next": "https://www.google.com/search?q=Functional+Beverage+Innovations+(Food+%26+Beverages)+trends+2026+United+States+after:2026-08-03+before:2026-09-02&sca_esv=70e3d5c639063899&gl=us&hl=en&sxsrf=APpeQntPDglz-iQK0SOxZtkhY7jGVf-eeg:1788380311391&ei=l4SYavvBF-eJqfkP5v6uqQE&start=10&sa=N&sstk=AS6-VmLu093v4TVHWP_qYZb51B_QCrCfUFcp1Y7GzGFOsxm-WeZ36Jb7RCOoHi28SwLJ9vsxKQWuFk8tdMQSk3MoXBoTR7PGI305ng&ved=2ahUKEwi76bvp29CWAxXnRCoJHWa_KxUQ8NMDegQIIxAW",
+          "other_pages": {
+            "2": "https://www.google.com/search?q=Functional+Beverage+Innovations+(Food+%26+Beverages)+trends+2026+United+States+after:2026-08-03+before:2026-09-02&sca_esv=70e3d5c639063899&gl=us&hl=en&sxsrf=APpeQntPDglz-iQK0SOxZtkhY7jGVf-eeg:1788380311391&ei=l4SYavvBF-eJqfkP5v6uqQE&start=10&sa=N&sstk=AS6-VmLu093v4TVHWP_qYZb51B_QCrCfUFcp1Y7GzGFOsxm-WeZ36Jb7RCOoHi28SwLJ9vsxKQWuFk8tdMQSk3MoXBoTR7PGI305ng&ved=2ahUKEwi76bvp29CWAxXnRCoJHWa_KxUQ8tMDegQIIxAE",
+            "3": "https://www.google.com/search?q=Functional+Beverage+Innovations+(Food+%26+Beverages)+trends+2026+United+States+after:2026-08-03+before:2026-09-02&sca_esv=70e3d5c639063899&gl=us&hl=en&sxsrf=APpeQntPDglz-iQK0SOxZtkhY7jGVf-eeg:1788380311391&ei=l4SYavvBF-eJqfkP5v6uqQE&start=20&sa=N&sstk=AS6-VmLu093v4TVHWP_qYZb51B_QCrCfUFcp1Y7GzGFOsxm-WeZ36Jb7RCOoHi28SwLJ9vsxKQWuFk8tdMQSk3MoXBoTR7PGI305ng&ved=2ahUKEwi76bvp29CWAxXnRCoJHWa_KxUQ8tMDegQIIxAG",
+            "4": "https://www.google.com/search?q=Functional+Beverage+Innovations+(Food+%26+Beverages)+trends+2026+United+States+after:2026-08-03+before:2026-09-02&sca_esv=70e3d5c639063899&gl=us&hl=en&sxsrf=APpeQntPDglz-iQK0SOxZtkhY7jGVf-eeg:1788380311391&ei=l4SYavvBF-eJqfkP5v6uqQE&start=30&sa=N&sstk=AS6-VmLu093v4TVHWP_qYZb51B_QCrCfUFcp1Y7GzGFOsxm-WeZ36Jb7RCOoHi28SwLJ9vsxKQWuFk8tdMQSk3MoXBoTR7PGI305ng&ved=2ahUKEwi76bvp29CWAxXnRCoJHWa_KxUQ8tMDegQIIxAI",
+            "5": "https://www.google.com/search?q=Functional+Beverage+Innovations+(Food+%26+Beverages)+trends+2026+United+States+after:2026-08-03+before:2026-09-02&sca_esv=70e3d5c639063899&gl=us&hl=en&sxsrf=APpeQntPDglz-iQK0SOxZtkhY7jGVf-eeg:1788380311391&ei=l4SYavvBF-eJqfkP5v6uqQE&start=40&sa=N&sstk=AS6-VmLu093v4TVHWP_qYZb51B_QCrCfUFcp1Y7GzGFOsxm-WeZ36Jb7RCOoHi28SwLJ9vsxKQWuFk8tdMQSk3MoXBoTR7PGI305ng&ved=2ahUKEwi76bvp29CWAxXnRCoJHWa_KxUQ8tMDegQIIxAK",
+            "6": "https://www.google.com/search?q=Functional+Beverage+Innovations+(Food+%26+Beverages)+trends+2026+United+States+after:2026-08-03+before:2026-09-02&sca_esv=70e3d5c639063899&gl=us&hl=en&sxsrf=APpeQntPDglz-iQK0SOxZtkhY7jGVf-eeg:1788380311391&ei=l4SYavvBF-eJqfkP5v6uqQE&start=50&sa=N&sstk=AS6-VmLu093v4TVHWP_qYZb51B_QCrCfUFcp1Y7GzGFOsxm-WeZ36Jb7RCOoHi28SwLJ9vsxKQWuFk8tdMQSk3MoXBoTR7PGI305ng&ved=2ahUKEwi76bvp29CWAxXnRCoJHWa_KxUQ8tMDegQIIxAM",
+            "7": "https://www.google.com/search?q=Functional+Beverage+Innovations+(Food+%26+Beverages)+trends+2026+United+States+after:2026-08-03+before:2026-09-02&sca_esv=70e3d5c639063899&gl=us&hl=en&sxsrf=APpeQntPDglz-iQK0SOxZtkhY7jGVf-eeg:1788380311391&ei=l4SYavvBF-eJqfkP5v6uqQE&start=60&sa=N&sstk=AS6-VmLu093v4TVHWP_qYZb51B_QCrCfUFcp1Y7GzGFOsxm-WeZ36Jb7RCOoHi28SwLJ9vsxKQWuFk8tdMQSk3MoXBoTR7PGI305ng&ved=2ahUKEwi76bvp29CWAxXnRCoJHWa_KxUQ8tMDegQIIxAO",
+            "8": "https://www.google.com/search?q=Functional+Beverage+Innovations+(Food+%26+Beverages)+trends+2026+United+States+after:2026-08-03+before:2026-09-02&sca_esv=70e3d5c639063899&gl=us&hl=en&sxsrf=APpeQntPDglz-iQK0SOxZtkhY7jGVf-eeg:1788380311391&ei=l4SYavvBF-eJqfkP5v6uqQE&start=70&sa=N&sstk=AS6-VmLu093v4TVHWP_qYZb51B_QCrCfUFcp1Y7GzGFOsxm-WeZ36Jb7RCOoHi28SwLJ9vsxKQWuFk8tdMQSk3MoXBoTR7PGI305ng&ved=2ahUKEwi76bvp29CWAxXnRCoJHWa_KxUQ8tMDegQIIxAQ",
+            "9": "https://www.google.com/search?q=Functional+Beverage+Innovations+(Food+%26+Beverages)+trends+2026+United+States+after:2026-08-03+before:2026-09-02&sca_esv=70e3d5c639063899&gl=us&hl=en&sxsrf=APpeQntPDglz-iQK0SOxZtkhY7jGVf-eeg:1788380311391&ei=l4SYavvBF-eJqfkP5v6uqQE&start=80&sa=N&sstk=AS6-VmLu093v4TVHWP_qYZb51B_QCrCfUFcp1Y7GzGFOsxm-WeZ36Jb7RCOoHi28SwLJ9vsxKQWuFk8tdMQSk3MoXBoTR7PGI305ng&ved=2ahUKEwi76bvp29CWAxXnRCoJHWa_KxUQ8tMDegQIIxAS",
+            "10": "https://www.google.com/search?q=Functional+Beverage+Innovations+(Food+%26+Beverages)+trends+2026+United+States+after:2026-08-03+before:2026-09-02&sca_esv=70e3d5c639063899&gl=us&hl=en&sxsrf=APpeQntPDglz-iQK0SOxZtkhY7jGVf-eeg:1788380311391&ei=l4SYavvBF-eJqfkP5v6uqQE&start=90&sa=N&sstk=AS6-VmLu093v4TVHWP_qYZb51B_QCrCfUFcp1Y7GzGFOsxm-WeZ36Jb7RCOoHi28SwLJ9vsxKQWuFk8tdMQSk3MoXBoTR7PGI305ng&ved=2ahUKEwi76bvp29CWAxXnRCoJHWa_KxUQ8tMDegQIIxAU"
+          }
+        },
+        "serpapi_pagination": {
+          "current": 1,
+          "next_link": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&q=Functional+Beverage+Innovations+%28Food+%26+Beverages%29+trends+2026+United+States+after%3A2026-08-03+before%3A2026-09-02&start=10&tbs=sbd%3A1",
+          "next": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&q=Functional+Beverage+Innovations+%28Food+%26+Beverages%29+trends+2026+United+States+after%3A2026-08-03+before%3A2026-09-02&start=10&tbs=sbd%3A1",
+          "other_pages": {
+            "2": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&q=Functional+Beverage+Innovations+%28Food+%26+Beverages%29+trends+2026+United+States+after%3A2026-08-03+before%3A2026-09-02&start=10&tbs=sbd%3A1",
+            "3": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&q=Functional+Beverage+Innovations+%28Food+%26+Beverages%29+trends+2026+United+States+after%3A2026-08-03+before%3A2026-09-02&start=20&tbs=sbd%3A1",
+            "4": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&q=Functional+Beverage+Innovations+%28Food+%26+Beverages%29+trends+2026+United+States+after%3A2026-08-03+before%3A2026-09-02&start=30&tbs=sbd%3A1",
+            "5": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&q=Functional+Beverage+Innovations+%28Food+%26+Beverages%29+trends+2026+United+States+after%3A2026-08-03+before%3A2026-09-02&start=40&tbs=sbd%3A1",
+            "6": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&q=Functional+Beverage+Innovations+%28Food+%26+Beverages%29+trends+2026+United+States+after%3A2026-08-03+before%3A2026-09-02&start=50&tbs=sbd%3A1",
+            "7": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&q=Functional+Beverage+Innovations+%28Food+%26+Beverages%29+trends+2026+United+States+after%3A2026-08-03+before%3A2026-09-02&start=60&tbs=sbd%3A1",
+            "8": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&q=Functional+Beverage+Innovations+%28Food+%26+Beverages%29+trends+2026+United+States+after%3A2026-08-03+before%3A2026-09-02&start=70&tbs=sbd%3A1",
+            "9": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&q=Functional+Beverage+Innovations+%28Food+%26+Beverages%29+trends+2026+United+States+after%3A2026-08-03+before%3A2026-09-02&start=80&tbs=sbd%3A1",
+            "10": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&q=Functional+Beverage+Innovations+%28Food+%26+Beverages%29+trends+2026+United+States+after%3A2026-08-03+before%3A2026-09-02&start=90&tbs=sbd%3A1"
+          }
+        }
+      }
     },
     {
       "provider": "tavily",
       "country": "us",
-      "error": "ConnectionError: HTTPSConnectionPool(host='api.tavily.com', port=443): Max retries exceeded with url: /search (Caused by NameResolutionError(\"<urllib3.connection.HTTPSConnection object at 0x10abc9810>: Failed to resolve 'api.tavily.com' ([Errno 8] nodename nor servname provided, or not known)\"))"
-    },
-    {
-      "provider": "tavily",
-      "country": "cn",
-      "error": "ConnectionError: HTTPSConnectionPool(host='api.tavily.com', port=443): Max retries exceeded with url: /search (Caused by NameResolutionError(\"<urllib3.connection.HTTPSConnection object at 0x10abc82d0>: Failed to resolve 'api.tavily.com' ([Errno 8] nodename nor servname provided, or not known)\"))"
+      "error": "HTTPError: 400 Client Error: Bad Request for url: https://api.tavily.com/search"
     }
   ]
 }

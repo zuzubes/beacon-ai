@@ -237,6 +237,126 @@ st.markdown(
         }
         .analysis-action:hover { color: #4F46E5; border-color: #4F46E5; }
         .analysis-body { padding: 20px; }
+
+        .hierarchy-overview {
+            border: 1px solid #E2E8F0;
+            border-radius: 16px;
+            background: linear-gradient(180deg, #FAFBFC 0%, #FFFFFF 100%);
+            box-shadow: 0 16px 30px rgba(15, 23, 42, 0.05);
+            padding: 18px 20px;
+            margin-bottom: 1.25rem;
+        }
+        .hierarchy-overview-title {
+            font-size: 1.12rem;
+            font-weight: 750;
+            color: #0F172A;
+            letter-spacing: -0.02em;
+            margin-bottom: 4px;
+        }
+        .hierarchy-overview-subtitle {
+            font-size: 0.84rem;
+            color: #64748B;
+            margin-bottom: 14px;
+        }
+        .hierarchy-metric-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 18px;
+        }
+        .hierarchy-metric {
+            border: 1px solid #E2E8F0;
+            border-radius: 14px;
+            background: #FFFFFF;
+            padding: 10px 14px;
+            min-width: 120px;
+        }
+        .hierarchy-metric-label {
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: #94A3B8;
+            margin-bottom: 4px;
+        }
+        .hierarchy-metric-value {
+            font-size: 1.25rem;
+            font-weight: 750;
+            color: #0F172A;
+            letter-spacing: -0.02em;
+        }
+        .hierarchy-macro {
+            border: 1px solid #E2E8F0;
+            border-radius: 16px;
+            background: #FFFFFF;
+            box-shadow: 0 10px 20px rgba(15, 23, 42, 0.04);
+            padding: 14px 16px;
+            margin-bottom: 14px;
+        }
+        .hierarchy-macro-title {
+            font-size: 1.02rem;
+            font-weight: 750;
+            color: #0F172A;
+            margin-bottom: 2px;
+        }
+        .hierarchy-macro-meta {
+            font-size: 0.76rem;
+            color: #64748B;
+            margin-bottom: 10px;
+        }
+        .hierarchy-macro-desc {
+            font-size: 0.86rem;
+            line-height: 1.45;
+            color: #334155;
+            margin-bottom: 12px;
+        }
+        .hierarchy-chip-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 8px;
+        }
+        .hierarchy-chip {
+            display: inline-flex;
+            align-items: center;
+            border-radius: 999px;
+            border: 1px solid #E2E8F0;
+            background: #F8FAFC;
+            color: #0F172A;
+            padding: 3px 9px;
+            font-size: 0.72rem;
+            font-weight: 600;
+        }
+        .hierarchy-mega-label {
+            font-size: 0.78rem;
+            font-weight: 700;
+            color: #0F172A;
+            margin-bottom: 4px;
+        }
+        .hierarchy-mega-desc {
+            font-size: 0.8rem;
+            line-height: 1.45;
+            color: #475569;
+        }
+        .trend-action-row {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+        .trend-action-note {
+            font-size: 0.74rem;
+            color: #64748B;
+        }
+        .drilldown-ready {
+            border: 1px solid rgba(79, 70, 229, 0.2);
+            background: rgba(79, 70, 229, 0.06);
+            color: #312E81;
+            border-radius: 12px;
+            padding: 10px 14px;
+            font-size: 0.84rem;
+            margin-bottom: 14px;
+        }
     </style>
     """,
     unsafe_allow_html=True,
@@ -331,12 +451,8 @@ with st.sidebar:
 # Header
 # ---------------------------------------------------------------------------
 
-brand_logo = Path(__file__).with_name("assets") / "beacon-ai-icon.png"
-header_cols = st.columns([1, 8])
-with header_cols[0]:
-    st.image(str(brand_logo), width=72)
-with header_cols[1]:
-    st.markdown('<div class="brand-title">Beacon AI</div>', unsafe_allow_html=True)
+brand_logo = Path(__file__).with_name("assets") / "beacon-ai-logo.png"
+st.image(str(brand_logo), width=320)
 st.caption("Macro trends in the US & China, mapped to India investment signal.")
 
 loading_slot = st.empty()
@@ -487,7 +603,7 @@ page_errors: list[str] = []
 # ---------------------------------------------------------------------------
 
 
-def render_trend_card(t: dict) -> None:
+def render_trend_card(t: dict, show_drilldown_action: bool = False) -> None:
     growth_class = "pill-growth-pos" if t["growth_pct"] >= 0 else "pill-growth-neg"
     growth_sign = "▲" if t["growth_pct"] >= 0 else "▼"
     rec_class = REC_PILL_CLASS.get(t["recommendation"], "pill-watch")
@@ -507,16 +623,34 @@ def render_trend_card(t: dict) -> None:
             ),
             unsafe_allow_html=True,
         )
+        if show_drilldown_action and t["tier"] == "Sub":
+            st.markdown(
+                dedent(
+                    """
+                    <div class="trend-action-row">
+                        <div class="trend-action-note">Generate the company and signal explorer from this sub-trend.</div>
+                    </div>
+                    """
+                ),
+                unsafe_allow_html=True,
+            )
+            if st.button("Generate drill-down", key=f"subtrend_generate::{t['id']}", use_container_width=True):
+                selected_sub_id = t["id"]
+                st.session_state["drilldown_subtrend_select"] = selected_sub_id
+                st.session_state["drilldown_product_region"] = _default_product_region()
+                payload = build_drilldown_payload(t, _default_product_region())
+                st.session_state[_drilldown_cache_key(selected_sub_id, _default_product_region())] = payload
+                st.session_state["drilldown_last_generated"] = selected_sub_id
 
 
-def render_trend_grid(items: list[dict], columns: int = 3) -> None:
+def render_trend_grid(items: list[dict], columns: int = 3, show_drilldown_action: bool = False) -> None:
     if not items:
         render_empty_state("No content is available in this section yet.")
         return
     cols = st.columns(columns)
     for i, t in enumerate(items):
         with cols[i % columns]:
-            render_trend_card(t)
+            render_trend_card(t, show_drilldown_action=show_drilldown_action)
 
 
 AVATAR_PALETTE = ["#4F46E5", "#059669", "#DC2626", "#D97706", "#0891B2", "#7C3AED", "#DB2777", "#65A30D"]
@@ -621,6 +755,227 @@ def render_company_card(company: dict) -> None:
     )
 
 
+def _default_product_region() -> str:
+    return "China" if ctx["region"] == "China" else "United States"
+
+
+def _drilldown_cache_key(subtrend_id: str, product_region: str) -> str:
+    return f"drilldown::{subtrend_id}::{ctx['region']}::{product_region}"
+
+
+def build_drilldown_payload(selected_sub: dict, product_region: str) -> dict:
+    use_live = bool(openai_key_default)
+    use_live_research_dd = bool(serper_key_default or serpapi_key_default or tavily_key_default or deepl_key_default)
+
+    research_prompt = None
+    if use_live and use_live_research_dd:
+        try:
+            drilldown_research = research_search.build_research_context(
+                f"{selected_sub['name']} ({ctx['industry']})",
+                ctx["region"],
+                ctx["time_range"],
+                serper_api_key=serper_key_default or None,
+                serp_api_key=serpapi_key_default or None,
+                tavily_api_key=tavily_key_default or None,
+                deepl_api_key=deepl_key_default or None,
+            )
+            research_prompt = drilldown_research.prompt
+        except Exception:  # noqa: BLE001
+            research_prompt = None
+
+    companies, companies_is_sample = None, True
+    if use_live:
+        try:
+            companies = growth_companies.call_live_companies(
+                selected_sub["name"], ctx["industry"], ctx["region"], openai_key_default, research_prompt
+            )
+            companies_is_sample = not companies
+        except Exception:  # noqa: BLE001
+            companies = None
+    if not companies:
+        companies = growth_companies.generate_mock_companies(selected_sub["name"], ctx["industry"], ctx["region"])
+        companies_is_sample = True
+
+    social, social_is_sample = None, True
+    if use_live:
+        try:
+            social = growth_companies.call_live_social_signals(
+                selected_sub["name"], ctx["industry"], ctx["region"], openai_key_default
+            )
+            social_is_sample = False
+        except Exception:  # noqa: BLE001
+            social = None
+    if not social:
+        social = growth_companies.generate_mock_social_signals(selected_sub["name"], ctx["industry"], ctx["region"])
+        social_is_sample = True
+
+    products = product_trends.get_trending_products(product_region)
+    return dict(
+        companies=companies,
+        companies_is_sample=companies_is_sample,
+        social=social,
+        social_is_sample=social_is_sample,
+        products=products,
+        product_region=product_region,
+    )
+
+
+def render_drilldown_results(cached: dict) -> None:
+    st.markdown("### Top Growing Companies")
+    if cached["companies_is_sample"]:
+        st.markdown(
+            '<div class="sample-banner">Sample companies. Add an OpenAI key to .env for a live list.</div>',
+            unsafe_allow_html=True,
+        )
+    if not cached["companies"]:
+        render_empty_state("No companies were returned for this query.")
+    for company in cached["companies"]:
+        render_company_card(company)
+
+    st.markdown("### Social Signal")
+    st.caption("AI-estimated, directional signal -- not a live TikTok, Instagram, or Reddit pull.")
+    if cached["social_is_sample"]:
+        st.markdown(
+            '<div class="sample-banner">Sample social signals. Add an OpenAI key to .env for a live estimate.</div>',
+            unsafe_allow_html=True,
+        )
+    social_cols = st.columns(2)
+    with social_cols[0]:
+        st.markdown("**TikTok hashtags**")
+        render_hashtags(cached["social"]["tiktok_hashtags"])
+    with social_cols[1]:
+        st.markdown("**Instagram hashtags**")
+        render_hashtags(cached["social"]["instagram_hashtags"])
+    st.markdown("**Reddit signal**")
+    reddit_signals = cached["social"]["reddit_signals"]
+    if not reddit_signals:
+        st.caption("No Reddit signals available.")
+    for post in reddit_signals:
+        render_reddit_signal(post)
+
+    st.markdown(f"### Top Trending Products - {cached['product_region']}")
+    if not cached["products"]:
+        render_empty_state("No product-trend reports were found for this region yet.")
+    else:
+        rows = [
+            {
+                "#": p["display_rank"],
+                "Product": p["product"],
+                "Signal / Source": p["signal_and_source"],
+                "Year": p["year"],
+            }
+            for p in cached["products"]
+        ]
+        st.dataframe(rows, hide_index=True, use_container_width=True)
+
+
+def render_subtrend_explorer(sub_trends: list[dict]) -> None:
+    st.caption(
+        "Pick a Sub-trend to research the companies growing in this region for that sector, "
+        "with social-signal color and the region's top trending consumer products."
+    )
+    if not sub_trends:
+        render_empty_state("No explorer content is available yet. Run an analysis to populate it.")
+        return
+
+    sub_trend_by_id = {t["id"]: t for t in sub_trends}
+    selected_sub_id = st.selectbox(
+        "Sub-trend",
+        options=list(sub_trend_by_id.keys()),
+        format_func=lambda sid: sub_trend_by_id[sid]["name"],
+        key="drilldown_subtrend_select",
+    )
+    selected_sub = sub_trend_by_id[selected_sub_id]
+    st.caption(selected_sub["description"])
+
+    product_region = st.radio(
+        "Trending-products region",
+        ["United States", "China"],
+        index=1 if ctx["region"] == "China" else 0,
+        horizontal=True,
+        key="drilldown_product_region",
+    )
+
+    cache_key = _drilldown_cache_key(selected_sub_id, product_region)
+    generate_clicked = st.button("Generate drill-down", key=f"drilldown_generate::{selected_sub_id}::{product_region}")
+
+    if generate_clicked:
+        st.session_state["drilldown_subtrend_select"] = selected_sub_id
+        st.session_state["drilldown_product_region"] = product_region
+        st.session_state[cache_key] = build_drilldown_payload(selected_sub, product_region)
+
+    cached = st.session_state.get(cache_key)
+    if not cached:
+        render_empty_state("Click Generate Drill-Down to load companies, social signals, and products.")
+        return
+
+    render_drilldown_results(cached)
+
+
+def render_trend_hierarchy_overview(trends_data: list[dict]) -> None:
+    macro_trends = [t for t in trends_data if t["tier"] == "Macro"]
+    mega_trends = [t for t in trends_data if t["tier"] == "Mega"]
+    sub_trends = [t for t in trends_data if t["tier"] == "Sub"]
+    mega_by_parent: dict[str, list[dict]] = {}
+    sub_by_parent: dict[str, list[dict]] = {}
+    for trend in mega_trends:
+        mega_by_parent.setdefault(trend["parent"] or "", []).append(trend)
+    for trend in sub_trends:
+        sub_by_parent.setdefault(trend["parent"] or "", []).append(trend)
+
+    st.markdown(
+        dedent(
+            f"""
+            <div class="hierarchy-overview">
+                <div class="hierarchy-overview-title">Trend Hierarchy</div>
+                <div class="hierarchy-overview-subtitle">
+                    A compact map of the current macro, mega, and sub-trends. Use the Sub-Trends tab or any sub-trend tile
+                    to open the Sub-Trend Explorer.
+                </div>
+            </div>
+            """
+        ),
+        unsafe_allow_html=True,
+    )
+
+    metric_cols = st.columns(3)
+    metric_cols[0].markdown(
+        f"<div class='hierarchy-metric'><div class='hierarchy-metric-label'>Macro trends</div><div class='hierarchy-metric-value'>{len(macro_trends)}</div></div>",
+        unsafe_allow_html=True,
+    )
+    metric_cols[1].markdown(
+        f"<div class='hierarchy-metric'><div class='hierarchy-metric-label'>Mega trends</div><div class='hierarchy-metric-value'>{len(mega_trends)}</div></div>",
+        unsafe_allow_html=True,
+    )
+    metric_cols[2].markdown(
+        f"<div class='hierarchy-metric'><div class='hierarchy-metric-label'>Sub-trends</div><div class='hierarchy-metric-value'>{len(sub_trends)}</div></div>",
+        unsafe_allow_html=True,
+    )
+
+    for macro in macro_trends:
+        megas = mega_by_parent.get(macro["name"], [])
+        with st.container(border=True):
+            st.markdown(f"#### {macro['name']}")
+            st.caption(f"{macro['category']} · Strength {macro['strength']:.1f} · {macro['time_horizon']}")
+            st.write(macro["description"])
+            if not megas:
+                continue
+            mega_cols = st.columns(max(len(megas), 1))
+            for i, mega in enumerate(megas):
+                with mega_cols[i]:
+                    st.markdown(f"**{mega['name']}**")
+                    st.caption(f"Strength {mega['strength']:.1f} · {mega['time_horizon']}")
+                    st.write(mega["description"])
+                    sub_items = sub_by_parent.get(mega["name"], [])
+                    if sub_items:
+                        chip_html = "".join(
+                            f"<span class='hierarchy-chip'>{html.escape(sub['name'])}</span>" for sub in sub_items
+                        )
+                        st.markdown(f"<div class='hierarchy-chip-row'>{chip_html}</div>", unsafe_allow_html=True)
+                    else:
+                        st.caption("No sub-trends available.")
+
+
 def render_hashtags(hashtags: list[str]) -> None:
     if not hashtags:
         st.caption("No hashtags available.")
@@ -680,7 +1035,7 @@ st.markdown(
     dedent(
         f"""
         <div class="context-card">
-            <div class="context-item"><b>Journey</b>: Research search → trend hierarchy → final analysis → PDF/share</div>
+            <div class="context-item"><b>Journey</b>: Research search → trend hierarchy → sub-trend explorer → final analysis → PDF/share</div>
             <div class="context-item"><b>Sources</b>: {research_source_count} live hits, {research_report_count} local reports</div>
             <div class="context-item"><b>Providers</b>: {html.escape(research_provider_label)}</div>
             <div class="context-item"><b>Outputs</b>: PDF {html.escape(analysis_pdf_state)}, share {html.escape(share_state)}</div>
@@ -695,8 +1050,8 @@ st.markdown(
 # Navigation
 # ---------------------------------------------------------------------------
 
-tab_hierarchy, tab_momentum, tab_news, tab_analysis, tab_drilldown = st.tabs(
-    ["Trend Hierarchy", "Momentum", "News Signals", "Final Analysis", "Sub-Trend Drill-Down"]
+tab_hierarchy, tab_momentum, tab_news, tab_analysis = st.tabs(
+    ["Trend Hierarchy", "Momentum", "News Signals", "Final Analysis"]
 )
 
 with tab_hierarchy:
@@ -707,7 +1062,11 @@ with tab_hierarchy:
                 unsafe_allow_html=True,
             )
 
-        macro_tab, mega_tab, sub_tab = st.tabs(["Macro-Trends", "Mega-Trends", "Sub-Trends"])
+        overview_tab, macro_tab, mega_tab, sub_tab, explorer_tab = st.tabs(
+            ["Overview", "Macro-Trends", "Mega-Trends", "Sub-Trends", "Sub-Trend Explorer"]
+        )
+        with overview_tab:
+            render_trend_hierarchy_overview(all_trends)
         with macro_tab:
             st.caption("Long-term, macro changes playing out across years to decades — the major forces across society, technology, economy, ecology, and politics shaping consumer and business behavior.")
             render_trend_grid([t for t in all_trends if t["tier"] == "Macro"])
@@ -716,7 +1075,16 @@ with tab_hierarchy:
             render_trend_grid([t for t in all_trends if t["tier"] == "Mega"])
         with sub_tab:
             st.caption("Emerging, actionable trends arising from that tension — where you can start acting on emerging expectations today.")
-            render_trend_grid([t for t in all_trends if t["tier"] == "Sub"])
+            render_trend_grid([t for t in all_trends if t["tier"] == "Sub"], show_drilldown_action=True)
+            if st.session_state.get("drilldown_last_generated"):
+                last_id = st.session_state["drilldown_last_generated"]
+                last_name = next((t["name"] for t in all_trends if t["id"] == last_id), "that sub-trend")
+                st.markdown(
+                    f'<div class="drilldown-ready">Drill-down ready for <b>{html.escape(last_name)}</b>. Open the Sub-Trend Explorer to review the generated companies, social signals, and product signals.</div>',
+                    unsafe_allow_html=True,
+                )
+        with explorer_tab:
+            render_subtrend_explorer([t for t in all_trends if t["tier"] == "Sub"])
     except Exception as exc:  # noqa: BLE001
         page_errors.append("Trend hierarchy is unavailable right now.")
         render_empty_state("The trend hierarchy is unavailable right now. Run a new analysis to try again.")
@@ -842,152 +1210,6 @@ with tab_analysis:
     except Exception as exc:  # noqa: BLE001
         page_errors.append("Final analysis is unavailable right now.")
         render_empty_state("The final analysis is unavailable right now. Run a new analysis to try again.")
-
-with tab_drilldown:
-    try:
-        st.caption(
-            "Pick a Sub-trend to research the companies growing in this region for that sector, "
-            "with social-signal color and the region's top trending consumer products."
-        )
-        sub_trends = [t for t in all_trends if t["tier"] == "Sub"]
-        if not sub_trends:
-            render_empty_state("No drill-down content is available yet. Run an analysis to populate it.")
-        else:
-            sub_trend_by_id = {t["id"]: t for t in sub_trends}
-            selected_sub_id = st.selectbox(
-                "Sub-trend",
-                options=list(sub_trend_by_id.keys()),
-                format_func=lambda sid: sub_trend_by_id[sid]["name"],
-                key="drilldown_subtrend_select",
-            )
-            selected_sub = sub_trend_by_id[selected_sub_id]
-            st.caption(selected_sub["description"])
-
-            product_region = st.radio(
-                "Trending-products region",
-                ["United States", "China"],
-                index=1 if ctx["region"] == "China" else 0,
-                horizontal=True,
-                key="drilldown_product_region",
-            )
-
-            generate_clicked = st.button("Generate Drill-Down", key="drilldown_generate")
-            cache_key = f"drilldown::{selected_sub_id}::{ctx['region']}::{product_region}"
-
-            if generate_clicked:
-                use_live = bool(openai_key_default)
-                use_live_research_dd = bool(
-                    serper_key_default or serpapi_key_default or tavily_key_default or deepl_key_default
-                )
-                with st.spinner("Researching growing companies and social signals..."):
-                    research_prompt = None
-                    if use_live and use_live_research_dd:
-                        try:
-                            drilldown_research = research_search.build_research_context(
-                                f"{selected_sub['name']} ({ctx['industry']})",
-                                ctx["region"],
-                                ctx["time_range"],
-                                serper_api_key=serper_key_default or None,
-                                serp_api_key=serpapi_key_default or None,
-                                tavily_api_key=tavily_key_default or None,
-                                deepl_api_key=deepl_key_default or None,
-                            )
-                            research_prompt = drilldown_research.prompt
-                        except Exception:  # noqa: BLE001
-                            research_prompt = None
-
-                    companies, companies_is_sample = None, True
-                    if use_live:
-                        try:
-                            companies = growth_companies.call_live_companies(
-                                selected_sub["name"], ctx["industry"], ctx["region"], openai_key_default, research_prompt
-                            )
-                            companies_is_sample = not companies
-                        except Exception:  # noqa: BLE001
-                            companies = None
-                    if not companies:
-                        companies = growth_companies.generate_mock_companies(selected_sub["name"], ctx["industry"], ctx["region"])
-                        companies_is_sample = True
-
-                    social, social_is_sample = None, True
-                    if use_live:
-                        try:
-                            social = growth_companies.call_live_social_signals(
-                                selected_sub["name"], ctx["industry"], ctx["region"], openai_key_default
-                            )
-                            social_is_sample = False
-                        except Exception:  # noqa: BLE001
-                            social = None
-                    if not social:
-                        social = growth_companies.generate_mock_social_signals(selected_sub["name"], ctx["industry"], ctx["region"])
-                        social_is_sample = True
-
-                    products = product_trends.get_trending_products(product_region)
-
-                st.session_state[cache_key] = dict(
-                    companies=companies,
-                    companies_is_sample=companies_is_sample,
-                    social=social,
-                    social_is_sample=social_is_sample,
-                    products=products,
-                    product_region=product_region,
-                )
-
-            cached = st.session_state.get(cache_key)
-            if not cached:
-                render_empty_state("Click Generate Drill-Down to load companies, social signals, and products.")
-            else:
-                st.markdown("### Top Growing Companies")
-                if cached["companies_is_sample"]:
-                    st.markdown(
-                        '<div class="sample-banner">Sample companies. Add an OpenAI key to .env for a live list.</div>',
-                        unsafe_allow_html=True,
-                    )
-                if not cached["companies"]:
-                    render_empty_state("No companies were returned for this query.")
-                for company in cached["companies"]:
-                    render_company_card(company)
-
-                st.markdown("### Social Signal")
-                st.caption(
-                    "AI-estimated, directional signal -- not a live TikTok, Instagram, or Reddit pull."
-                )
-                if cached["social_is_sample"]:
-                    st.markdown(
-                        '<div class="sample-banner">Sample social signals. Add an OpenAI key to .env for a live estimate.</div>',
-                        unsafe_allow_html=True,
-                    )
-                social_cols = st.columns(2)
-                with social_cols[0]:
-                    st.markdown("**TikTok hashtags**")
-                    render_hashtags(cached["social"]["tiktok_hashtags"])
-                with social_cols[1]:
-                    st.markdown("**Instagram hashtags**")
-                    render_hashtags(cached["social"]["instagram_hashtags"])
-                st.markdown("**Reddit signal**")
-                reddit_signals = cached["social"]["reddit_signals"]
-                if not reddit_signals:
-                    st.caption("No Reddit signals available.")
-                for post in reddit_signals:
-                    render_reddit_signal(post)
-
-                st.markdown(f"### Top Trending Products — {cached['product_region']}")
-                if not cached["products"]:
-                    render_empty_state("No product-trend reports were found for this region yet.")
-                else:
-                    rows = [
-                        {
-                            "#": p["display_rank"],
-                            "Product": p["product"],
-                            "Signal / Source": p["signal_and_source"],
-                            "Year": p["year"],
-                        }
-                        for p in cached["products"]
-                    ]
-                    st.dataframe(rows, hide_index=True, use_container_width=True)
-    except Exception as exc:  # noqa: BLE001
-        page_errors.append("Drill-down view is unavailable right now.")
-        render_empty_state("The drill-down view is unavailable right now. Run a new analysis to try again.")
 
 bottom_messages = st.session_state.get("warnings", []) + page_errors
 if bottom_messages:

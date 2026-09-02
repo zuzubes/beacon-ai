@@ -1,0 +1,424 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Trend Analysis: Food &amp; Beverages in United States</title>
+  <style>
+    :root {
+      --navy: #0f172a;
+      --navy-2: #111d36;
+      --slate: #475569;
+      --muted: #64748b;
+      --line: #d8e1ea;
+      --cream: #f7f8fb;
+      --blue: #1d4ed8;
+      --gold: #b88a1d;
+      --gold-bg: #fbf3da;
+      --card: #ffffff;
+      --shadow: 0 16px 34px rgba(15, 23, 42, 0.08);
+    }
+
+    * { box-sizing: border-box; }
+    html { font-size: 10.5pt; }
+    body {
+      margin: 0;
+      background: linear-gradient(180deg, #eef3f8 0%, #f5f7fb 100%);
+      color: var(--navy);
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.55;
+    }
+
+    .report {
+      max-width: 8.5in;
+      margin: 0 auto;
+      min-height: 100vh;
+      padding: 18px 16px 28px;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-2) 62%, #18294c 100%);
+      color: white;
+      border-radius: 28px;
+      padding: 28px 28px 22px;
+      box-shadow: var(--shadow);
+      margin-bottom: 16px;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at top right, rgba(184, 138, 29, 0.18), transparent 36%),
+        radial-gradient(ellipse at bottom left, rgba(29, 78, 216, 0.18), transparent 28%);
+      pointer-events: none;
+    }
+
+    .hero-inner, .section-card, .summary-grid, .signal-callout {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+
+    .brand-logo {
+      width: 52px;
+      height: 52px;
+      object-fit: contain;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.06);
+      padding: 6px;
+    }
+
+    .brand-mark {
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.72);
+      font-size: 0.78rem;
+    }
+
+    .hero-kicker {
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.6);
+    }
+
+    .hero-title {
+      margin: 8px 0 10px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 2.15rem;
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      max-width: 6.2in;
+    }
+
+    .hero-lead {
+      margin: 0;
+      max-width: 6.2in;
+      color: rgba(255,255,255,0.84);
+      font-size: 1rem;
+    }
+
+    .hero-meta {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .hero-meta-item {
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 16px;
+      padding: 12px 14px;
+    }
+
+    .hero-meta-label, .metric-label, .section-kicker, .signal-label {
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-size: 0.66rem;
+    }
+
+    .hero-meta-label {
+      color: rgba(255,255,255,0.55);
+      margin-bottom: 6px;
+    }
+
+    .hero-meta-value {
+      font-weight: 600;
+      color: white;
+    }
+
+    .hero-footer {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr;
+      gap: 14px;
+      margin-top: 18px;
+      align-items: end;
+    }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .metric-card {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 16px;
+      padding: 12px 14px;
+      min-height: 88px;
+    }
+
+    .metric-value {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.05rem;
+      margin-top: 8px;
+      color: white;
+      font-weight: 700;
+      line-height: 1.22;
+    }
+
+    .signal-callout {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 20px;
+      padding: 16px 18px;
+    }
+
+    .signal-label {
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 8px;
+    }
+
+    .signal-title {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .signal-desc {
+      color: rgba(255,255,255,0.82);
+      font-size: 0.92rem;
+    }
+
+    .content {
+      display: grid;
+      gap: 14px;
+    }
+
+    .section-card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      box-shadow: var(--shadow);
+      padding: 20px 22px;
+    }
+
+    .section-card-wide {
+      border-left: 4px solid var(--blue);
+    }
+
+    .section-head {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 14px;
+    }
+
+    .section-kicker {
+      color: var(--gold);
+      font-weight: 700;
+    }
+
+    .section-head h2 {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.25rem;
+      letter-spacing: -0.02em;
+      color: var(--navy);
+    }
+
+    .section-body {
+      color: var(--slate);
+      font-size: 0.92rem;
+    }
+
+    .section-body h3 {
+      font-family: Georgia, "Times New Roman", serif;
+      color: var(--navy);
+      margin: 16px 0 8px;
+      font-size: 1.02rem;
+    }
+
+    .section-body p { margin: 0 0 10px; }
+    .section-body ul, .section-body ol { margin: 0 0 12px 20px; padding: 0; }
+    .section-body li { margin: 0 0 6px; }
+
+    .section-body table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 8px;
+      font-size: 0.84rem;
+      overflow: hidden;
+      border-radius: 14px;
+    }
+
+    .section-body thead th {
+      background: #eef2ff;
+      color: var(--navy);
+      text-align: left;
+      padding: 10px 10px;
+      border-bottom: 1px solid #d7deea;
+      font-weight: 700;
+    }
+
+    .section-body tbody td {
+      padding: 9px 10px;
+      border-bottom: 1px solid #e7edf5;
+      vertical-align: top;
+    }
+
+    .section-body tbody tr:nth-child(even) { background: #fafcff; }
+    .section-body a { color: var(--blue); text-decoration: none; }
+    .section-body strong { color: var(--navy); }
+    .section-body blockquote {
+      margin: 10px 0;
+      padding: 10px 14px;
+      border-left: 3px solid var(--gold);
+      background: var(--gold-bg);
+      color: var(--navy);
+      border-radius: 0 12px 12px 0;
+    }
+
+    .footer-note {
+      color: var(--muted);
+      font-size: 0.78rem;
+      text-align: center;
+      margin-top: 12px;
+      padding-bottom: 6px;
+    }
+
+    @media (max-width: 900px) {
+      .hero-meta, .summary-grid, .hero-footer {
+        grid-template-columns: 1fr;
+      }
+      .report { padding: 0; }
+      .hero, .section-card { border-radius: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="report">
+    <header class="hero">
+      <div class="hero-inner">
+        <div class="hero-brand">
+          <img class="brand-logo" src="data:image/png;base64,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" alt="Beacon AI logo" />
+          <div>
+            <div class="hero-kicker">Beacon AI final analysis</div>
+            <div class="hero-kicker" style="margin-top:4px;">Food &amp; Beverages · United States</div>
+          </div>
+        </div>
+        <h1 class="hero-title">Trend Analysis: Food &amp; Beverages in United States</h1>
+        <p class="hero-lead">Decision-ready summary of the current trend hierarchy, research context, and strategic implications.</p>
+        <div class="hero-meta">
+          
+        </div>
+        <div class="hero-footer">
+          <div class="summary-grid">
+            
+        <div class="metric-card">
+            <div class="metric-label">Trend nodes</div>
+            <div class="metric-value">28</div>
+        </div>
+        
+        <div class="metric-card">
+            <div class="metric-label">Live sources</div>
+            <div class="metric-value">0</div>
+        </div>
+        
+        <div class="metric-card">
+            <div class="metric-label">Local reports</div>
+            <div class="metric-value">0</div>
+        </div>
+        
+        <div class="metric-card">
+            <div class="metric-label">Top signal</div>
+            <div class="metric-value">Sustainability and Alternative Protein Adoption</div>
+        </div>
+        
+          </div>
+          
+        <div class="signal-callout">
+            <div class="signal-label">Top signal</div>
+            <div class="signal-title">Sustainability and Alternative Protein Adoption</div>
+            <div class="signal-desc">The food and beverage sector in the US is undergoing a long-term shift toward sustainable sourcing and alternative proteins such as plant-based, cultured meat, and fermentation-derived ingredients. This shift is driven by environmental concerns, supply chain disruptions, and consumer demand for healthier and ethical options.</div>
+        </div>
+        
+        </div>
+      </div>
+    </header>
+
+    <main class="content">
+      
+            <section class="section-card">
+                <div class="section-head">
+                    <h2>Executive Summary</h2>
+                </div>
+                <div class="section-body"><p>The Food &amp; Beverages sector in the U.S. is undergoing transformative shifts fueled by sustainability, technology integration, and personalized wellness demands. Key macro trends include sustainability with alternative protein adoption, evolving consumer preferences, personalized nutrition, and digitization in food production and delivery. These trends are strong and growing rapidly (20-30%+ over 5-10 years) with investment and strategic actions strongly recommended. Innovations in plant-based solutions, AI-driven nutrition, and digital marketplaces signal a future-ready market emphasizing health, convenience, and eco-consciousness.</p></div>
+            </section>
+            
+            <section class="section-card">
+                <div class="section-head">
+                    <h2>PESTEL Macro Scan</h2>
+                </div>
+                <div class="section-body"><table><thead><tr><th>Factor</th><th>Impact Summary</th></tr></thead><tbody><tr><td>Political</td><td>Regulatory emphasis on sustainable packaging and clean-label food encourages innovation and adoption.</td></tr><tr><td>Economic</td><td>Growing demand for affordable plant-based meats and efficient supply chains supports cost management.</td></tr><tr><td>Social</td><td>Rising consumer health awareness and preference for personalized nutrition drive product diversification.</td></tr><tr><td>Technological</td><td>Advances in AI, automation, and cloud kitchens enhance production efficiency and market responsiveness.</td></tr><tr><td>Environmental</td><td>Focus on sustainable packaging and circular food systems addresses climate concerns and resource use.</td></tr><tr><td>Legal</td><td>Compliance with labeling, safety standards, and biotechnology use (e.g., cultured meat) remains critical.</td></tr></tbody></table></div>
+            </section>
+            
+            <section class="section-card">
+                <div class="section-head">
+                    <h2>Key Trends</h2>
+                </div>
+                <div class="section-body"><table><thead><tr><th>Trend Category</th><th>Strength</th><th>Growth Rate</th><th>Horizon</th><th>Recommendations</th></tr></thead><tbody><tr><td>Sustainability &amp; Alternative Foods</td><td>9.0</td><td>+25%</td><td>10y+</td><td>Invest</td></tr><tr><td>Consumer Behavior &amp; Market Dynamics</td><td>8.0</td><td>+20%</td><td>5-10y</td><td>Strategize</td></tr><tr><td>Health &amp; Wellness</td><td>8.0</td><td>+22%</td><td>5-10y</td><td>Invest</td></tr><tr><td>Technology &amp; Digitization</td><td>8.0</td><td>+23%</td><td>5-10y</td><td>Invest</td></tr></tbody></table><h4>Selected Mega and Sub-Trends</h4><table><thead><tr><th>Mega/Sub-Trend</th><th>Parent Trend</th><th>Strength</th><th>Growth</th><th>Horizon</th><th>Recommendation</th></tr></thead><tbody><tr><td>Expansion of Plant-Based &amp; Cultured Protein</td><td>Sustainability &amp; Alternative Protein Adoption</td><td>9.0</td><td>+30%</td><td>5-10y</td><td>Invest</td></tr><tr><td>AI-Driven Personalized Diets &amp; Supplements</td><td>Personalized Nutrition &amp; Functional Foods</td><td>8.0</td><td>+27%</td><td>2-5y</td><td>Invest</td></tr><tr><td>Digital Food Marketplaces &amp; Delivery Innovations</td><td>Technology Integration in Food Production &amp; Delivery</td><td>8.0</td><td>+26%</td><td>1-2y</td><td>Invest</td></tr><tr><td>Affordable Plant-Based Meat Solutions</td><td>Expansion of Plant-Based &amp; Cultured Protein</td><td>8.0</td><td>+40%</td><td>2-5y</td><td>Invest</td></tr><tr><td>Cloud Kitchens &amp; Delivery-Only Food Brands</td><td>Digital Food Marketplaces &amp; Delivery Innovations</td><td>8.0</td><td>+30%</td><td>1-2y</td><td>Invest</td></tr><tr><td>AI Nutrition Coaching Platforms</td><td>AI-Driven Personalized Diets &amp; Supplements</td><td>8.0</td><td>+30%</td><td>1-2y</td><td>Invest</td></tr></tbody></table></div>
+            </section>
+            
+            <section class="section-card">
+                <div class="section-head">
+                    <h2>Weak Signals</h2>
+                </div>
+                <div class="section-body"><ul><li>Cultured Meat Pilot Commercialization is nascent but growing (strength 7, growth +35%, horizon 5-10y). It requires monitoring before scaling investments.</li><li>Personalized Gut Microbiome-Based Foods show promise (strength 7, growth +24%, horizon 2-5y) but remain early-stage; strategic positioning advised.</li><li>AI-Enabled Demand Forecasting for Retailers could enhance omnichannel grocery fulfillment but currently is a strategic experimental area.</li><li>Limited live data from recent weeks restricts granularity on emerging niche consumer or regulatory developments.</li></ul></div>
+            </section>
+            
+            <section class="section-card">
+                <div class="section-head">
+                    <h2>Scenarios</h2>
+                </div>
+                <div class="section-body"><table><thead><tr><th>Scenario</th><th>Description</th><th>Impact on Sector</th></tr></thead><tbody><tr><td>Accelerated Sustainability Adoption</td><td>Rapid regulatory support and cost reduction accelerate plant-based and circular systems.</td><td>Industry leaders thrive; laggards lose market share.</td></tr><tr><td>Tech-Driven Personalization Boom</td><td>AI and automation breakthroughs foster highly tailored diets and on-demand food services.</td><td>Competitive advantage for tech-savvy players.</td></tr><tr><td>Fragmented Consumer Preferences</td><td>Ethnic, regional cuisines and clean-label demand create highly segmented markets.</td><td>Brands must diversify rapidly or risk obsolescence.</td></tr><tr><td>Regulatory Bottlenecks on Cultured Meat</td><td>Delays or restrictions slow commercialization of cultured protein products.</td><td>Slowed innovation and potential market disruption.</td></tr></tbody></table></div>
+            </section>
+            
+            <section class="section-card">
+                <div class="section-head">
+                    <h2>Strategic Implications</h2>
+                </div>
+                <div class="section-body"><ul><li><strong>Invest</strong> in scalable plant-based alternatives, especially affordable options, aligning with the mega trend of protein expansion.</li><li><strong>Harness AI technologies</strong> for personalized nutrition, demand forecasting, and automation to boost productivity and consumer engagement.</li><li><strong>Develop omnichannel capabilities</strong> with micro-fulfillment centers and digital marketplaces to meet evolving shopper behaviors.</li><li><strong>Prioritize sustainability</strong>, deploying biodegradable packaging and circular food systems to meet regulatory and consumer expectations.</li><li><strong>Monitor emerging innovations</strong> like cultured meat commercialization and gut microbiome foods; adopt a balanced invest-and-strategize approach.</li></ul></div>
+            </section>
+            
+            <section class="section-card">
+                <div class="section-head">
+                    <h2>Assumptions &amp; Limitations</h2>
+                </div>
+                <div class="section-body"><ul><li>The analysis relies solely on trend data from the past two weeks to early September 2026 with no local primary report verification.</li><li>Live search yielded no recent snippets, limiting insight into very short-term market or regulatory shifts.</li><li>Strength and growth metrics derive from modeled trend hierarchy rather than direct market data or consumer surveys.</li><li>U.S. regional variations and category-specific dynamics (e.g., beverages vs. packaged foods) are not disaggregated.</li><li>Legal and political changes are inferred from trend context but not explicitly updated from contemporaneous sources.</li></ul><p>---</p><p>This report provides a grounded, strategic foundation for Beacon AI’s positioning in the evolving U.S. Food &amp; Beverages landscape toward 2026 and beyond.</p></div>
+            </section>
+            
+            <section class="section-card section-card-wide">
+                <div class="section-head">
+                    <h2>Trend Hierarchy From trends.py</h2>
+                </div>
+                <div class="section-body"><table><thead><tr><th>Tier</th><th>Trend</th><th>Category</th><th>Parent</th><th>Strength</th><th>Growth</th><th>Horizon</th><th>Recommendation</th></tr></thead><tbody><tr><td>Macro</td><td>Sustainability and Alternative Protein Adoption</td><td>Sustainable &amp; Alternative Foods</td><td>None</td><td>9.0</td><td>+25%</td><td>10y+</td><td>Invest</td></tr><tr><td>Macro</td><td>Changing Consumer Preferences and Retail Evolution</td><td>Consumer Behavior &amp; Market Dynamics</td><td>None</td><td>8.0</td><td>+20%</td><td>5-10y</td><td>Strategize</td></tr><tr><td>Macro</td><td>Personalized Nutrition and Functional Foods</td><td>Health &amp; Wellness</td><td>None</td><td>8.0</td><td>+22%</td><td>5-10y</td><td>Invest</td></tr><tr><td>Macro</td><td>Technology Integration in Food Production and Delivery</td><td>Technology &amp; Digitization</td><td>None</td><td>8.0</td><td>+23%</td><td>5-10y</td><td>Invest</td></tr><tr><td>Mega</td><td>Expansion of Plant-Based and Cultured Protein Markets</td><td>Sustainable &amp; Alternative Foods</td><td>Sustainability and Alternative Protein Adoption</td><td>9.0</td><td>+30%</td><td>5-10y</td><td>Invest</td></tr><tr><td>Mega</td><td>AI-Driven Personalized Diets and Supplements</td><td>Health &amp; Wellness</td><td>Personalized Nutrition and Functional Foods</td><td>8.0</td><td>+27%</td><td>2-5y</td><td>Invest</td></tr><tr><td>Mega</td><td>Automation and Robotics in Food Processing</td><td>Technology &amp; Digitization</td><td>Technology Integration in Food Production and Delivery</td><td>8.0</td><td>+21%</td><td>5-10y</td><td>Invest</td></tr><tr><td>Mega</td><td>Clean Label and Functional Ingredient Innovation</td><td>Health &amp; Wellness</td><td>Personalized Nutrition and Functional Foods</td><td>8.0</td><td>+20%</td><td>2-5y</td><td>Invest</td></tr><tr><td>Mega</td><td>Digital Food Marketplaces and Delivery Innovations</td><td>Technology &amp; Digitization</td><td>Technology Integration in Food Production and Delivery</td><td>8.0</td><td>+26%</td><td>1-2y</td><td>Invest</td></tr><tr><td>Mega</td><td>Omnichannel Grocery Shopping and Micro Fulfillment</td><td>Consumer Behavior &amp; Market Dynamics</td><td>Changing Consumer Preferences and Retail Evolution</td><td>8.0</td><td>+24%</td><td>2-5y</td><td>Invest</td></tr><tr><td>Mega</td><td>Sustainable Packaging and Circular Food Systems</td><td>Sustainable &amp; Alternative Foods</td><td>Sustainability and Alternative Protein Adoption</td><td>8.0</td><td>+20%</td><td>5-10y</td><td>Invest</td></tr><tr><td>Mega</td><td>Ethnic and Regional Cuisine Popularity</td><td>Consumer Behavior &amp; Market Dynamics</td><td>Changing Consumer Preferences and Retail Evolution</td><td>7.0</td><td>+18%</td><td>2-5y</td><td>Strategize</td></tr><tr><td>Sub</td><td>AI Nutrition Coaching Platforms</td><td>Health &amp; Wellness</td><td>AI-Driven Personalized Diets and Supplements</td><td>8.0</td><td>+30%</td><td>1-2y</td><td>Invest</td></tr><tr><td>Sub</td><td>Affordable Plant-Based Meat Solutions</td><td>Sustainable &amp; Alternative Foods</td><td>Expansion of Plant-Based and Cultured Protein Markets</td><td>8.0</td><td>+40%</td><td>2-5y</td><td>Invest</td></tr><tr><td>Sub</td><td>Cloud Kitchens and Delivery-Only Food Brands</td><td>Technology &amp; Digitization</td><td>Digital Food Marketplaces and Delivery Innovations</td><td>8.0</td><td>+30%</td><td>1-2y</td><td>Invest</td></tr><tr><td>Sub</td><td>AI-Enabled Demand Forecasting for Retailers</td><td>Consumer Behavior &amp; Market Dynamics</td><td>Omnichannel Grocery Shopping and Micro Fulfillment</td><td>7.0</td><td>+22%</td><td>2-5y</td><td>Strategize</td></tr><tr><td>Sub</td><td>Biodegradable Packaging for FMCG</td><td>Sustainable &amp; Alternative Foods</td><td>Sustainable Packaging and Circular Food Systems</td><td>7.0</td><td>+25%</td><td>2-5y</td><td>Invest</td></tr><tr><td>Sub</td><td>Cultured Meat Pilot Commercialization</td><td>Sustainable &amp; Alternative Foods</td><td>Expansion of Plant-Based and Cultured Protein Markets</td><td>7.0</td><td>+35%</td><td>5-10y</td><td>Strategize</td></tr><tr><td>Sub</td><td>Micro-Fulfillment Centers in Tier 1 Indian Cities</td><td>Consumer Behavior &amp; Market Dynamics</td><td>Omnichannel Grocery Shopping and Micro Fulfillment</td><td>7.0</td><td>+27%</td><td>1-2y</td><td>Invest</td></tr><tr><td>Sub</td><td>Personalized Gut Microbiome-Based Foods</td><td>Health &amp; Wellness</td><td>AI-Driven Personalized Diets and Supplements</td><td>7.0</td><td>+24%</td><td>2-5y</td><td>Strategize</td></tr><tr><td>Sub</td><td>Plant-Based Adaptogenic Beverages</td><td>Health &amp; Wellness</td><td>Clean Label and Functional Ingredient Innovation</td><td>7.0</td><td>+28%</td><td>1-2y</td><td>Invest</td></tr><tr><td>Sub</td><td>Ready-to-Eat Indian Regional Cuisine Products</td><td>Consumer Behavior &amp; Market Dynamics</td><td>Ethnic and Regional Cuisine Popularity</td><td>7.0</td><td>+20%</td><td>1-2y</td><td>Invest</td></tr><tr><td>Sub</td><td>Robotic Food Packaging Systems</td><td>Technology &amp; Digitization</td><td>Automation and Robotics in Food Processing</td><td>7.0</td><td>+20%</td><td>2-5y</td><td>Invest</td></tr><tr><td>Sub</td><td>AI-Powered Quality Control Solutions</td><td>Technology &amp; Digitization</td><td>Automation and Robotics in Food Processing</td><td>6.0</td><td>+19%</td><td>2-5y</td><td>Strategize</td></tr><tr><td>Sub</td><td>Blockchain for Food Traceability</td><td>Sustainable &amp; Alternative Foods</td><td>Sustainable Packaging and Circular Food Systems</td><td>6.0</td><td>+18%</td><td>2-5y</td><td>Strategize</td></tr><tr><td>Sub</td><td>Blockchain-Enabled Food Traceability Platforms</td><td>Technology &amp; Digitization</td><td>Digital Food Marketplaces and Delivery Innovations</td><td>6.0</td><td>+18%</td><td>2-5y</td><td>Strategize</td></tr><tr><td>Sub</td><td>Fusion and Innovative Ethnic Food Concepts</td><td>Consumer Behavior &amp; Market Dynamics</td><td>Ethnic and Regional Cuisine Popularity</td><td>6.0</td><td>+15%</td><td>2-5y</td><td>Watch</td></tr><tr><td>Sub</td><td>Natural Preservatives and Clean Label Technologies</td><td>Health &amp; Wellness</td><td>Clean Label and Functional Ingredient Innovation</td><td>6.0</td><td>+15%</td><td>2-5y</td><td>Strategize</td></tr></tbody></table></div>
+            </section>
+            
+            <section class="section-card section-card-wide">
+                <div class="section-head">
+                    <h2>Sources</h2>
+                </div>
+                <div class="section-body"><ul><li>No live sources available.</li></ul></div>
+            </section>
+            
+    </main>
+
+    <div class="footer-note">Generated 20260902_144859 · Beacon AI</div>
+  </div>
+</body>
+</html>

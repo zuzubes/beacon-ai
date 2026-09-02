@@ -232,7 +232,7 @@ def _render_markdown_fragment(markdown_text: str) -> str:
 
 def _split_report_preamble(report_markdown: str) -> ReportPreamble:
     lines = [line.rstrip() for line in report_markdown.splitlines()]
-    title = "Beacon AI final analysis"
+    title = "Beacon AI analysis"
     meta: list[tuple[str, str]] = []
     lead_lines: list[str] = []
 
@@ -278,15 +278,10 @@ def _split_sections(combined_markdown: str) -> list[tuple[str, str]]:
 
 
 def _summaries(trend_data: list[dict], research_context: object | None) -> list[tuple[str, str]]:
-    top_trends = sorted(trend_data, key=lambda item: float(item.get("strength", 0.0)), reverse=True)
-    top_trend = top_trends[0] if top_trends else {}
     live_hits = len(getattr(research_context, "hits", []) or [])
-    report_matches = len(getattr(research_context, "report_matches", []) or [])
     return [
         ("Trend nodes", str(len(trend_data))),
         ("Live sources", str(live_hits)),
-        ("Local reports", str(report_matches)),
-        ("Top signal", str(top_trend.get("name") or "None")),
     ]
 
 
@@ -337,17 +332,6 @@ def render_final_analysis_html(
         """
         for label, value in metrics
     )
-
-    top_signal = next(iter(sorted(trend_data, key=lambda item: float(item.get("strength", 0.0)), reverse=True)), None)
-    top_signal_html = ""
-    if top_signal:
-        top_signal_html = f"""
-        <div class="signal-callout">
-            <div class="signal-label">Top signal</div>
-            <div class="signal-title">{html.escape(str(top_signal.get("name") or "Untitled"))}</div>
-            <div class="signal-desc">{html.escape(str(top_signal.get("description") or ""))}</div>
-        </div>
-        """
 
     logo_html = (
         f'<img class="brand-logo" src="{logo_uri}" alt="Beacon AI logo" />'
@@ -664,7 +648,7 @@ def render_final_analysis_html(
         <div class="hero-brand">
           {logo_html}
           <div>
-            <div class="hero-kicker">Beacon AI final analysis</div>
+            <div class="hero-kicker">Beacon AI analysis</div>
             <div class="hero-kicker" style="margin-top:4px;">{html.escape(industry)} · {html.escape(region)}</div>
           </div>
         </div>
@@ -677,7 +661,6 @@ def render_final_analysis_html(
           <div class="summary-grid">
             {stat_cards}
           </div>
-          {top_signal_html}
         </div>
       </div>
     </header>
