@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Beacon AI</title>
+  <style>
+    :root {
+      --ink: #0f172a;
+      --muted: #5b677a;
+      --line: #d8e1ea;
+      --paper: #f4f7fb;
+      --panel: rgba(255, 255, 255, 0.9);
+      --blue: #1d4ed8;
+      --blue-soft: #eff6ff;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--ink);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(29, 78, 216, 0.08), transparent 30%),
+        radial-gradient(circle at bottom right, rgba(15, 23, 42, 0.08), transparent 22%),
+        linear-gradient(180deg, #eef3f8 0%, #f7f9fd 100%);
+    }
+    .page {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 28px 18px;
+    }
+    .card {
+      width: min(1040px, 100%);
+      border: 1px solid rgba(216, 225, 234, 0.95);
+      border-radius: 28px;
+      background: var(--panel);
+      box-shadow: 0 24px 60px rgba(15, 23, 42, 0.12);
+      backdrop-filter: blur(14px);
+      padding: 40px;
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: var(--blue-soft);
+      color: var(--blue);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+    h1 {
+      margin: 0 0 12px;
+      font-size: clamp(2.5rem, 5vw, 4.6rem);
+      line-height: 0.95;
+      letter-spacing: -0.05em;
+    }
+    p {
+      margin: 0 0 16px;
+      color: var(--muted);
+      line-height: 1.6;
+      font-size: 1.06rem;
+      max-width: 78ch;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 28px;
+    }
+    .tile {
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.76);
+      padding: 20px;
+    }
+    .tile h2 {
+      margin: 0 0 10px;
+      font-size: 0.86rem;
+      text-transform: uppercase;
+      letter-spacing: 0.13em;
+      color: #6b7280;
+    }
+    .tile p {
+      margin: 0;
+      font-size: 0.98rem;
+    }
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      margin-top: 28px;
+    }
+    a.button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 0 18px;
+      border-radius: 999px;
+      border: 1px solid var(--ink);
+      background: var(--ink);
+      color: white;
+      text-decoration: none;
+      font-weight: 800;
+    }
+    .hint {
+      margin-top: 14px;
+      color: var(--muted);
+      font-size: 0.93rem;
+    }
+    .mono {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.95em;
+    }
+    @media (max-width: 720px) {
+      .card { padding: 24px; }
+      .grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <main class="card">
+      <div class="eyebrow">Beacon AI</div>
+      <h1>Beacon AI</h1>
+      <p>Trend intelligence for macro, mega, and sub-trend research. This Netlify deployment serves a static public landing page. The interactive Streamlit workspace is run locally from the repository.</p>
+
+      <div class="grid">
+        <section class="tile">
+          <h2>Run locally</h2>
+          <p>Start the interactive app with <span class="mono">streamlit run india-trend-radar/streamlit_app.py</span>.</p>
+        </section>
+        <section class="tile">
+          <h2>What Netlify serves</h2>
+          <p>Netlify publishes the contents of the <span class="mono">public</span> directory, so the homepage here is a simple static entry point.</p>
+        </section>
+      </div>
+
+      <div class="hint">If you want Netlify to show something else, we can swap this page for a different static landing page or route structure.</div>
+    </main>
+  </div>
+</body>
+</html>
