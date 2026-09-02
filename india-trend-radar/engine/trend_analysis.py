@@ -16,10 +16,20 @@ from pathlib import Path
 
 import requests
 
+from engine.final_analysis_render import render_final_analysis_html
 from engine.pdf_export import markdown_to_pdf_bytes
 
 ROOT_DIR = Path(__file__).resolve().parent.parent
 DEFAULT_OUTPUT_DIR = ROOT_DIR / "raw" / "analysis"
+DEFAULT_SHARE_UPLOAD_ENDPOINTS = tuple(
+    endpoint
+    for endpoint in (
+        os.getenv("SHARE_UPLOAD_ENDPOINT", "").strip() or None,
+        "https://0x0.st",
+        "https://transfer.sh",
+    )
+    if endpoint
+)
 
 
 def _load_env_file() -> None:
@@ -48,8 +58,10 @@ _load_env_file()
 class TrendAnalysisResult:
     report_markdown: str
     combined_markdown: str
+    html_report: str
     report_path: str
     combined_path: str
+    html_path: str
     pdf_path: str
     pdf_bytes: bytes
     share_url: str | None
@@ -90,6 +102,13 @@ Rules:
 
 def _slugify(value: str) -> str:
     return re.sub(r"[^a-z0-9]+", "_", value.lower()).strip("_") or "analysis"
+
+
+def _relative_or_absolute(path: Path) -> str:
+    try:
+        return str(path.relative_to(ROOT_DIR))
+    except ValueError:
+        return str(path)
 
 
 def _format_trend_summary(trend_data: list[dict], limit: int = 20) -> str:
@@ -305,18 +324,45 @@ def _combined_markdown(
     )
 
 
-def _tinyurl(target_url: str) -> str | None:
-    try:
-        resp = requests.get(
-            "https://tinyurl.com/api-create.php",
-            params={"url": target_url},
-            timeout=12,
-        )
-        resp.raise_for_status()
-        value = resp.text.strip()
-        return value if value.startswith("http") else None
-    except Exception:  # noqa: BLE001
+def _upload_public_pdf(
+    pdf_bytes: bytes,
+    filename: str,
+    endpoints: tuple[str, ...] = DEFAULT_SHARE_UPLOAD_ENDPOINTS,
+) -> str | None:
+    """Upload the PDF to a public file host and return the URL.
+
+    The app needs an actual public URL, not a local file URI. We try 0x0.st
+    first because it accepts multipart file uploads and returns a direct file
+    URL in the response body. transfer.sh is used as a fallback.
+    """
+    if not endpoints:
         return None
+    for endpoint in endpoints:
+        try:
+            if "transfer.sh" in endpoint:
+                resp = requests.put(
+                    f"{endpoint.rstrip('/')}/{filename}",
+                    data=pdf_bytes,
+                    headers={
+                        "Content-Type": "application/pdf",
+                        "User-Agent": "Beacon AI/1.0",
+                    },
+                    timeout=20,
+                )
+            else:
+                resp = requests.post(
+                    endpoint,
+                    files={"file": (filename, pdf_bytes, "application/pdf")},
+                    headers={"User-Agent": "Beacon AI/1.0"},
+                    timeout=20,
+                )
+            resp.raise_for_status()
+            value = resp.text.strip()
+            if value.startswith(("http://", "https://")):
+                return value
+        except Exception:  # noqa: BLE001
+            continue
+    return None
 
 
 def build_trend_analysis_report(
@@ -348,19 +394,32 @@ def build_trend_analysis_report(
         report_markdown = _sample_report_markdown(time_range, region, industry, research_context, trend_data)
 
     combined_markdown = _combined_markdown(report_markdown, trend_data, research_context)
+    html_report = render_final_analysis_html(
+        report_markdown,
+        combined_markdown,
+        trend_data,
+        research_context,
+        timestamp,
+        region,
+        industry,
+    )
+    html_path = output_root / f"{base_name}_final.html"
     pdf_bytes = markdown_to_pdf_bytes(combined_markdown, title=f"Beacon AI final analysis - {industry} in {region}")
     pdf_path.write_bytes(pdf_bytes)
-    share_url = _tinyurl(pdf_path.as_uri())
+    share_url = _upload_public_pdf(pdf_bytes, pdf_path.name)
 
     report_path.write_text(report_markdown, encoding="utf-8")
     combined_path.write_text(combined_markdown, encoding="utf-8")
+    html_path.write_text(html_report, encoding="utf-8")
 
     return TrendAnalysisResult(
         report_markdown=report_markdown,
         combined_markdown=combined_markdown,
-        report_path=str(report_path.relative_to(ROOT_DIR)),
-        combined_path=str(combined_path.relative_to(ROOT_DIR)),
-        pdf_path=str(pdf_path.relative_to(ROOT_DIR)),
+        html_report=html_report,
+        report_path=_relative_or_absolute(report_path),
+        combined_path=_relative_or_absolute(combined_path),
+        html_path=_relative_or_absolute(html_path),
+        pdf_path=_relative_or_absolute(pdf_path),
         pdf_bytes=pdf_bytes,
         share_url=share_url,
         generated_at=timestamp,

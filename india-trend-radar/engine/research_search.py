@@ -20,7 +20,8 @@ from typing import Iterable
 import requests
 
 ROOT_DIR = Path(__file__).resolve().parent.parent
-DEFAULT_REPORT_DIR = ROOT_DIR / "raw" / "reports"
+REPO_ROOT_DIR = ROOT_DIR.parent
+DEFAULT_REPORT_DIR = REPO_ROOT_DIR / "data" / "raw" / "reports"
 DEFAULT_OUTPUT_DIR = ROOT_DIR / "raw" / "research"
 SERPER_ENDPOINT = "https://google.serper.dev/search"
 SERPAPI_ENDPOINT = "https://serpapi.com/search"
@@ -432,7 +433,12 @@ def _load_report_matches(report_dir: Path, keywords: list[str], limit: int = 5) 
             excerpt = text.strip().replace("\n", " ")[:400]
         matches.append(
             ReportMatch(
-                path=str(path.relative_to(ROOT_DIR)),
+                # Absolute, not relative_to(ROOT_DIR) -- report_dir now lives at the repo root
+                # (data/raw/reports), outside india-trend-radar/, so it isn't under ROOT_DIR.
+                # An absolute path here still round-trips correctly through trend_analysis.py's
+                # `(ROOT_DIR / match.path).resolve()` -- pathlib's join treats an absolute right
+                # operand as an override, ignoring the left side.
+                path=str(path.resolve()),
                 title=path.stem.replace("_", " ").replace("-", " ").title(),
                 excerpt=excerpt[:400],
                 score=score,

@@ -11,18 +11,28 @@ Run with:  streamlit run app.py
 from __future__ import annotations
 
 import hashlib
-import base64
 import html
 import os
 import re
 import json
 from pathlib import Path
 from textwrap import dedent
+from urllib.parse import urlparse
 
 import streamlit as st
 import streamlit.components.v1 as components
 
-from engine import company_sectors, momentum, news, research_search, trend_analysis, trends
+from engine import (
+    company_sectors,
+    growth_companies,
+    momentum,
+    news,
+    product_trends,
+    research_search,
+    trend_analysis,
+    trends,
+)
+from engine.final_analysis_render import render_final_analysis_html
 
 
 def _load_env_file() -> None:
@@ -359,7 +369,7 @@ if run_clicked:
                 deepl_api_key=deepl_key_default or None,
             )
         except Exception:  # noqa: BLE001
-            warnings.append("We couldn't pull in the latest research for this query, so results are based on general knowledge instead.")
+            warnings.append("We couldn't load the latest research, so this run uses general context instead.")
     st.session_state["research_context"] = research_context
 
     trend_data = None
@@ -373,7 +383,7 @@ if run_clicked:
                 research_context.prompt if research_context else None,
             )
         except Exception:  # noqa: BLE001
-            warnings.append("We couldn't generate a live analysis this time, so sample trend data is shown instead.")
+            warnings.append("We couldn't generate a live trend read, so sample trend data is shown instead.")
 
     if trend_data is None:
         try:
@@ -381,7 +391,7 @@ if run_clicked:
         except Exception:  # noqa: BLE001
             # Last-resort fallback so a bug here can never leave the page silently stuck on
             # "No analysis yet" -- session_state always gets populated by the end of this block.
-            warnings.append("Something went wrong while preparing results. Please try again.")
+            warnings.append("Something went wrong while preparing the results. Please try again.")
             trend_data = []
 
     analysis_result = None
@@ -395,7 +405,7 @@ if run_clicked:
             api_key=openai_key_default or None,
         )
     except Exception:  # noqa: BLE001
-        warnings.append("We couldn't generate the markdown analysis file this time, so the app will show the live trend data only.")
+        warnings.append("We couldn't build the final analysis report, so the app will show the trend view only.")
 
     loading_slot.markdown(
         '<div class="loading-banner">Scanning macro, mega, and sub-trends...</div>',
@@ -411,13 +421,13 @@ if run_clicked:
                 region=region,
             )
         except Exception as exc:  # noqa: BLE001
-            warnings.append(f"We couldn't fetch live news for this query: {exc}. Sample articles are shown instead.")
+            warnings.append("We couldn't fetch live news for this query, so sample articles are shown instead.")
 
     if news_data is None:
         try:
             news_data = news.generate_mock_news("", time_range, region, industry_label)
         except Exception:  # noqa: BLE001
-            warnings.append("Something went wrong while preparing news signals. Please try again.")
+            warnings.append("Something went wrong while preparing the news signals. Please try again.")
             news_data = []
 
     st.session_state["trends"] = trend_data
@@ -448,8 +458,6 @@ if "trends" not in st.session_state:
     st.stop()
 
 ctx = st.session_state["context"]
-for w in st.session_state.get("warnings", []):
-    st.warning(w)
 
 research_context = st.session_state.get("research_context")
 if research_context and research_context.providers_used:
@@ -472,6 +480,7 @@ st.markdown(
 all_trends = st.session_state["trends"]
 all_news = st.session_state["news"]
 analysis_result = st.session_state.get("analysis_result")
+page_errors: list[str] = []
 
 # ---------------------------------------------------------------------------
 # Card renderer
@@ -502,7 +511,7 @@ def render_trend_card(t: dict) -> None:
 
 def render_trend_grid(items: list[dict], columns: int = 3) -> None:
     if not items:
-        st.info("No trends in this tier for the current query.")
+        render_empty_state("No content is available in this section yet.")
         return
     cols = st.columns(columns)
     for i, t in enumerate(items):
@@ -593,134 +602,375 @@ def render_news_card(article: dict) -> None:
     )
 
 
+def render_company_card(company: dict) -> None:
+    name = html.escape(company.get("name") or "Unknown")
+    reason = html.escape(company.get("growth_reason") or "")
+    growth_pct = company.get("growth_pct")
+    meta = f"Est. growth +{float(growth_pct):.0f}%" if isinstance(growth_pct, (int, float)) else ""
+    st.markdown(
+        dedent(
+            f"""
+            <div class="signal-card">
+                <div class="signal-title">{name}</div>
+                <div class="signal-meta">{html.escape(meta)}</div>
+                <div style="margin-top:6px;font-size:0.86rem;color:#334155;line-height:1.4;">{reason}</div>
+            </div>
+            """
+        ),
+        unsafe_allow_html=True,
+    )
+
+
+def render_hashtags(hashtags: list[str]) -> None:
+    if not hashtags:
+        st.caption("No hashtags available.")
+        return
+    tags_html = "".join(f'<span class="signal-tag">{html.escape(tag)}</span>' for tag in hashtags)
+    st.markdown(tags_html, unsafe_allow_html=True)
+
+
+def render_reddit_signal(post: dict) -> None:
+    title = html.escape(post.get("title") or "Untitled")
+    subreddit = html.escape(post.get("subreddit") or "")
+    why = html.escape(post.get("why_relevant") or "")
+    st.markdown(f"- **{title}** — {subreddit}<br><span style='color:#64748B;font-size:0.82rem;'>{why}</span>", unsafe_allow_html=True)
+
+
+def render_empty_state(message: str) -> None:
+    st.markdown(
+        dedent(
+            f"""
+            <div class="empty-state">
+                <h3>Nothing to show yet</h3>
+                <p>{html.escape(message)}</p>
+            </div>
+            """
+        ),
+        unsafe_allow_html=True,
+    )
+
+
+def _analysis_pdf_bytes(result: object) -> bytes:
+    pdf_path = getattr(result, "pdf_path", "")
+    if pdf_path:
+        path = Path(pdf_path)
+        if not path.is_absolute():
+            path = Path(__file__).resolve().parent / path
+        if path.exists():
+            data = path.read_bytes()
+            if data:
+                return data
+    return getattr(result, "pdf_bytes", b"") or b""
+
+
+def _is_public_share_url(url: str | None) -> bool:
+    if not url:
+        return False
+    parsed = urlparse(url.strip())
+    return parsed.scheme in {"http", "https"} and parsed.netloc in {"0x0.st", "transfer.sh"}
+
+
 # ---------------------------------------------------------------------------
 # Navigation
 # ---------------------------------------------------------------------------
 
-tab_hierarchy, tab_momentum, tab_news, tab_analysis = st.tabs(["Trend Hierarchy", "Momentum", "News Signals", "Final Analysis"])
+tab_hierarchy, tab_momentum, tab_news, tab_analysis, tab_drilldown = st.tabs(
+    ["Trend Hierarchy", "Momentum", "News Signals", "Final Analysis", "Sub-Trend Drill-Down"]
+)
 
 with tab_hierarchy:
-    if st.session_state.get("is_mock_trends"):
-        st.markdown(
-            '<div class="sample-banner">Sample trend analysis. Add an OpenAI key to .env to load a live read.</div>',
-            unsafe_allow_html=True,
-        )
+    try:
+        if st.session_state.get("is_mock_trends"):
+            st.markdown(
+                '<div class="sample-banner">Sample trend analysis. Add an OpenAI key to .env to load a live read.</div>',
+                unsafe_allow_html=True,
+            )
 
-    macro_tab, mega_tab, sub_tab = st.tabs(["Macro-Trends", "Mega-Trends", "Sub-Trends"])
-    with macro_tab:
-        st.caption("Long-term, macro changes playing out across years to decades — the major forces across society, technology, economy, ecology, and politics shaping consumer and business behavior.")
-        render_trend_grid([t for t in all_trends if t["tier"] == "Macro"])
-    with mega_tab:
-        st.caption("The building blocks of the arena — points of tension created where macro-trends intersect with basic consumer or business needs.")
-        render_trend_grid([t for t in all_trends if t["tier"] == "Mega"])
-    with sub_tab:
-        st.caption("Emerging, actionable trends arising from that tension — where you can start acting on emerging expectations today.")
-        render_trend_grid([t for t in all_trends if t["tier"] == "Sub"])
+        macro_tab, mega_tab, sub_tab = st.tabs(["Macro-Trends", "Mega-Trends", "Sub-Trends"])
+        with macro_tab:
+            st.caption("Long-term, macro changes playing out across years to decades — the major forces across society, technology, economy, ecology, and politics shaping consumer and business behavior.")
+            render_trend_grid([t for t in all_trends if t["tier"] == "Macro"])
+        with mega_tab:
+            st.caption("The building blocks of the arena — points of tension created where macro-trends intersect with basic consumer or business needs.")
+            render_trend_grid([t for t in all_trends if t["tier"] == "Mega"])
+        with sub_tab:
+            st.caption("Emerging, actionable trends arising from that tension — where you can start acting on emerging expectations today.")
+            render_trend_grid([t for t in all_trends if t["tier"] == "Sub"])
+    except Exception as exc:  # noqa: BLE001
+        page_errors.append("Trend hierarchy is unavailable right now.")
+        render_empty_state("The trend hierarchy is unavailable right now. Run a new analysis to try again.")
 
 with tab_momentum:
-    if st.session_state.get("is_mock_trends"):
-        st.markdown(
-            '<div class="sample-banner">Momentum diagram uses the sample trend data above.</div>',
-            unsafe_allow_html=True,
-        )
-    momentum_tab, adoption_tab, radar_tab = st.tabs(["Momentum Diagram", "Adoption S-curve", "Trend Radar"])
-    with momentum_tab:
-        color_by = st.radio("Color by", ["Category", "Recommendation"], horizontal=True, label_visibility="collapsed")
-        fig = momentum.build_momentum_figure(all_trends, color_by=color_by.lower())
-        st.plotly_chart(fig, use_container_width=True)
-        st.caption("Radius = trend strength (0-10). Each colored rim segment groups one trend cluster; dot size shrinks from Macro to Sub-trend.")
-    with adoption_tab:
-        fig = momentum.build_adoption_s_curve_figure(all_trends)
-        st.plotly_chart(fig, use_container_width=True)
-        st.caption("Illustrative adoption trajectory by trend tier.")
-    with radar_tab:
-        fig = momentum.build_trend_radar_figure(all_trends)
-        st.plotly_chart(fig, use_container_width=True)
-        st.caption("Average strength by trend category, rendered as a radar-style summary.")
+    try:
+        if st.session_state.get("is_mock_trends"):
+            st.markdown(
+                '<div class="sample-banner">Momentum diagram uses the sample trend data above.</div>',
+                unsafe_allow_html=True,
+            )
+        momentum_tab, adoption_tab, radar_tab = st.tabs(["Momentum Diagram", "Adoption S-curve", "Trend Radar"])
+        with momentum_tab:
+            color_by = st.radio("Color by", ["Category", "Recommendation"], horizontal=True, label_visibility="collapsed")
+            fig = momentum.build_momentum_figure(all_trends, color_by=color_by.lower())
+            st.plotly_chart(fig, use_container_width=True)
+            st.caption("Radius = trend strength (0-10). Each colored rim segment groups one trend cluster; dot size shrinks from Macro to Sub-trend.")
+        with adoption_tab:
+            fig = momentum.build_adoption_s_curve_figure(all_trends)
+            st.plotly_chart(fig, use_container_width=True)
+            st.caption("Illustrative adoption trajectory by trend tier.")
+        with radar_tab:
+            fig = momentum.build_trend_radar_figure(all_trends)
+            st.plotly_chart(fig, use_container_width=True)
+            st.caption("Average strength by trend category, rendered as a radar-style summary.")
+    except Exception as exc:  # noqa: BLE001
+        page_errors.append("Momentum view is unavailable right now.")
+        render_empty_state("The momentum view is unavailable right now. Run a new analysis to try again.")
 
 with tab_news:
-    if st.session_state.get("is_mock_news"):
-        st.markdown(
-            '<div class="sample-banner">Sample signals. Add a NewsAPI key to .env for live articles.</div>',
-            unsafe_allow_html=True,
-        )
-    if not all_news:
-        st.info("No signals found for this query.")
-    for a in all_news:
-        render_news_card(a)
+    try:
+        if st.session_state.get("is_mock_news"):
+            st.markdown(
+                '<div class="sample-banner">Sample signals. Add a NewsAPI key to .env for live articles.</div>',
+                unsafe_allow_html=True,
+            )
+        if not all_news:
+            render_empty_state("No news signals are available for this query yet.")
+        for a in all_news:
+            render_news_card(a)
+    except Exception as exc:  # noqa: BLE001
+        page_errors.append("News signals are unavailable right now.")
+        render_empty_state("The news signals view is unavailable right now. Run a new analysis to try again.")
 
 with tab_analysis:
-    if analysis_result is None:
-        st.info("No markdown analysis was generated for this run.")
-    else:
-        pdf_b64 = base64.b64encode(analysis_result.pdf_bytes).decode("ascii")
-        share_target = analysis_result.share_url or Path(analysis_result.pdf_path).resolve().as_uri()
-        header_title = analysis_result.report_markdown.splitlines()[0].lstrip("# ").strip() if analysis_result.report_markdown else "Final analysis"
-        header_meta = " · ".join(
-            [
-                f"{ctx['industry']}",
-                f"{ctx['region']}",
-                f"{ctx['time_range']}",
-            ]
-        )
-        header_html = dedent(
-            f"""
-            <div style="border:1px solid #E2E8F0;border-radius:16px;background:#fff;box-shadow:0 16px 30px rgba(15,23,42,.05);overflow:hidden;font-family:'Source Sans 3','Source Sans Pro',sans-serif;">
-              <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 20px;border-bottom:1px solid #E2E8F0;background:linear-gradient(180deg,#F8FAFC 0%,#FFFFFF 100%);">
-                <div>
-                  <div style="font-size:1.25rem;font-weight:750;color:#0F172A;letter-spacing:-0.02em;margin-bottom:3px;">{html.escape(header_title)}</div>
-                  <div style="font-size:0.82rem;color:#64748B;display:flex;flex-wrap:wrap;gap:10px 14px;">
-                    <span>{html.escape(header_meta)}</span>
-                    <span>Saved {html.escape(analysis_result.generated_at)}</span>
-                  </div>
-                </div>
-                <div style="display:inline-flex;align-items:center;gap:8px;flex:0 0 auto;">
-                  <button id="download-btn" title="Download PDF" style="width:42px;height:42px;border-radius:999px;border:1px solid #E2E8F0;background:#FFFFFF;color:#0F172A;box-shadow:0 10px 22px rgba(15,23,42,0.08);font-size:18px;cursor:pointer;">⬇</button>
-                  <button id="share-btn" title="Copy share link" style="width:42px;height:42px;border-radius:999px;border:1px solid #E2E8F0;background:#FFFFFF;color:#0F172A;box-shadow:0 10px 22px rgba(15,23,42,0.08);font-size:18px;cursor:pointer;">↗</button>
-                  <span id="share-state" style="font-size:0.76rem;color:#64748B;min-width:72px;"></span>
-                </div>
-              </div>
-              <script>
-                (() => {{
-                  const pdfB64 = "{pdf_b64}";
-                  const shareUrl = {json.dumps(share_target)};
-                  const fileName = {json.dumps(Path(analysis_result.pdf_path).name)};
-                  const downloadBtn = document.getElementById("download-btn");
-                  const shareBtn = document.getElementById("share-btn");
-                  const shareState = document.getElementById("share-state");
+    try:
+        if analysis_result is None:
+            render_empty_state("No final analysis is available yet. Run an analysis to generate this tab.")
+        else:
+            share_target = analysis_result.share_url if _is_public_share_url(analysis_result.share_url) else None
+            if not share_target:
+                pdf_bytes = _analysis_pdf_bytes(analysis_result)
+                if pdf_bytes:
+                    share_target = trend_analysis._upload_public_pdf(
+                        pdf_bytes,
+                        Path(analysis_result.pdf_path).name,
+                    )
+            html_report = getattr(analysis_result, "html_report", None)
+            if not html_report:
+                html_report = render_final_analysis_html(
+                    analysis_result.report_markdown,
+                    analysis_result.combined_markdown,
+                    all_trends,
+                    research_context,
+                    getattr(analysis_result, "generated_at", ""),
+                    ctx["region"],
+                    ctx["industry"],
+                )
+            button_cols = st.columns([1, 1, 6])
+            with button_cols[0]:
+                st.download_button(
+                    "Download PDF",
+                    data=_analysis_pdf_bytes(analysis_result),
+                    file_name=Path(analysis_result.pdf_path).name,
+                    mime="application/pdf",
+                    use_container_width=True,
+                )
+            with button_cols[1]:
+                if share_target:
+                    share_button_html = dedent(
+                        f"""
+                        <button id="copy-link-btn" style="
+                            width: 100%;
+                            min-height: 2.5rem;
+                            border: 1px solid #E2E8F0;
+                            border-radius: 0.5rem;
+                            background: #FFFFFF;
+                            color: #0F172A;
+                            font: inherit;
+                            font-weight: 600;
+                            cursor: pointer;
+                        ">Copy link</button>
+                        <script>
+                          (() => {{
+                            const url = {json.dumps(share_target)};
+                            const btn = document.getElementById("copy-link-btn");
+                            btn.addEventListener("click", async () => {{
+                              try {{
+                                await navigator.clipboard.writeText(url);
+                                btn.textContent = "Copied";
+                              }} catch (err) {{
+                                btn.textContent = "Copy failed";
+                              }}
+                              window.setTimeout(() => {{
+                                btn.textContent = "Copy link";
+                              }}, 1500);
+                            }});
+                          }})();
+                        </script>
+                        """
+                    )
+                    components.html(share_button_html, height=44, scrolling=False)
+                else:
+                    st.button("Copy link", disabled=True, use_container_width=True)
+            if not share_target:
+                st.caption(
+                    "Sharing needs a public URL. In local mode you can download the PDF, but the app "
+                    "cannot generate a link other people can open."
+                )
+            else:
+                st.caption("The report has a public URL. Use Copy link to share it.")
+            components.html(html_report, height=1200, scrolling=True)
+    except Exception as exc:  # noqa: BLE001
+        page_errors.append("Final analysis is unavailable right now.")
+        render_empty_state("The final analysis is unavailable right now. Run a new analysis to try again.")
 
-                  downloadBtn.addEventListener("click", () => {{
-                    const binary = atob(pdfB64);
-                    const bytes = new Uint8Array(binary.length);
-                    for (let i = 0; i < binary.length; i++) {{
-                      bytes[i] = binary.charCodeAt(i);
-                    }}
-                    const blob = new Blob([bytes], {{ type: "application/pdf" }});
-                    const url = URL.createObjectURL(blob);
-                    const a = document.createElement("a");
-                    a.href = url;
-                    a.download = fileName;
-                    document.body.appendChild(a);
-                    a.click();
-                    a.remove();
-                    setTimeout(() => URL.revokeObjectURL(url), 1000);
-                  }});
-
-                  shareBtn.addEventListener("click", async () => {{
-                    try {{
-                      await navigator.clipboard.writeText(shareUrl);
-                      shareState.textContent = "Copied";
-                    }} catch (err) {{
-                      shareState.textContent = "Copy failed";
-                    }}
-                    window.setTimeout(() => {{
-                      shareState.textContent = "";
-                    }}, 1800);
-                  }});
-                }})();
-              </script>
-            </div>
-            """
+with tab_drilldown:
+    try:
+        st.caption(
+            "Pick a Sub-trend to research the companies growing in this region for that sector, "
+            "with social-signal color and the region's top trending consumer products."
         )
-        components.html(header_html, height=110, scrolling=False)
-        st.markdown(_strip_leading_heading(analysis_result.combined_markdown))
+        sub_trends = [t for t in all_trends if t["tier"] == "Sub"]
+        if not sub_trends:
+            render_empty_state("No drill-down content is available yet. Run an analysis to populate it.")
+        else:
+            sub_trend_by_id = {t["id"]: t for t in sub_trends}
+            selected_sub_id = st.selectbox(
+                "Sub-trend",
+                options=list(sub_trend_by_id.keys()),
+                format_func=lambda sid: sub_trend_by_id[sid]["name"],
+                key="drilldown_subtrend_select",
+            )
+            selected_sub = sub_trend_by_id[selected_sub_id]
+            st.caption(selected_sub["description"])
+
+            product_region = st.radio(
+                "Trending-products region",
+                ["United States", "China"],
+                index=1 if ctx["region"] == "China" else 0,
+                horizontal=True,
+                key="drilldown_product_region",
+            )
+
+            generate_clicked = st.button("Generate Drill-Down", key="drilldown_generate")
+            cache_key = f"drilldown::{selected_sub_id}::{ctx['region']}::{product_region}"
+
+            if generate_clicked:
+                use_live = bool(openai_key_default)
+                use_live_research_dd = bool(
+                    serper_key_default or serpapi_key_default or tavily_key_default or deepl_key_default
+                )
+                with st.spinner("Researching growing companies and social signals..."):
+                    research_prompt = None
+                    if use_live and use_live_research_dd:
+                        try:
+                            drilldown_research = research_search.build_research_context(
+                                f"{selected_sub['name']} ({ctx['industry']})",
+                                ctx["region"],
+                                ctx["time_range"],
+                                serper_api_key=serper_key_default or None,
+                                serp_api_key=serpapi_key_default or None,
+                                tavily_api_key=tavily_key_default or None,
+                                deepl_api_key=deepl_key_default or None,
+                            )
+                            research_prompt = drilldown_research.prompt
+                        except Exception:  # noqa: BLE001
+                            research_prompt = None
+
+                    companies, companies_is_sample = None, True
+                    if use_live:
+                        try:
+                            companies = growth_companies.call_live_companies(
+                                selected_sub["name"], ctx["industry"], ctx["region"], openai_key_default, research_prompt
+                            )
+                            companies_is_sample = not companies
+                        except Exception:  # noqa: BLE001
+                            companies = None
+                    if not companies:
+                        companies = growth_companies.generate_mock_companies(selected_sub["name"], ctx["industry"], ctx["region"])
+                        companies_is_sample = True
+
+                    social, social_is_sample = None, True
+                    if use_live:
+                        try:
+                            social = growth_companies.call_live_social_signals(
+                                selected_sub["name"], ctx["industry"], ctx["region"], openai_key_default
+                            )
+                            social_is_sample = False
+                        except Exception:  # noqa: BLE001
+                            social = None
+                    if not social:
+                        social = growth_companies.generate_mock_social_signals(selected_sub["name"], ctx["industry"], ctx["region"])
+                        social_is_sample = True
+
+                    products = product_trends.get_trending_products(product_region)
+
+                st.session_state[cache_key] = dict(
+                    companies=companies,
+                    companies_is_sample=companies_is_sample,
+                    social=social,
+                    social_is_sample=social_is_sample,
+                    products=products,
+                    product_region=product_region,
+                )
+
+            cached = st.session_state.get(cache_key)
+            if not cached:
+                render_empty_state("Click Generate Drill-Down to load companies, social signals, and products.")
+            else:
+                st.markdown("### Top Growing Companies")
+                if cached["companies_is_sample"]:
+                    st.markdown(
+                        '<div class="sample-banner">Sample companies. Add an OpenAI key to .env for a live list.</div>',
+                        unsafe_allow_html=True,
+                    )
+                if not cached["companies"]:
+                    render_empty_state("No companies were returned for this query.")
+                for company in cached["companies"]:
+                    render_company_card(company)
+
+                st.markdown("### Social Signal")
+                st.caption(
+                    "AI-estimated, directional signal -- not a live TikTok, Instagram, or Reddit pull."
+                )
+                if cached["social_is_sample"]:
+                    st.markdown(
+                        '<div class="sample-banner">Sample social signals. Add an OpenAI key to .env for a live estimate.</div>',
+                        unsafe_allow_html=True,
+                    )
+                social_cols = st.columns(2)
+                with social_cols[0]:
+                    st.markdown("**TikTok hashtags**")
+                    render_hashtags(cached["social"]["tiktok_hashtags"])
+                with social_cols[1]:
+                    st.markdown("**Instagram hashtags**")
+                    render_hashtags(cached["social"]["instagram_hashtags"])
+                st.markdown("**Reddit signal**")
+                reddit_signals = cached["social"]["reddit_signals"]
+                if not reddit_signals:
+                    st.caption("No Reddit signals available.")
+                for post in reddit_signals:
+                    render_reddit_signal(post)
+
+                st.markdown(f"### Top Trending Products — {cached['product_region']}")
+                if not cached["products"]:
+                    render_empty_state("No product-trend reports were found for this region yet.")
+                else:
+                    rows = [
+                        {
+                            "#": p["display_rank"],
+                            "Product": p["product"],
+                            "Signal / Source": p["signal_and_source"],
+                            "Year": p["year"],
+                        }
+                        for p in cached["products"]
+                    ]
+                    st.dataframe(rows, hide_index=True, use_container_width=True)
+    except Exception as exc:  # noqa: BLE001
+        page_errors.append("Drill-down view is unavailable right now.")
+        render_empty_state("The drill-down view is unavailable right now. Run a new analysis to try again.")
+
+bottom_messages = st.session_state.get("warnings", []) + page_errors
+if bottom_messages:
+    st.markdown("---")
+    st.error("Some parts of this page are unavailable right now.")
+    for message in bottom_messages:
+        st.caption(message)

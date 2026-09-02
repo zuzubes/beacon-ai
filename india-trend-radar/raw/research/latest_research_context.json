@@ -1,11 +1,12 @@
 {
-  "query": "consumer_goods trends 2026 United States after:2026-08-02 before:2026-09-01",
+  "query": "Apparel & Fashion trends 2026 US and China after:2026-08-26 before:2026-09-02",
   "countries": [
-    "us"
+    "us",
+    "cn"
   ],
   "language": "en",
-  "time_range": "Past 1 month",
-  "search_window": "2026-08-02..2026-09-01",
+  "time_range": "Past 1 week",
+  "search_window": "2026-08-26..2026-09-02",
   "providers_used": [],
   "keywords": [],
   "hits": [],
@@ -15,48 +16,32 @@
     {
       "provider": "serper",
       "country": "us",
-      "error": "HTTPError: 403 Client Error: Forbidden for url: https://google.serper.dev/search"
+      "error": "ConnectionError: HTTPSConnectionPool(host='google.serper.dev', port=443): Max retries exceeded with url: /search (Caused by NameResolutionError(\"<urllib3.connection.HTTPSConnection object at 0x11a755940>: Failed to resolve 'google.serper.dev' ([Errno 8] nodename nor servname provided, or not known)\"))"
+    },
+    {
+      "provider": "serper",
+      "country": "cn",
+      "error": "ConnectionError: HTTPSConnectionPool(host='google.serper.dev', port=443): Max retries exceeded with url: /search (Caused by NameResolutionError(\"<urllib3.connection.HTTPSConnection object at 0x11b578050>: Failed to resolve 'google.serper.dev' ([Errno 8] nodename nor servname provided, or not known)\"))"
     },
     {
       "provider": "serpapi",
       "country": "us",
-      "response": {
-        "search_metadata": {
-          "id": "6a9722dfc986affb93ef13f8",
-          "status": "Success",
-          "json_endpoint": "https://serpapi.com/searches/sDB6DBfeMSl_mAx8sU1LfYRpHdJN0AJ87yW1eIs8-rs/6a9722dfc986affb93ef13f8.json",
-          "markdown_endpoint": "https://serpapi.com/searches/sDB6DBfeMSl_mAx8sU1LfYRpHdJN0AJ87yW1eIs8-rs/6a9722dfc986affb93ef13f8.md",
-          "pixel_position_endpoint": "https://serpapi.com/searches/sDB6DBfeMSl_mAx8sU1LfYRpHdJN0AJ87yW1eIs8-rs/6a9722dfc986affb93ef13f8.json_with_pixel_position",
-          "created_at": "2026-09-01 19:09:19 UTC",
-          "processed_at": "2026-09-01 19:09:19 UTC",
-          "google_url": "https://www.google.com/search?q=consumer_goods+trends+2026+United+States+after%3A2026-08-02+before%3A2026-09-01&oq=consumer_goods+trends+2026+United+States+after%3A2026-08-02+before%3A2026-09-01&hl=en&gl=us&tbs=sbd:1&sourceid=chrome&ie=UTF-8",
-          "raw_html_file": "https://serpapi.com/searches/sDB6DBfeMSl_mAx8sU1LfYRpHdJN0AJ87yW1eIs8-rs/6a9722dfc986affb93ef13f8.html",
-          "total_time_taken": 4.33
-        },
-        "search_parameters": {
-          "engine": "google",
-          "q": "consumer_goods trends 2026 United States after:2026-08-02 before:2026-09-01",
-          "google_domain": "google.com",
-          "hl": "en",
-          "gl": "us",
-          "device": "desktop",
-          "tbs": "sbd:1"
-        },
-        "search_information": {
-          "query_displayed": "consumer_goods trends 2026 United States after:2026-08-02 before:2026-09-01",
-          "total_results": 0,
-          "time_taken_displayed": 0.23,
-          "organic_results_state": "Fully empty",
-          "spelling_fix": "consumer goods trends 2026 United States after:2026-08-02 before:2026-09-01",
-          "showing_results_for": "consumer goods trends 2026 United States after:2026-08-02 before:2026-09-01"
-        },
-        "error": "Google hasn't returned any results for this query."
-      }
+      "error": "ConnectionError: HTTPSConnectionPool(host='serpapi.com', port=443): Max retries exceeded with url: /search?engine=google&q=Apparel+%26+Fashion+trends+2026+US+and+China+after%3A2026-08-26+before%3A2026-09-02&page=1&gl=us&hl=en&num=10&api_key=7d1e4ad24f3fbffd3834263757dbf7955f16dc43bbbdb2c7929c0acf2e31a725&tbs=sbd%3A1 (Caused by NameResolutionError(\"<urllib3.connection.HTTPSConnection object at 0x11a75ad50>: Failed to resolve 'serpapi.com' ([Errno 8] nodename nor servname provided, or not known)\"))"
+    },
+    {
+      "provider": "serpapi",
+      "country": "cn",
+      "error": "ConnectionError: HTTPSConnectionPool(host='serpapi.com', port=443): Max retries exceeded with url: /search?engine=google&q=Apparel+%26+Fashion+trends+2026+US+and+China+after%3A2026-08-26+before%3A2026-09-02&page=1&gl=cn&hl=en&num=10&api_key=7d1e4ad24f3fbffd3834263757dbf7955f16dc43bbbdb2c7929c0acf2e31a725&tbs=sbd%3A1 (Caused by NameResolutionError(\"<urllib3.connection.HTTPSConnection object at 0x11a75b4d0>: Failed to resolve 'serpapi.com' ([Errno 8] nodename nor servname provided, or not known)\"))"
     },
     {
       "provider": "tavily",
       "country": "us",
-      "error": "HTTPError: 400 Client Error: Bad Request for url: https://api.tavily.com/search"
+      "error": "ConnectionError: HTTPSConnectionPool(host='api.tavily.com', port=443): Max retries exceeded with url: /search (Caused by NameResolutionError(\"<urllib3.connection.HTTPSConnection object at 0x11a75a350>: Failed to resolve 'api.tavily.com' ([Errno 8] nodename nor servname provided, or not known)\"))"
+    },
+    {
+      "provider": "tavily",
+      "country": "cn",
+      "error": "ConnectionError: HTTPSConnectionPool(host='api.tavily.com', port=443): Max retries exceeded with url: /search (Caused by NameResolutionError(\"<urllib3.connection.HTTPSConnection object at 0x11a759a90>: Failed to resolve 'api.tavily.com' ([Errno 8] nodename nor servname provided, or not known)\"))"
     }
   ]
 }
