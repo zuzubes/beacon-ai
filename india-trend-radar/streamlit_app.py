@@ -178,14 +178,88 @@ st.markdown(
 
         .trend-card {
             border: 1px solid var(--line);
-            border-radius: 26px;
+            border-radius: 28px;
             box-shadow: var(--shadow-soft);
             background:
-                linear-gradient(180deg, rgba(255, 255, 255, 0.88) 0%, rgba(251, 248, 241, 0.96) 100%);
+                radial-gradient(circle at top left, rgba(212, 99, 52, 0.06), transparent 24%),
+                linear-gradient(180deg, rgba(255, 255, 255, 0.94) 0%, rgba(250, 244, 234, 0.98) 100%);
             overflow: hidden;
         }
         .trend-card-inner {
+            padding: 0;
+        }
+        .trend-card-shell {
+            position: relative;
             padding: 18px 18px 16px;
+            min-height: 100%;
+        }
+        .trend-card-topbar {
+            height: 10px;
+            border-radius: 999px 999px 0 0;
+            margin: -18px -18px 16px;
+            background: linear-gradient(90deg, rgba(212, 99, 52, 1) 0%, rgba(212, 99, 52, 0.72) 100%);
+        }
+        .trend-card-shell.macro .trend-card-topbar {
+            background: linear-gradient(90deg, rgba(212, 99, 52, 1) 0%, rgba(202, 151, 38, 0.92) 100%);
+        }
+        .trend-card-shell.mega .trend-card-topbar {
+            background: linear-gradient(90deg, rgba(32, 66, 60, 1) 0%, rgba(85, 112, 150, 0.95) 100%);
+        }
+        .trend-card-shell.sub .trend-card-topbar {
+            background: linear-gradient(90deg, rgba(85, 112, 150, 1) 0%, rgba(212, 99, 52, 0.88) 100%);
+        }
+        .trend-card-header {
+            display: flex;
+            justify-content: space-between;
+            gap: 16px;
+            align-items: flex-start;
+            margin-bottom: 0.8rem;
+        }
+        .trend-card-main {
+            min-width: 0;
+            flex: 1 1 auto;
+        }
+        .trend-card-score {
+            flex: 0 0 auto;
+            text-align: right;
+            min-width: 82px;
+            padding-top: 2px;
+        }
+        .trend-card-score-value {
+            font-family: var(--serif);
+            font-size: 2.15rem;
+            line-height: 0.95;
+            letter-spacing: -0.05em;
+            color: var(--accent);
+        }
+        .trend-card-score-label {
+            margin-top: 4px;
+            font-size: 0.68rem;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+        .trend-card-meter {
+            display: grid;
+            grid-template-columns: repeat(9, minmax(0, 1fr));
+            gap: 4px;
+            align-items: end;
+            margin: 1rem 0 1rem;
+            height: 58px;
+        }
+        .trend-card-meter-bar {
+            border-radius: 2px;
+            background: rgba(202, 151, 38, 0.38);
+            min-height: 14px;
+        }
+        .trend-card-meter-bar.is-active {
+            background: var(--ochre);
+        }
+        .trend-card-meter-bar.is-strong {
+            background: var(--accent);
+        }
+        .trend-card-footer {
+            margin-top: auto;
         }
         .trend-card-kicker {
             font-size: 0.72rem;
@@ -193,14 +267,14 @@ st.markdown(
             letter-spacing: 0.14em;
             text-transform: uppercase;
             color: var(--accent);
-            margin-bottom: 0.45rem;
+            margin-bottom: 0.55rem;
         }
         .trend-card-title {
             font-family: var(--serif);
-            font-size: 1.65rem;
-            line-height: 1.02;
+            font-size: clamp(1.65rem, 1.3vw + 0.9rem, 2.4rem);
+            line-height: 0.98;
             letter-spacing: -0.04em;
-            margin-bottom: 0.35rem;
+            margin-bottom: 0.55rem;
             color: var(--ink);
         }
         .trend-card-parent {
@@ -208,37 +282,36 @@ st.markdown(
             text-transform: uppercase;
             letter-spacing: 0.12em;
             color: var(--muted);
-            margin-bottom: 0.7rem;
+            margin-bottom: 0.75rem;
         }
         .trend-card-desc {
-            font-size: 0.92rem;
+            font-size: 0.95rem;
             color: var(--ink);
             line-height: 1.55;
-            margin-bottom: 0.95rem;
+            margin-bottom: 0.9rem;
         }
         .trend-action-row {
             display: flex;
-            gap: 10px;
-            align-items: center;
-            justify-content: space-between;
+            flex-direction: column;
+            gap: 8px;
+            align-items: flex-start;
             margin-top: 12px;
-            flex-wrap: wrap;
         }
         .trend-action-note {
-            font-size: 0.78rem;
+            font-size: 0.8rem;
             line-height: 1.4;
             color: var(--muted);
         }
 
-        .pill { display: inline-block; border-radius: 999px; padding: 2px 10px; font-size: 0.74rem;
-                font-weight: 600; margin-right: 6px; margin-bottom: 4px; }
-        .pill-growth-pos { background: var(--sds-success-bg); color: var(--sds-success-text); }
-        .pill-growth-neg { background: var(--sds-error-bg); color: var(--sds-error-text); }
+        .pill { display: inline-block; border-radius: 999px; padding: 6px 12px; font-size: 0.74rem;
+                font-weight: 700; margin-right: 6px; margin-bottom: 6px; letter-spacing: 0.01em; }
+        .pill-growth-pos { background: rgba(34, 197, 94, 0.14); color: #15803d; }
+        .pill-growth-neg { background: rgba(239, 68, 68, 0.12); color: #b91c1c; }
         .pill-strength { background: rgba(85, 112, 150, 0.12); color: var(--slate); }
         .pill-horizon { background: rgba(202, 151, 38, 0.14); color: #8b6512; }
-        .pill-invest { background: var(--sds-success-bg); color: var(--sds-success-text); }
+        .pill-invest { background: rgba(34, 197, 94, 0.14); color: #15803d; }
         .pill-strategize { background: rgba(85, 112, 150, 0.12); color: var(--slate); }
-        .pill-watch { background: var(--sds-warning-bg); color: var(--sds-warning-text); }
+        .pill-watch { background: rgba(202, 151, 38, 0.12); color: #8b6512; }
         .pill-stayaway { background: #F1F5F9; color: #64748B; }
 
         .signal-card {
@@ -383,6 +456,227 @@ st.markdown(
         .analysis-action:hover { color: var(--accent); border-color: var(--accent); }
         .analysis-body { padding: 20px; }
 
+        .admin-shell {
+            border: 1px solid var(--line);
+            border-radius: 28px;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.88) 0%, rgba(250, 245, 236, 0.96) 100%);
+            box-shadow: var(--shadow);
+            padding: 22px 22px 18px;
+            margin-bottom: 18px;
+        }
+        .admin-kicker {
+            font-size: 0.72rem;
+            font-weight: 800;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 8px;
+        }
+        .admin-title {
+            font-family: var(--serif);
+            font-size: clamp(2rem, 3vw, 3rem);
+            line-height: 0.98;
+            letter-spacing: -0.04em;
+            color: var(--ink);
+            margin-bottom: 8px;
+        }
+        .admin-subtitle {
+            max-width: 72ch;
+            font-size: 0.96rem;
+            line-height: 1.55;
+            color: var(--muted);
+            margin-bottom: 14px;
+        }
+        .admin-meta-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .admin-meta-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border-radius: 999px;
+            border: 1px solid var(--line);
+            background: rgba(255, 255, 255, 0.78);
+            color: var(--ink);
+            padding: 6px 11px;
+            font-size: 0.78rem;
+            font-weight: 600;
+        }
+        .admin-summary-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 12px;
+            margin: 12px 0 16px;
+        }
+        .admin-summary-card {
+            border: 1px solid var(--line);
+            border-radius: 22px;
+            background: rgba(255, 255, 255, 0.86);
+            box-shadow: var(--shadow-soft);
+            padding: 14px 16px 13px;
+            min-height: 100px;
+        }
+        .admin-summary-label {
+            font-size: 0.71rem;
+            font-weight: 800;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 6px;
+        }
+        .admin-summary-value {
+            font-size: 1.6rem;
+            line-height: 1.02;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            color: var(--ink);
+            margin-bottom: 4px;
+            overflow-wrap: anywhere;
+        }
+        .admin-summary-copy {
+            font-size: 0.8rem;
+            line-height: 1.45;
+            color: var(--muted);
+        }
+        .admin-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1.2fr;
+            gap: 12px;
+            align-items: stretch;
+            margin: 14px 0 18px;
+        }
+        .admin-path-card {
+            border: 1px solid var(--line);
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.78);
+            box-shadow: var(--shadow-soft);
+            padding: 14px 16px;
+            min-height: 64px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .admin-path-label {
+            font-size: 0.72rem;
+            font-weight: 800;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 6px;
+        }
+        .admin-path-value {
+            font-family: var(--sans);
+            font-size: 0.8rem;
+            line-height: 1.45;
+            color: var(--ink);
+            word-break: break-word;
+        }
+        .admin-table-shell {
+            border: 1px solid var(--line);
+            border-radius: 24px;
+            background: rgba(255, 255, 255, 0.88);
+            box-shadow: var(--shadow-soft);
+            overflow: hidden;
+            margin-bottom: 16px;
+        }
+        .admin-table-scroll {
+            overflow-x: auto;
+        }
+        .admin-cost-table {
+            width: 100%;
+            min-width: 1550px;
+            border-collapse: collapse;
+            background: transparent;
+        }
+        .admin-cost-table thead th {
+            position: sticky;
+            top: 0;
+            z-index: 1;
+            background: linear-gradient(180deg, rgba(248, 242, 230, 0.98) 0%, rgba(255, 255, 255, 0.98) 100%);
+            color: var(--muted);
+            font-size: 0.68rem;
+            font-weight: 800;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            padding: 12px 14px;
+            border-bottom: 1px solid var(--line);
+            text-align: left;
+            white-space: nowrap;
+        }
+        .admin-cost-table tbody td {
+            padding: 12px 14px;
+            border-bottom: 1px solid rgba(27, 32, 48, 0.08);
+            vertical-align: top;
+            font-size: 0.83rem;
+            line-height: 1.45;
+            color: var(--ink);
+        }
+        .admin-cost-table tbody tr:nth-child(even) {
+            background: rgba(248, 242, 230, 0.35);
+        }
+        .admin-feature {
+            font-weight: 700;
+            color: var(--ink);
+        }
+        .admin-endpoint {
+            display: block;
+            font-size: 0.72rem;
+            color: var(--muted);
+            margin-top: 3px;
+            word-break: break-word;
+        }
+        .admin-provider-model {
+            color: var(--ink);
+        }
+        .admin-provider-model .admin-model {
+            display: block;
+            font-size: 0.74rem;
+            color: var(--muted);
+            margin-top: 2px;
+        }
+        .admin-status-pill {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 999px;
+            padding: 4px 10px;
+            font-size: 0.7rem;
+            font-weight: 800;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+        .admin-status-success {
+            background: var(--sds-success-bg);
+            color: var(--sds-success-text);
+        }
+        .admin-status-error {
+            background: var(--sds-error-bg);
+            color: var(--sds-error-text);
+        }
+        .admin-status-neutral {
+            background: rgba(85, 112, 150, 0.1);
+            color: var(--slate);
+        }
+        .admin-num {
+            text-align: right;
+            font-variant-numeric: tabular-nums;
+            white-space: nowrap;
+        }
+        .admin-notes {
+            color: var(--muted);
+            font-size: 0.78rem;
+        }
+        .admin-footer-summary {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 12px;
+        }
+        .admin-footer-summary .admin-summary-card {
+            min-height: 84px;
+        }
+
         .hierarchy-overview {
             border: 1px solid var(--line);
             border-radius: 26px;
@@ -470,6 +764,7 @@ st.markdown(
             flex-wrap: wrap;
             gap: 8px;
             margin-top: auto;
+            min-width: 0;
         }
         .hierarchy-stage-item {
             display: inline-flex;
@@ -482,6 +777,8 @@ st.markdown(
             padding: 6px 10px;
             font-size: 0.74rem;
             font-weight: 600;
+            max-width: 100%;
+            overflow-wrap: anywhere;
         }
         .hierarchy-stage-item-muted {
             color: var(--muted);
@@ -521,6 +818,7 @@ st.markdown(
             margin-bottom: 4px;
             clear: both;
             position: relative;
+            min-width: 0;
         }
         .hierarchy-chip {
             display: inline-flex;
@@ -532,6 +830,8 @@ st.markdown(
             padding: 3px 9px;
             font-size: 0.72rem;
             font-weight: 600;
+            max-width: 100%;
+            overflow-wrap: anywhere;
         }
         .hierarchy-chip-empty {
             color: var(--muted);
@@ -632,6 +932,11 @@ st.markdown(
             }
             .news-thumb { width: 100%; height: 180px; }
             .hierarchy-board {
+                grid-template-columns: 1fr;
+            }
+            .admin-summary-grid,
+            .admin-footer-summary,
+            .admin-actions {
                 grid-template-columns: 1fr;
             }
         }
@@ -846,20 +1151,19 @@ if analysis_busy and analysis_request:
         # Trend generation and the report that summarizes it used to be two separate,
         # fully sequential OpenAI calls -- the report call had to re-send the research
         # context and a fresh summary of the trends from scratch. One streamed call now
-        # produces both, and the raw text is shown live below instead of a blank wait.
-        _stream_progress = {"last_len": 0}
+        # produces both. The stream is only used to advance a plain-language status
+        # message (never raw model output -- mid-generation JSON/markdown fragments
+        # aren't something a user should see); the tab layout and content below are
+        # untouched and only render once the full result is ready.
+        _stream_progress = {"last_len": 0, "stage": ""}
 
         def _on_stream_text(buf: str) -> None:
-            if len(buf) - _stream_progress["last_len"] < 250:
+            stage = "Writing the analysis report..." if "===REPORT_MARKDOWN===" in buf else "Generating trend hierarchy..."
+            if stage == _stream_progress["stage"] and len(buf) - _stream_progress["last_len"] < 500:
                 return
             _stream_progress["last_len"] = len(buf)
-            loading_slot.markdown(
-                '<div class="loading-banner">Generating trend hierarchy and report&hellip;</div>'
-                '<pre style="max-height:240px;overflow:auto;background:rgba(15,23,42,0.04);'
-                'border-radius:8px;padding:10px;font-size:11px;line-height:1.4;'
-                f'white-space:pre-wrap;color:#475569;">{html.escape(buf[-3000:])}</pre>',
-                unsafe_allow_html=True,
-            )
+            _stream_progress["stage"] = stage
+            loading_slot.markdown(f'<div class="loading-banner">{stage}</div>', unsafe_allow_html=True)
 
         try:
             trend_data, report_markdown = trend_analysis.call_combined_trends_and_report(
@@ -987,52 +1291,77 @@ page_errors: list[str] = []
 # ---------------------------------------------------------------------------
 
 
+def _trend_meter_html(strength: float) -> str:
+    active = max(1, min(9, round(strength)))
+    bars = []
+    for idx in range(1, 10):
+        height = 18 + idx * 5
+        classes = ["trend-card-meter-bar"]
+        if idx <= active:
+            classes.append("is-active")
+        if idx >= 8:
+            classes.append("is-strong")
+        bars.append(
+            f'<span class="{" ".join(classes)}" style="height:{height}px"></span>'
+        )
+    return "".join(bars)
+
+
 def render_trend_card(t: dict, show_drilldown_action: bool = False) -> None:
     growth_class = "pill-growth-pos" if t["growth_pct"] >= 0 else "pill-growth-neg"
     growth_sign = "▲" if t["growth_pct"] >= 0 else "▼"
     rec_class = REC_PILL_CLASS.get(t["recommendation"], "pill-watch")
-    with st.container(border=True):
-        st.markdown(
-            dedent(
-                f"""
-                <div class="trend-card-inner">
-                    <div class="trend-card-kicker">{html.escape(t['tier'])} trend</div>
+    shell_class = f"trend-card-shell {t['tier'].lower()}"
+    tier_label = f"{t['tier'].upper()} TREND"
+    card_html = dedent(
+        f"""
+        <div class="trend-card">
+            <div class="{shell_class}">
+                <div class="trend-card-topbar"></div>
+                <div class="trend-card-header">
+                    <div class="trend-card-main">
+                        <div class="trend-card-kicker">{html.escape(tier_label)}</div>
+                        <div class="trend-card-title">{html.escape(t['name'])}</div>
+                        {"<div class='trend-card-parent'>via " + html.escape(t['parent']) + "</div>" if t.get("parent") else ""}
+                    </div>
+                    <div class="trend-card-score">
+                        <div class="trend-card-score-value">{t['strength']:.1f}</div>
+                        <div class="trend-card-score-label">Strength</div>
+                    </div>
                 </div>
-                """
-            ),
-            unsafe_allow_html=True,
-        )
-        left_col, right_col = st.columns([3, 1], vertical_alignment="top")
-        with left_col:
-            st.markdown(f"<div class='trend-card-title'>{html.escape(t['name'])}</div>", unsafe_allow_html=True)
-            if t.get("parent"):
-                st.markdown(f"<div class='trend-card-parent'>via {html.escape(t['parent'])}</div>", unsafe_allow_html=True)
-            st.markdown(f"<div class='trend-card-desc'>{html.escape(t['description'])}</div>", unsafe_allow_html=True)
-            st.markdown(
-                " ".join(
-                    [
-                        f"<span class='pill {growth_class}'>{growth_sign} {t['growth_pct']:+.0f}%</span>",
-                        f"<span class='pill pill-strength'>Strength {t['strength']:.1f}</span>",
-                        f"<span class='pill pill-horizon'>{html.escape(t['time_horizon'])}</span>",
-                        f"<span class='pill {rec_class}'>{html.escape(t['recommendation'])}</span>",
-                    ]
-                ),
-                unsafe_allow_html=True,
-            )
-        if show_drilldown_action and t["tier"] == "Sub":
-            if st.button("Generate drill-down", key=f"subtrend_generate::{t['id']}", use_container_width=True):
-                selected_sub_id = t["id"]
-                st.session_state["drilldown_subtrend_select"] = selected_sub_id
-                product_region = _default_product_region()
-                payload = build_drilldown_payload(t, product_region, cost_tracker=st.session_state.get("analysis_cost_tracker"))
-                st.session_state[_drilldown_cache_key(selected_sub_id)] = payload
-                st.session_state["drilldown_last_generated"] = selected_sub_id
+                <div class="trend-card-desc">{html.escape(t['description'])}</div>
+                <div class="trend-card-meter">{_trend_meter_html(float(t['strength']))}</div>
+                <div class="trend-card-footer">
+                    <div class="trend-action-row">
+                        <div>
+                            <span class='pill {growth_class}'>{growth_sign} {t['growth_pct']:+.0f}%</span>
+                            <span class='pill pill-strength'>Strength {t['strength']:.1f}</span>
+                            <span class='pill pill-horizon'>{html.escape(t['time_horizon'])}</span>
+                            <span class='pill {rec_class}'>{html.escape(t['recommendation'])}</span>
+                        </div>
+                        <div class="trend-action-note">Use the detailed tabs for the full hierarchy and drill-down workflow.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        """
+    )
+    st.markdown(card_html, unsafe_allow_html=True)
+    if show_drilldown_action and t["tier"] == "Sub":
+        if st.button("Generate drill-down", key=f"subtrend_generate::{t['id']}", use_container_width=True):
+            selected_sub_id = t["id"]
+            st.session_state["drilldown_subtrend_select"] = selected_sub_id
+            product_region = _default_product_region()
+            payload = build_drilldown_payload(t, product_region, cost_tracker=st.session_state.get("analysis_cost_tracker"))
+            st.session_state[_drilldown_cache_key(selected_sub_id)] = payload
+            st.session_state["drilldown_last_generated"] = selected_sub_id
 
 
 def render_trend_grid(items: list[dict], columns: int = 3, show_drilldown_action: bool = False) -> None:
     if not items:
         render_empty_state("No content is available in this section yet.")
         return
+    columns = 1 if len(items) == 1 else 2
     cols = st.columns(columns)
     for i, t in enumerate(items):
         with cols[i % columns]:
@@ -1328,7 +1657,7 @@ def render_subtrend_explorer(sub_trends: list[dict], cost_tracker: CostRunTracke
 
     cached = st.session_state.get(cache_key)
     if not cached:
-        render_empty_state("Click Generate drill-down to load companies, social signals, and products.")
+        render_empty_state("Click Generate drill-down to get companies in this space, some social signals supporting the trend, and products (if available).")
         return
 
     render_drilldown_results(cached)
@@ -1345,84 +1674,35 @@ def render_trend_hierarchy_overview(trends_data: list[dict]) -> None:
     for trend in sub_trends:
         sub_by_parent.setdefault(trend["parent"] or "", []).append(trend)
 
-    st.markdown(
-        dedent(
-            f"""
-            <div class="hierarchy-overview">
-                <div class="hierarchy-overview-title">Trend Hierarchy</div>
-                <div class="hierarchy-overview-subtitle">
-                    A compact landing surface for the current macro, mega, and sub-trend stack. The detailed tabs below stay
-                    available for deeper exploration.
-                </div>
-            </div>
-            """
-        ),
-        unsafe_allow_html=True,
+    st.markdown("#### Trend Hierarchy")
+    st.caption(
+        "A compact landing surface for the current macro, mega, and sub-trend stack. The detailed tabs below stay available for deeper exploration."
     )
 
-    st.markdown(
-        dedent(
-            f"""
-            <div class="hierarchy-board">
-                <div class="hierarchy-stage-card macro">
-                    <div class="hierarchy-stage-kicker">Layer 1</div>
-                    <div class="hierarchy-stage-title">Macro-Trends</div>
-                    <div class="hierarchy-stage-count">{len(macro_trends)} forces</div>
-                    <div class="hierarchy-stage-desc">Long-horizon drivers setting the direction of the market.</div>
-                    <div class="hierarchy-stage-list">
-                        {''.join(f"<span class='hierarchy-stage-item'>{html.escape(m['name'])}</span>" for m in macro_trends[:4])}
-                        {"<span class='hierarchy-stage-item hierarchy-stage-item-muted'>More in the Macro-Trends tab</span>" if len(macro_trends) > 4 else ""}
-                    </div>
-                </div>
-                <div class="hierarchy-stage-card mega">
-                    <div class="hierarchy-stage-kicker">Layer 2</div>
-                    <div class="hierarchy-stage-title">Mega-Trends</div>
-                    <div class="hierarchy-stage-count">{len(mega_trends)} tension points</div>
-                    <div class="hierarchy-stage-desc">Where macro forces start shaping category dynamics and investment themes.</div>
-                    <div class="hierarchy-stage-list">
-                        {''.join(
-                            f"<span class='hierarchy-stage-item'>{html.escape(mega['name'])}</span>"
-                            for mega in mega_trends[:4]
-                        )}
-                        {"<span class='hierarchy-stage-item hierarchy-stage-item-muted'>Grouped by parent macro trend</span>" if mega_trends else ""}
-                    </div>
-                </div>
-                <div class="hierarchy-stage-card sub">
-                    <div class="hierarchy-stage-kicker">Layer 3</div>
-                    <div class="hierarchy-stage-title">Sub-Trends</div>
-                    <div class="hierarchy-stage-count">{len(sub_trends)} actionable tiles</div>
-                    <div class="hierarchy-stage-desc">Market behaviors and signals that feed the drill-down workflow.</div>
-                    <div class="hierarchy-stage-list">
-                        {''.join(
-                            f"<span class='hierarchy-stage-item'>{html.escape(sub['name'])}</span>"
-                            for sub in sub_trends[:4]
-                        )}
-                        {"<span class='hierarchy-stage-item hierarchy-stage-item-muted'>Generate drill-down from any sub-trend tile</span>" if sub_trends else ""}
-                    </div>
-                </div>
-            </div>
-            """
-        ),
-        unsafe_allow_html=True,
-    )
+    overview_cols = st.columns(3)
+    overview_specs = [
+        ("Layer 1", "Macro-Trends", f"{len(macro_trends)} forces", "Long-horizon drivers setting the direction of the market.", macro_trends, "More in the Macro-Trends tab"),
+        ("Layer 2", "Mega-Trends", f"{len(mega_trends)} tension points", "Where macro forces start shaping category dynamics and investment themes.", mega_trends, "Grouped by parent macro trend"),
+        ("Layer 3", "Sub-Trends", f"{len(sub_trends)} actionable tiles", "Market behaviors and signals that feed the drill-down workflow.", sub_trends, "Generate drill-down from any sub-trend tile"),
+    ]
+    for col, (kicker, title, count, desc, items, muted) in zip(overview_cols, overview_specs):
+        with col:
+            with st.container(border=True):
+                st.markdown(f"**{kicker}**")
+                st.markdown(f"### {title}")
+                st.caption(count)
+                st.write(desc)
+                for item in items[:4]:
+                    st.markdown(f"- {item['name']}")
+                if items:
+                    st.caption(muted)
 
     for macro in macro_trends:
         megas = mega_by_parent.get(macro["name"], [])
         with st.container(border=True):
-            left_col = st.container()
-            with left_col:
-                st.markdown(
-                    f"<div class='hierarchy-macro-title'>{html.escape(macro['name'])}</div>",
-                    unsafe_allow_html=True,
-                )
-                st.markdown(
-                    f"<div class='hierarchy-macro-meta'>{html.escape(macro['category'])} · Strength {macro['strength']:.1f} · {html.escape(macro['time_horizon'])}</div>",
-                    unsafe_allow_html=True,
-                )
-                st.markdown(
-                    f"<div class='hierarchy-macro-desc'>{html.escape(macro['description'])}</div>",
-                    unsafe_allow_html=True,
-                )
+            st.markdown(f"### {macro['name']}")
+            st.caption(f"{macro['category']} · Strength {macro['strength']:.1f} · {macro['time_horizon']}")
+            st.write(macro["description"])
             if not megas:
                 continue
             st.markdown("**Building blocks underneath this macro trend**")
@@ -1430,29 +1710,17 @@ def render_trend_hierarchy_overview(trends_data: list[dict]) -> None:
             for i, mega in enumerate(megas):
                 with mega_cols[i % len(mega_cols)]:
                     sub_items = sub_by_parent.get(mega["name"], [])
-                    if sub_items:
-                        footer_html = "".join(
-                            f"<span class='hierarchy-chip'>{html.escape(sub['name'])}</span>" for sub in sub_items
-                        )
-                    else:
-                        footer_html = "<span class='hierarchy-chip hierarchy-chip-empty'>No sub-trends available.</span>"
-                    st.markdown(
-                        dedent(
-                            f"""
-                            <div class="hierarchy-mega-card">
-                                <div class="hierarchy-mega-card-body">
-                                    <div class='hierarchy-mega-label'>{html.escape(mega['name'])}</div>
-                                    <div class='hierarchy-macro-meta'>Strength {mega['strength']:.1f} · {html.escape(mega['time_horizon'])}</div>
-                                    <div class='hierarchy-mega-desc'>{html.escape(mega['description'])}</div>
-                                </div>
-                                <div class="hierarchy-mega-card-footer">
-                                    <div class='hierarchy-chip-row'>{footer_html}</div>
-                                </div>
-                            </div>
-                            """
-                        ),
-                        unsafe_allow_html=True,
-                    )
+                    with st.container(border=True):
+                        st.markdown(f"**{mega['name']}**")
+                        st.caption(f"Strength {mega['strength']:.1f} · {mega['time_horizon']}")
+                        st.write(mega["description"])
+                        if sub_items:
+                            for sub in sub_items[:4]:
+                                st.markdown(f"- {sub['name']}")
+                            if len(sub_items) > 4:
+                                st.caption("More sub-trends available in the Sub-Trends tab.")
+                        else:
+                            st.caption("No sub-trends available.")
 
 
 def render_hashtags(hashtags: list[str]) -> None:
@@ -1540,22 +1808,152 @@ def _safe_dataframe_rows(tracker: CostRunTracker | None) -> list[dict]:
     return rows
 
 
+def _admin_status_class(status: str) -> str:
+    value = (status or "").strip().lower()
+    if value == "success":
+        return "admin-status-success"
+    if value in {"error", "failed", "failure"}:
+        return "admin-status-error"
+    return "admin-status-neutral"
+
+
+def _render_admin_table(rows: list[dict]) -> str:
+    header_cells = [
+        "Request ID",
+        "Timestamp",
+        "Feature / Endpoint",
+        "Provider / Model",
+        "Status",
+        "Input",
+        "Cached",
+        "Output",
+        "Latency",
+        "Estimated cost",
+        "Retries",
+        "Tool calls",
+        "Notes / Error",
+    ]
+    header_html = "".join(f"<th>{html.escape(cell)}</th>" for cell in header_cells)
+    body_rows = []
+    for row in rows:
+        status = row.get("Status", "")
+        body_rows.append(
+            "<tr>"
+            f"<td><strong>{html.escape(str(row.get('Request ID', '')))}</strong></td>"
+            f"<td>{html.escape(str(row.get('Timestamp', '')))}</td>"
+            "<td>"
+            f"<span class='admin-feature'>{html.escape(str(row.get('Feature', '')))}</span>"
+            f"<span class='admin-endpoint'>{html.escape(str(row.get('Endpoint', '')))}</span>"
+            "</td>"
+            "<td>"
+            f"<span class='admin-provider-model'>{html.escape(str(row.get('Provider', '')))}"
+            f"<span class='admin-model'>{html.escape(str(row.get('Model', '')))}</span></span>"
+            "</td>"
+            f"<td><span class='admin-status-pill {_admin_status_class(status)}'>{html.escape(str(status))}</span></td>"
+            f"<td class='admin-num'>{int(row.get('Input tokens', 0) or 0):,}</td>"
+            f"<td class='admin-num'>{int(row.get('Cached tokens', 0) or 0):,}</td>"
+            f"<td class='admin-num'>{int(row.get('Output tokens', 0) or 0):,}</td>"
+            f"<td class='admin-num'>{int(row.get('Latency ms', 0) or 0):,}</td>"
+            f"<td class='admin-num'>${float(row.get('Estimated cost (USD)', 0.0) or 0.0):.6f}</td>"
+            f"<td class='admin-num'>{int(row.get('Retries', 0) or 0):,}</td>"
+            f"<td class='admin-num'>{int(row.get('Tool calls', 0) or 0):,}</td>"
+            "<td>"
+            f"<div class='admin-notes'>{html.escape(str(row.get('Notes', '') or ''))}</div>"
+            f"<div class='admin-notes'>{html.escape(str(row.get('Error', '') or ''))}</div>"
+            "</td>"
+            "</tr>"
+        )
+    return (
+        "<div class='admin-table-shell'>"
+        "<div class='admin-table-scroll'>"
+        "<table class='admin-cost-table'>"
+        "<thead><tr>"
+        f"{header_html}"
+        "</tr></thead>"
+        "<tbody>"
+        f"{''.join(body_rows)}"
+        "</tbody></table></div></div>"
+    )
+
+
+def _admin_section_rows(rows: list[dict]) -> dict[str, list[dict]]:
+    grouped: dict[str, list[dict]] = {}
+    for row in rows:
+        feature = str(row.get("Feature", "") or "Uncategorized")
+        grouped.setdefault(feature, []).append(row)
+    feature_order = [
+        "research search",
+        "trend generation + final analysis",
+        "news signals",
+        "drill-down",
+    ]
+    ordered: dict[str, list[dict]] = {}
+    for feature in feature_order:
+        if feature in grouped:
+            ordered[feature] = grouped.pop(feature)
+    for feature in sorted(grouped):
+        ordered[feature] = grouped[feature]
+    return ordered
+
+
 def render_admin_dashboard(cost_tracker: CostRunTracker | None) -> None:
-    st.markdown("### Admin dashboard")
     if not cost_tracker:
         render_empty_state("No analysis run has been tracked yet.")
         return
 
     summary = cost_tracker._totals() if hasattr(cost_tracker, "_totals") else {}
-    top_cols = st.columns([1.2, 1.2, 1.6, 1])
-    top_cols[0].metric("Company", cost_tracker.company)
-    top_cols[1].metric("Run timestamp", cost_tracker.timestamp)
-    top_cols[2].metric("Run folder", cost_tracker.run_dir.name)
-    top_cols[3].metric("Estimated cost", f"${summary.get('estimated_cost_usd', 0.0):.4f}")
+    st.markdown(
+        dedent(
+            f"""
+            <div class="admin-shell">
+                <div class="admin-kicker">Internal operations</div>
+                <div class="admin-title">Admin dashboard</div>
+                <div class="admin-subtitle">
+                    Inspect the current run folder, cost estimates, and request-level usage for
+                    <b>{html.escape(cost_tracker.company)}</b> generated at
+                    <b>{html.escape(cost_tracker.timestamp)}</b>.
+                </div>
+                <div class="admin-meta-row">
+                    <span class="admin-meta-chip">Company: {html.escape(cost_tracker.company)}</span>
+                    <span class="admin-meta-chip">Timestamp: {html.escape(cost_tracker.timestamp)}</span>
+                    <span class="admin-meta-chip">Run folder: {html.escape(cost_tracker.run_dir.name)}</span>
+                    <span class="admin-meta-chip">Estimated cost: ${summary.get('estimated_cost_usd', 0.0):.4f}</span>
+                </div>
+            </div>
+            """
+        ),
+        unsafe_allow_html=True,
+    )
 
-    st.caption(f"Current run folder: {cost_tracker.run_dir}")
+    summary_grid = dedent(
+        f"""
+        <div class="admin-summary-grid">
+            <div class="admin-summary-card">
+                <div class="admin-summary-label">Requests</div>
+                <div class="admin-summary-value">{summary.get('requests', 0):,}</div>
+                <div class="admin-summary-copy">Tracked request rows in this run.</div>
+            </div>
+            <div class="admin-summary-card">
+                <div class="admin-summary-label">Input tokens</div>
+                <div class="admin-summary-value">{summary.get('input_tokens', 0):,}</div>
+                <div class="admin-summary-copy">Prompt-side usage across tracked requests.</div>
+            </div>
+            <div class="admin-summary-card">
+                <div class="admin-summary-label">Output tokens</div>
+                <div class="admin-summary-value">{summary.get('output_tokens', 0):,}</div>
+                <div class="admin-summary-copy">Generated text across tracked requests.</div>
+            </div>
+            <div class="admin-summary-card">
+                <div class="admin-summary-label">Tool calls</div>
+                <div class="admin-summary-value">{summary.get('tool_calls', 0):,}</div>
+                <div class="admin-summary-copy">Search and other external steps logged.</div>
+            </div>
+        </div>
+        """
+    )
+    st.markdown(summary_grid, unsafe_allow_html=True)
 
-    action_cols = st.columns(3)
+    action_cols = st.columns([1, 1, 1.2])
     with action_cols[0]:
         st.download_button(
             "Download cost log JSON",
@@ -1574,45 +1972,84 @@ def render_admin_dashboard(cost_tracker: CostRunTracker | None) -> None:
         )
     with action_cols[2]:
         st.markdown(
-            f"<div class='sample-banner'>Folder path: <code>{html.escape(str(cost_tracker.run_dir))}</code></div>",
+            dedent(
+                f"""
+                <div class="admin-path-card">
+                    <div class="admin-path-label">Current run folder</div>
+                    <div class="admin-path-value">{html.escape(str(cost_tracker.run_dir))}</div>
+                </div>
+                """
+            ),
             unsafe_allow_html=True,
         )
 
-    st.markdown("#### Cost estimates by request")
+    st.markdown("#### Cost estimates by section")
     rows = _safe_dataframe_rows(cost_tracker)
     if not rows:
         render_empty_state("The current run has no recorded cost rows yet.")
         return
-    st.dataframe(
-        rows,
-        hide_index=True,
-        use_container_width=True,
-        column_config={
-            "Request ID": st.column_config.TextColumn(width="medium"),
-            "Timestamp": st.column_config.TextColumn(width="medium"),
-            "Feature": st.column_config.TextColumn(width="medium"),
-            "Provider": st.column_config.TextColumn(width="small"),
-            "Model": st.column_config.TextColumn(width="small"),
-            "Endpoint": st.column_config.TextColumn(width="medium"),
-            "Status": st.column_config.TextColumn(width="small"),
-            "Input tokens": st.column_config.NumberColumn(width="small"),
-            "Cached tokens": st.column_config.NumberColumn(width="small"),
-            "Output tokens": st.column_config.NumberColumn(width="small"),
-            "Retries": st.column_config.NumberColumn(width="small"),
-            "Tool calls": st.column_config.NumberColumn(width="small"),
-            "Latency ms": st.column_config.NumberColumn(width="small"),
-            "Estimated cost (USD)": st.column_config.NumberColumn(format="%.6f", width="small"),
-            "Error": st.column_config.TextColumn(width="medium"),
-            "Notes": st.column_config.TextColumn(width="large"),
-        },
-    )
-
-    st.markdown("#### Run summary")
-    summary_cols = st.columns(4)
-    summary_cols[0].metric("Requests", summary.get("requests", 0))
-    summary_cols[1].metric("Input tokens", summary.get("input_tokens", 0))
-    summary_cols[2].metric("Output tokens", summary.get("output_tokens", 0))
-    summary_cols[3].metric("Tool calls", summary.get("tool_calls", 0))
+    section_rows = _admin_section_rows(rows)
+    for feature, feature_rows in section_rows.items():
+        display_feature = feature.replace(" + ", " + ").title()
+        summary_row = {
+            "requests": len(feature_rows),
+            "cost": sum(float(row.get("Estimated cost (USD)", 0.0) or 0.0) for row in feature_rows),
+            "input": sum(int(row.get("Input tokens", 0) or 0) for row in feature_rows),
+            "output": sum(int(row.get("Output tokens", 0) or 0) for row in feature_rows),
+            "tool_calls": sum(int(row.get("Tool calls", 0) or 0) for row in feature_rows),
+        }
+        with st.expander(
+            f"{display_feature} ({summary_row['requests']} requests · ${summary_row['cost']:.4f})",
+            expanded=feature in {"research search", "trend generation + final analysis"},
+        ):
+            st.markdown(
+                dedent(
+                    f"""
+                    <div class="admin-footer-summary">
+                        <div class="admin-summary-card">
+                            <div class="admin-summary-label">Requests</div>
+                            <div class="admin-summary-value">{summary_row['requests']}</div>
+                        </div>
+                        <div class="admin-summary-card">
+                            <div class="admin-summary-label">Input tokens</div>
+                            <div class="admin-summary-value">{summary_row['input']:,}</div>
+                        </div>
+                        <div class="admin-summary-card">
+                            <div class="admin-summary-label">Output tokens</div>
+                            <div class="admin-summary-value">{summary_row['output']:,}</div>
+                        </div>
+                        <div class="admin-summary-card">
+                            <div class="admin-summary-label">Tool calls</div>
+                            <div class="admin-summary-value">{summary_row['tool_calls']:,}</div>
+                        </div>
+                    </div>
+                    """
+                ),
+                unsafe_allow_html=True,
+            )
+            st.dataframe(
+                feature_rows,
+                hide_index=True,
+                use_container_width=True,
+                column_config={
+                    "Request ID": st.column_config.TextColumn(width="medium"),
+                    "Timestamp": st.column_config.TextColumn(width="medium"),
+                    "Feature": st.column_config.TextColumn(width="medium"),
+                    "Provider": st.column_config.TextColumn(width="small"),
+                    "Model": st.column_config.TextColumn(width="small"),
+                    "Endpoint": st.column_config.TextColumn(width="large"),
+                    "Status": st.column_config.TextColumn(width="small"),
+                    "Input tokens": st.column_config.NumberColumn(width="small"),
+                    "Cached tokens": st.column_config.NumberColumn(width="small"),
+                    "Output tokens": st.column_config.NumberColumn(width="small"),
+                    "Retries": st.column_config.NumberColumn(width="small"),
+                    "Tool calls": st.column_config.NumberColumn(width="small"),
+                    "Latency ms": st.column_config.NumberColumn(width="small"),
+                    "Estimated cost (USD)": st.column_config.NumberColumn(format="$%.6f", width="small"),
+                    "Error": st.column_config.TextColumn(width="large"),
+                    "Notes": st.column_config.TextColumn(width="large"),
+                },
+            )
 
 
 # ---------------------------------------------------------------------------
@@ -1790,7 +2227,6 @@ with tab_analysis:
 
 with tab_admin:
     try:
-        st.caption("Open this tab to inspect the current run folder, cost estimates, and request-level usage.")
         render_admin_dashboard(st.session_state.get("analysis_cost_tracker"))
     except Exception as exc:  # noqa: BLE001
         page_errors.append("Admin dashboard is unavailable right now.")
