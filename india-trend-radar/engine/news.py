@@ -195,7 +195,19 @@ _OTHER_REGION_TERMS_BY_COUNTRY = {
     "china": ["china", "chinese"],
     "united states": ["us", "u.s.", "united states", "american", "america"],
     "russia": ["russia", "russian"],
-    "india": ["india", "indian"],
+    # India itself is never a selectable region (REGION_OPTIONS is US/China only), but this
+    # app's own analysis is explicitly India-focused (see geo="India" below), so India-specific
+    # coverage is disproportionately common in the underlying article pool. The whole-country
+    # terms alone miss stories that stay at the state/city level without ever saying
+    # "India"/"Indian" (e.g. a Karnataka industrial-policy piece), so those sub-national terms
+    # are listed here too rather than relying on the country name alone.
+    "india": [
+        "india", "indian",
+        "karnataka", "bangalore", "bengaluru", "maharashtra", "mumbai", "delhi", "new delhi",
+        "tamil nadu", "chennai", "telangana", "hyderabad", "gujarat", "ahmedabad", "west bengal",
+        "kolkata", "uttar pradesh", "rajasthan", "kerala", "punjab", "haryana", "pune", "noida",
+        "gurugram", "gurgaon",
+    ],
     "united kingdom": ["uk", "u.k.", "britain", "british"],
     "japan": ["japan", "japanese"],
     "germany": ["germany", "german"],
@@ -215,6 +227,14 @@ def _other_region_keywords(region: str) -> list[str]:
         if not (set(words) & target):
             terms.extend(words)
     return terms
+
+
+def _text_contains_term(text: str, term: str) -> bool:
+    """Whole-word/phrase match, not a bare substring -- a short term like "us" would
+    otherwise match inside ordinary words such as "industrial", "focus", or "Russia",
+    making almost any article look "on-region" for the United States regardless of
+    content."""
+    return re.search(rf"(?<!\w){re.escape(term)}(?!\w)", text) is not None
 
 
 def _fetch_newsapi_page(query: str, from_date: str, to_date: str, sort_by: str, page_size: int, api_key: str, domains: str | None) -> list[dict]:
@@ -357,9 +377,9 @@ def call_live_news(
         # down rather than leaving it neutral -- region isn't a hard search filter (see
         # _region_keywords), so this is the only thing keeping off-region stories out.
         text = f"{item.get('title', '')} {item.get('description', '')}".lower()
-        if any(term in text for term in region_terms):
+        if any(_text_contains_term(text, term) for term in region_terms):
             score -= 1
-        elif any(term in text for term in other_region_terms):
+        elif any(_text_contains_term(text, term) for term in other_region_terms):
             score += 8
         # NewsAPI's "+word" operator matches full article body text, so a piece that only
         # mentions the industry deep in its body (not in the title/description a reader
@@ -474,8 +494,8 @@ def _normalize_currents_articles(currents_articles: list[dict], industry: str, c
         # (e.g. a Russia-India story under a US & China query) -- sort after, don't hide
         entry["_off_region"] = bool(
             other_region_terms
-            and any(term in text for term in other_region_terms)
-            and not any(term in text for term in region_terms)
+            and any(_text_contains_term(text, term) for term in other_region_terms)
+            and not any(_text_contains_term(text, term) for term in region_terms)
         )
         if relevance_words and any(word in text for word in relevance_words):
             on_topic.append(entry)

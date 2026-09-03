@@ -183,6 +183,12 @@ st.markdown(
         div[class*="st-key-trendcard-cta-"] {
             gap: 0 !important;
         }
+        div[class*="st-key-trendcard-shell-"] {
+            gap: 0 !important;
+        }
+        div[class*="st-key-trendcard-shell-"] [data-testid="stEmpty"] {
+            display: none;
+        }
         .trend-card.has-cta {
             border-bottom-left-radius: 0;
             border-bottom-right-radius: 0;
@@ -1627,7 +1633,7 @@ def render_trend_card(t: dict, show_drilldown_action: bool = False) -> None:
 
     has_cta = show_drilldown_action and t["tier"] == "Sub"
     card_class = "trend-card has-cta" if has_cta else "trend-card"
-    container = st.container(key=f"trendcard-cta-{t['id']}") if has_cta else st.container()
+    container = st.container(key=f"trendcard-cta-{t['id']}") if has_cta else st.container(key=f"trendcard-shell-{t['id']}")
     with container:
         st.markdown(
             dedent(
@@ -1663,6 +1669,8 @@ def render_trend_card(t: dict, show_drilldown_action: bool = False) -> None:
                 payload = build_drilldown_payload(t, product_region, cost_tracker=st.session_state.get("analysis_cost_tracker"))
                 st.session_state[_drilldown_cache_key(t["id"])] = payload
                 st.session_state["drilldown_last_generated"] = t["id"]
+        else:
+            st.empty()
 
 
 def render_trend_grid(items: list[dict], columns: int = 3, show_drilldown_action: bool = False, grid_key: str = "trend") -> None:

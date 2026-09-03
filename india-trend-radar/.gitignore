@@ -1,0 +1,6 @@
+raw/analysis/*
+!raw/analysis/.gitkeep
+raw/cost_tracking/*
+!raw/cost_tracking/.gitkeep
+raw/research/*
+!raw/research/.gitkeep

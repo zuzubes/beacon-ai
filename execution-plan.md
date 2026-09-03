@@ -240,7 +240,7 @@ Sprint boundaries and timeline remain open (per original scope: "for launch, kee
 4. Manually verified end-to-end in the running app (not just unit-tested in isolation) before being called done.
 5. Failure modes are handled visibly: a plain-language warning to the user, never a raw stack trace or a silent wrong answer.
 6. No secrets (API keys, tokens) committed; all credentials read from a local, gitignored `.env`.
-7. Behavior documented in the owning README (`README.md` or `india-trend-radar/README.md`) — specifically the provider order, validation rule, or fallback behavior the story introduces.
+7. Behavior documented in `README.md` — specifically the provider order, validation rule, or fallback behavior the story introduces.
 
 **Epic-level DoD** — an Epic is Done when:
 
@@ -250,7 +250,7 @@ Sprint boundaries and timeline remain open (per original scope: "for launch, kee
 
 **PoC-specific DoD** — additionally: the bridge server + n8n workflow can be started from a clean checkout following `n8n/workflow_documentation.md` with no undocumented manual steps, and a full "type sector name → receive brief" round trip completes in the chat.
 
-**MVP-specific DoD** — additionally: `streamlit run streamlit_app.py` boots cleanly with zero configuration (sample mode), and every live-mode toggle documented in `india-trend-radar/README.md`'s "Data modes" section works when the corresponding key is supplied.
+**MVP-specific DoD** — additionally: `streamlit run streamlit_app.py` boots cleanly with zero configuration (sample mode), and every live-mode toggle documented in `README.md`'s "Data modes" section works when the corresponding key is supplied.
 
 ---
 
@@ -272,7 +272,7 @@ Sprint boundaries and timeline remain open (per original scope: "for launch, kee
 - `raw/research/latest_research_context.json` is written on every run with provider order, live-hit count, and extracted keywords populated.
 - A forced truncated-response condition falls back to sample data instead of crashing or rendering partial output (manually verified, not just asserted in a test).
        - **KPI:** % of runs completing with live research coverage vs. falling back to sample data.
-       - **KPI:** run completion rate without manual intervention (per `india-trend-radar/README.md`'s stated launch KPI).
+       - **KPI:** run completion rate without manual intervention (per `README.md`'s stated launch KPI).
 
 ### Sprint 3 (MVP — Visualization + News Signals)
 - Trend Radar chart renders with an explicit title (no "undefined") and the strongest category visually distinguished — regression-checked, since this was a real bug hit and fixed once already.
@@ -293,7 +293,7 @@ Sprint boundaries and timeline remain open (per original scope: "for launch, kee
 - Summary Report tab renders the combined markdown + trend table for a completed run.
 - PDF download reads from the saved file on disk under `raw/analysis/`, not from in-memory state only — confirmed by killing and reloading the session mid-flow.
 - Share link is shown only on confirmed successful upload; a failed upload disables sharing for that run without blocking the local PDF download.
-- **KPI:** share/download success rate (per `india-trend-radar/README.md`'s stated launch KPI).
+- **KPI:** share/download success rate (per `README.md`'s stated launch KPI).
 
 ### Sprint 6 (MVP — Reliability, Cost & Quality Hardening)
 - All 6 OpenAI call sites (`trends.py`, `trend_analysis.py` ×2, `growth_companies.py` ×2, `company_sectors.py`) use `engine/openai_keys.py`'s failover; a simulated `RateLimitError` on the primary key is confirmed to retry successfully on the backup key.
@@ -311,7 +311,7 @@ Sprint boundaries and timeline remain open (per original scope: "for launch, kee
 - **Launch-1:** A second user can sign up, log in, and run an analysis without seeing another account's runs, saved profile, or preferences — verified with two concurrent test accounts, not just single-user testing. Profile/preference values persist across a full logout/login cycle, not just within one browser session.
 - **Launch-2:** For a completed analysis run, the app returns at least one India-based "lookalike" company for each trending China/US comparison company surfaced in that run, each tagged with funding stage, company size, and growth rate — never an unlabeled name with no comparison basis.
 - **Launch-3:** The ecosystem landscape view for a selected sub-trend renders using real drill-down data (companies/signals already generated for that sub-trend), not placeholder or unrelated content; an empty state shows when no drill-down has been generated yet for that sub-trend.
-- **Launch-4:** An external caller can trigger a trend-generation run and retrieve the resulting hierarchy through an API call alone, with no browser/Streamlit session involved — documented with a working example request/response in `india-trend-radar/README.md`.
+- **Launch-4:** An external caller can trigger a trend-generation run and retrieve the resulting hierarchy through an API call alone, with no browser/Streamlit session involved — documented with a working example request/response in `README.md`.
 - **KPI:** multi-tenant isolation — 0 cross-account data leaks across test accounts (hard requirement, not a target range, since any nonzero value is a data breach).
 - **KPI:** % of trending non-India companies for which the app successfully surfaces at least one India lookalike.
 - **KPI:** onboarding funnel — time from signup to first completed analysis run (baseline to be measured once Launch-1 exists).
