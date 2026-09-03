@@ -497,6 +497,34 @@ def _fallback_pdf(markdown_text: str, title: str) -> bytes:
     return output.getvalue()
 
 
+def render_html_to_pdf_bytes(html_content: str) -> bytes:
+    """Renders a full, self-contained HTML document to PDF with a headless browser.
+
+    `html_content` is the exact same HTML string shown to the user in the Summary Report
+    tab (`render_final_analysis_html`'s output), so the PDF is a pixel-faithful export of
+    what's on screen rather than a second, independently reconstructed layout -- the
+    hand-rolled markdown-to-flowables renderer below (`markdown_to_pdf_bytes`) computes its
+    own y-positions/pagination from scratch and can drift out of sync with the in-app report,
+    which is what caused the overlapping sections. Letting a real browser engine lay out and
+    paginate the same markup the user already sees removes that whole class of bug.
+    """
+    from playwright.sync_api import sync_playwright  # type: ignore
+
+    with sync_playwright() as pw:
+        browser = pw.chromium.launch()
+        try:
+            page = browser.new_page()
+            page.set_content(html_content, wait_until="networkidle")
+            pdf_bytes = page.pdf(
+                format="Letter",
+                print_background=True,
+                margin={"top": "0.4in", "bottom": "0.4in", "left": "0.3in", "right": "0.3in"},
+            )
+        finally:
+            browser.close()
+    return pdf_bytes
+
+
 def markdown_to_pdf_bytes(markdown_text: str, title: str) -> bytes:
     try:
         from reportlab.lib import colors  # type: ignore

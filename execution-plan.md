@@ -158,6 +158,42 @@ Week:   1    2    3    4    5    6    7    8    9   10   11   12   13+
 
 ---
 
+### Phase: Launch — *Open, candidate scope*
+
+> None of the epics below are built yet — this phase is genuinely open per the original scope ("for launch, keep it open, I'll add it manually"). These are the candidate epics identified so far; owning code, sprint sequencing, and acceptance criteria are intentionally left undefined until scoped.
+
+#### Epic Launch-1 — Multi-Tenant Onboarding & Profiles
+*Owning code: not yet built*
+
+| ID | Story |
+|---|---|
+| Launch-1.1 | As a new user, I want to sign up and access my own workspace, so multiple partners/funds can use Beacon AI without seeing each other's runs. |
+| Launch-1.2 | As a user, I want to set and persist my profile and preferences, so I don't have to re-enter the same inputs every session. |
+
+#### Epic Launch-2 — India Lookalike Company Identification
+*Owning code: not yet built*
+
+| ID | Story |
+|---|---|
+| Launch-2.1 | As a VC partner, I want the app to identify India-based companies analogous to the ones trending in the US and China, so I get concrete lookalike investment targets, not just a trend category. |
+| Launch-2.2 | As a VC partner, I want these lookalike companies categorized by funding stage, size, and growth rate, so I can quickly filter to the ones that fit my fund's check size and stage. |
+
+#### Epic Launch-3 — Sub-Trend Ecosystem Landscape
+*Owning code: not yet built*
+
+| ID | Story |
+|---|---|
+| Launch-3.1 | As a VC partner, I want a landscape view of the companies operating within a specific sub-trend, so I can deconstruct the competitive ecosystem instead of reading a flat company list. |
+
+#### Epic Launch-4 — Agent & API Access
+*Owning code: not yet built*
+
+| ID | Story |
+|---|---|
+| Launch-4.1 | As a developer or agent user, I want to trigger trend generation directly through an API, not only the Streamlit UI, so programmatic and agent-based users can consume Beacon AI without a browser session. |
+
+---
+
 ## 3. Sprint Plan (2-week sprints)
 
 ### Sprint 1 — PoC: Data Pipeline → Scoring → Brief → n8n Chat
@@ -185,7 +221,12 @@ Week:   1    2    3    4    5    6    7    8    9   10   11   12   13+
 **Goal:** The app survives a vendor outage or an exhausted API key without failing a partner mid-session, every run's cost is auditable, and the full test suite guards all of the above against regression.
 
 ### Sprint 7+ — Launch
-*Open — to be defined.*
+Sprint boundaries and timeline remain open (per original scope: "for launch, keep it open"). The epics below are the candidate scope identified so far; sequencing into specific 2-week sprints is still to be decided.
+
+- Launch-1 — Multi-Tenant Onboarding & Profiles
+- Launch-2 — India Lookalike Company Identification
+- Launch-3 — Sub-Trend Ecosystem Landscape
+- Launch-4 — Agent & API Access
 
 ---
 
@@ -263,5 +304,15 @@ Week:   1    2    3    4    5    6    7    8    9   10   11   12   13+
 - **KPI:** 100% of runs producing a cost log entry.
 - **KPI:** test suite pass rate = 100% before any sprint is called closed.
 
-### Sprint 7+ (Launch)
-*Open — to be defined.*
+### Sprint 7 (Launch — Onboarding, Lookalikes, Landscape, Agent Access)
+
+> None of Launch-1 through Launch-4 are built yet, so nothing below is a measured result — these are the acceptance bars this work will be held to once it's scoped into an actual sprint, stated now so "done" is defined before the work starts.
+
+- **Launch-1:** A second user can sign up, log in, and run an analysis without seeing another account's runs, saved profile, or preferences — verified with two concurrent test accounts, not just single-user testing. Profile/preference values persist across a full logout/login cycle, not just within one browser session.
+- **Launch-2:** For a completed analysis run, the app returns at least one India-based "lookalike" company for each trending China/US comparison company surfaced in that run, each tagged with funding stage, company size, and growth rate — never an unlabeled name with no comparison basis.
+- **Launch-3:** The ecosystem landscape view for a selected sub-trend renders using real drill-down data (companies/signals already generated for that sub-trend), not placeholder or unrelated content; an empty state shows when no drill-down has been generated yet for that sub-trend.
+- **Launch-4:** An external caller can trigger a trend-generation run and retrieve the resulting hierarchy through an API call alone, with no browser/Streamlit session involved — documented with a working example request/response in `india-trend-radar/README.md`.
+- **KPI:** multi-tenant isolation — 0 cross-account data leaks across test accounts (hard requirement, not a target range, since any nonzero value is a data breach).
+- **KPI:** % of trending non-India companies for which the app successfully surfaces at least one India lookalike.
+- **KPI:** onboarding funnel — time from signup to first completed analysis run (baseline to be measured once Launch-1 exists).
+- **KPI:** agent/API-triggered run success rate (target to be set once a baseline run exists, per the pattern used for other not-yet-baselined KPIs above).

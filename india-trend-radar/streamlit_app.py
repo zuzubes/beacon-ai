@@ -26,6 +26,7 @@ import streamlit.components.v1 as components
 
 from engine import (
     company_sectors,
+    email_digest,
     growth_companies,
     momentum,
     news,
@@ -176,6 +177,23 @@ st.markdown(
         .context-item { font-size: 0.85rem; color: #475569; }
         .context-item b { color: #0F172A; }
 
+        div[class*="st-key-trendgrid-"] {
+            gap: 8px !important;
+        }
+        div[class*="st-key-trendcard-cta-"] {
+            gap: 0 !important;
+        }
+        .trend-card.has-cta {
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+            border-bottom: none;
+        }
+        div[class*="st-key-trendcard-cta-"] [data-testid="stButton"] button {
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+            border-top: none;
+            margin-top: 0;
+        }
         .trend-card {
             border: 1px solid var(--line);
             border-radius: 28px;
@@ -979,6 +997,231 @@ st.session_state.setdefault("analysis_busy", False)
 st.session_state.setdefault("analysis_request", None)
 
 # ---------------------------------------------------------------------------
+# Admin dashboard (rendered from the sidebar; defined here, ahead of the
+# sidebar block below and the `st.stop()` further down, so it's available on
+# every rerun -- including the very first one, before any analysis has run.
+# ---------------------------------------------------------------------------
+
+
+def render_empty_state(message: str) -> None:
+    st.markdown(
+        dedent(
+            f"""
+            <div class="empty-state">
+                <h3>Nothing to show yet</h3>
+                <p>{html.escape(message)}</p>
+            </div>
+            """
+        ),
+        unsafe_allow_html=True,
+    )
+
+
+def _safe_dataframe_rows(tracker: CostRunTracker | None) -> list[dict]:
+    if not tracker:
+        return []
+    rows = []
+    for entry in getattr(tracker, "entries", []) or []:
+        rows.append(
+            {
+                "Request ID": entry.request_id,
+                "Timestamp": entry.timestamp,
+                "Feature": entry.feature,
+                "Provider": entry.provider,
+                "Model": entry.model,
+                "Endpoint": entry.endpoint,
+                "Status": entry.status,
+                "Input tokens": entry.input_tokens,
+                "Cached tokens": entry.cached_tokens,
+                "Output tokens": entry.output_tokens,
+                "Retries": entry.retries,
+                "Tool calls": entry.tool_calls,
+                "Latency ms": entry.latency_ms,
+                "Estimated cost (USD)": round(float(entry.estimated_cost_usd), 6),
+                "Error": entry.error or "",
+                "Notes": entry.notes or "",
+            }
+        )
+    return rows
+
+
+def _admin_section_rows(rows: list[dict]) -> dict[str, list[dict]]:
+    grouped: dict[str, list[dict]] = {}
+    for row in rows:
+        feature = str(row.get("Feature", "") or "Uncategorized")
+        grouped.setdefault(feature, []).append(row)
+    feature_order = [
+        "research search",
+        "trend generation + final analysis",
+        "news signals",
+        "drill-down",
+    ]
+    ordered: dict[str, list[dict]] = {}
+    for feature in feature_order:
+        if feature in grouped:
+            ordered[feature] = grouped.pop(feature)
+    for feature in sorted(grouped):
+        ordered[feature] = grouped[feature]
+    return ordered
+
+
+def render_admin_dashboard(cost_tracker: CostRunTracker | None) -> None:
+    if not cost_tracker:
+        render_empty_state("No analysis run has been tracked yet.")
+        return
+
+    summary = cost_tracker._totals() if hasattr(cost_tracker, "_totals") else {}
+    st.markdown(
+        dedent(
+            f"""
+            <div class="admin-shell">
+                <div class="admin-kicker">Internal operations</div>
+                <div class="admin-title">Admin dashboard</div>
+                <div class="admin-subtitle">
+                    Inspect the current run folder, cost estimates, and request-level usage for
+                    <b>{html.escape(cost_tracker.company)}</b> generated at
+                    <b>{html.escape(cost_tracker.timestamp)}</b>.
+                </div>
+                <div class="admin-meta-row">
+                    <span class="admin-meta-chip">Company: {html.escape(cost_tracker.company)}</span>
+                    <span class="admin-meta-chip">Timestamp: {html.escape(cost_tracker.timestamp)}</span>
+                    <span class="admin-meta-chip">Run folder: {html.escape(cost_tracker.run_dir.name)}</span>
+                    <span class="admin-meta-chip">Estimated cost: ${summary.get('estimated_cost_usd', 0.0):.4f}</span>
+                </div>
+            </div>
+            """
+        ),
+        unsafe_allow_html=True,
+    )
+
+    summary_grid = dedent(
+        f"""
+        <div class="admin-summary-grid">
+            <div class="admin-summary-card">
+                <div class="admin-summary-label">Requests</div>
+                <div class="admin-summary-value">{summary.get('requests', 0):,}</div>
+                <div class="admin-summary-copy">Tracked request rows in this run.</div>
+            </div>
+            <div class="admin-summary-card">
+                <div class="admin-summary-label">Input tokens</div>
+                <div class="admin-summary-value">{summary.get('input_tokens', 0):,}</div>
+                <div class="admin-summary-copy">Prompt-side usage across tracked requests.</div>
+            </div>
+            <div class="admin-summary-card">
+                <div class="admin-summary-label">Output tokens</div>
+                <div class="admin-summary-value">{summary.get('output_tokens', 0):,}</div>
+                <div class="admin-summary-copy">Generated text across tracked requests.</div>
+            </div>
+            <div class="admin-summary-card">
+                <div class="admin-summary-label">Tool calls</div>
+                <div class="admin-summary-value">{summary.get('tool_calls', 0):,}</div>
+                <div class="admin-summary-copy">Search and other external steps logged.</div>
+            </div>
+        </div>
+        """
+    )
+    st.markdown(summary_grid, unsafe_allow_html=True)
+
+    action_cols = st.columns([1, 1, 1.2])
+    with action_cols[0]:
+        st.download_button(
+            "Download cost log JSON",
+            data=cost_tracker.json_path.read_bytes(),
+            file_name=cost_tracker.json_path.name,
+            mime="application/json",
+            use_container_width=True,
+        )
+    with action_cols[1]:
+        st.download_button(
+            "Download cost log CSV",
+            data=cost_tracker.csv_path.read_bytes(),
+            file_name=cost_tracker.csv_path.name,
+            mime="text/csv",
+            use_container_width=True,
+        )
+    with action_cols[2]:
+        st.markdown(
+            dedent(
+                f"""
+                <div class="admin-path-card">
+                    <div class="admin-path-label">Current run folder</div>
+                    <div class="admin-path-value">{html.escape(str(cost_tracker.run_dir))}</div>
+                </div>
+                """
+            ),
+            unsafe_allow_html=True,
+        )
+
+    st.markdown("#### Cost estimates by section")
+    rows = _safe_dataframe_rows(cost_tracker)
+    if not rows:
+        render_empty_state("The current run has no recorded cost rows yet.")
+        return
+    section_rows = _admin_section_rows(rows)
+    for feature, feature_rows in section_rows.items():
+        display_feature = feature.replace(" + ", " + ").title()
+        summary_row = {
+            "requests": len(feature_rows),
+            "cost": sum(float(row.get("Estimated cost (USD)", 0.0) or 0.0) for row in feature_rows),
+            "input": sum(int(row.get("Input tokens", 0) or 0) for row in feature_rows),
+            "output": sum(int(row.get("Output tokens", 0) or 0) for row in feature_rows),
+            "tool_calls": sum(int(row.get("Tool calls", 0) or 0) for row in feature_rows),
+        }
+        with st.expander(
+            f"{display_feature} ({summary_row['requests']} requests · ${summary_row['cost']:.4f})",
+            expanded=feature in {"research search", "trend generation + final analysis"},
+        ):
+            st.markdown(
+                dedent(
+                    f"""
+                    <div class="admin-footer-summary">
+                        <div class="admin-summary-card">
+                            <div class="admin-summary-label">Requests</div>
+                            <div class="admin-summary-value">{summary_row['requests']}</div>
+                        </div>
+                        <div class="admin-summary-card">
+                            <div class="admin-summary-label">Input tokens</div>
+                            <div class="admin-summary-value">{summary_row['input']:,}</div>
+                        </div>
+                        <div class="admin-summary-card">
+                            <div class="admin-summary-label">Output tokens</div>
+                            <div class="admin-summary-value">{summary_row['output']:,}</div>
+                        </div>
+                        <div class="admin-summary-card">
+                            <div class="admin-summary-label">Tool calls</div>
+                            <div class="admin-summary-value">{summary_row['tool_calls']:,}</div>
+                        </div>
+                    </div>
+                    """
+                ),
+                unsafe_allow_html=True,
+            )
+            st.dataframe(
+                feature_rows,
+                hide_index=True,
+                use_container_width=True,
+                column_config={
+                    "Request ID": st.column_config.TextColumn(width="medium"),
+                    "Timestamp": st.column_config.TextColumn(width="medium"),
+                    "Feature": st.column_config.TextColumn(width="medium"),
+                    "Provider": st.column_config.TextColumn(width="small"),
+                    "Model": st.column_config.TextColumn(width="small"),
+                    "Endpoint": st.column_config.TextColumn(width="large"),
+                    "Status": st.column_config.TextColumn(width="small"),
+                    "Input tokens": st.column_config.NumberColumn(width="small"),
+                    "Cached tokens": st.column_config.NumberColumn(width="small"),
+                    "Output tokens": st.column_config.NumberColumn(width="small"),
+                    "Retries": st.column_config.NumberColumn(width="small"),
+                    "Tool calls": st.column_config.NumberColumn(width="small"),
+                    "Latency ms": st.column_config.NumberColumn(width="small"),
+                    "Estimated cost (USD)": st.column_config.NumberColumn(format="$%.6f", width="small"),
+                    "Error": st.column_config.TextColumn(width="large"),
+                    "Notes": st.column_config.TextColumn(width="large"),
+                },
+            )
+
+
+# ---------------------------------------------------------------------------
 # Sidebar — query inputs
 # ---------------------------------------------------------------------------
 
@@ -1033,6 +1276,51 @@ with st.sidebar:
         disabled=analysis_busy,
     )
     run_clicked = st.button("Run Analysis", type="primary", use_container_width=True, disabled=analysis_busy)
+
+    st.divider()
+    report_ready = bool(st.session_state.get("analysis_result"))
+    digest_on = st.toggle(
+        "Weekly trend digest",
+        value=st.session_state.get("weekly_digest_enabled", False),
+        key="weekly_digest_toggle",
+        disabled=not report_ready,
+        help=None if report_ready else "Run an analysis first to enable the weekly digest.",
+    )
+    st.session_state["weekly_digest_enabled"] = digest_on
+    if digest_on and report_ready:
+        digest_email = st.text_input(
+            "Email address", key="weekly_digest_email", placeholder="you@example.com"
+        )
+        if st.button("Submit", key="weekly_digest_submit", use_container_width=True):
+            if not email_digest.is_valid_email(digest_email):
+                st.error("Enter a valid email address.")
+            else:
+                digest_result = st.session_state.get("analysis_result")
+                digest_pdf_bytes = getattr(digest_result, "pdf_bytes", b"") or b""
+                digest_pdf_path = getattr(digest_result, "pdf_path", "") or ""
+                digest_request = st.session_state.get("analysis_request") or {}
+                digest_company = digest_request.get("company") or digest_request.get("industry_label") or "your analysis"
+                with st.spinner("Sending this week's digest..."):
+                    digest_success, digest_message = email_digest.send_digest_email(
+                        digest_email,
+                        digest_pdf_bytes,
+                        pdf_filename=f"beacon-ai-digest-{datetime.now().strftime('%Y%m%d')}.pdf",
+                        subject=f"Beacon AI weekly trend digest - {digest_company}",
+                        body="Your Beacon AI trend digest is attached.",
+                    )
+                if digest_success:
+                    email_digest.register_weekly_subscription(digest_email, digest_pdf_path, digest_company)
+                    email_digest.ensure_weekly_scheduler_running()
+                    st.success(f"Subscribed. {digest_message}")
+                else:
+                    st.info("We will let you know once the email setup is ready.")
+
+    st.divider()
+    with st.expander("Admin dashboard", expanded=False):
+        try:
+            render_admin_dashboard(st.session_state.get("analysis_cost_tracker"))
+        except Exception:  # noqa: BLE001
+            render_empty_state("The admin dashboard is unavailable right now. Run a new analysis to try again.")
 
 # ---------------------------------------------------------------------------
 # Header
@@ -1092,6 +1380,7 @@ if run_clicked:
 
 analysis_busy = bool(st.session_state.get("analysis_busy"))
 if analysis_busy and analysis_request:
+  try:
     warnings = []
     use_live_llm = bool(openai_key_default)
     use_live_news = bool(newsapi_key_default)
@@ -1265,6 +1554,14 @@ if analysis_busy and analysis_request:
         region=region,
         industry=industry_label,
     )
+  except Exception:  # noqa: BLE001
+    # A run must never leave the sidebar stuck disabled -- if anything above raises
+    # unexpectedly, land here instead of aborting the script mid-pipeline so `finally`
+    # below still resets `analysis_busy` and the user can start a new analysis.
+    st.session_state["warnings"] = (st.session_state.get("warnings") or []) + [
+        "Something went wrong while running the analysis. Please try again."
+    ]
+  finally:
     st.session_state["analysis_busy"] = False
     st.session_state["analysis_request"] = None
     loading_slot.empty()
@@ -1291,54 +1588,75 @@ page_errors: list[str] = []
 # ---------------------------------------------------------------------------
 
 
-def _trend_meter_html(strength: float) -> str:
-    active = max(1, min(9, round(strength)))
-    bars = []
-    for idx in range(1, 10):
-        height = 18 + idx * 5
-        classes = ["trend-card-meter-bar"]
-        if idx <= active:
-            classes.append("is-active")
-        if idx >= 8:
-            classes.append("is-strong")
-        bars.append(
-            f'<span class="{" ".join(classes)}" style="height:{height}px"></span>'
-        )
-    return "".join(bars)
+_RECOMMENDATION_PILL_CLASS = {
+    "Invest": "pill-invest",
+    "Strategize": "pill-strategize",
+    "Watch": "pill-watch",
+    "Stay away": "pill-stayaway",
+}
 
 
-def _trend_meter_text(strength: float) -> str:
-    active = max(1, min(9, round(strength)))
-    return "".join("▮" if idx <= active else "▯" for idx in range(1, 10))
+def _pill_html(text: str, css_class: str) -> str:
+    return f'<span class="pill {css_class}">{html.escape(_flatten(text))}</span>'
+
+
+def _flatten(text: str) -> str:
+    """Collapses embedded newlines/blank lines so interpolating this into a raw HTML block
+    (via st.markdown) can never leave a blank line mid-block -- CommonMark ends a raw HTML
+    block at the first blank line, and anything after gets reinterpreted as an indented code
+    block, which is exactly the "code shows up in the UI" bug this guards against."""
+    return " ".join(text.split())
 
 
 def render_trend_card(t: dict, show_drilldown_action: bool = False) -> None:
     growth_sign = "▲" if t["growth_pct"] >= 0 else "▼"
-    tier_label = f"{t['tier'].upper()} TREND"
-    with st.container(border=True):
-        st.markdown(f"<div class='trend-card-topbar {t['tier'].lower()}'></div>", unsafe_allow_html=True)
+    growth_class = "pill-growth-pos" if t["growth_pct"] >= 0 else "pill-growth-neg"
+    recommendation_class = _RECOMMENDATION_PILL_CLASS.get(t["recommendation"], "pill-stayaway")
 
-        header_cols = st.columns([4.5, 1.1], vertical_alignment="top")
-        with header_cols[0]:
-            st.markdown(f"**{tier_label}**")
-            st.markdown(f"### {t['name']}")
-            if t.get("parent"):
-                st.caption(f"via {t['parent']}")
-        with header_cols[1]:
-            st.metric("Strength", f"{t['strength']:.1f}")
+    pills_html = "".join(
+        [
+            _pill_html(f"{growth_sign} {t['growth_pct']:+.0f}%", growth_class),
+            _pill_html(f"Strength {t['strength']:.1f}", "pill-strength"),
+            _pill_html(t["time_horizon"], "pill-horizon"),
+            _pill_html(t["recommendation"], recommendation_class),
+        ]
+    )
+    parent_html = (
+        f'<div class="trend-card-parent">via {html.escape(_flatten(t["parent"]))}</div>' if t.get("parent") else ""
+    )
 
-        st.write(t["description"])
+    has_cta = show_drilldown_action and t["tier"] == "Sub"
+    card_class = "trend-card has-cta" if has_cta else "trend-card"
+    container = st.container(key=f"trendcard-cta-{t['id']}") if has_cta else st.container()
+    with container:
+        st.markdown(
+            dedent(
+                f"""
+                <div class="{card_class}">
+                  <div class="trend-card-inner">
+                    <div class="trend-card-shell {t['tier'].lower()}">
+                      <div class="trend-card-topbar"></div>
+                      <div class="trend-card-header">
+                        <div class="trend-card-main">
+                          <div class="trend-card-kicker">{t['tier'].upper()} TREND</div>
+                          <div class="trend-card-title">{html.escape(_flatten(t['name']))}</div>{parent_html}
+                        </div>
+                        <div class="trend-card-score">
+                          <div class="trend-card-score-value">{t['strength']:.1f}</div>
+                          <div class="trend-card-score-label">Strength</div>
+                        </div>
+                      </div>
+                      <div class="trend-card-desc">{html.escape(_flatten(t['description']))}</div>
+                      <div class="trend-card-footer">{pills_html}</div>
+                    </div>
+                  </div>
+                </div>
+                """
+            ),
+            unsafe_allow_html=True,
+        )
 
-        if t["tier"] != "Mega":
-            st.markdown(f"`{_trend_meter_text(float(t['strength']))}`")
-
-        pills = [f"{growth_sign} {t['growth_pct']:+.0f}%", t["time_horizon"], t["recommendation"]]
-        pill_cols = st.columns(len(pills))
-        for col, pill in zip(pill_cols, pills):
-            with col:
-                st.caption(pill)
-
-        if show_drilldown_action and t["tier"] == "Sub":
+        if has_cta:
             if st.button("Generate drill-down", key=f"subtrend_generate::{t['id']}", use_container_width=True):
                 st.session_state["drilldown_subtrend_select"] = t["id"]
                 product_region = _default_product_region()
@@ -1347,14 +1665,15 @@ def render_trend_card(t: dict, show_drilldown_action: bool = False) -> None:
                 st.session_state["drilldown_last_generated"] = t["id"]
 
 
-def render_trend_grid(items: list[dict], columns: int = 3, show_drilldown_action: bool = False) -> None:
+def render_trend_grid(items: list[dict], columns: int = 3, show_drilldown_action: bool = False, grid_key: str = "trend") -> None:
     if not items:
         render_empty_state("No content is available in this section yet.")
         return
     columns = 1 if len(items) == 1 else 2
     cols = st.columns(columns)
+    col_slots = [col.container(key=f"trendgrid-{grid_key}-col-{i}") for i, col in enumerate(cols)]
     for i, t in enumerate(items):
-        with cols[i % columns]:
+        with col_slots[i % columns]:
             render_trend_card(t, show_drilldown_action=show_drilldown_action)
 
 
@@ -1671,21 +1990,43 @@ def render_trend_hierarchy_overview(trends_data: list[dict]) -> None:
 
     overview_cols = st.columns(3)
     overview_specs = [
-        ("Layer 1", "Macro-Trends", f"{len(macro_trends)} forces", "Long-horizon drivers setting the direction of the market.", macro_trends, "More in the Macro-Trends tab"),
-        ("Layer 2", "Mega-Trends", f"{len(mega_trends)} tension points", "Where macro forces start shaping category dynamics and investment themes.", mega_trends, "Grouped by parent macro trend"),
-        ("Layer 3", "Sub-Trends", f"{len(sub_trends)} actionable tiles", "Market behaviors and signals that feed the drill-down workflow.", sub_trends, "Generate drill-down from any sub-trend tile"),
+        ("Layer 1", "Macro-Trends", "macro", len(macro_trends), "forces", "Long-horizon drivers setting the direction of the market.", macro_trends, "More in the Macro-Trends tab"),
+        ("Layer 2", "Mega-Trends", "mega", len(mega_trends), "tension points", "Where macro forces start shaping category dynamics and investment themes.", mega_trends, "Grouped by parent macro trend"),
+        ("Layer 3", "Sub-Trends", "sub", len(sub_trends), "actionable tiles", "Market behaviors and signals that feed the drill-down workflow.", sub_trends, "Generate drill-down from any sub-trend tile"),
     ]
-    for col, (kicker, title, count, desc, items, muted) in zip(overview_cols, overview_specs):
+    for col, (kicker, title, tier_class, count, count_label, desc, items, muted) in zip(overview_cols, overview_specs):
         with col:
-            with st.container(border=True):
-                st.markdown(f"**{kicker}**")
-                st.markdown(f"### {title}")
-                st.caption(count)
-                st.write(desc)
-                for item in items[:4]:
-                    st.markdown(f"- {item['name']}")
-                if items:
-                    st.caption(muted)
+            items_html = "".join(
+                f'<span class="signal-tag">{html.escape(_flatten(item["name"]))}</span>' for item in items[:4]
+            )
+            st.markdown(
+                dedent(
+                    f"""
+                    <div class="trend-card">
+                      <div class="trend-card-inner">
+                        <div class="trend-card-shell {tier_class}">
+                          <div class="trend-card-topbar"></div>
+                          <div class="trend-card-header">
+                            <div class="trend-card-main">
+                              <div class="trend-card-kicker">{html.escape(kicker)}</div>
+                              <div class="trend-card-title">{html.escape(title)}</div>
+                            </div>
+                            <div class="trend-card-score">
+                              <div class="trend-card-score-value">{count}</div>
+                              <div class="trend-card-score-label">{html.escape(count_label)}</div>
+                            </div>
+                          </div>
+                          <div class="trend-card-desc">{html.escape(_flatten(desc))}</div>
+                          <div class="trend-card-footer">{items_html}</div>
+                        </div>
+                      </div>
+                    </div>
+                    """
+                ),
+                unsafe_allow_html=True,
+            )
+            if items:
+                st.markdown(f'<div class="trend-action-note">{html.escape(muted)}</div>', unsafe_allow_html=True)
 
     for macro in macro_trends:
         megas = mega_by_parent.get(macro["name"], [])
@@ -1731,20 +2072,6 @@ def render_reddit_signal(post: dict) -> None:
     )
 
 
-def render_empty_state(message: str) -> None:
-    st.markdown(
-        dedent(
-            f"""
-            <div class="empty-state">
-                <h3>Nothing to show yet</h3>
-                <p>{html.escape(message)}</p>
-            </div>
-            """
-        ),
-        unsafe_allow_html=True,
-    )
-
-
 def _analysis_pdf_bytes(result: object) -> bytes:
     pdf_bytes = getattr(result, "pdf_bytes", b"") or b""
     if pdf_bytes:
@@ -1768,34 +2095,6 @@ def _is_public_share_url(url: str | None) -> bool:
         return False
     parsed = urlparse(url.strip())
     return parsed.scheme in {"http", "https"} and parsed.netloc in {"0x0.st", "transfer.sh"}
-
-
-def _safe_dataframe_rows(tracker: CostRunTracker | None) -> list[dict]:
-    if not tracker:
-        return []
-    rows = []
-    for entry in getattr(tracker, "entries", []) or []:
-        rows.append(
-            {
-                "Request ID": entry.request_id,
-                "Timestamp": entry.timestamp,
-                "Feature": entry.feature,
-                "Provider": entry.provider,
-                "Model": entry.model,
-                "Endpoint": entry.endpoint,
-                "Status": entry.status,
-                "Input tokens": entry.input_tokens,
-                "Cached tokens": entry.cached_tokens,
-                "Output tokens": entry.output_tokens,
-                "Retries": entry.retries,
-                "Tool calls": entry.tool_calls,
-                "Latency ms": entry.latency_ms,
-                "Estimated cost (USD)": round(float(entry.estimated_cost_usd), 6),
-                "Error": entry.error or "",
-                "Notes": entry.notes or "",
-            }
-        )
-    return rows
 
 
 def _admin_status_class(status: str) -> str:
@@ -1866,188 +2165,12 @@ def _render_admin_table(rows: list[dict]) -> str:
     )
 
 
-def _admin_section_rows(rows: list[dict]) -> dict[str, list[dict]]:
-    grouped: dict[str, list[dict]] = {}
-    for row in rows:
-        feature = str(row.get("Feature", "") or "Uncategorized")
-        grouped.setdefault(feature, []).append(row)
-    feature_order = [
-        "research search",
-        "trend generation + final analysis",
-        "news signals",
-        "drill-down",
-    ]
-    ordered: dict[str, list[dict]] = {}
-    for feature in feature_order:
-        if feature in grouped:
-            ordered[feature] = grouped.pop(feature)
-    for feature in sorted(grouped):
-        ordered[feature] = grouped[feature]
-    return ordered
-
-
-def render_admin_dashboard(cost_tracker: CostRunTracker | None) -> None:
-    if not cost_tracker:
-        render_empty_state("No analysis run has been tracked yet.")
-        return
-
-    summary = cost_tracker._totals() if hasattr(cost_tracker, "_totals") else {}
-    st.markdown(
-        dedent(
-            f"""
-            <div class="admin-shell">
-                <div class="admin-kicker">Internal operations</div>
-                <div class="admin-title">Admin dashboard</div>
-                <div class="admin-subtitle">
-                    Inspect the current run folder, cost estimates, and request-level usage for
-                    <b>{html.escape(cost_tracker.company)}</b> generated at
-                    <b>{html.escape(cost_tracker.timestamp)}</b>.
-                </div>
-                <div class="admin-meta-row">
-                    <span class="admin-meta-chip">Company: {html.escape(cost_tracker.company)}</span>
-                    <span class="admin-meta-chip">Timestamp: {html.escape(cost_tracker.timestamp)}</span>
-                    <span class="admin-meta-chip">Run folder: {html.escape(cost_tracker.run_dir.name)}</span>
-                    <span class="admin-meta-chip">Estimated cost: ${summary.get('estimated_cost_usd', 0.0):.4f}</span>
-                </div>
-            </div>
-            """
-        ),
-        unsafe_allow_html=True,
-    )
-
-    summary_grid = dedent(
-        f"""
-        <div class="admin-summary-grid">
-            <div class="admin-summary-card">
-                <div class="admin-summary-label">Requests</div>
-                <div class="admin-summary-value">{summary.get('requests', 0):,}</div>
-                <div class="admin-summary-copy">Tracked request rows in this run.</div>
-            </div>
-            <div class="admin-summary-card">
-                <div class="admin-summary-label">Input tokens</div>
-                <div class="admin-summary-value">{summary.get('input_tokens', 0):,}</div>
-                <div class="admin-summary-copy">Prompt-side usage across tracked requests.</div>
-            </div>
-            <div class="admin-summary-card">
-                <div class="admin-summary-label">Output tokens</div>
-                <div class="admin-summary-value">{summary.get('output_tokens', 0):,}</div>
-                <div class="admin-summary-copy">Generated text across tracked requests.</div>
-            </div>
-            <div class="admin-summary-card">
-                <div class="admin-summary-label">Tool calls</div>
-                <div class="admin-summary-value">{summary.get('tool_calls', 0):,}</div>
-                <div class="admin-summary-copy">Search and other external steps logged.</div>
-            </div>
-        </div>
-        """
-    )
-    st.markdown(summary_grid, unsafe_allow_html=True)
-
-    action_cols = st.columns([1, 1, 1.2])
-    with action_cols[0]:
-        st.download_button(
-            "Download cost log JSON",
-            data=cost_tracker.json_path.read_bytes(),
-            file_name=cost_tracker.json_path.name,
-            mime="application/json",
-            use_container_width=True,
-        )
-    with action_cols[1]:
-        st.download_button(
-            "Download cost log CSV",
-            data=cost_tracker.csv_path.read_bytes(),
-            file_name=cost_tracker.csv_path.name,
-            mime="text/csv",
-            use_container_width=True,
-        )
-    with action_cols[2]:
-        st.markdown(
-            dedent(
-                f"""
-                <div class="admin-path-card">
-                    <div class="admin-path-label">Current run folder</div>
-                    <div class="admin-path-value">{html.escape(str(cost_tracker.run_dir))}</div>
-                </div>
-                """
-            ),
-            unsafe_allow_html=True,
-        )
-
-    st.markdown("#### Cost estimates by section")
-    rows = _safe_dataframe_rows(cost_tracker)
-    if not rows:
-        render_empty_state("The current run has no recorded cost rows yet.")
-        return
-    section_rows = _admin_section_rows(rows)
-    for feature, feature_rows in section_rows.items():
-        display_feature = feature.replace(" + ", " + ").title()
-        summary_row = {
-            "requests": len(feature_rows),
-            "cost": sum(float(row.get("Estimated cost (USD)", 0.0) or 0.0) for row in feature_rows),
-            "input": sum(int(row.get("Input tokens", 0) or 0) for row in feature_rows),
-            "output": sum(int(row.get("Output tokens", 0) or 0) for row in feature_rows),
-            "tool_calls": sum(int(row.get("Tool calls", 0) or 0) for row in feature_rows),
-        }
-        with st.expander(
-            f"{display_feature} ({summary_row['requests']} requests · ${summary_row['cost']:.4f})",
-            expanded=feature in {"research search", "trend generation + final analysis"},
-        ):
-            st.markdown(
-                dedent(
-                    f"""
-                    <div class="admin-footer-summary">
-                        <div class="admin-summary-card">
-                            <div class="admin-summary-label">Requests</div>
-                            <div class="admin-summary-value">{summary_row['requests']}</div>
-                        </div>
-                        <div class="admin-summary-card">
-                            <div class="admin-summary-label">Input tokens</div>
-                            <div class="admin-summary-value">{summary_row['input']:,}</div>
-                        </div>
-                        <div class="admin-summary-card">
-                            <div class="admin-summary-label">Output tokens</div>
-                            <div class="admin-summary-value">{summary_row['output']:,}</div>
-                        </div>
-                        <div class="admin-summary-card">
-                            <div class="admin-summary-label">Tool calls</div>
-                            <div class="admin-summary-value">{summary_row['tool_calls']:,}</div>
-                        </div>
-                    </div>
-                    """
-                ),
-                unsafe_allow_html=True,
-            )
-            st.dataframe(
-                feature_rows,
-                hide_index=True,
-                use_container_width=True,
-                column_config={
-                    "Request ID": st.column_config.TextColumn(width="medium"),
-                    "Timestamp": st.column_config.TextColumn(width="medium"),
-                    "Feature": st.column_config.TextColumn(width="medium"),
-                    "Provider": st.column_config.TextColumn(width="small"),
-                    "Model": st.column_config.TextColumn(width="small"),
-                    "Endpoint": st.column_config.TextColumn(width="large"),
-                    "Status": st.column_config.TextColumn(width="small"),
-                    "Input tokens": st.column_config.NumberColumn(width="small"),
-                    "Cached tokens": st.column_config.NumberColumn(width="small"),
-                    "Output tokens": st.column_config.NumberColumn(width="small"),
-                    "Retries": st.column_config.NumberColumn(width="small"),
-                    "Tool calls": st.column_config.NumberColumn(width="small"),
-                    "Latency ms": st.column_config.NumberColumn(width="small"),
-                    "Estimated cost (USD)": st.column_config.NumberColumn(format="$%.6f", width="small"),
-                    "Error": st.column_config.TextColumn(width="large"),
-                    "Notes": st.column_config.TextColumn(width="large"),
-                },
-            )
-
-
 # ---------------------------------------------------------------------------
 # Navigation
 # ---------------------------------------------------------------------------
 
-tab_hierarchy, tab_momentum, tab_news, tab_analysis, tab_admin = st.tabs(
-    ["Trend Hierarchy", "Momentum", "News Signals", "Summary Report", "Admin dashboard"]
+tab_hierarchy, tab_momentum, tab_news, tab_analysis = st.tabs(
+    ["Trend Hierarchy", "Momentum", "News Signals", "Summary Report"]
 )
 
 with tab_hierarchy:
@@ -2065,13 +2188,13 @@ with tab_hierarchy:
             render_trend_hierarchy_overview(all_trends)
         with macro_tab:
             st.caption("Long-term macro changes playing out across years to decades — the major forces shaping consumer and business behavior.")
-            render_trend_grid([t for t in all_trends if t["tier"] == "Macro"])
+            render_trend_grid([t for t in all_trends if t["tier"] == "Macro"], grid_key="macro")
         with mega_tab:
             st.caption("The building blocks of the arena — the tension points created where macro trends intersect with basic needs.")
-            render_trend_grid([t for t in all_trends if t["tier"] == "Mega"])
+            render_trend_grid([t for t in all_trends if t["tier"] == "Mega"], grid_key="mega")
         with sub_tab:
             st.caption("Emerging, actionable trends arising from that tension — where the market starts behaving differently.")
-            render_trend_grid([t for t in all_trends if t["tier"] == "Sub"], show_drilldown_action=True)
+            render_trend_grid([t for t in all_trends if t["tier"] == "Sub"], show_drilldown_action=True, grid_key="sub")
             if st.session_state.get("drilldown_last_generated"):
                 last_id = st.session_state["drilldown_last_generated"]
                 last_name = next((t["name"] for t in all_trends if t["id"] == last_id), "that sub-trend")
@@ -2169,7 +2292,7 @@ with tab_analysis:
                 if share_target:
                     share_button_html = dedent(
                         f"""
-                        <button id="copy-link-btn" style="
+                        <button id="share-btn" style="
                             width: 100%;
                             min-height: 2.5rem;
                             border: 1px solid #E2E8F0;
@@ -2179,11 +2302,11 @@ with tab_analysis:
                             font: inherit;
                             font-weight: 600;
                             cursor: pointer;
-                        ">Copy link</button>
+                        ">Share</button>
                         <script>
                           (() => {{
                             const url = {json.dumps(share_target)};
-                            const btn = document.getElementById("copy-link-btn");
+                            const btn = document.getElementById("share-btn");
                             btn.addEventListener("click", async () => {{
                               try {{
                                 await navigator.clipboard.writeText(url);
@@ -2192,7 +2315,7 @@ with tab_analysis:
                                 btn.textContent = "Copy failed";
                               }}
                               window.setTimeout(() => {{
-                                btn.textContent = "Copy link";
+                                btn.textContent = "Share";
                               }}, 1500);
                             }});
                           }})();
@@ -2201,26 +2324,13 @@ with tab_analysis:
                     )
                     components.html(share_button_html, height=44, scrolling=False)
                 else:
-                    st.button("Copy link", disabled=True, use_container_width=True)
-            if not share_target:
-                st.caption(
-                    "Sharing needs a public URL. In local mode you can download the PDF, but the app "
-                    "cannot generate a link other people can open."
-                )
-            else:
-                st.caption("The report has a public URL. Use Copy link to share it.")
-            st.caption("Open the Admin dashboard tab for the current run folder and cost log.")
+                    st.button("Share", disabled=True, use_container_width=True)
+            if share_target:
+                st.caption("The report has a public URL. Use Share to copy it.")
             components.html(html_report, height=1200, scrolling=True)
     except Exception as exc:  # noqa: BLE001
         page_errors.append("Final analysis is unavailable right now.")
         render_empty_state("The final analysis is unavailable right now. Run a new analysis to try again.")
-
-with tab_admin:
-    try:
-        render_admin_dashboard(st.session_state.get("analysis_cost_tracker"))
-    except Exception as exc:  # noqa: BLE001
-        page_errors.append("Admin dashboard is unavailable right now.")
-        render_empty_state("The admin dashboard is unavailable right now. Run a new analysis to try again.")
 
 bottom_messages = st.session_state.get("warnings", []) + page_errors
 if bottom_messages:

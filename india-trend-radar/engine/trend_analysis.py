@@ -19,7 +19,7 @@ import requests
 
 from engine.cost_tracking import CostRunTracker
 from engine.final_analysis_render import render_final_analysis_html
-from engine.pdf_export import markdown_to_pdf_bytes
+from engine.pdf_export import markdown_to_pdf_bytes, render_html_to_pdf_bytes
 
 ROOT_DIR = Path(__file__).resolve().parent.parent
 DEFAULT_OUTPUT_DIR = ROOT_DIR / "raw" / "analysis"
@@ -656,7 +656,13 @@ def build_trend_analysis_report(
         industry,
     )
     html_path = output_root / f"{base_name}_final.html"
-    pdf_bytes = markdown_to_pdf_bytes(combined_markdown, title=f"Beacon AI final analysis - {industry} in {region}")
+    try:
+        pdf_bytes = render_html_to_pdf_bytes(html_report)
+    except Exception:
+        # Headless-browser rendering unavailable in this environment (e.g. Playwright's
+        # Chromium isn't installed) -- fall back to the older markdown-driven renderer so a
+        # PDF still gets produced, just without the exact-match guarantee.
+        pdf_bytes = markdown_to_pdf_bytes(combined_markdown, title=f"Beacon AI final analysis - {industry} in {region}")
     pdf_path.write_bytes(pdf_bytes)
     share_url = _upload_public_pdf(pdf_bytes, pdf_path.name)
 
