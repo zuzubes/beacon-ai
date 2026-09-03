@@ -1,105 +1,106 @@
 {
-  "query": "Wine & Spirits trends 2026 United States after:2026-08-04 before:2026-09-03",
+  "query": "Apparel & Fashion trends 2026 US and China after:2026-08-27 before:2026-09-03",
   "countries": [
-    "us"
+    "us",
+    "cn"
   ],
   "language": "en",
-  "time_range": "Past 1 month",
-  "search_window": "2026-08-04..2026-09-03",
+  "time_range": "Past 1 week",
+  "search_window": "2026-08-27..2026-09-03",
   "providers_used": [
     "serpapi"
   ],
   "keywords": [
-    "wine spirits",
-    "beverage alcohol",
+    "fashion market",
+    "fashion business",
     "market size",
-    "wine market",
-    "beer wine",
-    "alcoholic beverages",
-    "beverages market",
-    "size share",
-    "volume revenue",
-    "revenue declines"
+    "fall dress",
+    "chic shanghai",
+    "shanghai autumn",
+    "autumn fashion",
+    "business topics",
+    "topics include",
+    "include digitalization"
   ],
   "hits": [
     {
-      "title": "2026 U.S. and global drink trends",
-      "url": "https://www.facebook.com/ThePerfectSpot/posts/my-distiller-magazine-article-on-2026-drink-trends-us-global-covers-authenticity/1607316141186989/",
-      "snippet": "NA wines and spirits are expected to grow at above-average rates through the rest of the decade. ￼ • In 2025 the non-alcoholic wine segment reached significant ...",
+      "title": "17 Key Trends to Know For Autumn/Winter 2026",
+      "url": "https://www.whowhatwear.com/fashion/trends/autumn-winter-2026-trends",
+      "snippet": "From vibrant colour blocking to 'texturemaxxing' and prints galore, autumn/winter 2026 is a lesson in maximalism.",
       "position": 1,
       "source": "us",
       "provider": "serpapi"
     },
     {
-      "title": "bw166 2026 mid-year Update",
-      "url": "https://bw166.com/bw166-2026-mid-year-update/?utm_source\\u003dAfternoon+Brief\\u0026utm_campaign\\u003de31f912ec4-EMAIL_CAMPAIGN_2026_08_05_09_35\\u0026utm_medium\\u003demail\\u0026utm_term\\u003d0_-e31f912ec4-64669925",
-      "snippet": "The US beverage alcohol market remains under pressure in 2026, with beer, wine, and spirits all showing continued volume softness, even as consumer spending ...",
-      "position": 2,
-      "source": "us",
+      "title": "10 Fall Dress Trends That Capture the Mood of the Season",
+      "url": "https://www.vogue.com/article/fall-2026-dress-trends",
+      "snippet": "This fall's dress trends are all about expression—from bold colors, daring prints, and high-volume shapes to romantic materials, vintage-inspired silhouettes,",
+      "position": 1,
+      "source": "cn",
       "provider": "serpapi"
     },
     {
-      "title": "Wine and Spirits Declines Narrowed for Third Straight ...",
-      "url": "https://www.wswa.org/news/wine-and-spirits-declines-narrowed-third-straight-month-q2-2026-wswa-sipsourcer-data-shows",
-      "snippet": "Wine outperformed on revenue, down 4.6% compared with a 6.1% decline for spirits, which continue to represent nearly two-thirds of combined category revenue.",
+      "title": "CHIC Shanghai Autumn 2026 – Fashion, Business & ...",
+      "url": "https://www.google.com/goto?url=CAESYwHrOzAVgQxPBevYZrMS7qdfvCy5LZARiFDjIb--aXzM3M3cF7seL7wA1_c8L3T0JUCe27emE99CQaGAjDrwAaInbeeXSCYjT2xyp8qHHeg42t914QOQMnnE3edXppJgbDr-Mg",
+      "snippet": "Key topics include AI and digitalization, innovative materials, 3D knitting, new e-commerce concepts and modern Chinese Style. August 25–27, 2026",
       "position": 3,
       "source": "us",
       "provider": "serpapi"
     },
     {
-      "title": "Alcoholic Beverages Market Size, Share & Trends",
-      "url": "https://www.fortunebusinessinsights.com/alcoholic-beverages-market-107439",
-      "snippet": "The alcoholic beverages market size is projected to grow from $2723.94 billion in 2026 to $4325.99 billion by 2034, at a CAGR of 5.95% during 2026-2034.",
+      "title": "[Fashion supply chain trends every brand in Greater China ...",
+      "url": "https://www.instagram.com/p/DclDXxnFRcv/",
+      "snippet": "China's textile and apparel exports in June 2026 reflect changing global demand and evolving trade patterns across the international textile market.",
+      "position": 3,
+      "source": "cn",
+      "provider": "serpapi"
+    },
+    {
+      "title": "FashionNetwork USA - The World's Fashion Business News",
+      "url": "https://us.fashionnetwork.com/",
+      "snippet": "G-III Apparel Q2 sales fall 10% amid portfolio shift · PVH sales hurt by Calvin Klein declines, reaffirms guidance · Fashion empire Azzas 2154 to split two years ...",
       "position": 4,
       "source": "us",
       "provider": "serpapi"
     },
     {
-      "title": "The Top Beverage Alcohol Industry News Stories in 2026 ...",
-      "url": "https://www.parkstreet.com/the-top-beverage-alcohol-industry-news-stories-in-2026-so-far/",
-      "snippet": "Q2 2026 brought a dramatic reshaping of the American beverage alcohol distribution system alongside aggressive M&A activity and significant trade policy ...",
+      "title": "Guangzhou 2026-1-1 #business #fashion #kuwait #qatar # ...",
+      "url": "https://www.facebook.com/bouthainahafsia/posts/guangzhou-2026-1-1-business-fashion-kuwait-qatar-travel/1550228323798612/",
+      "snippet": "Audiences saw collections that fuse the spirit of Chinese culture with international trends, creating looks that feel both Eastern in temperament and ...",
+      "position": 4,
+      "source": "cn",
+      "provider": "serpapi"
+    },
+    {
+      "title": "Sustainable Fashion Market Size, Share, Industry Growth ...",
+      "url": "https://www.rootsanalysis.com/sustainable-fashion-market",
+      "snippet": "The sustainable fashion market size is projected to grow from USD 11 billion in 2026 to USD 46 billion by 2040, representing a strong CAGR of 10.81%",
       "position": 5,
       "source": "us",
       "provider": "serpapi"
     },
     {
-      "title": "US Wine and Spirits Sales Decline Moderates in Q2 2026",
-      "url": "https://www.linkedin.com/posts/eric-bahn-38b6113_wine-and-spirits-declines-narrowed-for-third-activity-7493721920585117696-UCeq",
-      "snippet": "Combined U.S. wine and spirits volume and revenue declines continued to moderate during the second quarter of 2026, narrowing for a third consecutive month ...",
+      "title": "CHIC Shanghai Autumn 2026 – Fashion, Business & ...",
+      "url": "https://www.google.com/goto?url=CAESYwHrOzAVaCNlp8fznDVWQopEg-rLAMURGc697Yq4qGeiI_6HMbt3pVgGEj54whjlIcztDUM0oTF6Z8AsfP_0-YnWDt--eMhaCEA9JeBBg9RZEggPwfzpNSTGVlfopJNPKuUHrA",
+      "snippet": "Key topics include AI and digitalization, innovative materials, 3D knitting, new e-commerce concepts and modern Chinese Style. August 25–27, 2026",
+      "position": 5,
+      "source": "cn",
+      "provider": "serpapi"
+    },
+    {
+      "title": "Fast Fashion Market Share, Trends Report 2026-2030",
+      "url": "https://www.thebusinessresearchcompany.com/report/fast-fashion-global-market-report",
+      "snippet": "Fast Fashion market size stood at $172.41 billion in 2026 and is projected to reach $222.71 billion by 2030 at a 6.6% CAGR.",
       "position": 6,
       "source": "us",
       "provider": "serpapi"
     },
     {
-      "title": "US Wine Market Size, Share, Trends Analysis & Industry ...",
-      "url": "https://www.mordorintelligence.com/industry-reports/united-states-wine-market",
-      "snippet": "The US Wine Market worth USD 360.3 billion in 2026 is growing at a CAGR of 2.26% to reach USD 402.93 billion by 2031. The Wine Group, Constellation Brands, ...",
-      "position": 7,
-      "source": "us",
-      "provider": "serpapi"
-    },
-    {
-      "title": "What Americans Are Drinking Instead of Alcohol (2026 Data)",
-      "url": "https://www.learnbrands.com/post/what-americans-drink-instead-of-alcohol",
-      "snippet": "Globally, IWSR recorded wine volumes falling below spirits for the first time in 2025. In the US, Impact Databank projects the wine market to fall 3.5% in 2026, ...",
-      "position": 8,
-      "source": "us",
-      "provider": "serpapi"
-    },
-    {
-      "title": "After two consecutive years of volume and revenue declines ...",
-      "url": "https://www.google.com/goto?url=CAESYwHrOzAV1tNOkibRJ_rdHafI87ePrQPhsk2mDg8o3CjYckRqsdx1DZStHfg7l9qCXoYg-U8P5egv8znP9Sv74oaddw9jqTqU-zmOWu-TCWrumOA18Vo06WTs93DsnVKR_TdToA",
-      "snippet": "The second half of 2026 is crucial, easier year-over-year comparisons and summer travel could boost on-premise sales, especially for categories like Unflavored ...",
-      "position": 9,
-      "source": "us",
-      "provider": "serpapi"
-    },
-    {
-      "title": "Our latest Monthly Insights report is here➡️ Link in bio 🍺🍷 ...",
-      "url": "https://www.instagram.com/p/DbtiE91NX6E/",
-      "snippet": "Beer and Wine continue to face headwinds, while Ready-to-Drink cocktails, Cider, and Non-Alcoholic beverages are driving growth across the category.",
-      "position": 10,
-      "source": "us",
+      "title": "Daily Buzz: 2 September 2026 - City News Service",
+      "url": "https://www.citynewsservice.cn/articles/china-biz-buzz/daily-buzz/daily-buzz-2-september-2026-okwvq5wn",
+      "snippet": "On Monday, France said it is imposing a new per-garment fee on ultra-fast fashion items, aimed at Shein and Chinese rivals Temu and AliExpress.",
+      "position": 6,
+      "source": "cn",
       "provider": "serpapi"
     }
   ],
@@ -112,24 +113,29 @@
       "error": "HTTPError: 403 Client Error: Forbidden for url: https://google.serper.dev/search"
     },
     {
+      "provider": "serper",
+      "country": "cn",
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://google.serper.dev/search"
+    },
+    {
       "provider": "serpapi",
       "country": "us",
       "response": {
         "search_metadata": {
-          "id": "6a9938ce23df780d30a32c09",
+          "id": "6a9938013d34ddc3f2530a1d",
           "status": "Success",
-          "json_endpoint": "https://serpapi.com/searches/oAsk2ekJnFdDuckUVhRkxGPYg6yHeiTxUcv9TNS97Bk/6a9938ce23df780d30a32c09.json",
-          "markdown_endpoint": "https://serpapi.com/searches/oAsk2ekJnFdDuckUVhRkxGPYg6yHeiTxUcv9TNS97Bk/6a9938ce23df780d30a32c09.md",
-          "pixel_position_endpoint": "https://serpapi.com/searches/oAsk2ekJnFdDuckUVhRkxGPYg6yHeiTxUcv9TNS97Bk/6a9938ce23df780d30a32c09.json_with_pixel_position",
-          "created_at": "2026-09-03 09:07:26 UTC",
-          "processed_at": "2026-09-03 09:07:26 UTC",
-          "google_url": "https://www.google.com/search?q=Wine+%26+Spirits+trends+2026+United+States+after%3A2026-08-04+before%3A2026-09-03&oq=Wine+%26+Spirits+trends+2026+United+States+after%3A2026-08-04+before%3A2026-09-03&hl=en&gl=us&tbs=sbd:1&sourceid=chrome&ie=UTF-8",
-          "raw_html_file": "https://serpapi.com/searches/oAsk2ekJnFdDuckUVhRkxGPYg6yHeiTxUcv9TNS97Bk/6a9938ce23df780d30a32c09.html",
-          "total_time_taken": 5.95
+          "json_endpoint": "https://serpapi.com/searches/gfFmhkOSrGimlf-vZTLQ_RvOHCk-uF_u32oFvjv0Jx0/6a9938013d34ddc3f2530a1d.json",
+          "markdown_endpoint": "https://serpapi.com/searches/gfFmhkOSrGimlf-vZTLQ_RvOHCk-uF_u32oFvjv0Jx0/6a9938013d34ddc3f2530a1d.md",
+          "pixel_position_endpoint": "https://serpapi.com/searches/gfFmhkOSrGimlf-vZTLQ_RvOHCk-uF_u32oFvjv0Jx0/6a9938013d34ddc3f2530a1d.json_with_pixel_position",
+          "created_at": "2026-09-03 09:04:01 UTC",
+          "processed_at": "2026-09-03 09:04:01 UTC",
+          "google_url": "https://www.google.com/search?q=Apparel+%26+Fashion+trends+2026+US+and+China+after%3A2026-08-27+before%3A2026-09-03&oq=Apparel+%26+Fashion+trends+2026+US+and+China+after%3A2026-08-27+before%3A2026-09-03&hl=en&gl=us&tbs=sbd:1&sourceid=chrome&ie=UTF-8",
+          "raw_html_file": "https://serpapi.com/searches/gfFmhkOSrGimlf-vZTLQ_RvOHCk-uF_u32oFvjv0Jx0/6a9938013d34ddc3f2530a1d.html",
+          "total_time_taken": 11.91
         },
         "search_parameters": {
           "engine": "google",
-          "q": "Wine & Spirits trends 2026 United States after:2026-08-04 before:2026-09-03",
+          "q": "Apparel & Fashion trends 2026 US and China after:2026-08-27 before:2026-09-03",
           "google_domain": "google.com",
           "hl": "en",
           "gl": "us",
@@ -137,27 +143,282 @@
           "tbs": "sbd:1"
         },
         "search_information": {
-          "query_displayed": "Wine & Spirits trends 2026 United States after:2026-08-04 before:2026-09-03",
-          "total_results": 340000,
-          "time_taken_displayed": 0.49,
+          "query_displayed": "Apparel & Fashion trends 2026 US and China after:2026-08-27 before:2026-09-03",
+          "total_results": 1780000,
+          "time_taken_displayed": 0.5,
           "organic_results_state": "Results for exact spelling"
         },
+        "inline_videos": [
+          {
+            "position": 1,
+            "title": "Fall Fashion Trends 2026  ft. Vogue, Who What Wear ...",
+            "link": "https://www.youtube.com/watch?v=fhpJ4U58Zec",
+            "thumbnail": "https://serpapi.com/searches/6a9938013d34ddc3f2530a1d/images/L8Pl1ys5h9mwNouUxvVmkL9zpVyTknx8w6GgKsMcSpE.jpeg",
+            "channel": "Amanda Weldon",
+            "duration": "18:28",
+            "platform": "YouTube",
+            "date": "3 days ago",
+            "short_clip": "https://encrypted-vtbn0.gstatic.com/video?q=tbn:ANd9GcTfCn1Twi3aTQN0MyO3EweRNAbZvbQ73GdWJA"
+          },
+          {
+            "position": 2,
+            "title": "CHIC Shanghai Autumn 2026 – Fashion, Business & ...",
+            "link": "https://www.instagram.com/p/Dcif8IrNOQu/",
+            "thumbnail": "https://serpapi.com/searches/6a9938013d34ddc3f2530a1d/images/AWEM-5TVUlWD07z9Zg2X6a54XT4hqgh8dJVPBo8NGDs.jpeg",
+            "channel": "CHIC China Fashion Fair",
+            "duration": "0:42",
+            "platform": "Instagram",
+            "date": "6 days ago"
+          },
+          {
+            "position": 3,
+            "title": "See you China Fashion Week 2026",
+            "link": "https://www.facebook.com/jemma.saowaros/posts/see-you-china-fashion-week-2026/1754255982479822/",
+            "thumbnail": "https://serpapi.com/searches/6a9938013d34ddc3f2530a1d/images/TplsFTiASgd2iicyi4SUlRx2emo-Vu-C0zKPJl77kyY.jpeg",
+            "channel": "Jemma Jemika",
+            "duration": "0:20",
+            "platform": "Facebook",
+            "date": "2 days ago"
+          },
+          {
+            "position": 4,
+            "title": "Global Fashion City Exhibition #Hangzhou #China ...",
+            "link": "https://www.instagram.com/reel/Dcm-wEmIVJS/",
+            "thumbnail": "https://serpapi.com/searches/6a9938013d34ddc3f2530a1d/images/VGtUP7REkmXV2wGTUgkcYBLpA5KgJXg_bCicImIzo5M.jpeg",
+            "channel": "Suresh Choudhary China",
+            "duration": "0:20",
+            "platform": "Instagram",
+            "date": "5 days ago"
+          }
+        ],
         "organic_results": [
           {
             "position": 1,
-            "title": "2026 U.S. and global drink trends",
-            "link": "https://www.facebook.com/ThePerfectSpot/posts/my-distiller-magazine-article-on-2026-drink-trends-us-global-covers-authenticity/1607316141186989/",
-            "redirect_link": "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=CAESyQEB6zswFRGBmZR5sHMgGZzFZZ0WsTXahaa3A4r4hNaU8evfN-UWnJ0G10agz4cyZVl5HSqptmAEuNpaJVvuZ2HHpGB4BpD3yaWd7T6dJ2JA73IT9JvOEG8wwJ8A_q7Fcv_KGknCibKEB_eq-XKduPlayB8yGzlFT48uo3bILnBDd81Tt78yzNiYAtdiRHn2amHAQ-5gFror4D-IRzrc3uAbvZDZXGoBMjKlNQw_mdhKmNgrUzlkx9d7nyp5kcbNmop7qu93I_IROs0&ved=2ahUKEwj-nvDah9KWAxUmliYFHR2AGTkQFnoECBwQAQ&uoh=1",
-            "displayed_link": "https://www.facebook.com › ThePerfectSpot › posts",
-            "favicon": "https://serpapi.com/images/i/iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAMAAABF0y-mAAAAXVBMVEVHcEwHZv8HaP8IZ_8IZ_8IZv8IaP8IZ_8HZv8Haf8IZ_8IaP8IZ_8AXv8AV_8AYv-SqP_P1__m6__e5f9wlP____-tvP9jiv82c_8IZ_8Iaf-fsf________8AW_-wrobhAAAAH3RSTlMAM4bC6v1h7v8Z3UL_______7_________wRiFwenBhp_Z0gAAAOhJREFUeAFtk0UWwzAMBWWHFHOZe_9bBn9Nr7Mdg5AiQjZt17WNFFTTDxwZ-kKNigvUmJw2XGF0dByx1jlnPTPDjiYqDofj8XQ4L9bsL6vozpedq13_3eJk4G-XXPIac8zBHUs5EIl48Q4Tws3ziiAZ5f7j3Vq7O5b0iOGE1Z0cRxpqS3mwSbbU4VHndukW8GwHiQ_BzUO2KceIw7MIqJBHyIZk_WwKSv6KcD_frlsqt_P5joBELJ-3iNZD8YDC_82zz1pWS5U1u5bmmY1JLdMQmVoaOIxmIdVYDXWUxVAD8Xp_FvnN1mEG0f0e5ixC4ikAAAAASUVORK5CYII.png",
-            "snippet": "NA wines and spirits are expected to grow at above-average rates through the rest of the decade. ￼ • In 2025 the non-alcoholic wine segment reached significant ...",
+            "title": "17 Key Trends to Know For Autumn/Winter 2026",
+            "link": "https://www.whowhatwear.com/fashion/trends/autumn-winter-2026-trends",
+            "redirect_link": "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=CAESfAHrOzAVFWz3BoJUxFiS1Y8J7cZ_E991oNSK2chMSyxTc9P6G-G58birjed0SnqH88YFCYUO7CflG5Gkde8t9nMJTJU2f09_0kjBsVmr0cgKu3Q5yAaFuL9Yolil09ieAmqFjYxMKhe20akzKw165ouq-NbBZG0zpPUVR-U&ved=2ahUKEwiP5IL8htKWAxUhg4kEHTUAO3sQFnoECB0QAQ&uoh=1",
+            "displayed_link": "https://www.whowhatwear.com › Fashion › Trends",
+            "favicon": "https://serpapi.com/images/i/iVBORw0KGgoAAAANSUhEUgAAABwAAAAbBAMAAACdJvIfAAAAMFBMVEX____________r6-sBAQEWFhanp6caGhq6uroPDw9GRkY0NDRvb2_g4ODLy8uNjY2QcStiAAAAA3RSTlPl__B7xtn7AAAAn0lEQVR4AWNgFEQCQtTnChvCuS4ugoKijoJAGsxNKWkUbPEQlHB3A3NFKhcKbo0WlJruBObKuPvKuZc8vFJyEMyVdfeXml658UvJRYjJK0OelIb7TZ0FtaildHr01spwDyhXJLzcraW81BHKlXcvdRQPL_kI5Qq7lyRKuJcYwhx5MlxQsHQO3M1PPIDm-cG54kBTRAvhXGFDEAZxaRd0AKWYNzMVPq5qAAAAAElFTkSuQmCC.png",
+            "date": "4 days ago",
+            "snippet": "From vibrant colour blocking to 'texturemaxxing' and prints galore, autumn/winter 2026 is a lesson in maximalism.",
             "snippet_highlighted_words": [
-              "NA wines and spirits are expected to grow at above-average rates"
+              "vibrant colour blocking"
             ],
             "about_this_result": {
               "source": {
-                "description": "NA wines and spirits are expected to grow at above-average rates through the rest of the decade. ￼ • In 2025 the non-alcoholic wine segment reached significant ...",
-                "source_info_link": "https://www.facebook.com/ThePerfectSpot/posts/my-distiller-magazine-article-on-2026-drink-trends-us-global-covers-authenticity/1607316141186989/",
+                "description": "From vibrant colour blocking to 'texturemaxxing' and prints galore, autumn/winter 2026 is a lesson in maximalism.",
+                "source_info_link": "https://www.whowhatwear.com/fashion/trends/autumn-winter-2026-trends",
+                "icon": "https://serpapi.com/images/i/iVBORw0KGgoAAAANSUhEUgAAABwAAAAbBAMAAACdJvIfAAAAMFBMVEX____________r6-sBAQEWFhanp6caGhq6uroPDw9GRkY0NDRvb2_g4ODLy8uNjY2QcStiAAAAA3RSTlPl__B7xtn7AAAAn0lEQVR4AWNgFEQCQtTnChvCuS4ugoKijoJAGsxNKWkUbPEQlHB3A3NFKhcKbo0WlJruBObKuPvKuZc8vFJyEMyVdfeXml658UvJRYjJK0OelIb7TZ0FtaildHr01spwDyhXJLzcraW81BHKlXcvdRQPL_kI5Qq7lyRKuJcYwhx5MlxQsHQO3M1PPIDm-cG54kBTRAvhXGFDEAZxaRd0AKWYNzMVPq5qAAAAAElFTkSuQmCC.png"
+              },
+              "languages": [
+                "en"
+              ],
+              "regions": [
+                "US"
+              ]
+            },
+            "about_page_link": "https://www.google.com/search?q=About+https://www.whowhatwear.com/fashion/trends/autumn-winter-2026-trends&tbm=ilp",
+            "about_page_serpapi_link": "https://serpapi.com/search.json?engine=google_about_this_result&google_domain=google.com&q=About+https%3A%2F%2Fwww.whowhatwear.com%2Ffashion%2Ftrends%2Fautumn-winter-2026-trends",
+            "source": "Who What Wear"
+          },
+          {
+            "position": 2,
+            "title": "10 Fall Dress Trends That Capture the Mood of the Season",
+            "link": "https://www.vogue.com/article/fall-2026-dress-trends",
+            "redirect_link": "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=CAESbAHrOzAVRIspxaE69uy8_wTIYi8bIrvUWufPjyqFH0t4sqvXNXwYCVlpSKmRQ4yKKjlYXK3JUiyokUASr1MDvHBo2V6KfGS8T3louomGkjh5Yb-0kH0dZs3S0pNS5qsRDThN9UOdGJKuAp7KvA&ved=2ahUKEwiP5IL8htKWAxUhg4kEHTUAO3sQFnoECCMQAQ&uoh=1",
+            "displayed_link": "https://www.vogue.com › article › fall-2026-dress-trends",
+            "favicon": "https://serpapi.com/images/i/iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAACVElEQVR4AcSXA4ycURSFz9ocm7VthLVthjXC2macMmpYxo02Ts2ocYqwCGrteZvlzVvM_PqS0a973uUbNFFVWZnv9_lWBvz-leFQaGUykZCvhuPqfCgYnI8u4Ha5eqrr1Ssaja5s-u5xu_tCUllRoURUqpfX4_En4vEvNPq_9SsaiWxU5121teXQI59Z2Pg8L8Vfbnp-FY-jM-Kx2A0pIBaN3kcWpFOpiWrlyAQqnk4vtBFAUf-5Ki8yhMb30u3VyATmQyEFfKBhKWIvMiQYCJxGNjDmx6UAvl6PHjUqP4NnpClgPbIhlUz254rbCFBh8Xm9QzMI5U6KiCJbaPS5JhnPZuD-g8iWphXQqPTCp_79-pV2Qbyb92-GEZi9UYbhlwwDk3RyF-K_lj0gDaPQ6D1NNdzqgvcuwgwY88WaMHxjV6vuwHPFkXA4e_eLllpOEZ80rXl7B510ob5asvfCdU011HXgftVDcmEWXO1o2ZrVq1s63RMCDptiXrsfZsKyy6fBd1IAR_NBjdixPD4aZsO4HtRUwxvGOl9UzUmWaTnMhoZ6ytasXux2o4XQw7AKlladxgvXm85zszKY18yGVdDgdo0AVaLlIIz9ZrfLVQyrYGyrafCbZkwvBmH2n4TVsMZvSQF0-z2WX5ify2E13CfM14ThG5Nxt9h6WZYHpSruOi_ALmjsrKYr7oRdcKc7VExHtWeIwi7UoGEYHreajA9hNzS6t0kAK2Mr7KZH9-7JJgG9e_UaDCdQf9foiddy9tuZjKvZfo_CKeoHbCeAestkt3wB_Y38GkRcfnEAAAAASUVORK5CYII.png",
+            "date": "18 hours ago",
+            "snippet": "This fall's dress trends are all about expression—from bold colors, daring prints, and high-volume shapes to romantic materials, vintage-inspired silhouettes,",
+            "snippet_highlighted_words": [
+              "bold colors, daring prints, and high-volume shapes"
+            ],
+            "about_this_result": {
+              "source": {
+                "description": "This fall's dress trends are all about expression—from bold colors, daring prints, and high-volume shapes to romantic materials, vintage-inspired silhouettes,",
+                "source_info_link": "https://www.vogue.com/article/fall-2026-dress-trends",
+                "icon": "https://serpapi.com/images/i/iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAACVElEQVR4AcSXA4ycURSFz9ocm7VthLVthjXC2macMmpYxo02Ts2ocYqwCGrteZvlzVvM_PqS0a973uUbNFFVWZnv9_lWBvz-leFQaGUykZCvhuPqfCgYnI8u4Ha5eqrr1Ssaja5s-u5xu_tCUllRoURUqpfX4_En4vEvNPq_9SsaiWxU5121teXQI59Z2Pg8L8Vfbnp-FY-jM-Kx2A0pIBaN3kcWpFOpiWrlyAQqnk4vtBFAUf-5Ki8yhMb30u3VyATmQyEFfKBhKWIvMiQYCJxGNjDmx6UAvl6PHjUqP4NnpClgPbIhlUz254rbCFBh8Xm9QzMI5U6KiCJbaPS5JhnPZuD-g8iWphXQqPTCp_79-pV2Qbyb92-GEZi9UYbhlwwDk3RyF-K_lj0gDaPQ6D1NNdzqgvcuwgwY88WaMHxjV6vuwHPFkXA4e_eLllpOEZ80rXl7B510ob5asvfCdU011HXgftVDcmEWXO1o2ZrVq1s63RMCDptiXrsfZsKyy6fBd1IAR_NBjdixPD4aZsO4HtRUwxvGOl9UzUmWaTnMhoZ6ytasXux2o4XQw7AKlladxgvXm85zszKY18yGVdDgdo0AVaLlIIz9ZrfLVQyrYGyrafCbZkwvBmH2n4TVsMZvSQF0-z2WX5ify2E13CfM14ThG5Nxt9h6WZYHpSruOi_ALmjsrKYr7oRdcKc7VExHtWeIwi7UoGEYHreajA9hNzS6t0kAK2Mr7KZH9-7JJgG9e_UaDCdQf9foiddy9tuZjKvZfo_CKeoHbCeAestkt3wB_Y38GkRcfnEAAAAASUVORK5CYII.png"
+              },
+              "languages": [
+                "en"
+              ],
+              "regions": [
+                "US"
+              ]
+            },
+            "about_page_link": "https://www.google.com/search?q=About+https://www.vogue.com/article/fall-2026-dress-trends&tbm=ilp",
+            "about_page_serpapi_link": "https://serpapi.com/search.json?engine=google_about_this_result&google_domain=google.com&q=About+https%3A%2F%2Fwww.vogue.com%2Farticle%2Ffall-2026-dress-trends",
+            "source": "Vogue"
+          },
+          {
+            "position": 3,
+            "title": "CHIC Shanghai Autumn 2026 – Fashion, Business & ...",
+            "link": "https://www.google.com/goto?url=CAESYwHrOzAVgQxPBevYZrMS7qdfvCy5LZARiFDjIb--aXzM3M3cF7seL7wA1_c8L3T0JUCe27emE99CQaGAjDrwAaInbeeXSCYjT2xyp8qHHeg42t914QOQMnnE3edXppJgbDr-Mg",
+            "displayed_link": "6 likes · 6 days ago",
+            "thumbnail": "https://serpapi.com/searches/6a9938013d34ddc3f2530a1d/images/cAJvAoz9PsJ9M7MHyRofHD4V0jd938cv3Qyv4PW1914.jpeg",
+            "favicon": "https://serpapi.com/searches/6a9938013d34ddc3f2530a1d/images/cAJvAoz9PsJ9M7MHyRofHCyxaENZv3ge1T0OBIed0SA.png",
+            "snippet": "Key topics include AI and digitalization, innovative materials, 3D knitting, new e-commerce concepts and modern Chinese Style. August 25–27, 2026",
+            "duration": "0:42",
+            "about_this_result": {
+              "source": {
+                "description": "Key topics include AI and digitalization, innovative materials, 3D knitting, new e-commerce concepts and modern Chinese Style. August 25–27, 2026",
+                "icon": "https://serpapi.com/searches/6a9938013d34ddc3f2530a1d/images/cAJvAoz9PsJ9M7MHyRofHK8YB46_82JudsFCuLHIjJaOS6fSrFZuM1nhlkzCdZuR.png"
+              }
+            },
+            "about_page_link": "https://www.google.com/search?q=About+https://www.google.com/goto?url=CAESYwHrOzAVgQxPBevYZrMS7qdfvCy5LZARiFDjIb--aXzM3M3cF7seL7wA1_c8L3T0JUCe27emE99CQaGAjDrwAaInbeeXSCYjT2xyp8qHHeg42t914QOQMnnE3edXppJgbDr-Mg&tbm=ilp",
+            "about_page_serpapi_link": "https://serpapi.com/search.json?engine=google_about_this_result&google_domain=google.com&q=About+https%3A%2F%2Fwww.google.com%2Fgoto%3Furl%3DCAESYwHrOzAVgQxPBevYZrMS7qdfvCy5LZARiFDjIb--aXzM3M3cF7seL7wA1_c8L3T0JUCe27emE99CQaGAjDrwAaInbeeXSCYjT2xyp8qHHeg42t914QOQMnnE3edXppJgbDr-Mg",
+            "source": "Instagram · chic_shanghai"
+          },
+          {
+            "position": 4,
+            "title": "FashionNetwork USA - The World's Fashion Business News",
+            "link": "https://us.fashionnetwork.com/",
+            "redirect_link": "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=CAESVgHrOzAVPVLX8LdyioRs5eMO6ILG2TVp8n1uNPqIn0p0FOHWocqD_GLIx0oiP4n7HN7HwfrGmZQrWxex4qIAeaxVoePtmWdv5rV94pW9UmRjHKvFec-O&ved=2ahUKEwiP5IL8htKWAxUhg4kEHTUAO3sQFnoECCQQAQ&uoh=1",
+            "displayed_link": "https://us.fashionnetwork.com",
+            "favicon": "https://serpapi.com/images/i/iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAMAAABF0y-mAAAAXVBMVEVHcEz________________________8_Pzz8_P___________________8hISH___-mpqYUFBT___8AAADl5eXz8_O6urrs7Oz5-fmioqJnZ2eRkZGFhYWxsbE5OTl9u9nBAAAAEnRSTlMAA9fOPr_Sahch66TqqDanxNzHww--AAAA4UlEQVQokW3TCw6DIAwAUPwB_uYGoijq_Y85aqQg0EQDeUmppRLigrOeDgPtGSdx1JXAqOq3NeIVTeGJr0prrVzAunXWntsupTTbHcdl13J1avMssHdJ53tT4HmAMx6pAJu7TpGgOCEN1FxlUABSW6nI4QEbTliMStsXPIKRPkaDVU-ExngphyUZIlwlYpfgHuIrrZ5tH4O0vqDDGAM9RhyDT1mfviKypAmLR562D5FmGr-7JtSZKzsfvK-MFCJtvI1njNoc-iFKEc1m_r4xHE0bn59HGg01MJvKrivH4Hf4Ayz7LI2mL7D_AAAAAElFTkSuQmCC.png",
+            "date": "2 days ago",
+            "snippet": "G-III Apparel Q2 sales fall 10% amid portfolio shift · PVH sales hurt by Calvin Klein declines, reaffirms guidance · Fashion empire Azzas 2154 to split two years ...",
+            "snippet_highlighted_words": [
+              "Apparel",
+              "Fashion"
+            ],
+            "about_this_result": {
+              "source": {
+                "description": "G-III Apparel Q2 sales fall 10% amid portfolio shift · PVH sales hurt by Calvin Klein declines, reaffirms guidance · Fashion empire Azzas 2154 to split two years ...",
+                "source_info_link": "https://us.fashionnetwork.com/",
+                "icon": "https://serpapi.com/images/i/iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAMAAABF0y-mAAAAXVBMVEVHcEz________________________8_Pzz8_P___________________8hISH___-mpqYUFBT___8AAADl5eXz8_O6urrs7Oz5-fmioqJnZ2eRkZGFhYWxsbE5OTl9u9nBAAAAEnRSTlMAA9fOPr_Sahch66TqqDanxNzHww--AAAA4UlEQVQokW3TCw6DIAwAUPwB_uYGoijq_Y85aqQg0EQDeUmppRLigrOeDgPtGSdx1JXAqOq3NeIVTeGJr0prrVzAunXWntsupTTbHcdl13J1avMssHdJ53tT4HmAMx6pAJu7TpGgOCEN1FxlUABSW6nI4QEbTliMStsXPIKRPkaDVU-ExngphyUZIlwlYpfgHuIrrZ5tH4O0vqDDGAM9RhyDT1mfviKypAmLR562D5FmGr-7JtSZKzsfvK-MFCJtvI1njNoc-iFKEc1m_r4xHE0bn59HGg01MJvKrivH4Hf4Ayz7LI2mL7D_AAAAAElFTkSuQmCC.png"
+              },
+              "languages": [
+                "en"
+              ],
+              "regions": [
+                "US"
+              ]
+            },
+            "about_page_link": "https://www.google.com/search?q=About+https://us.fashionnetwork.com/&tbm=ilp",
+            "about_page_serpapi_link": "https://serpapi.com/search.json?engine=google_about_this_result&google_domain=google.com&q=About+https%3A%2F%2Fus.fashionnetwork.com%2F",
+            "source": "FashionNetwork USA",
+            "read_more_link": "https://www.google.com/goto?url=CAESxwIB6zswFZQ5aplce--0dAbSsQpbyg0pXRJMQKybNDgufnATF4UNH1kQZdqgSJTy3FHC3vmUw2UCK-l6L9qkoWVMhG3A1I7NLhTj3qAV6qjDRv_QoIKVc5DMqv7vhLHy7X5UL9ATj3JPViFgSoepiTb-fKYQS5yQVZSoidM34xvcPaHaD5BCIitlxHj4-n1Lcal0h8OqG4EC-dN5000QiLbBZX2pI5zuzTH01m_TTuOFXGMuL3o4MPKA9KtQYVnqxlbisOHIYmilNmbJkE6k4Bdyf2iq_WiQX1PZl3uDFzAaeAOBPqWozXTsQ6d_mRe0PnnDIHpoQiwtV8dJ94e9I96VR9VreqxbIpDYqpfyHbYPhtrrpZmUG3dMVCjDsRKH6m4YN64VHTrtS0MrNPeFkzV_WkQq8IAIBk6dvkO4IlLDBSqijLj0ARA"
+          },
+          {
+            "position": 5,
+            "title": "Sustainable Fashion Market Size, Share, Industry Growth ...",
+            "link": "https://www.rootsanalysis.com/sustainable-fashion-market",
+            "redirect_link": "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=CAEScAHrOzAV9tAtp0sdX8sXSRefJInr2ttS08oa_zqh0EaaKch_c-o3gMzy4V-cwJFbn0TECaKbRCqWV4tEsQsCa2xlNqXizLjrXviZIXOE0pO-xI2ZvySJ21To_S0dVAbf8O-lO88VONyUFhPOD4pkX7Q&ved=2ahUKEwiP5IL8htKWAxUhg4kEHTUAO3sQFnoECC8QAQ&uoh=1",
+            "displayed_link": "https://www.rootsanalysis.com › Reports",
+            "favicon": "https://serpapi.com/images/i/_9j_4AAQSkZJRgABAQAAAQABAAD_2wCEAAkGBwgHBgkIBwgKCgkLDRYPDQwMDRsUFRAWIB0iIiAdHx8kKDQsJCYxJx8fLT0tMTU3Ojo6Iys_RD84QzQ5OjcBCgoKBgwNGg8PGjclHyUrKzcrNzc3KzcrNys3NzcrKzc3Nys3NzcrNzcrKysrNzcrNys3Nys3NysrNzcrNysrK__AABEIABAAEAMBIgACEQEDEQH_xAAWAAEBAQAAAAAAAAAAAAAAAAAGBAH_xAAiEAACAgEEAQUAAAAAAAAAAAABAgMEBQAREjFBBjJRYYH_xAAVAQEBAAAAAAAAAAAAAAAAAAAEA__EABsRAAAHAQAAAAAAAAAAAAAAAAAREhQhIjID_9oADAMBAAIRAxEAPwBrlvUeQJZ3p2KsCtxAlQr-nW4bPZR7UUcdKWaKQ98TxUfO_jvSzN1Xu4a9VjUM81eRFB29xUgd_eqKkQhqwxBQvBFXYeNhoze6zkST2PQ__9k.jpeg",
+            "date": "7 days ago",
+            "snippet": "The sustainable fashion market size is projected to grow from USD 11 billion in 2026 to USD 46 billion by 2040, representing a strong CAGR of 10.81%",
+            "snippet_highlighted_words": [
+              "fashion",
+              "2026"
+            ],
+            "about_this_result": {
+              "source": {
+                "description": "The sustainable fashion market size is projected to grow from USD 11 billion in 2026 to USD 46 billion by 2040, representing a strong CAGR of 10.81%",
+                "source_info_link": "https://www.rootsanalysis.com/sustainable-fashion-market",
+                "icon": "https://serpapi.com/images/i/_9j_4AAQSkZJRgABAQAAAQABAAD_2wCEAAkGBwgHBgkIBwgKCgkLDRYPDQwMDRsUFRAWIB0iIiAdHx8kKDQsJCYxJx8fLT0tMTU3Ojo6Iys_RD84QzQ5OjcBCgoKBgwNGg8PGjclHyUrKzcrNzc3KzcrNys3NzcrKzc3Nys3NzcrNzcrKysrNzcrNys3Nys3NysrNzcrNysrK__AABEIABAAEAMBIgACEQEDEQH_xAAWAAEBAQAAAAAAAAAAAAAAAAAGBAH_xAAiEAACAgEEAQUAAAAAAAAAAAABAgMEBQAREjFBBjJRYYH_xAAVAQEBAAAAAAAAAAAAAAAAAAAEA__EABsRAAAHAQAAAAAAAAAAAAAAAAAREhQhIjID_9oADAMBAAIRAxEAPwBrlvUeQJZ3p2KsCtxAlQr-nW4bPZR7UUcdKWaKQ98TxUfO_jvSzN1Xu4a9VjUM81eRFB29xUgd_eqKkQhqwxBQvBFXYeNhoze6zkST2PQ__9k.jpeg"
+              },
+              "languages": [
+                "en"
+              ],
+              "regions": [
+                "US"
+              ]
+            },
+            "about_page_link": "https://www.google.com/search?q=About+https://www.rootsanalysis.com/sustainable-fashion-market&tbm=ilp",
+            "about_page_serpapi_link": "https://serpapi.com/search.json?engine=google_about_this_result&google_domain=google.com&q=About+https%3A%2F%2Fwww.rootsanalysis.com%2Fsustainable-fashion-market",
+            "source": "Roots Analysis"
+          },
+          {
+            "position": 6,
+            "title": "Fast Fashion Market Share, Trends Report 2026-2030",
+            "link": "https://www.thebusinessresearchcompany.com/report/fast-fashion-global-market-report",
+            "redirect_link": "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=CAESiwEB6zswFW7jJUW7j0-xrwKrjAbLZ5YjzQ4J-t7Gz0PvuJ1Gi4OJnEJLt1127p8au16FJGIWOtWfKtM2x87jX3suwyGeB98G1tHzy3JI2dzPHSkfkp-zn7sMkWCcwbFA9qotuX5WaNWsiCDCN21l4-tKMB27-ohxGdC4J2rbKyWsOQcLkrvQfbciuZca&ved=2ahUKEwiP5IL8htKWAxUhg4kEHTUAO3sQFnoECCYQAQ&uoh=1",
+            "displayed_link": "https://www.thebusinessresearchcompany.com › report",
+            "favicon": "https://serpapi.com/searches/6a9938013d34ddc3f2530a1d/images/cAJvAoz9PsJ9M7MHyRofHKdjuJDBO6teLlPZ3aZvMv4.png",
+            "date": "6 days ago",
+            "snippet": "Fast Fashion market size stood at $172.41 billion in 2026 and is projected to reach $222.71 billion by 2030 at a 6.6% CAGR.",
+            "snippet_highlighted_words": [
+              "Fast Fashion market size stood at $172.41 billion in 2026"
+            ],
+            "rich_snippet": {
+              "bottom": {
+                "detected_extensions": {
+                  "price": 4490.0,
+                  "currency": "$"
+                },
+                "extensions": [
+                  "$4,490.00",
+                  "In stock"
+                ]
+              }
+            },
+            "about_this_result": {
+              "source": {
+                "description": "Fast Fashion market size stood at $172.41 billion in 2026 and is projected to reach $222.71 billion by 2030 at a 6.6% CAGR.",
+                "source_info_link": "https://www.thebusinessresearchcompany.com/report/fast-fashion-global-market-report",
+                "icon": "https://serpapi.com/searches/6a9938013d34ddc3f2530a1d/images/cAJvAoz9PsJ9M7MHyRofHFJT9HqukXjAcuYScX8XjAtVSSOXWC8j8RAMjY2bssKa.png"
+              },
+              "languages": [
+                "en"
+              ],
+              "regions": [
+                "US"
+              ]
+            },
+            "about_page_link": "https://www.google.com/search?q=About+https://www.thebusinessresearchcompany.com/report/fast-fashion-global-market-report&tbm=ilp",
+            "about_page_serpapi_link": "https://serpapi.com/search.json?engine=google_about_this_result&google_domain=google.com&q=About+https%3A%2F%2Fwww.thebusinessresearchcompany.com%2Freport%2Ffast-fashion-global-market-report",
+            "source": "The Business Research Company"
+          },
+          {
+            "position": 7,
+            "title": "Fashion",
+            "link": "https://en.wikipedia.org/wiki/Fashion",
+            "redirect_link": "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=CAESXQHrOzAVYRTZmY9a1qn_MbgXi6gqRP9XC14Ey3Zml3id_NPmkc69OBMOb5SkP51W1LYYHtcNEIRApuEtEYtpxwGtsyz6fK0fIXR2WY6AGpgfCCZ5FCbgHOOJU2Z7Dg&ved=2ahUKEwiP5IL8htKWAxUhg4kEHTUAO3sQFnoECCkQAQ&uoh=1",
+            "displayed_link": "https://en.wikipedia.org › wiki › Fashion",
+            "favicon": "https://serpapi.com/images/i/iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAAAAABXZoBIAAAAnklEQVR4AeTNIQiDQABG4b-u17X1aF6PK3YEO9iMJqPVau82y4FgMezS0oVLhqsHtrcqeqzDXv3CEz_6L4yTtZM3dnHmPTtjzXZAXKYVo4agkU2GI2Lloc6JDez1-flswMu1EQZ3xlE7lK8eKDkjtwE-crBMV-wesKmCiisGGepZIfQJpMj9SNb2MYWrChjVkULuCyCfRvsdmBieyQQAsoDk_9ryhFMAAAAASUVORK5CYII.png",
+            "date": "6 days ago",
+            "snippet": "Fashion is a term used interchangeably to describe the creation of clothing, footwear, accessories, cosmetics, and jewellery of different cultural ...",
+            "snippet_highlighted_words": [
+              "Fashion",
+              "clothing"
+            ],
+            "about_this_result": {
+              "source": {
+                "description": "Fashion is a term used interchangeably to describe the creation of clothing, footwear, accessories, cosmetics, and jewellery of different cultural ...",
+                "source_info_link": "https://en.wikipedia.org/wiki/Fashion",
+                "icon": "https://serpapi.com/images/i/iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAAAAABXZoBIAAAAnklEQVR4AeTNIQiDQABG4b-u17X1aF6PK3YEO9iMJqPVau82y4FgMezS0oVLhqsHtrcqeqzDXv3CEz_6L4yTtZM3dnHmPTtjzXZAXKYVo4agkU2GI2Lloc6JDez1-flswMu1EQZ3xlE7lK8eKDkjtwE-crBMV-wesKmCiisGGepZIfQJpMj9SNb2MYWrChjVkULuCyCfRvsdmBieyQQAsoDk_9ryhFMAAAAASUVORK5CYII.png"
+              },
+              "languages": [
+                "en"
+              ],
+              "regions": [
+                "US"
+              ]
+            },
+            "about_page_link": "https://www.google.com/search?q=About+https://en.wikipedia.org/wiki/Fashion&tbm=ilp",
+            "about_page_serpapi_link": "https://serpapi.com/search.json?engine=google_about_this_result&google_domain=google.com&q=About+https%3A%2F%2Fen.wikipedia.org%2Fwiki%2FFashion",
+            "source": "Wikipedia",
+            "read_more_link": "https://www.google.com/goto?url=CAESsAEB6zswFVp7OJ_balvGVSNB90_II5PkRQMrBzOVtBz9aOzHEa_9r8qP8b0GNqN8cnVCbM8CfSmQYn20DAKOxu9E11Oum8gmBUBNKMW7Ycrkju3OR1v5Gcx5JvQnpSgvVc8KafxjgwPT4XKiR7BOHpL4_UVwyKdxbWziJhxPC8USSyxsaUp9ajg6nU4bmC-vewr-6U6wH_BXC1iZe6e9tj3T2OBE0b_MwUIpHDYw7FCN1A"
+          },
+          {
+            "position": 8,
+            "title": "China's CHIC fair spotlights AI in apparel manufacturing ...",
+            "link": "https://www.facebook.com/BastilleGlobal/posts/chinas-chic-fair-spotlights-ai-in-apparel-manufacturingartificial-intelligence-a/1593081196199874/",
+            "redirect_link": "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=CAESyQEB6zswFS2hIE9ekm786BtfI2W0Nnj4mU4ilJ6SxPm59Mqd9oxQFFJZMTio3nFFhVwDToqUiCIQt7LXmcJj9a6mmIcvVAdaSr1apKxGll_1OM6s7IVfsoNi7_F2jK5jiUa8R0I3O8Nj0ZCvG_aRO2QeUA3Ka5Y85hfj7V69Gi-foQWK5rp9Chi20r6qfmhBQqiNRQULLXiijTGzJZSJnzh1lqVphTCAVa-c4hCvV7inr5Su0IR68KcHuBcSn6ZbqqX9LuzTIps75I0&ved=2ahUKEwiP5IL8htKWAxUhg4kEHTUAO3sQFnoECCgQAQ&uoh=1",
+            "displayed_link": "1 reaction",
+            "favicon": "https://serpapi.com/images/i/iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAMAAABF0y-mAAAAXVBMVEVHcEwHZv8HaP8IZ_8IZ_8IZv8IaP8IZ_8HZv8Haf8IZ_8IaP8IZ_8AXv8AV_8AYv-SqP_P1__m6__e5f9wlP____-tvP9jiv82c_8IZ_8Iaf-fsf________8AW_-wrobhAAAAH3RSTlMAM4bC6v1h7v8Z3UL_______7_________wRiFwenBhp_Z0gAAAOhJREFUeAFtk0UWwzAMBWWHFHOZe_9bBn9Nr7Mdg5AiQjZt17WNFFTTDxwZ-kKNigvUmJw2XGF0dByx1jlnPTPDjiYqDofj8XQ4L9bsL6vozpedq13_3eJk4G-XXPIac8zBHUs5EIl48Q4Tws3ziiAZ5f7j3Vq7O5b0iOGE1Z0cRxpqS3mwSbbU4VHndukW8GwHiQ_BzUO2KceIw7MIqJBHyIZk_WwKSv6KcD_frlsqt_P5joBELJ-3iNZD8YDC_82zz1pWS5U1u5bmmY1JLdMQmVoaOIxmIdVYDXWUxVAD8Xp_FvnN1mEG0f0e5ixC4ikAAAAASUVORK5CYII.png",
+            "snippet": "China's CHIC fair spotlights AI in apparel manufacturing Artificial intelligence (AI) is moving beyond fashion design into flexible manufacturing and retail at ...",
+            "snippet_highlighted_words": [
+              "China's",
+              "apparel",
+              "fashion"
+            ],
+            "about_this_result": {
+              "source": {
+                "description": "China's CHIC fair spotlights AI in apparel manufacturing Artificial intelligence (AI) is moving beyond fashion design into flexible manufacturing and retail at ...",
+                "source_info_link": "https://www.facebook.com/BastilleGlobal/posts/chinas-chic-fair-spotlights-ai-in-apparel-manufacturingartificial-intelligence-a/1593081196199874/",
                 "icon": "https://serpapi.com/images/i/iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAMAAABF0y-mAAAAXVBMVEVHcEwHZv8HaP8IZ_8IZ_8IZv8IaP8IZ_8HZv8Haf8IZ_8IaP8IZ_8AXv8AV_8AYv-SqP_P1__m6__e5f9wlP____-tvP9jiv82c_8IZ_8Iaf-fsf________8AW_-wrobhAAAAH3RSTlMAM4bC6v1h7v8Z3UL_______7_________wRiFwenBhp_Z0gAAAOhJREFUeAFtk0UWwzAMBWWHFHOZe_9bBn9Nr7Mdg5AiQjZt17WNFFTTDxwZ-kKNigvUmJw2XGF0dByx1jlnPTPDjiYqDofj8XQ4L9bsL6vozpedq13_3eJk4G-XXPIac8zBHUs5EIl48Q4Tws3ziiAZ5f7j3Vq7O5b0iOGE1Z0cRxpqS3mwSbbU4VHndukW8GwHiQ_BzUO2KceIw7MIqJBHyIZk_WwKSv6KcD_frlsqt_P5joBELJ-3iNZD8YDC_82zz1pWS5U1u5bmmY1JLdMQmVoaOIxmIdVYDXWUxVAD8Xp_FvnN1mEG0f0e5ixC4ikAAAAASUVORK5CYII.png"
               },
               "languages": [
@@ -167,308 +428,368 @@
                 "US"
               ]
             },
-            "about_page_link": "https://www.google.com/search?q=About+https://www.facebook.com/ThePerfectSpot/posts/my-distiller-magazine-article-on-2026-drink-trends-us-global-covers-authenticity/1607316141186989/&tbm=ilp",
-            "about_page_serpapi_link": "https://serpapi.com/search.json?engine=google_about_this_result&google_domain=google.com&q=About+https%3A%2F%2Fwww.facebook.com%2FThePerfectSpot%2Fposts%2Fmy-distiller-magazine-article-on-2026-drink-trends-us-global-covers-authenticity%2F1607316141186989%2F",
-            "source": "Facebook",
-            "read_more_link": "https://www.google.com/goto?url=CAESngIB6zswFWTPtXvWcvOZFD0c6_c1wE8oLFIBN3ccY0-uXEfJNWdbKyk-qhUk6rWdb4vVsLB7karoOIwLZ-vvLCfbS22811OfUsroEZuqzoWbjrQ9zsiy1S3exB4p4kpdSJ5B2Ek4gVhE4qmsrZJvtRQExLVGirl0ocmstKW9zXKg5dFtYjFgTd-Ht4f0d9nq7ajCNWUaz39rn2qVosKPl3Kwz8p6WOt5SqOwqZEg_zf0WZvAXWPsE9igmsivhD-D7ymBAocvzac_5gsHUm9I73NtIlPyns3ISCamtsDdIjFpv5rKMiBrVdiSZ2TRnSzrtmtWaNGplPcJo_wNDYf68y20jI8O6-ipZoPbgKzQjsCwhD83owivbvozPOrBJI_L"
-          },
-          {
-            "position": 2,
-            "title": "bw166 2026 mid-year Update",
-            "link": "https://bw166.com/bw166-2026-mid-year-update/?utm_source\\u003dAfternoon+Brief\\u0026utm_campaign\\u003de31f912ec4-EMAIL_CAMPAIGN_2026_08_05_09_35\\u0026utm_medium\\u003demail\\u0026utm_term\\u003d0_-e31f912ec4-64669925",
-            "redirect_link": "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=CAES6gEB6zswFSf9rqwcW29ccWZ8N9K-hRFcoLFUs4D4Up48qkhcRFHrubmdL0QynfSOyerxDstX7aTfvO5gS73u0gxlOxnoIE5ZRv9EToCk1BCR1LWHlChHsmfFY_UpfQNrdczUjSFDoQa7iELe-P2Tf-eMpXkd6E2X5Ji8YMG1g_S6x_RsflqAUG09LmV7gWoS1v3A1ZRgyxfOKtsUesYq-Y_HHFC1gX2jN6-EA2PmgDST0v1-j7NNxw7QhTFHO0u5d1oiQkgOzRjssuZufo0ToMerZydTwivYMOUi-yxx6PxCJjTa4WPxQFf6svM&ved=2ahUKEwj-nvDah9KWAxUmliYFHR2AGTkQFnoECB8QAQ&uoh=1",
-            "displayed_link": "https://bw166.com › Blog",
-            "favicon": "https://serpapi.com/searches/6a9938ce23df780d30a32c09/images/2o14TKnugGnTqe9uZGD0o4dI1C76wBS6qDyGkpXs77U.png",
-            "date": "Aug 5, 2026",
-            "snippet": "The US beverage alcohol market remains under pressure in 2026, with beer, wine, and spirits all showing continued volume softness, even as consumer spending ...",
-            "snippet_highlighted_words": [
-              "US",
-              "2026",
-              "wine",
-              "spirits"
-            ],
-            "about_this_result": {
-              "source": {
-                "description": "The US beverage alcohol market remains under pressure in 2026, with beer, wine, and spirits all showing continued volume softness, even as consumer spending ...",
-                "source_info_link": "https://bw166.com/bw166-2026-mid-year-update/?utm_source=Afternoon+Brief&utm_campaign=e31f912ec4-EMAIL_CAMPAIGN_2026_08_05_09_35&utm_medium=email&utm_term=0_-e31f912ec4-64669925",
-                "icon": "https://serpapi.com/searches/6a9938ce23df780d30a32c09/images/2o14TKnugGnTqe9uZGD0oxDJgsTX5l1QxJhi71L_KrceOhau2w79-WuisRthRcxq.png"
-              },
-              "languages": [
-                "en"
-              ],
-              "regions": [
-                "US"
-              ]
-            },
-            "about_page_link": "https://www.google.com/search?q=About+https://bw166.com/bw166-2026-mid-year-update/?utm_source=Afternoon+Brief&utm_campaign=e31f912ec4-EMAIL_CAMPAIGN_2026_08_05_09_35&utm_medium=email&utm_term=0_-e31f912ec4-64669925&tbm=ilp",
-            "about_page_serpapi_link": "https://serpapi.com/search.json?engine=google_about_this_result&google_domain=google.com&q=About+https%3A%2F%2Fbw166.com%2Fbw166-2026-mid-year-update%2F%3Futm_source%3DAfternoon%2BBrief%26utm_campaign%3De31f912ec4-EMAIL_CAMPAIGN_2026_08_05_09_35%26utm_medium%3Demail%26utm_term%3D0_-e31f912ec4-64669925",
-            "source": "bw166",
-            "read_more_link": "https://www.google.com/goto?url=CAES0QIB6zswFcgJMvH5NrIEs4c4DVu_J77mcVwFvogRIPSxRC3BAmgDQROwTW8KLPMqVNgAvNvyDEdTtVHQ6JOYVGdah4UNTKXOvS8fHdpXSAwbpO8xQpSF_-Cm7ixsxuBk2gQosukdWqVFxE6IdLyl9c2urxiv5-meV43iFgGocQuHvG9QfnLs3VgbXLenTPNLHKPLcPFZ-r1RokbE84-NnQsrGAOL2H6C4EahHiPatmuH4CrwB6e_Mel-se2jAGPULUHwCSMSpoKAxSk7M2MFgJCuyfxbi4OihsdRQ6DMrkMxZ-ThuwAnTHFnD66VhDbPWnE_FFPm9d5u-H7FVaZX7wRC_P_JXTB4TD9n0ldvhHk0S0Y1GWWOfMD75r5CvDKMOQ_TtD3UUJTeezWQOEwq4EwyfwX5PI3HpAme3gZYc-U1xBFi2I3SAJTrAWS_FbzKlEIM"
-          },
-          {
-            "position": 3,
-            "title": "Wine and Spirits Declines Narrowed for Third Straight ...",
-            "link": "https://www.wswa.org/news/wine-and-spirits-declines-narrowed-third-straight-month-q2-2026-wswa-sipsourcer-data-shows",
-            "redirect_link": "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=CAESrAEB6zswFV9BeDmztnCIfPJJPJF1cYsuoLokezorHgZKtpc7Yuy3xRALR0MUvz7CJ9eygULcn0vLvnUY8AXi-b-yXYrOmM3Xfy6QmSEdg2CJTFcViVxGZtGRe2oxxMKzUwzXwGLYfcuWmVVBdixDUAgQAGPN1Sumzo7QUrtjZ2JP2n6thcJezx6nfcWCcBkOFVKUxCMi_sbC2fd9HYQ-ZoWivgWmoMnQ-25jo-B5&ved=2ahUKEwj-nvDah9KWAxUmliYFHR2AGTkQFnoECB4QAQ&uoh=1",
-            "displayed_link": "https://www.wswa.org › news › wine-and-spirits-declines...",
-            "favicon": "https://serpapi.com/images/i/iVBORw0KGgoAAAANSUhEUgAAACAAAAAdCAMAAAD8QJ61AAAAaVBMVEVHcEy9vsC9vsC9vsC-v8G9vsC9vsDBw8W9vsC9vsC9vsC9vsC9vsC9vsC8vL--v8FICDFICDG9vsBICDFGBy5ICDFICDFICDE8BilICDFICDFICDG9vsBDBihICDFHBjB8Ym_CxMZIBjBvcQTdAAAAI3RSTlMAQ9f_V-75BREfqbh5MuTKIhWWZLve0XcFOv-IYk3wnPb_-f00AWIAAAFgSURBVHgBddMFEoQwDAXQD2lxl27RlfsfctN0Xd4YEhob8CoIicIAfylNLFLw4iSJ8SrNSOSxvy2yrCjxoqxIhPI0rYnVKZqbFmX4GtCRyNAPozFmPLRI3lLQDew0zvPM74GAc0gbbwFA7wIgebuIAyByEhWAxsyzsRCcRQdwgkh6DgBrFz6iweNxB6GqqKpXONs-z0cIq6U1J8lClUC0wzzvENvpTFrBSXWHO5djgnO8nO851mjFnet0AGvHoeYcJYA49wPzOMellY43RSSfJpThqecyF8AOu41dHwlQSNhdK6PgVAvizm-jrlK8OHIfG5bLBAREtL5nYNOFR9EOQ-v3nMUrKbwx88Uc9h5AXBDpJNcx3vScYx8nsEATdVGHDzM7tmBpTizHGynzssFRJD4jJh5m45dEQpd4Y828QALyW4DCu8O-4fWEqsS7dmsh1s8aPiXd7Y_4ryw6FcO7Ag1jFpmOSnHIAAAAAElFTkSuQmCC.png",
-            "date": "Aug 12, 2026",
-            "snippet": "Wine outperformed on revenue, down 4.6% compared with a 6.1% decline for spirits, which continue to represent nearly two-thirds of combined category revenue.",
-            "snippet_highlighted_words": [
-              "Wine outperformed on revenue, down 4.6"
-            ],
-            "about_this_result": {
-              "source": {
-                "description": "Wine outperformed on revenue, down 4.6% compared with a 6.1% decline for spirits, which continue to represent nearly two-thirds of combined category revenue.",
-                "source_info_link": "https://www.wswa.org/news/wine-and-spirits-declines-narrowed-third-straight-month-q2-2026-wswa-sipsourcer-data-shows",
-                "icon": "https://serpapi.com/images/i/iVBORw0KGgoAAAANSUhEUgAAACAAAAAdCAMAAAD8QJ61AAAAaVBMVEVHcEy9vsC9vsC9vsC-v8G9vsC9vsDBw8W9vsC9vsC9vsC9vsC9vsC9vsC8vL--v8FICDFICDG9vsBICDFGBy5ICDFICDFICDE8BilICDFICDFICDG9vsBDBihICDFHBjB8Ym_CxMZIBjBvcQTdAAAAI3RSTlMAQ9f_V-75BREfqbh5MuTKIhWWZLve0XcFOv-IYk3wnPb_-f00AWIAAAFgSURBVHgBddMFEoQwDAXQD2lxl27RlfsfctN0Xd4YEhob8CoIicIAfylNLFLw4iSJ8SrNSOSxvy2yrCjxoqxIhPI0rYnVKZqbFmX4GtCRyNAPozFmPLRI3lLQDew0zvPM74GAc0gbbwFA7wIgebuIAyByEhWAxsyzsRCcRQdwgkh6DgBrFz6iweNxB6GqqKpXONs-z0cIq6U1J8lClUC0wzzvENvpTFrBSXWHO5djgnO8nO851mjFnet0AGvHoeYcJYA49wPzOMellY43RSSfJpThqecyF8AOu41dHwlQSNhdK6PgVAvizm-jrlK8OHIfG5bLBAREtL5nYNOFR9EOQ-v3nMUrKbwx88Uc9h5AXBDpJNcx3vScYx8nsEATdVGHDzM7tmBpTizHGynzssFRJD4jJh5m45dEQpd4Y828QALyW4DCu8O-4fWEqsS7dmsh1s8aPiXd7Y_4ryw6FcO7Ag1jFpmOSnHIAAAAAElFTkSuQmCC.png"
-              },
-              "languages": [
-                "en"
-              ],
-              "regions": [
-                "US"
-              ]
-            },
-            "about_page_link": "https://www.google.com/search?q=About+https://www.wswa.org/news/wine-and-spirits-declines-narrowed-third-straight-month-q2-2026-wswa-sipsourcer-data-shows&tbm=ilp",
-            "about_page_serpapi_link": "https://serpapi.com/search.json?engine=google_about_this_result&google_domain=google.com&q=About+https%3A%2F%2Fwww.wswa.org%2Fnews%2Fwine-and-spirits-declines-narrowed-third-straight-month-q2-2026-wswa-sipsourcer-data-shows",
-            "source": "Wine & Spirits Wholesalers of America | WSWA",
-            "read_more_link": "https://www.google.com/goto?url=CAESlQIB6zswFTCQdqqZWkzNWw2uLs0Olg_J-aNSspNXhe4zWCWcSp7gpZvp6DPJ_9W9t3EjIRxircy4FGy_VotT8BGtWN1v6IENi8wIbLssYrqge48EdIwdxOtFBjCNHJZsodqZISv3NaHGP8zBZ43oi3ZD8Iipuzzxy5wl4gDB4r4ckjm6Bdqs7Lo4sfXU87TDj0MmjyLR2_h5_BpfXtAv0HDnt9cIj-jLyNv9CBxfNjPlEP9FMvYUlEiKBqgmSN6WQFvjWlK8b3cCPBA_UwiZgxz0WUAERVyOuWSeZMiXKMoePQzh_q-u6Xlk0bUYhnbV9n3GWfn6b7YEsx0fxcB6U4Le7ooXxoRFvstIxap4iLVnoETzpXbX"
-          },
-          {
-            "position": 4,
-            "title": "Alcoholic Beverages Market Size, Share & Trends",
-            "link": "https://www.fortunebusinessinsights.com/alcoholic-beverages-market-107439",
-            "redirect_link": "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=CAESgQEB6zswFd0NrLWpNxWpT1Du2ZGbwHGKY4juwdP7afElZE0gKjfVw4lbX6Mj7vQ1aYIApnhLChM8haGgC15Nhcl6ngfJxIVZjLCgA-NysI7KcZuIC9GRY6mYkY6_WO_-C0rT81SJPMpvovqZjIerng0sEnmTnMtz_q4lZuiBivXXhAA&ved=2ahUKEwj-nvDah9KWAxUmliYFHR2AGTkQFnoECBsQAQ&uoh=1",
-            "displayed_link": "https://www.fortunebusinessinsights.com › Beverages",
-            "favicon": "https://serpapi.com/images/i/iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAARVBMVEVHcEwGeKoMe5wAX4QAZIoAX4QAY4oAaZEAY4oAYYcbncYcnsgal78AY4obnscbmsIAaZEbmMEWk7gamcEcoMoamMAcoMpy3lZ-AAAAF3RSTlMAAQYjvjCc6_9Mv_9NdqL_3v8YdOks00bk72sAAAD-SURBVHgBhNAHFoQgDEXRH-yGEaXtf6kjsfd7OueFhm_0tawmIHUAmqMsFwWV-VGBSVbVowZ5fdSgZU1L8ENZH_3QGcMaJEGB_jpvhsGwlR0u-8v8MGIHFFWar_q9Bp33Q9IqZDJf2mwHFKyWIlpApfPL8ycR2jlQcn6Ji3Y-opB_yH8LUk7ILdnJK873TwYzbM_cKRDT-4eJ15Dg9D-bVklwnt-wV4egsZE3x0vmTdNkCHpHNvNhDkpcOE5b6DUgnOgUmC2APWnNLqgy5flE3sNBgqpR0l9FOwYyb24D1vLMx3luARS9tczmjncY2YJcd8sFzIgIr-gB_qMOAACnoh8nFivC8QAAAABJRU5ErkJggg.png",
-            "date": "Aug 17, 2026",
-            "snippet": "The alcoholic beverages market size is projected to grow from $2723.94 billion in 2026 to $4325.99 billion by 2034, at a CAGR of 5.95% during 2026-2034.",
-            "snippet_highlighted_words": [
-              "2026",
-              "2026"
-            ],
-            "about_this_result": {
-              "source": {
-                "description": "The alcoholic beverages market size is projected to grow from $2723.94 billion in 2026 to $4325.99 billion by 2034, at a CAGR of 5.95% during 2026\n-2034.",
-                "source_info_link": "https://www.fortunebusinessinsights.com/alcoholic-beverages-market-107439",
-                "icon": "https://serpapi.com/images/i/iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAARVBMVEVHcEwGeKoMe5wAX4QAZIoAX4QAY4oAaZEAY4oAYYcbncYcnsgal78AY4obnscbmsIAaZEbmMEWk7gamcEcoMoamMAcoMpy3lZ-AAAAF3RSTlMAAQYjvjCc6_9Mv_9NdqL_3v8YdOks00bk72sAAAD-SURBVHgBhNAHFoQgDEXRH-yGEaXtf6kjsfd7OueFhm_0tawmIHUAmqMsFwWV-VGBSVbVowZ5fdSgZU1L8ENZH_3QGcMaJEGB_jpvhsGwlR0u-8v8MGIHFFWar_q9Bp33Q9IqZDJf2mwHFKyWIlpApfPL8ycR2jlQcn6Ji3Y-opB_yH8LUk7ILdnJK873TwYzbM_cKRDT-4eJ15Dg9D-bVklwnt-wV4egsZE3x0vmTdNkCHpHNvNhDkpcOE5b6DUgnOgUmC2APWnNLqgy5flE3sNBgqpR0l9FOwYyb24D1vLMx3luARS9tczmjncY2YJcd8sFzIgIr-gB_qMOAACnoh8nFivC8QAAAABJRU5ErkJggg.png"
-              },
-              "languages": [
-                "en"
-              ],
-              "regions": [
-                "US"
-              ]
-            },
-            "about_page_link": "https://www.google.com/search?q=About+https://www.fortunebusinessinsights.com/alcoholic-beverages-market-107439&tbm=ilp",
-            "about_page_serpapi_link": "https://serpapi.com/search.json?engine=google_about_this_result&google_domain=google.com&q=About+https%3A%2F%2Fwww.fortunebusinessinsights.com%2Falcoholic-beverages-market-107439",
-            "source": "Fortune Business Insights"
-          },
-          {
-            "position": 5,
-            "title": "The Top Beverage Alcohol Industry News Stories in 2026 ...",
-            "link": "https://www.parkstreet.com/the-top-beverage-alcohol-industry-news-stories-in-2026-so-far/",
-            "redirect_link": "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=CAESkQEB6zswFUeQbvcNJ7Bmy4m4euJq6psM-CpuVJRc6vFBexr-QHZ8nmba3gXa7OYKD2HBmz9wbQhuGi1qF9Ec4K-ouaDomVI2bcrDa0iVoG33e6XAK_8hccKm07cMNUuhdVeh5r1vM9XfXXAWOFjaA73NTIUdsbjGgc95M4LtnMmQIAi0rcF6ow_BjoN9boJy3R04&ved=2ahUKEwj-nvDah9KWAxUmliYFHR2AGTkQFnoECB0QAQ&uoh=1",
-            "displayed_link": "https://www.parkstreet.com › the-top-beverage-alcohol-...",
-            "favicon": "https://serpapi.com/images/i/iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAMAAABF0y-mAAAAIVBMVEXLNifjNydHcEzjNyfhNifjNyfjNyfiNycdHRvjNycdHRufzbvHAAAACnRSTlMB_wAoDNnrGLPDBJaPNQAAAJVJREFUKJGNktsSxCAIQyHe-_8fvLS66gB210fPJJEI0d8HeEEhnDBiY07RpUDJfKBydaSg1AbNmj55LbpakDDm4OUCaTAYZ8kbrFatXZ71ujTFzXJnG326Qlm6QUO_-QW7Lfu2UkCyD5rDbHSy4gzq1bu0XvWdyrB3IZun1jbzZXuuuwpTa9l3wXTe-tbzatLrUpvzAYSTBVIR227mAAAAAElFTkSuQmCC.png",
-            "date": "Aug 4, 2026",
-            "snippet": "Q2 2026 brought a dramatic reshaping of the American beverage alcohol distribution system alongside aggressive M&A activity and significant trade policy ...",
-            "snippet_highlighted_words": [
-              "2026",
-              "of the"
-            ],
-            "about_this_result": {
-              "source": {
-                "description": "Q2 2026 brought a dramatic reshaping of the American beverage alcohol distribution system alongside aggressive M&A activity and significant trade policy ...",
-                "source_info_link": "https://www.parkstreet.com/the-top-beverage-alcohol-industry-news-stories-in-2026-so-far/",
-                "icon": "https://serpapi.com/images/i/iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAMAAABF0y-mAAAAIVBMVEXLNifjNydHcEzjNyfhNifjNyfjNyfiNycdHRvjNycdHRufzbvHAAAACnRSTlMB_wAoDNnrGLPDBJaPNQAAAJVJREFUKJGNktsSxCAIQyHe-_8fvLS66gB210fPJJEI0d8HeEEhnDBiY07RpUDJfKBydaSg1AbNmj55LbpakDDm4OUCaTAYZ8kbrFatXZ71ujTFzXJnG326Qlm6QUO_-QW7Lfu2UkCyD5rDbHSy4gzq1bu0XvWdyrB3IZun1jbzZXuuuwpTa9l3wXTe-tbzatLrUpvzAYSTBVIR227mAAAAAElFTkSuQmCC.png"
-              },
-              "languages": [
-                "en"
-              ],
-              "regions": [
-                "US"
-              ]
-            },
-            "about_page_link": "https://www.google.com/search?q=About+https://www.parkstreet.com/the-top-beverage-alcohol-industry-news-stories-in-2026-so-far/&tbm=ilp",
-            "about_page_serpapi_link": "https://serpapi.com/search.json?engine=google_about_this_result&google_domain=google.com&q=About+https%3A%2F%2Fwww.parkstreet.com%2Fthe-top-beverage-alcohol-industry-news-stories-in-2026-so-far%2F",
-            "source": "Park Street Imports",
-            "read_more_link": "https://www.google.com/goto?url=CAES6QEB6zswFbAwhRtRHBemCNhHeaMOVtWgkqunvKB8LWJPkyJQhCFJyM3J-bWF5_rLqbyzdCBtRls5vq7fL2kIgffXXVChx-4Ewh__qwX1wN0226yRJA8_5Ywi5_J64pkBbW26QWpROfQzTB2kiP__k6sL8OnvL_72-boJciLTExM-B7uBkfIyDizbahJRx9by8ebwtpQrM4BNrreIx2x0S24t73n45UnvPXSzMC25aDdbDoO0y2x_CjKtd7toyZ6aBHoY73RJmUYqebLQQrNnYRuAZn5XWLv34hqjAC-qBlX2c7LvuSFe6zzDlA"
-          },
-          {
-            "position": 6,
-            "title": "US Wine and Spirits Sales Decline Moderates in Q2 2026",
-            "link": "https://www.linkedin.com/posts/eric-bahn-38b6113_wine-and-spirits-declines-narrowed-for-third-activity-7493721920585117696-UCeq",
-            "redirect_link": "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=CAEStwEB6zswFW6DVnFOj9Xw1uWc0In0IRDZIqPr8W-t0iet-6QBzEHXyWJ3UTJLX0-c2TFnGAeB4eWnl-NQZYMMP6iApOJsBX7zy2TjGqt6eV3xI8qbaDB7-nGa4w6TLCh8Ym88NWW5MwJQXTRHSlnkZNHpS_0-2NGILwfSsfTO7tSayHWZj2xhkLUaIMBT4dwy5hm7vWrF2uI0251DAHxH2AJS36CnBft_AHHqzPoV-GGkBpcf-6JnJWU&ved=2ahUKEwj-nvDah9KWAxUmliYFHR2AGTkQFnoECDEQAQ&uoh=1",
-            "displayed_link": "2 reactions",
-            "favicon": "https://serpapi.com/images/i/iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8_9hAAAAm0lEQVR4AWP4__8_RRhMyLfs3sNQvOk_KRikB24ATNB2yhEQJtoQuAEwzVAAYtPVAMJe4Cjf8l-0bsd_RkIGQAGc_ej9t_-TDt_7_-vPXzD_6Yfv_-2nHSXWAAT49P33_z9__4HZl559JM2Aqm3XwXyXGcfA_H___pFmgFj9DjCfp3IrTIgkA5ADbbAbQA6mKDPp9x7YBTOAIgwAVba5DGceMlQAAAAASUVORK5CYII.png",
-            "snippet": "Combined U.S. wine and spirits volume and revenue declines continued to moderate during the second quarter of 2026, narrowing for a third consecutive month ...",
-            "snippet_highlighted_words": [
-              "U.S. wine",
-              "spirits",
-              "2026"
-            ],
-            "about_this_result": {
-              "source": {
-                "description": "Combined U.S. wine and spirits volume and revenue declines continued to moderate during the second quarter of 2026, narrowing for a third consecutive month ...",
-                "source_info_link": "https://www.linkedin.com/posts/eric-bahn-38b6113_wine-and-spirits-declines-narrowed-for-third-activity-7493721920585117696-UCeq",
-                "icon": "https://serpapi.com/images/i/iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8_9hAAAAm0lEQVR4AWP4__8_RRhMyLfs3sNQvOk_KRikB24ATNB2yhEQJtoQuAEwzVAAYtPVAMJe4Cjf8l-0bsd_RkIGQAGc_ej9t_-TDt_7_-vPXzD_6Yfv_-2nHSXWAAT49P33_z9__4HZl559JM2Aqm3XwXyXGcfA_H___pFmgFj9DjCfp3IrTIgkA5ADbbAbQA6mKDPp9x7YBTOAIgwAVba5DGceMlQAAAAASUVORK5CYII.png"
-              },
-              "languages": [
-                "en"
-              ],
-              "regions": [
-                "US"
-              ]
-            },
-            "about_page_link": "https://www.google.com/search?q=About+https://www.linkedin.com/posts/eric-bahn-38b6113_wine-and-spirits-declines-narrowed-for-third-activity-7493721920585117696-UCeq&tbm=ilp",
-            "about_page_serpapi_link": "https://serpapi.com/search.json?engine=google_about_this_result&google_domain=google.com&q=About+https%3A%2F%2Fwww.linkedin.com%2Fposts%2Feric-bahn-38b6113_wine-and-spirits-declines-narrowed-for-third-activity-7493721920585117696-UCeq",
-            "source": "LinkedIn · Eric Bahn"
-          },
-          {
-            "position": 7,
-            "title": "US Wine Market Size, Share, Trends Analysis & Industry ...",
-            "link": "https://www.mordorintelligence.com/industry-reports/united-states-wine-market",
-            "redirect_link": "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=CAEShQEB6zswFeT4ZEIIbaseVEtY4K8ejWCf_7IfBm0I1LoSb4btXkgwDHI7iyrhQf121KZ7c5pT3vtLv1IBAD23n0vnESaxHbdr52nEKdpV87ZcAlN6MO5vOZy4-8KDMSDSaqFNS0PQW9Bb2J2tr_ovloywiwgtryT2N2Wu407obED2QDCEE_3i&ved=2ahUKEwj-nvDah9KWAxUmliYFHR2AGTkQFnoECDoQAQ&uoh=1",
-            "displayed_link": "https://www.mordorintelligence.com › industry-reports",
-            "favicon": "https://serpapi.com/images/i/iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAACL0lEQVR4Ae2VA6xcQRRAt7ZtBkVQ23ZU2zaC2kZQ223sNLO_9iKqG9S2jXO__zzXeJOcp5l75-ydefsCv735zW9-a7lErWm1JLjFgnVQ0SnH6FC07qhQdAPnLcmoPjoUSTv6dGSF3FshAs-Z5Is16iJktJz8dDQ33CfZF41O0o_AELm3woUALFbTbARWWSTvRKxUIDWVOPZdAvCacWVNJq8MH20EilO99khUhPffIwBqX8vlB1MnTD7qdDQ1k5-QJDYCReFqy8UqK1WYYypA4vPuBATVKdmv7ycJ7AVU0fjYBQhkhMtmAq3BrcBNyE6i9LLxXAgUjo99D-WJawwpBThkZuAeD1VYwXqmReCuo8DiRAFQh1ovjZENuUkXmENnQQY9dinxkfGVSdTDWSBYUJPvRVxeSKyerOVbLsrTOchDFUIdVu2XV0zZL4EuELxLbO7k8oH4i0Pd9x5NS-cRDxLDSFQWidc2AvlN4laNCUVlKVQyAWBXy0aBty4FHrdk6Ug0xWYJ8lssYXXiSot8ogA8RIIANcNDFXbIGwFnLTZhXou4CKQlblJAC9pCR0bX_w2LlSRrSqL6yBsEqFBuG_lRIq8JRGQpGtJZXwtw_FgRu8GjwFPOhfUKiMBFzlKFda4l-FghkBvuapswp4P8rgQBnWl0iv1t-OL2YyWvlxcBvhEfRWCLDlVYQ7KMJK3JwA2wxRnVb0w4nJqdPS4-T_VWS2MyO8UFfnfzm9_89hXbuXShk1cLcwAAAABJRU5ErkJggg.png",
-            "date": "Aug 5, 2026",
-            "snippet": "The US Wine Market worth USD 360.3 billion in 2026 is growing at a CAGR of 2.26% to reach USD 402.93 billion by 2031. The Wine Group, Constellation Brands, ...",
-            "snippet_highlighted_words": [
-              "US Wine",
-              "2026",
-              "Wine"
-            ],
-            "about_this_result": {
-              "source": {
-                "description": "The US Wine Market worth USD 360.3 billion in 2026 is growing at a CAGR of 2.26% to reach USD 402.93 billion by 2031. The Wine Group, Constellation Brands, ...",
-                "source_info_link": "https://www.mordorintelligence.com/industry-reports/united-states-wine-market",
-                "icon": "https://serpapi.com/images/i/iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAACL0lEQVR4Ae2VA6xcQRRAt7ZtBkVQ23ZU2zaC2kZQ223sNLO_9iKqG9S2jXO__zzXeJOcp5l75-ydefsCv735zW9-a7lErWm1JLjFgnVQ0SnH6FC07qhQdAPnLcmoPjoUSTv6dGSF3FshAs-Z5Is16iJktJz8dDQ33CfZF41O0o_AELm3woUALFbTbARWWSTvRKxUIDWVOPZdAvCacWVNJq8MH20EilO99khUhPffIwBqX8vlB1MnTD7qdDQ1k5-QJDYCReFqy8UqK1WYYypA4vPuBATVKdmv7ycJ7AVU0fjYBQhkhMtmAq3BrcBNyE6i9LLxXAgUjo99D-WJawwpBThkZuAeD1VYwXqmReCuo8DiRAFQh1ovjZENuUkXmENnQQY9dinxkfGVSdTDWSBYUJPvRVxeSKyerOVbLsrTOchDFUIdVu2XV0zZL4EuELxLbO7k8oH4i0Pd9x5NS-cRDxLDSFQWidc2AvlN4laNCUVlKVQyAWBXy0aBty4FHrdk6Ug0xWYJ8lssYXXiSot8ogA8RIIANcNDFXbIGwFnLTZhXou4CKQlblJAC9pCR0bX_w2LlSRrSqL6yBsEqFBuG_lRIq8JRGQpGtJZXwtw_FgRu8GjwFPOhfUKiMBFzlKFda4l-FghkBvuapswp4P8rgQBnWl0iv1t-OL2YyWvlxcBvhEfRWCLDlVYQ7KMJK3JwA2wxRnVb0w4nJqdPS4-T_VWS2MyO8UFfnfzm9_89hXbuXShk1cLcwAAAABJRU5ErkJggg.png"
-              },
-              "languages": [
-                "en"
-              ],
-              "regions": [
-                "US"
-              ]
-            },
-            "about_page_link": "https://www.google.com/search?q=About+https://www.mordorintelligence.com/industry-reports/united-states-wine-market&tbm=ilp",
-            "about_page_serpapi_link": "https://serpapi.com/search.json?engine=google_about_this_result&google_domain=google.com&q=About+https%3A%2F%2Fwww.mordorintelligence.com%2Findustry-reports%2Funited-states-wine-market",
-            "source": "Mordor Intelligence"
-          },
-          {
-            "position": 8,
-            "title": "What Americans Are Drinking Instead of Alcohol (2026 Data)",
-            "link": "https://www.learnbrands.com/post/what-americans-drink-instead-of-alcohol",
-            "redirect_link": "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=CAESgAEB6zswFfG4GU7Egbc3IEH7ksCSmj7LQ1Uq7swTYnFTAh1he9Y0RQs0qU55f6RYQ1QrH4C0t-RSZ3daUUV9DlW0SAYV2Drk0ZJESieSwMn0QmCsxw4HLNXQJCoMEi5qFCM0utOf1imiFDVT8-a2W-6b55s_DFqDE8CTASKoB8ADYw&ved=2ahUKEwj-nvDah9KWAxUmliYFHR2AGTkQFnoECDMQAQ&uoh=1",
-            "displayed_link": "https://www.learnbrands.com › post › what-americans-d...",
-            "favicon": "https://serpapi.com/images/i/iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAMAAABF0y-mAAAAQlBMVEVHcEwbwZUbwpUbwpYbwpYbwpYcwpYbwpYbwpUAKUEAK0IAJT4AKkEAKkEAKkEAJj8AKUEAKkEZwpYbwpYbwpUbwpXTcsJXAAAAFnRSTlMAjcK7TrX_cMlv_wfKseUlVYoG_0AsN10IdQAAAI5JREFUeAGtkgUSxCAMAIN7rvr_r16m7r4tujjAGxgXgktQYg5rJNeEAb3AdhIMyQWav5dSyH1J7EvnXZMNviGGHZlSQo_bMgKB_rcrA_qwP6fPYFNiM2c8mDP5bF_mVJxKjEQO3lOCfrHahgS-AX9Hxxe2ZKHY_sEX2n4oO8pq-sr48DQbbA1W9HAGL_gDdvMI4ZF6Z9oAAAAASUVORK5CYII.png",
-            "date": "Aug 21, 2026",
-            "snippet": "Globally, IWSR recorded wine volumes falling below spirits for the first time in 2025. In the US, Impact Databank projects the wine market to fall 3.5% in 2026, ...",
-            "snippet_highlighted_words": [
-              "wine",
-              "spirits",
-              "In the US",
-              "wine",
-              "2026"
-            ],
-            "about_this_result": {
-              "source": {
-                "description": "Globally, IWSR recorded wine volumes falling below spirits for the first time in 2025. In the US, Impact Databank projects the wine market to fall 3.5% in 2026, ...",
-                "source_info_link": "https://www.learnbrands.com/post/what-americans-drink-instead-of-alcohol",
-                "icon": "https://serpapi.com/images/i/iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAMAAABF0y-mAAAAQlBMVEVHcEwbwZUbwpUbwpYbwpYbwpYcwpYbwpYbwpUAKUEAK0IAJT4AKkEAKkEAKkEAJj8AKUEAKkEZwpYbwpYbwpUbwpXTcsJXAAAAFnRSTlMAjcK7TrX_cMlv_wfKseUlVYoG_0AsN10IdQAAAI5JREFUeAGtkgUSxCAMAIN7rvr_r16m7r4tujjAGxgXgktQYg5rJNeEAb3AdhIMyQWav5dSyH1J7EvnXZMNviGGHZlSQo_bMgKB_rcrA_qwP6fPYFNiM2c8mDP5bF_mVJxKjEQO3lOCfrHahgS-AX9Hxxe2ZKHY_sEX2n4oO8pq-sr48DQbbA1W9HAGL_gDdvMI4ZF6Z9oAAAAASUVORK5CYII.png"
-              },
-              "languages": [
-                "en"
-              ],
-              "regions": [
-                "US"
-              ]
-            },
-            "about_page_link": "https://www.google.com/search?q=About+https://www.learnbrands.com/post/what-americans-drink-instead-of-alcohol&tbm=ilp",
-            "about_page_serpapi_link": "https://serpapi.com/search.json?engine=google_about_this_result&google_domain=google.com&q=About+https%3A%2F%2Fwww.learnbrands.com%2Fpost%2Fwhat-americans-drink-instead-of-alcohol",
-            "source": "Learn Brands",
-            "read_more_link": "https://www.google.com/goto?url=CAES5AEB6zswFQfXdr_cdQ5qalYb0-7Ne_jv5_vB8-fGPE9jVVW4GbhooFFfJ4TbI0x8tQPapo-otv3f2_budBlRxiYr8MhFKPtXuZxA6Slw1LFnMkKrZJvglzlcOF6ymG7NflzaA_VaeupFoRN7HZiJcL0uwFqz6P12psIR3dM7GvqZik_y4_wytdp0vjYG6PLGyAZlNT8pFM1abVHr32J7E51jn_XUT3OUwn_UrTw-dtHPraB88cXdav7CeVmbEBOTUlzRn0pqRTE6nkvmSElgdAZkmtMch_m3NEZ7_GIl4eErOLgmaZs"
-          },
-          {
-            "position": 9,
-            "title": "After two consecutive years of volume and revenue declines ...",
-            "link": "https://www.google.com/goto?url=CAESYwHrOzAV1tNOkibRJ_rdHafI87ePrQPhsk2mDg8o3CjYckRqsdx1DZStHfg7l9qCXoYg-U8P5egv8znP9Sv74oaddw9jqTqU-zmOWu-TCWrumOA18Vo06WTs93DsnVKR_TdToA",
-            "displayed_link": "40+ likes · 3 weeks ago",
-            "thumbnail": "https://serpapi.com/searches/6a9938ce23df780d30a32c09/images/2o14TKnugGnTqe9uZGD0owNhWTDEuY44m0mrc73r8RU.jpeg",
-            "favicon": "https://serpapi.com/searches/6a9938ce23df780d30a32c09/images/2o14TKnugGnTqe9uZGD0oycB7TMhiyT0QC2oyvbTSQY.png",
-            "snippet": "The second half of 2026 is crucial, easier year-over-year comparisons and summer travel could boost on-premise sales, especially for categories like Unflavored ...",
-            "duration": "0:46",
-            "about_this_result": {
-              "source": {
-                "description": "The second half of 2026 is crucial, easier year-over-year comparisons and summer travel could boost on-premise sales, especially for categories like Unflavored ...",
-                "icon": "https://serpapi.com/searches/6a9938ce23df780d30a32c09/images/2o14TKnugGnTqe9uZGD0o-X4_QI1QphYJYjb5JjlSgODgTNPkPjfy95_jr8r43LV.png"
-              }
-            },
-            "about_page_link": "https://www.google.com/search?q=About+https://www.google.com/goto?url=CAESYwHrOzAV1tNOkibRJ_rdHafI87ePrQPhsk2mDg8o3CjYckRqsdx1DZStHfg7l9qCXoYg-U8P5egv8znP9Sv74oaddw9jqTqU-zmOWu-TCWrumOA18Vo06WTs93DsnVKR_TdToA&tbm=ilp",
-            "about_page_serpapi_link": "https://serpapi.com/search.json?engine=google_about_this_result&google_domain=google.com&q=About+https%3A%2F%2Fwww.google.com%2Fgoto%3Furl%3DCAESYwHrOzAV1tNOkibRJ_rdHafI87ePrQPhsk2mDg8o3CjYckRqsdx1DZStHfg7l9qCXoYg-U8P5egv8znP9Sv74oaddw9jqTqU-zmOWu-TCWrumOA18Vo06WTs93DsnVKR_TdToA",
-            "source": "Instagram · parkstreetcompanies"
-          },
-          {
-            "position": 10,
-            "title": "Our latest Monthly Insights report is here➡️ Link in bio 🍺🍷 ...",
-            "link": "https://www.instagram.com/p/DbtiE91NX6E/",
-            "redirect_link": "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=CAESYAHrOzAVFU3kwJ2TOH0FLIwCDxb2BGR7KbPnEaKziMoNYYIYKtz3MKNThrAhkkDvwidAobkoJen6fnQFttJQYqlBjpXsVH8q3JHeEltj9Wmywa1tyC7Qpi96As9CymNyzQ&ved=2ahUKEwj-nvDah9KWAxUmliYFHR2AGTkQFnoECDIQAQ&uoh=1",
-            "displayed_link": "3 likes",
-            "favicon": "https://serpapi.com/searches/6a9938ce23df780d30a32c09/images/2o14TKnugGnTqe9uZGD0o4QGiFcHeigouPGkj8K6LME.png",
-            "snippet": "Beer and Wine continue to face headwinds, while Ready-to-Drink cocktails, Cider, and Non-Alcoholic beverages are driving growth across the category.",
-            "snippet_highlighted_words": [
-              "Ready-to-Drink cocktails, Cider, and Non-Alcoholic beverages are driving growth"
-            ],
-            "about_this_result": {
-              "source": {
-                "description": "Beer and Wine continue to face headwinds, while Ready-to-Drink cocktails, Cider, and Non-Alcoholic beverages are driving growth across the category.",
-                "source_info_link": "https://www.instagram.com/p/DbtiE91NX6E/",
-                "icon": "https://serpapi.com/searches/6a9938ce23df780d30a32c09/images/2o14TKnugGnTqe9uZGD0o6-j1AwtnCqW4zCH_yNwlNuI9NmH9dVe3-0vqDSs2Xil.png"
-              },
-              "languages": [
-                "en"
-              ],
-              "regions": [
-                "US"
-              ]
-            },
-            "about_page_link": "https://www.google.com/search?q=About+https://www.instagram.com/p/DbtiE91NX6E/&tbm=ilp",
-            "about_page_serpapi_link": "https://serpapi.com/search.json?engine=google_about_this_result&google_domain=google.com&q=About+https%3A%2F%2Fwww.instagram.com%2Fp%2FDbtiE91NX6E%2F",
-            "source": "Instagram · 3tierbeverages",
-            "read_more_link": "https://www.google.com/goto?url=CAESrwEB6zswFUaHvxa8fkwnpFsBWSxpZ6SjLgrOqz25uDyRo07G4vHU8n2mSJBBHZMyMwcZXFiVHcWs6hYfYiB55c8pv7OqBxKs7hPTRvkFk1fKOmexu7CuEWjglUKIjcRSf1zToqLvKOc3sG0FEwCxLb32XwSrh8LNj5fn27TnnhbYj-jvqH4ecS9uMJWjk4ThX-wKNvYNtDVZ6M4at2HZrVwNQWrbfmDDYUMVxwainzDF"
+            "about_page_link": "https://www.google.com/search?q=About+https://www.facebook.com/BastilleGlobal/posts/chinas-chic-fair-spotlights-ai-in-apparel-manufacturingartificial-intelligence-a/1593081196199874/&tbm=ilp",
+            "about_page_serpapi_link": "https://serpapi.com/search.json?engine=google_about_this_result&google_domain=google.com&q=About+https%3A%2F%2Fwww.facebook.com%2FBastilleGlobal%2Fposts%2Fchinas-chic-fair-spotlights-ai-in-apparel-manufacturingartificial-intelligence-a%2F1593081196199874%2F",
+            "source": "Facebook · BastilleGlobal",
+            "read_more_link": "https://www.google.com/goto?url=CAESpgIB6zswFZnC0qWp4XP35U-ybyMPg3JNHrhR0rPe5XQ06K5KWWjlNmONKVxEyAiMs9tWZxIvc0kyMU7NnNE1k_VyuRJ3WFTgazYNXDAXST6RdyKiE-TnHUS_bd43_uzhrG7p2NaBhe88WTVeHHgtSCfWhGucrXQnfvlVCUAgNWuaOdvALxbSvCcdrWgRQIO1ewCaKh5evq-6-hQUH8Q_xzHD3ceJL7EUTBoRU9ikYxCttEpll8t9fKguELtG1it5gZwSo_x9ODw1CHA0f-R3WY3InQJZTQgIs9FOtqhKUV2MoZVzYM9nZfFvLOn4alsO4vDVRe-uX_-Ff0zD0cl7qXh34FF1KcBS2W-fijJlBGwh2YY324sfUktrBIFOGeNqOCa14E6IPm0"
           }
         ],
         "pagination": {
           "current": 1,
-          "next": "https://www.google.com/search?q=Wine+%26+Spirits+trends+2026+United+States+after:2026-08-04+before:2026-09-03&sca_esv=ce5706714c0dfa3d&hl=en&gl=us&ei=0ziZar7pKaasmtkPnYDmyAM&start=10&sa=N&sstk=AS6-VmKB8nTC4HOv11gspGGayG2X51M8kUKYhgHaRDVMswmZOch4K3d7c5xDKiUvNr9DHI3VUlQfDqZWo4Ez364PymgUI4oIl9vzxQ&ved=2ahUKEwj-nvDah9KWAxUmliYFHR2AGTkQ8NMDegQIKhAW",
+          "next": "https://www.google.com/search?q=Apparel+%26+Fashion+trends+2026+US+and+China+after:2026-08-27+before:2026-09-03&sca_esv=ce5706714c0dfa3d&gl=us&hl=en&sxsrf=APpeQnuFdkaUmgvBBdpIprrSfq2MKfllow:1788426252764&ei=DDiZao-uLqGGptQPtYDs2Qc&start=10&sa=N&sstk=AS6-VmKcRIebW5Fowgk4_HANvymZi4O5ntOeW0NnHbEAwfmo9rlthq7F0AOfSEaoZ0gOsXsAQPnri1a0I7RsBxz9OcuUZ37zvGzmHA&ved=2ahUKEwiP5IL8htKWAxUhg4kEHTUAO3sQ8NMDegQIIBAW",
           "other_pages": {
-            "2": "https://www.google.com/search?q=Wine+%26+Spirits+trends+2026+United+States+after:2026-08-04+before:2026-09-03&sca_esv=ce5706714c0dfa3d&hl=en&gl=us&ei=0ziZar7pKaasmtkPnYDmyAM&start=10&sa=N&sstk=AS6-VmKB8nTC4HOv11gspGGayG2X51M8kUKYhgHaRDVMswmZOch4K3d7c5xDKiUvNr9DHI3VUlQfDqZWo4Ez364PymgUI4oIl9vzxQ&ved=2ahUKEwj-nvDah9KWAxUmliYFHR2AGTkQ8tMDegQIKhAE",
-            "3": "https://www.google.com/search?q=Wine+%26+Spirits+trends+2026+United+States+after:2026-08-04+before:2026-09-03&sca_esv=ce5706714c0dfa3d&hl=en&gl=us&ei=0ziZar7pKaasmtkPnYDmyAM&start=20&sa=N&sstk=AS6-VmKB8nTC4HOv11gspGGayG2X51M8kUKYhgHaRDVMswmZOch4K3d7c5xDKiUvNr9DHI3VUlQfDqZWo4Ez364PymgUI4oIl9vzxQ&ved=2ahUKEwj-nvDah9KWAxUmliYFHR2AGTkQ8tMDegQIKhAG",
-            "4": "https://www.google.com/search?q=Wine+%26+Spirits+trends+2026+United+States+after:2026-08-04+before:2026-09-03&sca_esv=ce5706714c0dfa3d&hl=en&gl=us&ei=0ziZar7pKaasmtkPnYDmyAM&start=30&sa=N&sstk=AS6-VmKB8nTC4HOv11gspGGayG2X51M8kUKYhgHaRDVMswmZOch4K3d7c5xDKiUvNr9DHI3VUlQfDqZWo4Ez364PymgUI4oIl9vzxQ&ved=2ahUKEwj-nvDah9KWAxUmliYFHR2AGTkQ8tMDegQIKhAI",
-            "5": "https://www.google.com/search?q=Wine+%26+Spirits+trends+2026+United+States+after:2026-08-04+before:2026-09-03&sca_esv=ce5706714c0dfa3d&hl=en&gl=us&ei=0ziZar7pKaasmtkPnYDmyAM&start=40&sa=N&sstk=AS6-VmKB8nTC4HOv11gspGGayG2X51M8kUKYhgHaRDVMswmZOch4K3d7c5xDKiUvNr9DHI3VUlQfDqZWo4Ez364PymgUI4oIl9vzxQ&ved=2ahUKEwj-nvDah9KWAxUmliYFHR2AGTkQ8tMDegQIKhAK",
-            "6": "https://www.google.com/search?q=Wine+%26+Spirits+trends+2026+United+States+after:2026-08-04+before:2026-09-03&sca_esv=ce5706714c0dfa3d&hl=en&gl=us&ei=0ziZar7pKaasmtkPnYDmyAM&start=50&sa=N&sstk=AS6-VmKB8nTC4HOv11gspGGayG2X51M8kUKYhgHaRDVMswmZOch4K3d7c5xDKiUvNr9DHI3VUlQfDqZWo4Ez364PymgUI4oIl9vzxQ&ved=2ahUKEwj-nvDah9KWAxUmliYFHR2AGTkQ8tMDegQIKhAM",
-            "7": "https://www.google.com/search?q=Wine+%26+Spirits+trends+2026+United+States+after:2026-08-04+before:2026-09-03&sca_esv=ce5706714c0dfa3d&hl=en&gl=us&ei=0ziZar7pKaasmtkPnYDmyAM&start=60&sa=N&sstk=AS6-VmKB8nTC4HOv11gspGGayG2X51M8kUKYhgHaRDVMswmZOch4K3d7c5xDKiUvNr9DHI3VUlQfDqZWo4Ez364PymgUI4oIl9vzxQ&ved=2ahUKEwj-nvDah9KWAxUmliYFHR2AGTkQ8tMDegQIKhAO",
-            "8": "https://www.google.com/search?q=Wine+%26+Spirits+trends+2026+United+States+after:2026-08-04+before:2026-09-03&sca_esv=ce5706714c0dfa3d&hl=en&gl=us&ei=0ziZar7pKaasmtkPnYDmyAM&start=70&sa=N&sstk=AS6-VmKB8nTC4HOv11gspGGayG2X51M8kUKYhgHaRDVMswmZOch4K3d7c5xDKiUvNr9DHI3VUlQfDqZWo4Ez364PymgUI4oIl9vzxQ&ved=2ahUKEwj-nvDah9KWAxUmliYFHR2AGTkQ8tMDegQIKhAQ",
-            "9": "https://www.google.com/search?q=Wine+%26+Spirits+trends+2026+United+States+after:2026-08-04+before:2026-09-03&sca_esv=ce5706714c0dfa3d&hl=en&gl=us&ei=0ziZar7pKaasmtkPnYDmyAM&start=80&sa=N&sstk=AS6-VmKB8nTC4HOv11gspGGayG2X51M8kUKYhgHaRDVMswmZOch4K3d7c5xDKiUvNr9DHI3VUlQfDqZWo4Ez364PymgUI4oIl9vzxQ&ved=2ahUKEwj-nvDah9KWAxUmliYFHR2AGTkQ8tMDegQIKhAS",
-            "10": "https://www.google.com/search?q=Wine+%26+Spirits+trends+2026+United+States+after:2026-08-04+before:2026-09-03&sca_esv=ce5706714c0dfa3d&hl=en&gl=us&ei=0ziZar7pKaasmtkPnYDmyAM&start=90&sa=N&sstk=AS6-VmKB8nTC4HOv11gspGGayG2X51M8kUKYhgHaRDVMswmZOch4K3d7c5xDKiUvNr9DHI3VUlQfDqZWo4Ez364PymgUI4oIl9vzxQ&ved=2ahUKEwj-nvDah9KWAxUmliYFHR2AGTkQ8tMDegQIKhAU"
+            "2": "https://www.google.com/search?q=Apparel+%26+Fashion+trends+2026+US+and+China+after:2026-08-27+before:2026-09-03&sca_esv=ce5706714c0dfa3d&gl=us&hl=en&sxsrf=APpeQnuFdkaUmgvBBdpIprrSfq2MKfllow:1788426252764&ei=DDiZao-uLqGGptQPtYDs2Qc&start=10&sa=N&sstk=AS6-VmKcRIebW5Fowgk4_HANvymZi4O5ntOeW0NnHbEAwfmo9rlthq7F0AOfSEaoZ0gOsXsAQPnri1a0I7RsBxz9OcuUZ37zvGzmHA&ved=2ahUKEwiP5IL8htKWAxUhg4kEHTUAO3sQ8tMDegQIIBAE",
+            "3": "https://www.google.com/search?q=Apparel+%26+Fashion+trends+2026+US+and+China+after:2026-08-27+before:2026-09-03&sca_esv=ce5706714c0dfa3d&gl=us&hl=en&sxsrf=APpeQnuFdkaUmgvBBdpIprrSfq2MKfllow:1788426252764&ei=DDiZao-uLqGGptQPtYDs2Qc&start=20&sa=N&sstk=AS6-VmKcRIebW5Fowgk4_HANvymZi4O5ntOeW0NnHbEAwfmo9rlthq7F0AOfSEaoZ0gOsXsAQPnri1a0I7RsBxz9OcuUZ37zvGzmHA&ved=2ahUKEwiP5IL8htKWAxUhg4kEHTUAO3sQ8tMDegQIIBAG",
+            "4": "https://www.google.com/search?q=Apparel+%26+Fashion+trends+2026+US+and+China+after:2026-08-27+before:2026-09-03&sca_esv=ce5706714c0dfa3d&gl=us&hl=en&sxsrf=APpeQnuFdkaUmgvBBdpIprrSfq2MKfllow:1788426252764&ei=DDiZao-uLqGGptQPtYDs2Qc&start=30&sa=N&sstk=AS6-VmKcRIebW5Fowgk4_HANvymZi4O5ntOeW0NnHbEAwfmo9rlthq7F0AOfSEaoZ0gOsXsAQPnri1a0I7RsBxz9OcuUZ37zvGzmHA&ved=2ahUKEwiP5IL8htKWAxUhg4kEHTUAO3sQ8tMDegQIIBAI",
+            "5": "https://www.google.com/search?q=Apparel+%26+Fashion+trends+2026+US+and+China+after:2026-08-27+before:2026-09-03&sca_esv=ce5706714c0dfa3d&gl=us&hl=en&sxsrf=APpeQnuFdkaUmgvBBdpIprrSfq2MKfllow:1788426252764&ei=DDiZao-uLqGGptQPtYDs2Qc&start=40&sa=N&sstk=AS6-VmKcRIebW5Fowgk4_HANvymZi4O5ntOeW0NnHbEAwfmo9rlthq7F0AOfSEaoZ0gOsXsAQPnri1a0I7RsBxz9OcuUZ37zvGzmHA&ved=2ahUKEwiP5IL8htKWAxUhg4kEHTUAO3sQ8tMDegQIIBAK",
+            "6": "https://www.google.com/search?q=Apparel+%26+Fashion+trends+2026+US+and+China+after:2026-08-27+before:2026-09-03&sca_esv=ce5706714c0dfa3d&gl=us&hl=en&sxsrf=APpeQnuFdkaUmgvBBdpIprrSfq2MKfllow:1788426252764&ei=DDiZao-uLqGGptQPtYDs2Qc&start=50&sa=N&sstk=AS6-VmKcRIebW5Fowgk4_HANvymZi4O5ntOeW0NnHbEAwfmo9rlthq7F0AOfSEaoZ0gOsXsAQPnri1a0I7RsBxz9OcuUZ37zvGzmHA&ved=2ahUKEwiP5IL8htKWAxUhg4kEHTUAO3sQ8tMDegQIIBAM",
+            "7": "https://www.google.com/search?q=Apparel+%26+Fashion+trends+2026+US+and+China+after:2026-08-27+before:2026-09-03&sca_esv=ce5706714c0dfa3d&gl=us&hl=en&sxsrf=APpeQnuFdkaUmgvBBdpIprrSfq2MKfllow:1788426252764&ei=DDiZao-uLqGGptQPtYDs2Qc&start=60&sa=N&sstk=AS6-VmKcRIebW5Fowgk4_HANvymZi4O5ntOeW0NnHbEAwfmo9rlthq7F0AOfSEaoZ0gOsXsAQPnri1a0I7RsBxz9OcuUZ37zvGzmHA&ved=2ahUKEwiP5IL8htKWAxUhg4kEHTUAO3sQ8tMDegQIIBAO",
+            "8": "https://www.google.com/search?q=Apparel+%26+Fashion+trends+2026+US+and+China+after:2026-08-27+before:2026-09-03&sca_esv=ce5706714c0dfa3d&gl=us&hl=en&sxsrf=APpeQnuFdkaUmgvBBdpIprrSfq2MKfllow:1788426252764&ei=DDiZao-uLqGGptQPtYDs2Qc&start=70&sa=N&sstk=AS6-VmKcRIebW5Fowgk4_HANvymZi4O5ntOeW0NnHbEAwfmo9rlthq7F0AOfSEaoZ0gOsXsAQPnri1a0I7RsBxz9OcuUZ37zvGzmHA&ved=2ahUKEwiP5IL8htKWAxUhg4kEHTUAO3sQ8tMDegQIIBAQ",
+            "9": "https://www.google.com/search?q=Apparel+%26+Fashion+trends+2026+US+and+China+after:2026-08-27+before:2026-09-03&sca_esv=ce5706714c0dfa3d&gl=us&hl=en&sxsrf=APpeQnuFdkaUmgvBBdpIprrSfq2MKfllow:1788426252764&ei=DDiZao-uLqGGptQPtYDs2Qc&start=80&sa=N&sstk=AS6-VmKcRIebW5Fowgk4_HANvymZi4O5ntOeW0NnHbEAwfmo9rlthq7F0AOfSEaoZ0gOsXsAQPnri1a0I7RsBxz9OcuUZ37zvGzmHA&ved=2ahUKEwiP5IL8htKWAxUhg4kEHTUAO3sQ8tMDegQIIBAS",
+            "10": "https://www.google.com/search?q=Apparel+%26+Fashion+trends+2026+US+and+China+after:2026-08-27+before:2026-09-03&sca_esv=ce5706714c0dfa3d&gl=us&hl=en&sxsrf=APpeQnuFdkaUmgvBBdpIprrSfq2MKfllow:1788426252764&ei=DDiZao-uLqGGptQPtYDs2Qc&start=90&sa=N&sstk=AS6-VmKcRIebW5Fowgk4_HANvymZi4O5ntOeW0NnHbEAwfmo9rlthq7F0AOfSEaoZ0gOsXsAQPnri1a0I7RsBxz9OcuUZ37zvGzmHA&ved=2ahUKEwiP5IL8htKWAxUhg4kEHTUAO3sQ8tMDegQIIBAU"
           }
         },
         "serpapi_pagination": {
           "current": 1,
-          "next_link": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&q=Wine+%26+Spirits+trends+2026+United+States+after%3A2026-08-04+before%3A2026-09-03&start=10&tbs=sbd%3A1",
-          "next": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&q=Wine+%26+Spirits+trends+2026+United+States+after%3A2026-08-04+before%3A2026-09-03&start=10&tbs=sbd%3A1",
+          "next_link": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&q=Apparel+%26+Fashion+trends+2026+US+and+China+after%3A2026-08-27+before%3A2026-09-03&start=10&tbs=sbd%3A1",
+          "next": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&q=Apparel+%26+Fashion+trends+2026+US+and+China+after%3A2026-08-27+before%3A2026-09-03&start=10&tbs=sbd%3A1",
           "other_pages": {
-            "2": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&q=Wine+%26+Spirits+trends+2026+United+States+after%3A2026-08-04+before%3A2026-09-03&start=10&tbs=sbd%3A1",
-            "3": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&q=Wine+%26+Spirits+trends+2026+United+States+after%3A2026-08-04+before%3A2026-09-03&start=20&tbs=sbd%3A1",
-            "4": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&q=Wine+%26+Spirits+trends+2026+United+States+after%3A2026-08-04+before%3A2026-09-03&start=30&tbs=sbd%3A1",
-            "5": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&q=Wine+%26+Spirits+trends+2026+United+States+after%3A2026-08-04+before%3A2026-09-03&start=40&tbs=sbd%3A1",
-            "6": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&q=Wine+%26+Spirits+trends+2026+United+States+after%3A2026-08-04+before%3A2026-09-03&start=50&tbs=sbd%3A1",
-            "7": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&q=Wine+%26+Spirits+trends+2026+United+States+after%3A2026-08-04+before%3A2026-09-03&start=60&tbs=sbd%3A1",
-            "8": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&q=Wine+%26+Spirits+trends+2026+United+States+after%3A2026-08-04+before%3A2026-09-03&start=70&tbs=sbd%3A1",
-            "9": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&q=Wine+%26+Spirits+trends+2026+United+States+after%3A2026-08-04+before%3A2026-09-03&start=80&tbs=sbd%3A1",
-            "10": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&q=Wine+%26+Spirits+trends+2026+United+States+after%3A2026-08-04+before%3A2026-09-03&start=90&tbs=sbd%3A1"
+            "2": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&q=Apparel+%26+Fashion+trends+2026+US+and+China+after%3A2026-08-27+before%3A2026-09-03&start=10&tbs=sbd%3A1",
+            "3": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&q=Apparel+%26+Fashion+trends+2026+US+and+China+after%3A2026-08-27+before%3A2026-09-03&start=20&tbs=sbd%3A1",
+            "4": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&q=Apparel+%26+Fashion+trends+2026+US+and+China+after%3A2026-08-27+before%3A2026-09-03&start=30&tbs=sbd%3A1",
+            "5": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&q=Apparel+%26+Fashion+trends+2026+US+and+China+after%3A2026-08-27+before%3A2026-09-03&start=40&tbs=sbd%3A1",
+            "6": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&q=Apparel+%26+Fashion+trends+2026+US+and+China+after%3A2026-08-27+before%3A2026-09-03&start=50&tbs=sbd%3A1",
+            "7": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&q=Apparel+%26+Fashion+trends+2026+US+and+China+after%3A2026-08-27+before%3A2026-09-03&start=60&tbs=sbd%3A1",
+            "8": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&q=Apparel+%26+Fashion+trends+2026+US+and+China+after%3A2026-08-27+before%3A2026-09-03&start=70&tbs=sbd%3A1",
+            "9": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&q=Apparel+%26+Fashion+trends+2026+US+and+China+after%3A2026-08-27+before%3A2026-09-03&start=80&tbs=sbd%3A1",
+            "10": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&q=Apparel+%26+Fashion+trends+2026+US+and+China+after%3A2026-08-27+before%3A2026-09-03&start=90&tbs=sbd%3A1"
+          }
+        }
+      }
+    },
+    {
+      "provider": "serpapi",
+      "country": "cn",
+      "response": {
+        "search_metadata": {
+          "id": "6a99380dfd81c81b322f388f",
+          "status": "Success",
+          "json_endpoint": "https://serpapi.com/searches/eDpJw3y1PKCcbOBPzjSTZLOc4OTPSduHoNc32oyphoU/6a99380dfd81c81b322f388f.json",
+          "markdown_endpoint": "https://serpapi.com/searches/eDpJw3y1PKCcbOBPzjSTZLOc4OTPSduHoNc32oyphoU/6a99380dfd81c81b322f388f.md",
+          "pixel_position_endpoint": "https://serpapi.com/searches/eDpJw3y1PKCcbOBPzjSTZLOc4OTPSduHoNc32oyphoU/6a99380dfd81c81b322f388f.json_with_pixel_position",
+          "created_at": "2026-09-03 09:04:13 UTC",
+          "processed_at": "2026-09-03 09:04:13 UTC",
+          "google_url": "https://www.google.com/search?q=Apparel+%26+Fashion+trends+2026+US+and+China+after%3A2026-08-27+before%3A2026-09-03&oq=Apparel+%26+Fashion+trends+2026+US+and+China+after%3A2026-08-27+before%3A2026-09-03&hl=en&gl=cn&tbs=sbd:1&sourceid=chrome&ie=UTF-8",
+          "raw_html_file": "https://serpapi.com/searches/eDpJw3y1PKCcbOBPzjSTZLOc4OTPSduHoNc32oyphoU/6a99380dfd81c81b322f388f.html",
+          "total_time_taken": 10.71
+        },
+        "search_parameters": {
+          "engine": "google",
+          "q": "Apparel & Fashion trends 2026 US and China after:2026-08-27 before:2026-09-03",
+          "google_domain": "google.com",
+          "hl": "en",
+          "gl": "cn",
+          "device": "desktop",
+          "tbs": "sbd:1"
+        },
+        "search_information": {
+          "query_displayed": "Apparel & Fashion trends 2026 US and China after:2026-08-27 before:2026-09-03",
+          "total_results": 2240000,
+          "time_taken_displayed": 0.24,
+          "organic_results_state": "Results for exact spelling"
+        },
+        "inline_videos": [
+          {
+            "position": 1,
+            "title": "Fall Fashion Trends 2026  ft. Vogue, Who What Wear ...",
+            "link": "https://www.youtube.com/watch?v=fhpJ4U58Zec",
+            "thumbnail": "https://serpapi.com/searches/6a99380dfd81c81b322f388f/images/-sZjcANvQSlBSsm42l6fU5JQk9WCrIo3iIVJpzwWpI4.jpeg",
+            "channel": "Amanda Weldon",
+            "duration": "18:28",
+            "platform": "YouTube",
+            "date": "3 days ago",
+            "short_clip": "https://encrypted-vtbn0.gstatic.com/video?q=tbn:ANd9GcTfCn1Twi3aTQN0MyO3EweRNAbZvbQ73GdWJA"
+          },
+          {
+            "position": 2,
+            "title": "See you China Fashion Week 2026",
+            "link": "https://www.facebook.com/jemma.saowaros/posts/see-you-china-fashion-week-2026/1754255982479822/",
+            "thumbnail": "https://serpapi.com/searches/6a99380dfd81c81b322f388f/images/SSQwxxDNIVaWFEezoMU1BxhM87PEnmde5WU_BpHopPI.jpeg",
+            "channel": "Jemma Jemika",
+            "duration": "0:20",
+            "platform": "Facebook",
+            "date": "2 days ago"
+          },
+          {
+            "position": 3,
+            "title": "CHIC Shanghai Autumn 2026 – Fashion, Business & ...",
+            "link": "https://www.instagram.com/p/Dcif8IrNOQu/",
+            "thumbnail": "https://serpapi.com/searches/6a99380dfd81c81b322f388f/images/9qkVUhRgPRZwvaYRQ6GRv2ojnf5xDQcZKZMIIWcfW2g.jpeg",
+            "channel": "CHIC China Fashion Fair",
+            "duration": "0:42",
+            "platform": "Instagram",
+            "date": "6 days ago"
+          }
+        ],
+        "organic_results": [
+          {
+            "position": 1,
+            "title": "10 Fall Dress Trends That Capture the Mood of the Season",
+            "link": "https://www.vogue.com/article/fall-2026-dress-trends",
+            "redirect_link": "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=CAESbAHrOzAVdSknzeIG2t8pQvFK78hxHEBHBvk8kSHgs78o9r_9nJl5Sm_ZaY9EhfWk4-r01KZrrJeJcLY-qw_P1zAjtxef6bIN_NLmF2vJ8u5ZHc0j0BHqoBDSlQBMl0jSybcmF1-r7aS7k9DYFg&ved=2ahUKEwiu266Bh9KWAxVUjokEHUiLNnsQFnoECCEQAQ&uoh=1",
+            "displayed_link": "https://www.vogue.com › article › fall-2026-dress-trends",
+            "favicon": "https://serpapi.com/images/i/UklGRtYAAABXRUJQVlA4IMoAAABQBQCdASogACAAPtE-tFooIigoFAEAGglpAAgQOIFv_mSpggq7RsnCP67tEpaYAlgGIAAA_vUh33NSPPE24mTPXgq5d7aiUdiW0kg-G0NbfRthE8AYPEIWGn2Lfjn-jK8BJT94MsdjgBr8q3hmTnxpqVEtmYU8UJEOYdKNGhK3ir3YW_NbdiVLqTGff5CXGRzqSDki3UqNNKLKJtjcHL0HXCeBltyW0f1kLdEk75v_fLmAgMl4qfXGrh6M3ZJv3vKCpvEfGdH-6AAA.webp",
+            "date": "18 hours ago",
+            "snippet": "This fall's dress trends are all about expression—from bold colors, daring prints, and high-volume shapes to romantic materials, vintage-inspired silhouettes,",
+            "snippet_highlighted_words": [
+              "bold colors, daring prints, and high-volume shapes"
+            ],
+            "about_this_result": {
+              "source": {
+                "description": "This fall's dress trends are all about expression—from bold colors, daring prints, and high-volume shapes to romantic materials, vintage-inspired silhouettes,",
+                "source_info_link": "https://www.vogue.com/article/fall-2026-dress-trends",
+                "icon": "https://serpapi.com/images/i/UklGRtYAAABXRUJQVlA4IMoAAABQBQCdASogACAAPtE-tFooIigoFAEAGglpAAgQOIFv_mSpggq7RsnCP67tEpaYAlgGIAAA_vUh33NSPPE24mTPXgq5d7aiUdiW0kg-G0NbfRthE8AYPEIWGn2Lfjn-jK8BJT94MsdjgBr8q3hmTnxpqVEtmYU8UJEOYdKNGhK3ir3YW_NbdiVLqTGff5CXGRzqSDki3UqNNKLKJtjcHL0HXCeBltyW0f1kLdEk75v_fLmAgMl4qfXGrh6M3ZJv3vKCpvEfGdH-6AAA.webp"
+              },
+              "languages": [
+                "en"
+              ],
+              "regions": [
+                "CN"
+              ]
+            },
+            "about_page_link": "https://www.google.com/search?q=About+https://www.vogue.com/article/fall-2026-dress-trends&tbm=ilp",
+            "about_page_serpapi_link": "https://serpapi.com/search.json?engine=google_about_this_result&google_domain=google.com&q=About+https%3A%2F%2Fwww.vogue.com%2Farticle%2Ffall-2026-dress-trends",
+            "source": "Vogue"
+          },
+          {
+            "position": 2,
+            "title": "17 Key Trends to Know For Autumn/Winter 2026",
+            "link": "https://www.whowhatwear.com/fashion/trends/autumn-winter-2026-trends",
+            "redirect_link": "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=CAESfAHrOzAVJdqeo_HMT3Ph_V5kL6sG3bCcJVGR35zLnSh0rvFdLzbFDZoNctkTDj0mIrfsW98SUAdkq372ttRxKe6ThhF3Zqd6b7SyonEmnh2JekZx_oqpWAh4QBD_d3yf9apC4Nacti44qCGF7lKZH3jTe2OHm2jWbrH_1vY&ved=2ahUKEwiu266Bh9KWAxVUjokEHUiLNnsQFnoECCUQAQ&uoh=1",
+            "displayed_link": "https://www.whowhatwear.com › Fashion › Trends",
+            "favicon": "https://serpapi.com/images/i/UklGRtYAAABXRUJQVlA4IMoAAAAQBgCdASocABsAPtE-tFooIigoFAEAGglpAAbPdvjv6DyZkK-Ub3itw8UXxFvDJ1APaU_BS8224_AA_vUzr1--f9p-SB4Fs79XsoOFva1dYe7kKq7QUO6t-d7Kb936SwXMV69uzDJfhJd0UwRWPqd8_qdV2oKfN8_59_qE5wDaO-7zZrTT52APuZHtosK3ZfTeyF0RvTlszhOjvztn-MSOWgzG9w35P-m8qxD_uARa38tE8R65fMxNC-MMHvaryVqLhbwk5rklgAAA.webp",
+            "date": "4 days ago",
+            "snippet": "From vibrant colour blocking to 'texturemaxxing' and prints galore, autumn/winter 2026 is a lesson in maximalism.",
+            "snippet_highlighted_words": [
+              "vibrant colour blocking"
+            ],
+            "about_this_result": {
+              "source": {
+                "description": "From vibrant colour blocking to 'texturemaxxing' and prints galore, autumn/winter 2026 is a lesson in maximalism.",
+                "source_info_link": "https://www.whowhatwear.com/fashion/trends/autumn-winter-2026-trends",
+                "icon": "https://serpapi.com/images/i/UklGRtYAAABXRUJQVlA4IMoAAAAQBgCdASocABsAPtE-tFooIigoFAEAGglpAAbPdvjv6DyZkK-Ub3itw8UXxFvDJ1APaU_BS8224_AA_vUzr1--f9p-SB4Fs79XsoOFva1dYe7kKq7QUO6t-d7Kb936SwXMV69uzDJfhJd0UwRWPqd8_qdV2oKfN8_59_qE5wDaO-7zZrTT52APuZHtosK3ZfTeyF0RvTlszhOjvztn-MSOWgzG9w35P-m8qxD_uARa38tE8R65fMxNC-MMHvaryVqLhbwk5rklgAAA.webp"
+              },
+              "languages": [
+                "en"
+              ],
+              "regions": [
+                "CN"
+              ]
+            },
+            "about_page_link": "https://www.google.com/search?q=About+https://www.whowhatwear.com/fashion/trends/autumn-winter-2026-trends&tbm=ilp",
+            "about_page_serpapi_link": "https://serpapi.com/search.json?engine=google_about_this_result&google_domain=google.com&q=About+https%3A%2F%2Fwww.whowhatwear.com%2Ffashion%2Ftrends%2Fautumn-winter-2026-trends",
+            "source": "Who What Wear"
+          },
+          {
+            "position": 3,
+            "title": "[Fashion supply chain trends every brand in Greater China ...",
+            "link": "https://www.instagram.com/p/DclDXxnFRcv/",
+            "redirect_link": "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=CAESYAHrOzAVssT5xHUvFxNEalFf7FMr5zCRJrKjQ5kRJSRVYK3jANwXNh_R_4F2ec0RkkEN9aeqUMSu9u1BCOWPhzFBJFfhDeHXZFsrlcfpYhZafb8YZkRb3HXG6fGgos6AvQ&ved=2ahUKEwiu266Bh9KWAxVUjokEHUiLNnsQFnoECB4QAQ&uoh=1",
+            "displayed_link": "https://www.instagram.com › DclDXxnFRcv",
+            "favicon": "https://serpapi.com/images/i/UklGRrQBAABXRUJQVlA4IKgBAABwCACdASocABwAPrUurVanIacnG_DgFolsAJ0yhHp_qvDn8INhnGwwG2i5ADWgPQA6TAiNSWpNpaKsXIF39bGj3Qd8pbRqOqkClBeAAP5tEoJlJoIDKX9SM7Zcd-n9JzxjUyFwXhzwPaTeFm2SeuMf1qLVq3t4wI3Sjh-TwPMqC3IvNj-0iGrCQSLYH_-G79_n_WM3XsPcVuoDF5Qv72r9Pf808tOK5Udv-Td9HMGptvnvxKOoa_2nDyZ2ppkSa2bNDL-K8pl3NhKk0sDV6BtpvNMgPb8dFSIrV0bFXaXgk5e0X-zIfxi-75avphrtEjwdvibNuQxApMkfs-CMi8mkD-o9_Rjb7y57vXTZx0h5MRX7n1JX-MenGUk5E4XC7vzHzXwfTDhRIb4bBfoSZiSNQ4UQGB7jAg92d64S_P_CCBANUoR3tplweT0RfxTAFGtV0vGjuwbJ25X1m04VXMMJ8Q3QzEsyD8w7jnAm5jqpKUZtVe-82LngE828BL78VksB9boYA1KjkUFty8pEW9876P84D7-A_J3doJbl9U3F-cBP_D9uzAAA.webp",
+            "snippet": "China's textile and apparel exports in June 2026 reflect changing global demand and evolving trade patterns across the international textile market.",
+            "snippet_highlighted_words": [
+              "China's",
+              "apparel",
+              "2026"
+            ],
+            "about_this_result": {
+              "source": {
+                "description": "China's textile and apparel exports in June 2026 reflect changing global demand and evolving trade patterns across the international textile market.",
+                "source_info_link": "https://www.instagram.com/p/DclDXxnFRcv/",
+                "icon": "https://serpapi.com/images/i/UklGRrQBAABXRUJQVlA4IKgBAABwCACdASocABwAPrUurVanIacnG_DgFolsAJ0yhHp_qvDn8INhnGwwG2i5ADWgPQA6TAiNSWpNpaKsXIF39bGj3Qd8pbRqOqkClBeAAP5tEoJlJoIDKX9SM7Zcd-n9JzxjUyFwXhzwPaTeFm2SeuMf1qLVq3t4wI3Sjh-TwPMqC3IvNj-0iGrCQSLYH_-G79_n_WM3XsPcVuoDF5Qv72r9Pf808tOK5Udv-Td9HMGptvnvxKOoa_2nDyZ2ppkSa2bNDL-K8pl3NhKk0sDV6BtpvNMgPb8dFSIrV0bFXaXgk5e0X-zIfxi-75avphrtEjwdvibNuQxApMkfs-CMi8mkD-o9_Rjb7y57vXTZx0h5MRX7n1JX-MenGUk5E4XC7vzHzXwfTDhRIb4bBfoSZiSNQ4UQGB7jAg92d64S_P_CCBANUoR3tplweT0RfxTAFGtV0vGjuwbJ25X1m04VXMMJ8Q3QzEsyD8w7jnAm5jqpKUZtVe-82LngE828BL78VksB9boYA1KjkUFty8pEW9876P84D7-A_J3doJbl9U3F-cBP_D9uzAAA.webp"
+              },
+              "languages": [
+                "en"
+              ],
+              "regions": [
+                "CN"
+              ]
+            },
+            "about_page_link": "https://www.google.com/search?q=About+https://www.instagram.com/p/DclDXxnFRcv/&tbm=ilp",
+            "about_page_serpapi_link": "https://serpapi.com/search.json?engine=google_about_this_result&google_domain=google.com&q=About+https%3A%2F%2Fwww.instagram.com%2Fp%2FDclDXxnFRcv%2F",
+            "source": "Instagram"
+          },
+          {
+            "position": 4,
+            "title": "Guangzhou 2026-1-1 #business #fashion #kuwait #qatar # ...",
+            "link": "https://www.facebook.com/bouthainahafsia/posts/guangzhou-2026-1-1-business-fashion-kuwait-qatar-travel/1550228323798612/",
+            "redirect_link": "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=CAESsAEB6zswFReRz0VAtsk_5zMzX2AsNBV4i9Q4gqPxYL3NrB8QXvG6K3ZhWSwIspt_i5Fx-EN-2cN4oh-j0ZDcvy7ZQE_j4ryyQzFYGtiwHBmTfVG3jnodwDVHWvQB6AZTr5FM0RmbjYmUUuZLjmUxmzTrNdBbe6rFtrL4KEUyb10-fbspVIhJQ4o-pPhd7Mc6yuwuZzmI0dgayJjwaQJ3PVgMpFyIPCbGP5khtqxk-slMzw&ved=2ahUKEwiu266Bh9KWAxVUjokEHUiLNnsQFnoECCYQAQ&uoh=1",
+            "displayed_link": "https://www.facebook.com › bouthainahafsia › posts",
+            "favicon": "https://serpapi.com/images/i/UklGRqoBAABXRUJQVlA4IJ4BAABwCQCdASocABwAPtEutFooIagoGAEAGglsAJ0yhHA3lfFBO1wAOUA_QD3LbivzzOpj3kDygCma-Rh7ANX--unhjJOlma5yFBwxABGtbBmfGruNiAAA_vYOb16QPF2AohybdBK44SXhExiRjqi-kNM3hHu_Yw7AJrL-7rM8d_rijdiRy0j-ZeW7w6RIRuMqgm_RO4f6lRIhYknlxf6mMoXAQaj6_tRkMRwBV5EdP_uMw4kqy2ZhqPi3PG5PpxthXgQWj6H4uUXexYHFqh3xYBX5dL6Dsx0kaiR__FvN_6m7_QiD5ix90ybowZPZ4EJjzU2ag7SQJ4wrf_2kwO1hPlzmly6sn4r0HSBDYT_CBJqgzjphFkqJAiVh_RCXqM9h1YZk1Q4HA5xuHo3rNsBGkg4DVoQb6lPRqlYEs1YLGkTSOA-pXnCCv-FX4cz9i_E71o22GBeX206C3AI8KMZxPikjU93MZF-5b_bVPypp2kWlnV7cYdOVJ_T0iqe1D8CmirqI-Ktb5K_S123btql4LlRpp_0gELOp_50DZ4WlAAA.webp",
+            "snippet": "Audiences saw collections that fuse the spirit of Chinese culture with international trends, creating looks that feel both Eastern in temperament and ...",
+            "snippet_highlighted_words": [
+              "Chinese",
+              "trends"
+            ],
+            "about_this_result": {
+              "source": {
+                "description": "Audiences saw collections that fuse the spirit of Chinese culture with international trends, creating looks that feel both Eastern in temperament and ...",
+                "source_info_link": "https://www.facebook.com/bouthainahafsia/posts/guangzhou-2026-1-1-business-fashion-kuwait-qatar-travel/1550228323798612/",
+                "icon": "https://serpapi.com/images/i/UklGRqoBAABXRUJQVlA4IJ4BAABwCQCdASocABwAPtEutFooIagoGAEAGglsAJ0yhHA3lfFBO1wAOUA_QD3LbivzzOpj3kDygCma-Rh7ANX--unhjJOlma5yFBwxABGtbBmfGruNiAAA_vYOb16QPF2AohybdBK44SXhExiRjqi-kNM3hHu_Yw7AJrL-7rM8d_rijdiRy0j-ZeW7w6RIRuMqgm_RO4f6lRIhYknlxf6mMoXAQaj6_tRkMRwBV5EdP_uMw4kqy2ZhqPi3PG5PpxthXgQWj6H4uUXexYHFqh3xYBX5dL6Dsx0kaiR__FvN_6m7_QiD5ix90ybowZPZ4EJjzU2ag7SQJ4wrf_2kwO1hPlzmly6sn4r0HSBDYT_CBJqgzjphFkqJAiVh_RCXqM9h1YZk1Q4HA5xuHo3rNsBGkg4DVoQb6lPRqlYEs1YLGkTSOA-pXnCCv-FX4cz9i_E71o22GBeX206C3AI8KMZxPikjU93MZF-5b_bVPypp2kWlnV7cYdOVJ_T0iqe1D8CmirqI-Ktb5K_S123btql4LlRpp_0gELOp_50DZ4WlAAA.webp"
+              },
+              "languages": [
+                "en"
+              ],
+              "regions": [
+                "CN"
+              ]
+            },
+            "about_page_link": "https://www.google.com/search?q=About+https://www.facebook.com/bouthainahafsia/posts/guangzhou-2026-1-1-business-fashion-kuwait-qatar-travel/1550228323798612/&tbm=ilp",
+            "about_page_serpapi_link": "https://serpapi.com/search.json?engine=google_about_this_result&google_domain=google.com&q=About+https%3A%2F%2Fwww.facebook.com%2Fbouthainahafsia%2Fposts%2Fguangzhou-2026-1-1-business-fashion-kuwait-qatar-travel%2F1550228323798612%2F",
+            "source": "Facebook",
+            "read_more_link": "https://www.google.com/goto?url=CAESlAIB6zswFbiup6d0347rua8sYKJfZVE3_yaVr8XtMtsuhUnj714tq0z3_i9IaX8-59cKuRUzpvLx15y9W5xb-OJtC9t5IZNHrDV9QjNJx3Fyk9BWOPeqPNFkPYGKoACofYu8lMb9QdzHcqEO3h1Zwngx_jLfTFZ1ze1T1I_2C4R7v9BFIElzlEq798LoYREzczDxPDFGQmx-02SYOjUmgQMUoIt2cJEcU7zj6oRyAnolXbPYefRJUaFP0N-D_eMghTuc87T0KvrOSLLh7CvFQ23QS7ntnOnKiV5ZnUE0zbPNyWwiYrfD3-_eXg8TMkgjaq1V-b85jlCpLYMZ1GPv7zjdIrsSKluwwSUYW2BloywxN9EmdAg"
+          },
+          {
+            "position": 5,
+            "title": "CHIC Shanghai Autumn 2026 – Fashion, Business & ...",
+            "link": "https://www.google.com/goto?url=CAESYwHrOzAVaCNlp8fznDVWQopEg-rLAMURGc697Yq4qGeiI_6HMbt3pVgGEj54whjlIcztDUM0oTF6Z8AsfP_0-YnWDt--eMhaCEA9JeBBg9RZEggPwfzpNSTGVlfopJNPKuUHrA",
+            "displayed_link": "6 likes · 6 days ago",
+            "thumbnail": "https://serpapi.com/searches/6a99380dfd81c81b322f388f/images/NtKeqCIv21A6hyjDpddWbDfjYxajjWG5YXqH5nOT1UY.jpeg",
+            "favicon": "https://serpapi.com/images/i/UklGRrQBAABXRUJQVlA4IKgBAABwCACdASocABwAPrUurVanIacnG_DgFolsAJ0yhHp_qvDn8INhnGwwG2i5ADWgPQA6TAiNSWpNpaKsXIF39bGj3Qd8pbRqOqkClBeAAP5tEoJlJoIDKX9SM7Zcd-n9JzxjUyFwXhzwPaTeFm2SeuMf1qLVq3t4wI3Sjh-TwPMqC3IvNj-0iGrCQSLYH_-G79_n_WM3XsPcVuoDF5Qv72r9Pf808tOK5Udv-Td9HMGptvnvxKOoa_2nDyZ2ppkSa2bNDL-K8pl3NhKk0sDV6BtpvNMgPb8dFSIrV0bFXaXgk5e0X-zIfxi-75avphrtEjwdvibNuQxApMkfs-CMi8mkD-o9_Rjb7y57vXTZx0h5MRX7n1JX-MenGUk5E4XC7vzHzXwfTDhRIb4bBfoSZiSNQ4UQGB7jAg92d64S_P_CCBANUoR3tplweT0RfxTAFGtV0vGjuwbJ25X1m04VXMMJ8Q3QzEsyD8w7jnAm5jqpKUZtVe-82LngE828BL78VksB9boYA1KjkUFty8pEW9876P84D7-A_J3doJbl9U3F-cBP_D9uzAAA.webp",
+            "snippet": "Key topics include AI and digitalization, innovative materials, 3D knitting, new e-commerce concepts and modern Chinese Style. August 25–27, 2026",
+            "duration": "0:42",
+            "about_this_result": {
+              "source": {
+                "description": "Key topics include AI and digitalization, innovative materials, 3D knitting, new e-commerce concepts and modern Chinese Style. August 25–27, 2026",
+                "icon": "https://serpapi.com/images/i/UklGRrQBAABXRUJQVlA4IKgBAABwCACdASocABwAPrUurVanIacnG_DgFolsAJ0yhHp_qvDn8INhnGwwG2i5ADWgPQA6TAiNSWpNpaKsXIF39bGj3Qd8pbRqOqkClBeAAP5tEoJlJoIDKX9SM7Zcd-n9JzxjUyFwXhzwPaTeFm2SeuMf1qLVq3t4wI3Sjh-TwPMqC3IvNj-0iGrCQSLYH_-G79_n_WM3XsPcVuoDF5Qv72r9Pf808tOK5Udv-Td9HMGptvnvxKOoa_2nDyZ2ppkSa2bNDL-K8pl3NhKk0sDV6BtpvNMgPb8dFSIrV0bFXaXgk5e0X-zIfxi-75avphrtEjwdvibNuQxApMkfs-CMi8mkD-o9_Rjb7y57vXTZx0h5MRX7n1JX-MenGUk5E4XC7vzHzXwfTDhRIb4bBfoSZiSNQ4UQGB7jAg92d64S_P_CCBANUoR3tplweT0RfxTAFGtV0vGjuwbJ25X1m04VXMMJ8Q3QzEsyD8w7jnAm5jqpKUZtVe-82LngE828BL78VksB9boYA1KjkUFty8pEW9876P84D7-A_J3doJbl9U3F-cBP_D9uzAAA.webp"
+              }
+            },
+            "about_page_link": "https://www.google.com/search?q=About+https://www.google.com/goto?url=CAESYwHrOzAVaCNlp8fznDVWQopEg-rLAMURGc697Yq4qGeiI_6HMbt3pVgGEj54whjlIcztDUM0oTF6Z8AsfP_0-YnWDt--eMhaCEA9JeBBg9RZEggPwfzpNSTGVlfopJNPKuUHrA&tbm=ilp",
+            "about_page_serpapi_link": "https://serpapi.com/search.json?engine=google_about_this_result&google_domain=google.com&q=About+https%3A%2F%2Fwww.google.com%2Fgoto%3Furl%3DCAESYwHrOzAVaCNlp8fznDVWQopEg-rLAMURGc697Yq4qGeiI_6HMbt3pVgGEj54whjlIcztDUM0oTF6Z8AsfP_0-YnWDt--eMhaCEA9JeBBg9RZEggPwfzpNSTGVlfopJNPKuUHrA",
+            "source": "Instagram · chic_shanghai"
+          },
+          {
+            "position": 6,
+            "title": "Daily Buzz: 2 September 2026 - City News Service",
+            "link": "https://www.citynewsservice.cn/articles/china-biz-buzz/daily-buzz/daily-buzz-2-september-2026-okwvq5wn",
+            "redirect_link": "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=CAESngEB6zswFXYBbghV050u8OBte7qZglnqBOtgwp0rrviA3_5hjd9JVXVQdbmUAd8p90FX2NsMfSxNEl56YT-x_nik5HxcuJfZzYwdmg--RJlAn_BC6yZHS8KbaKn6GYwQNCw4OyvLb9LGWQ43SAbBXEoEvPff4Zm-He_5MA7Urp0aZGkK0yujZ31aLZU4zn2c45igJf9lcsBrFhVwA5s-1A&ved=2ahUKEwiu266Bh9KWAxVUjokEHUiLNnsQFnoECCIQAQ&uoh=1",
+            "displayed_link": "https://www.citynewsservice.cn › Articles",
+            "favicon": "https://serpapi.com/images/i/UklGRsoAAABXRUJQVlA4IL4AAAAQBQCdASocABwAPtEutFooIagoGAEAGglAF-cxXxCANb9hbwxraQZ-8e-FoKrkGiLkAP72Avrm0u5Y9ZqrPrPZCp_XdwNN4v7s8PfWdevL-qlA0h54UsnI3fm9V8d-YstVGngaUnf4Dx2ZlsV1JGA-wg9hTcGmPtCIZpwwn2Jgm20IMIpP38b_EKN5g9wEyePkao4erV9qzMAqjq9maZe_LzzgptxufufQ-4tV3oEQBxE3TBZpvEZSP7b2AAAA.webp",
+            "date": "1 day ago",
+            "snippet": "On Monday, France said it is imposing a new per-garment fee on ultra-fast fashion items, aimed at Shein and Chinese rivals Temu and AliExpress.",
+            "snippet_highlighted_words": [
+              "fashion",
+              "Chinese"
+            ],
+            "about_this_result": {
+              "source": {
+                "description": "On Monday, France said it is imposing a new per-garment fee on ultra-fast fashion items, aimed at Shein and Chinese rivals Temu and AliExpress.",
+                "source_info_link": "https://www.citynewsservice.cn/articles/china-biz-buzz/daily-buzz/daily-buzz-2-september-2026-okwvq5wn",
+                "icon": "https://serpapi.com/images/i/UklGRsoAAABXRUJQVlA4IL4AAAAQBQCdASocABwAPtEutFooIagoGAEAGglAF-cxXxCANb9hbwxraQZ-8e-FoKrkGiLkAP72Avrm0u5Y9ZqrPrPZCp_XdwNN4v7s8PfWdevL-qlA0h54UsnI3fm9V8d-YstVGngaUnf4Dx2ZlsV1JGA-wg9hTcGmPtCIZpwwn2Jgm20IMIpP38b_EKN5g9wEyePkao4erV9qzMAqjq9maZe_LzzgptxufufQ-4tV3oEQBxE3TBZpvEZSP7b2AAAA.webp"
+              },
+              "languages": [
+                "en"
+              ],
+              "regions": [
+                "CN"
+              ]
+            },
+            "about_page_link": "https://www.google.com/search?q=About+https://www.citynewsservice.cn/articles/china-biz-buzz/daily-buzz/daily-buzz-2-september-2026-okwvq5wn&tbm=ilp",
+            "about_page_serpapi_link": "https://serpapi.com/search.json?engine=google_about_this_result&google_domain=google.com&q=About+https%3A%2F%2Fwww.citynewsservice.cn%2Farticles%2Fchina-biz-buzz%2Fdaily-buzz%2Fdaily-buzz-2-september-2026-okwvq5wn",
+            "source": "citynewsservice.cn"
+          },
+          {
+            "position": 7,
+            "title": "Shein's dressed for its long-awaited market debut in Hong ...",
+            "link": "https://www.cnn.com/2026/08/31/business/shein-hong-kong-ipo-intl-hnk?iid\\u003dcnn_buildContentRecirc_end_recirc\\u0026recs_exp\\u003dup-next-article-end\\u0026tenant_id\\u003drelated.en",
+            "redirect_link": "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=CAES1QEB6zswFdgj0MF-SjfHf9NcgopB2bEkZGIDJjLcQB31bjoM8UEw79H0lb8_-37h9Uwf1JwjG30RY_LD7kxroWjGukwSvDbN0LLIUh40cQKSRm2kDK4k4J97kYL8AQyXGTEhrsJBsaJDGT_INpJElwDrGrxvizwDJ3k6_9rf3ekU4biBV10l-6jtZJTvpvaTI-Bmv0nlI5imkssKAdKnyel_dxBB43EeOJbctwe6ItWGsMVdQoXZjd8gXEkaCu_6wQ8qDh4ZLpPOvZk2bjV4ElI2sv3KbgQ&ved=2ahUKEwiu266Bh9KWAxVUjokEHUiLNnsQFnoECB8QAQ&uoh=1",
+            "displayed_link": "https://www.cnn.com › shein-hong-kong-ipo-intl-hnk",
+            "favicon": "https://serpapi.com/images/i/UklGRjYBAABXRUJQVlA4ICoBAAAQBgCdASocABwAPtEutFooIagoGAEAGglsAJ0yhIF_qoQifkn9UAb7XkgBqfeUizk7pORr4NL2f9AA_uKslHi7ADhPu7QhAcYyiFpZzpZvrgsR3O7mJ_t_PtGmLP_1FcPyiLbbSThf2_wyNuiPMR_Al5TFP4Ds8Vn_maNhWOUCxPwXOpXP39w7jo_4RNj-YeaLDuW0JRUN8Mvw-VpMOir-JH2t_cZXiLj9_IuLxVBf_pMh6Gpiki7FnD0L-BT_tb2Fdj8X_gjuMO-PV3CMaUV-5eLzuThzAtO4zccLOKti6xZCMmL2yor9jn7pH0ys1JQn2yJnej9XbwqH0ZxNNbe92Z4DpPnbaO95H_8dn17CeXFyoLhWbHqYHSFC1BXDAuftw8968-sE4AAA.webp",
+            "date": "3 days ago",
+            "snippet": "By turning online trends into $11 jeans or $3 crop tops in a matter of days, the ultrafast fashion retailer overtook established companies such as Zara and H&M, ...",
+            "snippet_highlighted_words": [
+              "trends",
+              "fashion"
+            ],
+            "about_this_result": {
+              "source": {
+                "description": "By turning online trends into $11 jeans or $3 crop tops in a matter of days, the ultrafast fashion retailer overtook established companies such as Zara and H&M, ...",
+                "source_info_link": "https://www.cnn.com/2026/08/31/business/shein-hong-kong-ipo-intl-hnk?iid=cnn_buildContentRecirc_end_recirc&recs_exp=up-next-article-end&tenant_id=related.en",
+                "icon": "https://serpapi.com/images/i/UklGRjYBAABXRUJQVlA4ICoBAAAQBgCdASocABwAPtEutFooIagoGAEAGglsAJ0yhIF_qoQifkn9UAb7XkgBqfeUizk7pORr4NL2f9AA_uKslHi7ADhPu7QhAcYyiFpZzpZvrgsR3O7mJ_t_PtGmLP_1FcPyiLbbSThf2_wyNuiPMR_Al5TFP4Ds8Vn_maNhWOUCxPwXOpXP39w7jo_4RNj-YeaLDuW0JRUN8Mvw-VpMOir-JH2t_cZXiLj9_IuLxVBf_pMh6Gpiki7FnD0L-BT_tb2Fdj8X_gjuMO-PV3CMaUV-5eLzuThzAtO4zccLOKti6xZCMmL2yor9jn7pH0ys1JQn2yJnej9XbwqH0ZxNNbe92Z4DpPnbaO95H_8dn17CeXFyoLhWbHqYHSFC1BXDAuftw8968-sE4AAA.webp"
+              },
+              "languages": [
+                "en"
+              ],
+              "regions": [
+                "CN"
+              ]
+            },
+            "about_page_link": "https://www.google.com/search?q=About+https://www.cnn.com/2026/08/31/business/shein-hong-kong-ipo-intl-hnk?iid=cnn_buildContentRecirc_end_recirc&recs_exp=up-next-article-end&tenant_id=related.en&tbm=ilp",
+            "about_page_serpapi_link": "https://serpapi.com/search.json?engine=google_about_this_result&google_domain=google.com&q=About+https%3A%2F%2Fwww.cnn.com%2F2026%2F08%2F31%2Fbusiness%2Fshein-hong-kong-ipo-intl-hnk%3Fiid%3Dcnn_buildContentRecirc_end_recirc%26recs_exp%3Dup-next-article-end%26tenant_id%3Drelated.en",
+            "source": "CNN",
+            "read_more_link": "https://www.google.com/goto?url=CAESsAIB6zswFWJvj5_O9WUZTVWvoJI15HHnlBOgO6PzqwMXfCJ5xEKzMtQjLF34oiLhwnZUVbZ8sQXN4FpP5qWR6Z8UeOPvJOayHWifMg6-i-en-PK1Q5ibNosHVK4HoKb5css9M_zxkbXcpx2PCNa2hF1SZJqr4ErQogDfVcTkKKJUcm41C0-93jx8rRjCsIjHqld67Zc0JWjrYb8C4Oj8XzXbMlhUPn1tWmc42eNBivptcV97DSmcHYlkXIfdT-cyoeLm9ndoopJL4CsimZHqas40XqlRkwekApeEFcbXIx4hgBNnmTj16uTXSri5HtB7tSxKu6e8PuOqdvJwUXVObzcyI5KqAqcFpQ0800kGuUzFh6SVTNC9afwpS7TMW6QDY3WwRJlDMnFT8b8YiWUBfFRL"
+          },
+          {
+            "position": 8,
+            "title": "Sustainable Fashion Market Size, Share, Industry Growth ...",
+            "link": "https://www.rootsanalysis.com/sustainable-fashion-market",
+            "redirect_link": "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=CAEScAHrOzAV5C2Zw9kzGIMkkiJsp7unD04QKIQN1teFECUw219cprDf7YPw3N85Cof43muQw9lUaMA_YBcYJeIxwFOQ6vjzIq9oANUS-wwpu4DyMmO-rp87HjpT_JEItUNxHjX8DZLWKN0g3GWFIZ7WF6Y&ved=2ahUKEwiu266Bh9KWAxVUjokEHUiLNnsQFnoECCMQAQ&uoh=1",
+            "displayed_link": "https://www.rootsanalysis.com › Reports",
+            "favicon": "https://serpapi.com/images/i/UklGRmQAAABXRUJQVlA4IFgAAAAQAgCdASoQABAAAsBMJZACdAEPNWl8zQuAAP74NtduOjrXemfn6xfhjCMuCaDicfsn_yakx271xPP6LLk6rsX8w8O7ZfdQWGWVOar9z7d0DE6i0NkYAAAA.webp",
+            "date": "7 days ago",
+            "snippet": "The sustainable fashion market size is projected to grow from USD 11 billion in 2026 to USD 46 billion by 2040, representing a strong CAGR of 10.81%",
+            "snippet_highlighted_words": [
+              "fashion",
+              "2026"
+            ],
+            "about_this_result": {
+              "source": {
+                "description": "The sustainable fashion market size is projected to grow from USD 11 billion in 2026 to USD 46 billion by 2040, representing a strong CAGR of 10.81%",
+                "source_info_link": "https://www.rootsanalysis.com/sustainable-fashion-market",
+                "icon": "https://serpapi.com/images/i/UklGRmQAAABXRUJQVlA4IFgAAAAQAgCdASoQABAAAsBMJZACdAEPNWl8zQuAAP74NtduOjrXemfn6xfhjCMuCaDicfsn_yakx271xPP6LLk6rsX8w8O7ZfdQWGWVOar9z7d0DE6i0NkYAAAA.webp"
+              },
+              "languages": [
+                "en"
+              ],
+              "regions": [
+                "CN"
+              ]
+            },
+            "about_page_link": "https://www.google.com/search?q=About+https://www.rootsanalysis.com/sustainable-fashion-market&tbm=ilp",
+            "about_page_serpapi_link": "https://serpapi.com/search.json?engine=google_about_this_result&google_domain=google.com&q=About+https%3A%2F%2Fwww.rootsanalysis.com%2Fsustainable-fashion-market",
+            "source": "Roots Analysis"
+          }
+        ],
+        "pagination": {
+          "current": 1,
+          "next": "https://www.google.com/search?q=Apparel+%26+Fashion+trends+2026+US+and+China+after:2026-08-27+before:2026-09-03&sca_esv=ce5706714c0dfa3d&gl=cn&hl=en&sxsrf=APpeQnsYl6Jr_BP302LJjhtRwImcnpxwAg:1788426263971&ei=FziZau7zOtScptQPyJba2Qc&start=10&sa=N&sstk=AS6-VmIw16yUbygT6nathvvUBd70VtY9VmHUe0jkEYKcD6osyVlm3UOFEy2W4S2lNZkxb8qmr5Jr1LyxE6EWA_P0cGz2cmsBYu_ULA&ved=2ahUKEwiu266Bh9KWAxVUjokEHUiLNnsQ8NMDegQIGxAW",
+          "other_pages": {
+            "2": "https://www.google.com/search?q=Apparel+%26+Fashion+trends+2026+US+and+China+after:2026-08-27+before:2026-09-03&sca_esv=ce5706714c0dfa3d&gl=cn&hl=en&sxsrf=APpeQnsYl6Jr_BP302LJjhtRwImcnpxwAg:1788426263971&ei=FziZau7zOtScptQPyJba2Qc&start=10&sa=N&sstk=AS6-VmIw16yUbygT6nathvvUBd70VtY9VmHUe0jkEYKcD6osyVlm3UOFEy2W4S2lNZkxb8qmr5Jr1LyxE6EWA_P0cGz2cmsBYu_ULA&ved=2ahUKEwiu266Bh9KWAxVUjokEHUiLNnsQ8tMDegQIGxAE",
+            "3": "https://www.google.com/search?q=Apparel+%26+Fashion+trends+2026+US+and+China+after:2026-08-27+before:2026-09-03&sca_esv=ce5706714c0dfa3d&gl=cn&hl=en&sxsrf=APpeQnsYl6Jr_BP302LJjhtRwImcnpxwAg:1788426263971&ei=FziZau7zOtScptQPyJba2Qc&start=20&sa=N&sstk=AS6-VmIw16yUbygT6nathvvUBd70VtY9VmHUe0jkEYKcD6osyVlm3UOFEy2W4S2lNZkxb8qmr5Jr1LyxE6EWA_P0cGz2cmsBYu_ULA&ved=2ahUKEwiu266Bh9KWAxVUjokEHUiLNnsQ8tMDegQIGxAG",
+            "4": "https://www.google.com/search?q=Apparel+%26+Fashion+trends+2026+US+and+China+after:2026-08-27+before:2026-09-03&sca_esv=ce5706714c0dfa3d&gl=cn&hl=en&sxsrf=APpeQnsYl6Jr_BP302LJjhtRwImcnpxwAg:1788426263971&ei=FziZau7zOtScptQPyJba2Qc&start=30&sa=N&sstk=AS6-VmIw16yUbygT6nathvvUBd70VtY9VmHUe0jkEYKcD6osyVlm3UOFEy2W4S2lNZkxb8qmr5Jr1LyxE6EWA_P0cGz2cmsBYu_ULA&ved=2ahUKEwiu266Bh9KWAxVUjokEHUiLNnsQ8tMDegQIGxAI",
+            "5": "https://www.google.com/search?q=Apparel+%26+Fashion+trends+2026+US+and+China+after:2026-08-27+before:2026-09-03&sca_esv=ce5706714c0dfa3d&gl=cn&hl=en&sxsrf=APpeQnsYl6Jr_BP302LJjhtRwImcnpxwAg:1788426263971&ei=FziZau7zOtScptQPyJba2Qc&start=40&sa=N&sstk=AS6-VmIw16yUbygT6nathvvUBd70VtY9VmHUe0jkEYKcD6osyVlm3UOFEy2W4S2lNZkxb8qmr5Jr1LyxE6EWA_P0cGz2cmsBYu_ULA&ved=2ahUKEwiu266Bh9KWAxVUjokEHUiLNnsQ8tMDegQIGxAK",
+            "6": "https://www.google.com/search?q=Apparel+%26+Fashion+trends+2026+US+and+China+after:2026-08-27+before:2026-09-03&sca_esv=ce5706714c0dfa3d&gl=cn&hl=en&sxsrf=APpeQnsYl6Jr_BP302LJjhtRwImcnpxwAg:1788426263971&ei=FziZau7zOtScptQPyJba2Qc&start=50&sa=N&sstk=AS6-VmIw16yUbygT6nathvvUBd70VtY9VmHUe0jkEYKcD6osyVlm3UOFEy2W4S2lNZkxb8qmr5Jr1LyxE6EWA_P0cGz2cmsBYu_ULA&ved=2ahUKEwiu266Bh9KWAxVUjokEHUiLNnsQ8tMDegQIGxAM",
+            "7": "https://www.google.com/search?q=Apparel+%26+Fashion+trends+2026+US+and+China+after:2026-08-27+before:2026-09-03&sca_esv=ce5706714c0dfa3d&gl=cn&hl=en&sxsrf=APpeQnsYl6Jr_BP302LJjhtRwImcnpxwAg:1788426263971&ei=FziZau7zOtScptQPyJba2Qc&start=60&sa=N&sstk=AS6-VmIw16yUbygT6nathvvUBd70VtY9VmHUe0jkEYKcD6osyVlm3UOFEy2W4S2lNZkxb8qmr5Jr1LyxE6EWA_P0cGz2cmsBYu_ULA&ved=2ahUKEwiu266Bh9KWAxVUjokEHUiLNnsQ8tMDegQIGxAO",
+            "8": "https://www.google.com/search?q=Apparel+%26+Fashion+trends+2026+US+and+China+after:2026-08-27+before:2026-09-03&sca_esv=ce5706714c0dfa3d&gl=cn&hl=en&sxsrf=APpeQnsYl6Jr_BP302LJjhtRwImcnpxwAg:1788426263971&ei=FziZau7zOtScptQPyJba2Qc&start=70&sa=N&sstk=AS6-VmIw16yUbygT6nathvvUBd70VtY9VmHUe0jkEYKcD6osyVlm3UOFEy2W4S2lNZkxb8qmr5Jr1LyxE6EWA_P0cGz2cmsBYu_ULA&ved=2ahUKEwiu266Bh9KWAxVUjokEHUiLNnsQ8tMDegQIGxAQ",
+            "9": "https://www.google.com/search?q=Apparel+%26+Fashion+trends+2026+US+and+China+after:2026-08-27+before:2026-09-03&sca_esv=ce5706714c0dfa3d&gl=cn&hl=en&sxsrf=APpeQnsYl6Jr_BP302LJjhtRwImcnpxwAg:1788426263971&ei=FziZau7zOtScptQPyJba2Qc&start=80&sa=N&sstk=AS6-VmIw16yUbygT6nathvvUBd70VtY9VmHUe0jkEYKcD6osyVlm3UOFEy2W4S2lNZkxb8qmr5Jr1LyxE6EWA_P0cGz2cmsBYu_ULA&ved=2ahUKEwiu266Bh9KWAxVUjokEHUiLNnsQ8tMDegQIGxAS",
+            "10": "https://www.google.com/search?q=Apparel+%26+Fashion+trends+2026+US+and+China+after:2026-08-27+before:2026-09-03&sca_esv=ce5706714c0dfa3d&gl=cn&hl=en&sxsrf=APpeQnsYl6Jr_BP302LJjhtRwImcnpxwAg:1788426263971&ei=FziZau7zOtScptQPyJba2Qc&start=90&sa=N&sstk=AS6-VmIw16yUbygT6nathvvUBd70VtY9VmHUe0jkEYKcD6osyVlm3UOFEy2W4S2lNZkxb8qmr5Jr1LyxE6EWA_P0cGz2cmsBYu_ULA&ved=2ahUKEwiu266Bh9KWAxVUjokEHUiLNnsQ8tMDegQIGxAU"
+          }
+        },
+        "serpapi_pagination": {
+          "current": 1,
+          "next_link": "https://serpapi.com/search.json?device=desktop&engine=google&gl=cn&google_domain=google.com&hl=en&q=Apparel+%26+Fashion+trends+2026+US+and+China+after%3A2026-08-27+before%3A2026-09-03&start=10&tbs=sbd%3A1",
+          "next": "https://serpapi.com/search.json?device=desktop&engine=google&gl=cn&google_domain=google.com&hl=en&q=Apparel+%26+Fashion+trends+2026+US+and+China+after%3A2026-08-27+before%3A2026-09-03&start=10&tbs=sbd%3A1",
+          "other_pages": {
+            "2": "https://serpapi.com/search.json?device=desktop&engine=google&gl=cn&google_domain=google.com&hl=en&q=Apparel+%26+Fashion+trends+2026+US+and+China+after%3A2026-08-27+before%3A2026-09-03&start=10&tbs=sbd%3A1",
+            "3": "https://serpapi.com/search.json?device=desktop&engine=google&gl=cn&google_domain=google.com&hl=en&q=Apparel+%26+Fashion+trends+2026+US+and+China+after%3A2026-08-27+before%3A2026-09-03&start=20&tbs=sbd%3A1",
+            "4": "https://serpapi.com/search.json?device=desktop&engine=google&gl=cn&google_domain=google.com&hl=en&q=Apparel+%26+Fashion+trends+2026+US+and+China+after%3A2026-08-27+before%3A2026-09-03&start=30&tbs=sbd%3A1",
+            "5": "https://serpapi.com/search.json?device=desktop&engine=google&gl=cn&google_domain=google.com&hl=en&q=Apparel+%26+Fashion+trends+2026+US+and+China+after%3A2026-08-27+before%3A2026-09-03&start=40&tbs=sbd%3A1",
+            "6": "https://serpapi.com/search.json?device=desktop&engine=google&gl=cn&google_domain=google.com&hl=en&q=Apparel+%26+Fashion+trends+2026+US+and+China+after%3A2026-08-27+before%3A2026-09-03&start=50&tbs=sbd%3A1",
+            "7": "https://serpapi.com/search.json?device=desktop&engine=google&gl=cn&google_domain=google.com&hl=en&q=Apparel+%26+Fashion+trends+2026+US+and+China+after%3A2026-08-27+before%3A2026-09-03&start=60&tbs=sbd%3A1",
+            "8": "https://serpapi.com/search.json?device=desktop&engine=google&gl=cn&google_domain=google.com&hl=en&q=Apparel+%26+Fashion+trends+2026+US+and+China+after%3A2026-08-27+before%3A2026-09-03&start=70&tbs=sbd%3A1",
+            "9": "https://serpapi.com/search.json?device=desktop&engine=google&gl=cn&google_domain=google.com&hl=en&q=Apparel+%26+Fashion+trends+2026+US+and+China+after%3A2026-08-27+before%3A2026-09-03&start=80&tbs=sbd%3A1",
+            "10": "https://serpapi.com/search.json?device=desktop&engine=google&gl=cn&google_domain=google.com&hl=en&q=Apparel+%26+Fashion+trends+2026+US+and+China+after%3A2026-08-27+before%3A2026-09-03&start=90&tbs=sbd%3A1"
           }
         }
       }
@@ -476,6 +797,11 @@
     {
       "provider": "tavily",
       "country": "us",
+      "error": "HTTPError: 400 Client Error: Bad Request for url: https://api.tavily.com/search"
+    },
+    {
+      "provider": "tavily",
+      "country": "cn",
       "error": "HTTPError: 400 Client Error: Bad Request for url: https://api.tavily.com/search"
     }
   ]

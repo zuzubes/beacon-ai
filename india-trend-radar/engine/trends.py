@@ -644,10 +644,13 @@ def call_live_trends(
     research_context: str | None = None,
     cost_tracker: CostRunTracker | None = None,
 ) -> list[dict]:
-    """Calls the OpenAI API to generate the trend hierarchy. Raises on failure."""
+    """Calls the OpenAI API to generate the trend hierarchy. Raises on failure. Retries
+    once against OPENAI_API_KEY_2 (see engine.openai_keys) if the primary key is
+    rate-limited or out of quota."""
     from openai import OpenAI
 
-    client = OpenAI(api_key=api_key)
+    from engine.openai_keys import call_with_failover, resolve_openai_keys
+
     prompt = LIVE_PROMPT_TEMPLATE.format(
         time_range=time_range,
         region=region,
@@ -659,10 +662,13 @@ def call_live_trends(
     # cutting the response off mid-string on anything but the most terse output. 12000 leaves
     # comfortable headroom (~280 tokens/object) without being unreasonably large for gpt-4.1-mini.
     try:
-        response = client.responses.create(
-            model="gpt-4.1-mini",
-            input=prompt,
-            max_output_tokens=12000,
+        response = call_with_failover(
+            resolve_openai_keys(api_key),
+            lambda key: OpenAI(api_key=key).responses.create(
+                model="gpt-4.1-mini",
+                input=prompt,
+                max_output_tokens=12000,
+            ),
         )
     except Exception as exc:  # noqa: BLE001
         elapsed_ms = int((perf_counter() - started) * 1000)

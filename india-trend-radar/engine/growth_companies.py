@@ -223,7 +223,8 @@ def call_live_companies(
     callers should fall back to generate_mock_companies, matching trends.py's pattern."""
     from openai import OpenAI
 
-    client = OpenAI(api_key=api_key)
+    from engine.openai_keys import call_with_failover, resolve_openai_keys
+
     prompt = COMPANIES_PROMPT_TEMPLATE.format(
         sub_trend=sub_trend_name or "General",
         industry=industry or "General",
@@ -233,7 +234,10 @@ def call_live_companies(
     )
     started = perf_counter()
     try:
-        response = client.responses.create(model=MODEL, input=prompt, max_output_tokens=4000)
+        response = call_with_failover(
+            resolve_openai_keys(api_key),
+            lambda key: OpenAI(api_key=key).responses.create(model=MODEL, input=prompt, max_output_tokens=4000),
+        )
     except Exception as exc:  # noqa: BLE001
         elapsed_ms = int((perf_counter() - started) * 1000)
         if cost_tracker:
@@ -312,7 +316,8 @@ def call_live_social_signals(
     callers should fall back to generate_mock_social_signals."""
     from openai import OpenAI
 
-    client = OpenAI(api_key=api_key)
+    from engine.openai_keys import call_with_failover, resolve_openai_keys
+
     today = date.today()
     window_start = today - timedelta(days=_TIME_RANGE_DAYS.get(time_range, 30))
     prompt = SOCIAL_SIGNALS_PROMPT_TEMPLATE.format(
@@ -325,7 +330,10 @@ def call_live_social_signals(
     )
     started = perf_counter()
     try:
-        response = client.responses.create(model=MODEL, input=prompt, max_output_tokens=1500)
+        response = call_with_failover(
+            resolve_openai_keys(api_key),
+            lambda key: OpenAI(api_key=key).responses.create(model=MODEL, input=prompt, max_output_tokens=1500),
+        )
     except Exception as exc:  # noqa: BLE001
         elapsed_ms = int((perf_counter() - started) * 1000)
         if cost_tracker:

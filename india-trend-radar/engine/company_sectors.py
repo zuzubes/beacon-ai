@@ -122,8 +122,12 @@ def _extract_sectors(company_name: str, page_text: str, api_key: str) -> list[st
         "sector focus, respond with []."
     )
     try:
-        client = OpenAI(api_key=api_key)
-        response = client.responses.create(model=MODEL, input=prompt, max_output_tokens=200)
+        from engine.openai_keys import call_with_failover, resolve_openai_keys
+
+        response = call_with_failover(
+            resolve_openai_keys(api_key),
+            lambda key: OpenAI(api_key=key).responses.create(model=MODEL, input=prompt, max_output_tokens=200),
+        )
         text = (getattr(response, "output_text", "") or "").strip()
         if text.startswith("```"):
             text = text.strip("`")

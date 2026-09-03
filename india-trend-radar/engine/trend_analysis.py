@@ -281,7 +281,8 @@ def _live_report_markdown(
 ) -> str:
     from openai import OpenAI
 
-    client = OpenAI(api_key=api_key)
+    from engine.openai_keys import call_with_failover, resolve_openai_keys
+
     prompt = REPORT_PROMPT_TEMPLATE.format(
         industry=industry or "General",
         region=region or "Global",
@@ -291,10 +292,13 @@ def _live_report_markdown(
     )
     started = perf_counter()
     try:
-        response = client.responses.create(
-            model="gpt-4.1-mini",
-            input=prompt,
-            max_output_tokens=7000,
+        response = call_with_failover(
+            resolve_openai_keys(api_key),
+            lambda key: OpenAI(api_key=key).responses.create(
+                model="gpt-4.1-mini",
+                input=prompt,
+                max_output_tokens=7000,
+            ),
         )
     except Exception as exc:  # noqa: BLE001
         elapsed_ms = int((perf_counter() - started) * 1000)
@@ -454,8 +458,8 @@ def call_combined_trends_and_report(
     from openai import OpenAI
 
     from engine import trends as trends_module
+    from engine.openai_keys import call_with_failover, resolve_openai_keys
 
-    client = OpenAI(api_key=api_key)
     prompt = COMBINED_PROMPT_TEMPLATE.format(
         time_range=time_range or "Past 1 week",
         region=region or "Global",
@@ -464,8 +468,12 @@ def call_combined_trends_and_report(
     )
     started = perf_counter()
     accumulated = []
-    try:
-        with client.responses.stream(
+
+    def _stream_once(key: str):
+        # Reset in case a prior key's attempt streamed partial text before failing --
+        # a retry on the backup key must not append to stale content from that attempt.
+        accumulated.clear()
+        with OpenAI(api_key=key).responses.stream(
             model="gpt-4.1-mini",
             input=prompt,
             # Same combined headroom as the two separate calls this replaces (12000 for
@@ -477,7 +485,10 @@ def call_combined_trends_and_report(
                     accumulated.append(event.delta)
                     if on_text is not None:
                         on_text("".join(accumulated))
-            response = stream.get_final_response()
+            return stream.get_final_response()
+
+    try:
+        response = call_with_failover(resolve_openai_keys(api_key), _stream_once)
     except Exception as exc:  # noqa: BLE001
         elapsed_ms = int((perf_counter() - started) * 1000)
         if cost_tracker:
