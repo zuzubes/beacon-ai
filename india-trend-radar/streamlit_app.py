@@ -1307,54 +1307,44 @@ def _trend_meter_html(strength: float) -> str:
     return "".join(bars)
 
 
+def _trend_meter_text(strength: float) -> str:
+    active = max(1, min(9, round(strength)))
+    return "".join("▮" if idx <= active else "▯" for idx in range(1, 10))
+
+
 def render_trend_card(t: dict, show_drilldown_action: bool = False) -> None:
-    growth_class = "pill-growth-pos" if t["growth_pct"] >= 0 else "pill-growth-neg"
     growth_sign = "▲" if t["growth_pct"] >= 0 else "▼"
-    rec_class = REC_PILL_CLASS.get(t["recommendation"], "pill-watch")
-    shell_class = f"trend-card-shell {t['tier'].lower()}"
     tier_label = f"{t['tier'].upper()} TREND"
-    card_html = dedent(
-        f"""
-        <div class="trend-card">
-            <div class="{shell_class}">
-                <div class="trend-card-topbar"></div>
-                <div class="trend-card-header">
-                    <div class="trend-card-main">
-                        <div class="trend-card-kicker">{html.escape(tier_label)}</div>
-                        <div class="trend-card-title">{html.escape(t['name'])}</div>
-                        {"<div class='trend-card-parent'>via " + html.escape(t['parent']) + "</div>" if t.get("parent") else ""}
-                    </div>
-                    <div class="trend-card-score">
-                        <div class="trend-card-score-value">{t['strength']:.1f}</div>
-                        <div class="trend-card-score-label">Strength</div>
-                    </div>
-                </div>
-                <div class="trend-card-desc">{html.escape(t['description'])}</div>
-                <div class="trend-card-meter">{_trend_meter_html(float(t['strength']))}</div>
-                <div class="trend-card-footer">
-                    <div class="trend-action-row">
-                        <div>
-                            <span class='pill {growth_class}'>{growth_sign} {t['growth_pct']:+.0f}%</span>
-                            <span class='pill pill-strength'>Strength {t['strength']:.1f}</span>
-                            <span class='pill pill-horizon'>{html.escape(t['time_horizon'])}</span>
-                            <span class='pill {rec_class}'>{html.escape(t['recommendation'])}</span>
-                        </div>
-                        <div class="trend-action-note">Use the detailed tabs for the full hierarchy and drill-down workflow.</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        """
-    )
-    st.markdown(card_html, unsafe_allow_html=True)
-    if show_drilldown_action and t["tier"] == "Sub":
-        if st.button("Generate drill-down", key=f"subtrend_generate::{t['id']}", use_container_width=True):
-            selected_sub_id = t["id"]
-            st.session_state["drilldown_subtrend_select"] = selected_sub_id
-            product_region = _default_product_region()
-            payload = build_drilldown_payload(t, product_region, cost_tracker=st.session_state.get("analysis_cost_tracker"))
-            st.session_state[_drilldown_cache_key(selected_sub_id)] = payload
-            st.session_state["drilldown_last_generated"] = selected_sub_id
+    with st.container(border=True):
+        st.markdown(f"<div class='trend-card-topbar {t['tier'].lower()}'></div>", unsafe_allow_html=True)
+
+        header_cols = st.columns([4.5, 1.1], vertical_alignment="top")
+        with header_cols[0]:
+            st.markdown(f"**{tier_label}**")
+            st.markdown(f"### {t['name']}")
+            if t.get("parent"):
+                st.caption(f"via {t['parent']}")
+        with header_cols[1]:
+            st.metric("Strength", f"{t['strength']:.1f}")
+
+        st.write(t["description"])
+
+        if t["tier"] != "Mega":
+            st.markdown(f"`{_trend_meter_text(float(t['strength']))}`")
+
+        pills = [f"{growth_sign} {t['growth_pct']:+.0f}%", t["time_horizon"], t["recommendation"]]
+        pill_cols = st.columns(len(pills))
+        for col, pill in zip(pill_cols, pills):
+            with col:
+                st.caption(pill)
+
+        if show_drilldown_action and t["tier"] == "Sub":
+            if st.button("Generate drill-down", key=f"subtrend_generate::{t['id']}", use_container_width=True):
+                st.session_state["drilldown_subtrend_select"] = t["id"]
+                product_region = _default_product_region()
+                payload = build_drilldown_payload(t, product_region, cost_tracker=st.session_state.get("analysis_cost_tracker"))
+                st.session_state[_drilldown_cache_key(t["id"])] = payload
+                st.session_state["drilldown_last_generated"] = t["id"]
 
 
 def render_trend_grid(items: list[dict], columns: int = 3, show_drilldown_action: bool = False) -> None:

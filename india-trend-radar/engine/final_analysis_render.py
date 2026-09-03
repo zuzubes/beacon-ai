@@ -176,7 +176,6 @@ def _render_weak_signals_fragment(markdown_text: str) -> str:
             cards.append(
                 f"""
                 <div class="weak-signal-item">
-                    <div class="weak-signal-badge">Weak Signal</div>
                     <div class="weak-signal-text">{_render_inline(item)}</div>
                 </div>
                 """
@@ -652,19 +651,6 @@ def render_final_analysis_html(
       background: #f8fbff;
       border-radius: 16px;
       padding: 12px 14px;
-    }}
-
-    .weak-signal-badge {{
-      display: inline-block;
-      background: #eef2ff;
-      color: var(--blue);
-      border-radius: 999px;
-      padding: 4px 8px;
-      font-size: 0.62rem;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      margin-bottom: 8px;
     }}
 
     .weak-signal-text {{

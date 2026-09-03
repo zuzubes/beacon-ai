@@ -175,7 +175,7 @@ def _report_preamble(time_range: str, region: str, industry: str) -> str:
         f"**Date**: {datetime.now().strftime('%Y-%m-%d %H:%M')}\n\n"
         f"**Industry**: {industry}\n\n"
         f"**Geographic scope**: {region}\n\n"
-        f"**Time horizon**: {time_range}\n\n"
+        f"**Time range**: {time_range}\n\n"
     )
 
 

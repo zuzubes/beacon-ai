@@ -1,0 +1,4 @@
+request_id,timestamp,company,run_id,provider,model,feature,endpoint,status,input_tokens,cached_tokens,output_tokens,reasoning_tokens,retries,tool_calls,latency_ms,estimated_cost_usd,error,notes
+12flags_20260903_110726:001,2026-09-03T11:07:33,12flags,12flags_20260903_110726,search,n/a,research search,research_search.build_research_context,success,0,0,0,0,0,1,6870,0.0,,providers_used=serpapi
+12flags_20260903_110726:002,2026-09-03T11:08:26,12flags,12flags_20260903_110726,openai,gpt-4.1-mini,trend generation + final analysis report (combined),responses.stream,success,1313,0,4290,0,0,0,53385,0.007389199999999999,,
+12flags_20260903_110726:003,2026-09-03T11:08:29,12flags,12flags_20260903_110726,news,n/a,news signals,news.call_live_news,success,0,0,0,0,0,1,453,0.0,,live news feed fetched

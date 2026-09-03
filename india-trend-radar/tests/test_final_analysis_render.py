@@ -13,7 +13,7 @@ def test_render_final_analysis_html_includes_branding_and_sections():
 
 **Geographic scope**: US
 
-**Time horizon**: Past 1 week
+**Time range**: Past 1 week
 
 ## Executive Summary
 Short summary.
@@ -48,7 +48,7 @@ def test_render_final_analysis_html_strips_script_tags():
 
 **Geographic scope**: US
 
-**Time horizon**: Past 1 week
+**Time range**: Past 1 week
 
 ## Executive Summary
 <script>alert('xss')</script>Safe text.

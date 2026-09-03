@@ -115,6 +115,10 @@ def _fallback_pdf(markdown_text: str, title: str) -> bytes:
     context = _split_report_preamble(markdown_text)
     sections = _split_sections(markdown_text)
 
+    def _meta_lookup(label: str) -> str:
+        normalized = {key.strip().lower(): value.strip() for key, value in context.meta}
+        return normalized.get(label.strip().lower(), "")
+
     page_w, page_h = 1275, 1650
     cover_bg = "#0F172A"
     cover_bg_2 = "#111D36"
@@ -344,13 +348,10 @@ def _fallback_pdf(markdown_text: str, title: str) -> bytes:
         for para in _wrap_paragraphs(lead)[:2]:
             lead_y = _draw_paragraph(draw, left, lead_y, para, _font("Arial", 22), "#E5EEF9", 930, line_gap=8)
             lead_y += 8
-        meta_values = [value for _, value in context.meta[:4]]
-        while len(meta_values) < 4:
-            meta_values.append("")
         stats = [
-            ("Industry", meta_values[1] if len(meta_values) > 1 else ""),
-            ("Geographic scope", meta_values[2] if len(meta_values) > 2 else ""),
-            ("Time horizon", meta_values[3] if len(meta_values) > 3 else ""),
+            ("Industry / Sector", _meta_lookup("Industry") or ""),
+            ("Geographic scope", _meta_lookup("Geographic scope") or ""),
+            ("Time range", _meta_lookup("Time range") or ""),
             ("Sections", str(len(sections))),
         ]
         card_y = 1175
@@ -629,30 +630,11 @@ def markdown_to_pdf_bytes(markdown_text: str, title: str) -> bytes:
         items = [line[2:].strip() for line in body.splitlines() if line.strip().startswith(("- ", "* "))]
         if not items:
             return _body_flowables(body, styles)
-        cards = []
+        flowables = []
         for item in items:
-            cards.append(
-                [
-                    Paragraph("<font color='#B88A1D'><b>Weak signal</b></font>", styles["TinyLabelBeacon"]),
-                    Paragraph(_linkify(item), styles["BodyBeacon"]),
-                ]
-            )
-        table = Table(cards, colWidths=[0.9 * inch, 5.4 * inch], hAlign="LEFT")
-        table.setStyle(
-            TableStyle(
-                [
-                    ("BACKGROUND", (0, 0), (-1, -1), colors.HexColor("#F8FBFF")),
-                    ("BOX", (0, 0), (-1, -1), 0.5, colors.HexColor("#D8E1EA")),
-                    ("INNERGRID", (0, 0), (-1, -1), 0.35, colors.HexColor("#E5EBF3")),
-                    ("VALIGN", (0, 0), (-1, -1), "TOP"),
-                    ("LEFTPADDING", (0, 0), (-1, -1), 8),
-                    ("RIGHTPADDING", (0, 0), (-1, -1), 8),
-                    ("TOPPADDING", (0, 0), (-1, -1), 8),
-                    ("BOTTOMPADDING", (0, 0), (-1, -1), 8),
-                ]
-            )
-        )
-        return [table, Spacer(1, 0.1 * inch)]
+            flowables.append(Paragraph(f"- {_linkify(item)}", styles["BodyBeacon"]))
+            flowables.append(Spacer(1, 0.05 * inch))
+        return flowables
 
     def _scenario_cards(body: str, styles: dict[str, ParagraphStyle]) -> list:
         rows = []
@@ -875,16 +857,11 @@ def markdown_to_pdf_bytes(markdown_text: str, title: str) -> bytes:
         )
     )
 
-    trend_rows = _count_table_rows(_section_body(sections, "Trend Hierarchy From trends.py"))
-    weak_count = _count_items(_section_body(sections, "Weak Signals"))
-    scenario_count = _count_table_rows(_section_body(sections, "Scenarios")) or _count_items(_section_body(sections, "Scenarios"))
-    source_count = _count_items(_section_body(sections, "Sources"))
-
     cover_stats = [
-        ("Trend nodes", str(trend_rows or "n/a")),
-        ("Weak signals", str(weak_count or "n/a")),
-        ("Scenarios", str(scenario_count or "n/a")),
-        ("Sources", str(source_count or "n/a")),
+        ("Industry / Sector", _meta_lookup("Industry") or "n/a"),
+        ("Geographic scope", _meta_lookup("Geographic scope") or "n/a"),
+        ("Time range", _meta_lookup("Time range") or "n/a"),
+        ("Sections", str(len(sections))),
     ]
 
     cover_logo = None
@@ -947,7 +924,9 @@ def markdown_to_pdf_bytes(markdown_text: str, title: str) -> bytes:
     def _section_heading(title_text: str) -> Paragraph:
         return Paragraph(title_text, styles["SectionBeacon"])
 
-    for title_text, body in sections:
+    for section_index, (title_text, body) in enumerate(sections):
+        if section_index > 0:
+            story.append(PageBreak())
         story.append(_section_heading(title_text))
         story.append(Spacer(1, 0.06 * inch))
 
@@ -991,9 +970,7 @@ def markdown_to_pdf_bytes(markdown_text: str, title: str) -> bytes:
             continue
 
         story.extend(_body_flowables(body, styles))
-
-        if title_text != sections[-1][0]:
-            story.append(Spacer(1, 0.06 * inch))
+        story.append(Spacer(1, 0.06 * inch))
 
     buffer = io.BytesIO()
     doc = SimpleDocTemplate(
