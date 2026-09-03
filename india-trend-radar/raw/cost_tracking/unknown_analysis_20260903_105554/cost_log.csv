@@ -1,4 +1,0 @@
-request_id,timestamp,company,run_id,provider,model,feature,endpoint,status,input_tokens,cached_tokens,output_tokens,reasoning_tokens,retries,tool_calls,latency_ms,estimated_cost_usd,error,notes
-unknown_analysis_20260903_105554:001,2026-09-03T10:55:55,Unknown analysis,unknown_analysis_20260903_105554,search,n/a,research search,research_search.build_research_context,success,0,0,0,0,0,1,1232,0.0,,providers_used=serpapi
-unknown_analysis_20260903_105554:002,2026-09-03T10:56:53,Unknown analysis,unknown_analysis_20260903_105554,openai,gpt-4.1-mini,trend generation + final analysis report (combined),responses.stream,success,1175,0,4156,0,0,0,56845,0.0071196,,
-unknown_analysis_20260903_105554:003,2026-09-03T10:56:56,Unknown analysis,unknown_analysis_20260903_105554,news,n/a,news signals,news.call_live_news,success,0,0,0,0,0,1,1264,0.0,,live news feed fetched

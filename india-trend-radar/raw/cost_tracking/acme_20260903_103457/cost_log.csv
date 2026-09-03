@@ -1,1 +1,0 @@
-request_id,timestamp,company,run_id,provider,model,feature,endpoint,status,input_tokens,cached_tokens,output_tokens,reasoning_tokens,retries,tool_calls,latency_ms,estimated_cost_usd,error,notes

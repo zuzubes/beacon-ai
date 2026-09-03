@@ -1,2 +1,0 @@
-request_id,timestamp,company,run_id,provider,model,feature,endpoint,status,input_tokens,cached_tokens,output_tokens,reasoning_tokens,retries,tool_calls,latency_ms,estimated_cost_usd,error,notes
-acme_20260903_105525:001,2026-09-03T10:55:26,Acme,acme_20260903_105525,search,n/a,research search,research_search.build_research_context,success,0,0,0,0,0,1,1314,0.0,,providers_used=serpapi
