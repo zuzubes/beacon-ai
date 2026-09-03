@@ -80,40 +80,52 @@ def _category_averages(trends: list[dict]) -> dict[str, float]:
 
 
 def build_trend_radar_figure(trends: list[dict]) -> go.Figure:
+    """One quantitative series (average strength) across trend categories, drawn as a
+    radial lollipop -- one ray per category, not a filled polygon. A filled shape here
+    would imply the enclosed *area* carries meaning, but only each ray's length (the
+    average strength) does; the previous fill="toself" polygon overstated the encoding."""
     if not trends:
         fig = go.Figure()
         fig.update_layout(title="No trends to display yet — run an analysis first.")
         return fig
 
     averages = _category_averages(trends)
-    categories = sorted(averages.keys())
+    # Cap at 8 categories (readability limit for a radial layout); keep the strongest
+    # ones so the chart still highlights what matters most if a run produces more.
+    categories = sorted(averages, key=lambda c: averages[c], reverse=True)[:8]
     values = [averages[c] for c in categories]
-    if categories:
-        categories = categories + [categories[0]]
-        values = values + [values[0]]
+    scale_max = 10  # trend strength is scored 0-10 throughout the app
 
-    fig = go.Figure(
-        data=[
+    fig = go.Figure()
+    for i, (category, value) in enumerate(zip(categories, values)):
+        is_focal = i == 0  # strongest category only -- one accent per chart
+        color = ACCENT if is_focal else SOFT
+        fig.add_trace(
             go.Scatterpolar(
-                theta=categories,
-                r=values,
-                fill="toself",
-                fillcolor="rgba(79, 70, 229, 0.12)",
-                line=dict(color=ACCENT, width=2.5),
-                marker=dict(color=ACCENT, size=6),
+                r=[0, value],
+                theta=[category, category],
+                mode="lines+markers+text",
+                line=dict(color=color, width=2.4 if is_focal else 2),
+                marker=dict(color=color, size=[0, 9 if is_focal else 7]),
+                text=["", f"{value:.1f}"],
+                textposition="top center",
+                textfont=dict(family=FONT_FAMILY, color=INK if is_focal else MUTED, size=10),
                 hoverinfo="text",
-                text=[f"{c}: {v:.1f}" for c, v in zip(categories, values)],
-                showlegend=False,
+                hovertext=f"{category}: {value:.1f}",
+                name="Strongest category" if is_focal else "Other categories",
+                legendgroup="focal" if is_focal else "muted",
+                showlegend=is_focal or i == 1,
             )
-        ]
-    )
+        )
+
     fig.update_layout(
         title=dict(text="Trend Radar", font=TITLE_FONT, x=0, xanchor="left"),
         font=BODY_FONT,
         polar=dict(
             radialaxis=dict(
                 visible=True,
-                range=[0, 10],
+                range=[0, scale_max],
+                dtick=scale_max / 5,
                 gridcolor=RULE,
                 linecolor=RULE,
                 tickfont=dict(family=FONT_FAMILY, color=SOFT, size=9),
@@ -125,7 +137,8 @@ def build_trend_radar_figure(trends: list[dict]) -> go.Figure:
             ),
             bgcolor="rgba(0,0,0,0)",
         ),
-        margin=dict(l=100, r=100, t=60, b=40),
+        legend=LEGEND,
+        margin=dict(l=100, r=100, t=60, b=60),
         height=560,
         paper_bgcolor="rgba(0,0,0,0)",
         plot_bgcolor="rgba(0,0,0,0)",

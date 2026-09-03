@@ -15,9 +15,11 @@ import html
 import os
 import re
 import json
+from datetime import datetime
 from pathlib import Path
 from textwrap import dedent
 from urllib.parse import urlparse
+from time import perf_counter
 
 import streamlit as st
 import streamlit.components.v1 as components
@@ -32,7 +34,9 @@ from engine import (
     trend_analysis,
     trends,
 )
+from engine.cost_tracking import CostRunTracker
 from engine.final_analysis_render import render_final_analysis_html
+from engine.pdf_export import markdown_to_pdf_bytes
 
 
 def _load_env_file() -> None:
@@ -106,6 +110,19 @@ st.markdown(
                 linear-gradient(180deg, #f7f1e7 0%, #f4eee2 45%, #fbf8f1 100%);
             color: var(--ink);
         }
+        [data-testid="stHeader"] {
+            background:
+                radial-gradient(circle at 0% 0%, rgba(212, 99, 52, 0.08), transparent 32%),
+                radial-gradient(circle at 100% 0%, rgba(85, 112, 150, 0.08), transparent 30%),
+                linear-gradient(180deg, #f7f1e7 0%, #f4eee2 45%, #fbf8f1 100%);
+            border-bottom: 1px solid transparent;
+        }
+        [data-testid="stHeader"] > div {
+            background: transparent;
+        }
+        [data-testid="stToolbar"] {
+            background: transparent;
+        }
         html, body, [class*="css"] {
             font-family: var(--sans);
             color: var(--ink);
@@ -116,7 +133,7 @@ st.markdown(
             color: var(--ink);
         }
         .block-container {
-            padding-top: 1.6rem;
+            padding-top: 4.8rem;
             padding-bottom: 3rem;
             max-width: 1280px;
         }
@@ -145,95 +162,6 @@ st.markdown(
             color: var(--ink);
             letter-spacing: -0.04em;
         }
-        .page-hero {
-            border: 1px solid var(--line);
-            border-radius: 30px;
-            background:
-                linear-gradient(180deg, rgba(255, 253, 248, 0.88) 0%, rgba(247, 240, 229, 0.92) 100%);
-            box-shadow: var(--shadow);
-            padding: 28px 28px 22px;
-            margin-bottom: 1.25rem;
-            overflow: hidden;
-        }
-        .page-hero-kicker {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 0.74rem;
-            font-weight: 700;
-            letter-spacing: 0.18em;
-            text-transform: uppercase;
-            color: var(--accent);
-            margin-bottom: 0.8rem;
-        }
-        .page-hero-title {
-            font-family: var(--serif);
-            font-size: clamp(2.6rem, 4.6vw, 4.9rem);
-            line-height: 0.92;
-            letter-spacing: -0.05em;
-            color: var(--ink);
-            max-width: 12ch;
-            margin-bottom: 0.75rem;
-        }
-        .page-hero-copy {
-            max-width: 72ch;
-            font-size: 1.06rem;
-            line-height: 1.55;
-            color: var(--muted);
-            margin-bottom: 1rem;
-        }
-        .page-hero-meta {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-bottom: 1.1rem;
-        }
-        .tone-chip {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            border: 1px solid var(--line);
-            background: rgba(255, 255, 255, 0.72);
-            color: var(--ink);
-            border-radius: 999px;
-            padding: 6px 12px;
-            font-size: 0.78rem;
-            font-weight: 700;
-        }
-        .page-hero-grid {
-            display: grid;
-            grid-template-columns: repeat(4, minmax(0, 1fr));
-            gap: 12px;
-        }
-        .hero-stat {
-            border: 1px solid var(--line);
-            border-radius: 20px;
-            background: rgba(255, 255, 255, 0.76);
-            padding: 14px 14px 13px;
-            min-height: 88px;
-            box-shadow: var(--shadow-soft);
-        }
-        .hero-stat-label {
-            font-size: 0.71rem;
-            text-transform: uppercase;
-            letter-spacing: 0.16em;
-            color: var(--muted);
-            margin-bottom: 0.35rem;
-        }
-        .hero-stat-value {
-            font-size: 1.12rem;
-            font-weight: 800;
-            color: var(--ink);
-            letter-spacing: -0.03em;
-            margin-bottom: 0.2rem;
-            word-break: break-word;
-        }
-        .hero-stat-copy {
-            font-size: 0.83rem;
-            line-height: 1.45;
-            color: var(--muted);
-        }
-
         .context-card {
             border: 1px solid #E2E8F0;
             border-radius: var(--sds-radius);
@@ -287,30 +215,6 @@ st.markdown(
             color: var(--ink);
             line-height: 1.55;
             margin-bottom: 0.95rem;
-        }
-        .trend-stat-grid {
-            display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 8px;
-        }
-        .trend-stat {
-            border: 1px solid var(--line);
-            background: rgba(255, 255, 255, 0.76);
-            border-radius: 16px;
-            padding: 10px 11px;
-        }
-        .trend-stat-label {
-            font-size: 0.68rem;
-            letter-spacing: 0.14em;
-            text-transform: uppercase;
-            color: var(--muted);
-            margin-bottom: 0.3rem;
-        }
-        .trend-stat-value {
-            font-size: 1.02rem;
-            font-weight: 800;
-            letter-spacing: -0.03em;
-            color: var(--ink);
         }
         .trend-action-row {
             display: flex;
@@ -425,33 +329,6 @@ st.markdown(
             padding: 70px 20px;
             color: var(--muted);
         }
-        .landing-grid {
-            display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 14px;
-            margin-top: 1rem;
-        }
-        .landing-card {
-            border: 1px solid var(--line);
-            border-radius: 22px;
-            background: rgba(255, 255, 255, 0.76);
-            padding: 18px;
-            box-shadow: var(--shadow-soft);
-        }
-        .landing-card-title {
-            font-family: var(--serif);
-            font-size: 1.45rem;
-            line-height: 1.02;
-            letter-spacing: -0.03em;
-            color: var(--ink);
-            margin-bottom: 0.45rem;
-        }
-        .landing-card-copy {
-            color: var(--muted);
-            font-size: 0.92rem;
-            line-height: 1.5;
-        }
-
         .analysis-report {
             border: 1px solid var(--line);
             border-radius: 24px;
@@ -527,31 +404,88 @@ st.markdown(
             color: var(--muted);
             margin-bottom: 14px;
         }
-        .hierarchy-metric-grid {
+        .hierarchy-board {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 14px;
+            margin-bottom: 1.25rem;
+        }
+        .hierarchy-stage-card {
+            border: 1px solid var(--line);
+            border-radius: 24px;
+            background: rgba(255, 255, 255, 0.86);
+            box-shadow: var(--shadow-soft);
+            padding: 16px 16px 14px;
+            min-height: 230px;
+            display: flex;
+            flex-direction: column;
+        }
+        .hierarchy-stage-card.macro {
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.92) 0%, rgba(250, 245, 236, 0.95) 100%);
+        }
+        .hierarchy-stage-card.mega {
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.92) 0%, rgba(248, 250, 252, 0.95) 100%);
+        }
+        .hierarchy-stage-card.sub {
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.92) 0%, rgba(255, 247, 237, 0.95) 100%);
+        }
+        .hierarchy-stage-kicker {
+            font-size: 0.72rem;
+            font-weight: 800;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+        .hierarchy-stage-title {
+            font-family: var(--serif);
+            font-size: 1.3rem;
+            line-height: 1.05;
+            font-weight: 700;
+            color: var(--ink);
+            letter-spacing: -0.03em;
+            margin-bottom: 0.35rem;
+        }
+        .hierarchy-stage-desc {
+            font-size: 0.88rem;
+            line-height: 1.55;
+            color: var(--muted);
+            margin-bottom: 0.95rem;
+        }
+        .hierarchy-stage-count {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: fit-content;
+            border-radius: 999px;
+            background: rgba(31, 41, 55, 0.06);
+            color: var(--ink);
+            font-size: 0.76rem;
+            font-weight: 700;
+            padding: 5px 10px;
+            margin-bottom: 0.85rem;
+        }
+        .hierarchy-stage-list {
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 18px;
+            gap: 8px;
+            margin-top: auto;
         }
-        .hierarchy-metric {
+        .hierarchy-stage-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            border-radius: 999px;
             border: 1px solid var(--line);
-            border-radius: 16px;
-            background: rgba(255, 255, 255, 0.8);
-            padding: 10px 14px;
-            min-width: 120px;
-        }
-        .hierarchy-metric-label {
-            font-size: 0.72rem;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            color: var(--muted);
-            margin-bottom: 4px;
-        }
-        .hierarchy-metric-value {
-            font-size: 1.25rem;
-            font-weight: 800;
+            background: rgba(255, 255, 255, 0.82);
             color: var(--ink);
-            letter-spacing: -0.02em;
+            padding: 6px 10px;
+            font-size: 0.74rem;
+            font-weight: 600;
+        }
+        .hierarchy-stage-item-muted {
+            color: var(--muted);
+            background: rgba(255, 255, 255, 0.72);
         }
         .hierarchy-macro {
             border: 1px solid var(--line);
@@ -584,6 +518,9 @@ st.markdown(
             flex-wrap: wrap;
             gap: 6px;
             margin-top: 8px;
+            margin-bottom: 4px;
+            clear: both;
+            position: relative;
         }
         .hierarchy-chip {
             display: inline-flex;
@@ -595,6 +532,26 @@ st.markdown(
             padding: 3px 9px;
             font-size: 0.72rem;
             font-weight: 600;
+        }
+        .hierarchy-chip-empty {
+            color: var(--muted);
+            background: rgba(255, 255, 255, 0.7);
+        }
+        .hierarchy-mega-card {
+            border: 1px solid var(--line);
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.86);
+            box-shadow: var(--shadow-soft);
+            padding: 12px 14px 14px;
+            height: 100%;
+        }
+        .hierarchy-mega-card-body {
+            min-height: 92px;
+        }
+        .hierarchy-mega-card-footer {
+            margin-top: 12px;
+            padding-top: 10px;
+            border-top: 1px solid rgba(27, 32, 48, 0.08);
         }
         .hierarchy-mega-label {
             font-size: 0.78rem;
@@ -669,30 +626,13 @@ st.markdown(
             border-color: rgba(27, 32, 48, 0.08);
             box-shadow: none;
         }
-        @media (max-width: 960px) {
-            .page-hero-grid,
-            .landing-grid {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
-            }
-            .page-hero-title {
-                max-width: none;
-            }
-        }
         @media (max-width: 720px) {
-            .page-hero-grid,
-            .landing-grid,
-            .trend-stat-grid {
-                grid-template-columns: 1fr;
-            }
             .news-row {
                 flex-direction: column;
             }
-            .news-thumb {
-                width: 100%;
-                height: 180px;
-            }
-            .page-hero {
-                padding: 22px 18px 18px;
+            .news-thumb { width: 100%; height: 180px; }
+            .hierarchy-board {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -729,88 +669,9 @@ def _slugify(label: str) -> str:
     return re.sub(r"[^a-z0-9]+", "_", label.lower()).strip("_") or "custom_sector"
 
 
-def _trend_counts(trends_data: list[dict] | None) -> dict[str, int]:
-    counts = {"Macro": 0, "Mega": 0, "Sub": 0}
-    for trend in trends_data or []:
-        tier = trend.get("tier")
-        if tier in counts:
-            counts[tier] += 1
-    return counts
-
-
-def render_page_hero(context: dict | None, trends_data: list[dict] | None = None) -> None:
-    counts = _trend_counts(trends_data)
-    if context:
-        company = html.escape(context.get("company") or "Beacon AI")
-        time_range = html.escape(context.get("time_range") or "Past 1 week")
-        region = html.escape(context.get("region") or "United States")
-        industry = html.escape(context.get("industry") or "All sectors")
-        copy = (
-            "Macro, mega, and sub-trends mapped into a single editorial workflow, "
-            "with momentum, news, and the summary report layered on top."
-        )
-    else:
-        company = "Beacon AI"
-        time_range = "Past 1 week"
-        region = "US & China"
-        industry = "Trend intelligence"
-        copy = (
-            "A Beacon editorial dashboard for reading the signal from macro, mega, and sub-trends "
-            "before moving into momentum, news, and drill-down analysis."
-        )
-    scope_chip = f"<span class='tone-chip'>{industry}</span>" if context else ""
-
-    stats_html = dedent(
-        f"""
-        <div class="page-hero-grid">
-            <div class="hero-stat">
-                <div class="hero-stat-label">Macro</div>
-                <div class="hero-stat-value">{counts["Macro"]}</div>
-                <div class="hero-stat-copy">Long-horizon forces shaping the market.</div>
-            </div>
-            <div class="hero-stat">
-                <div class="hero-stat-label">Mega</div>
-                <div class="hero-stat-value">{counts["Mega"]}</div>
-                <div class="hero-stat-copy">The tension points where macro forces collide.</div>
-            </div>
-            <div class="hero-stat">
-                <div class="hero-stat-label">Sub</div>
-                <div class="hero-stat-value">{counts["Sub"]}</div>
-                <div class="hero-stat-copy">The actionable trend tiles that feed drill-down.</div>
-            </div>
-            <div class="hero-stat">
-                <div class="hero-stat-label">Scope</div>
-                <div class="hero-stat-value">{company}</div>
-                <div class="hero-stat-copy">{time_range} · {region}</div>
-            </div>
-        </div>
-        """
-    )
-
-    st.markdown(
-        dedent(
-            f"""
-            <section class="page-hero">
-                <div class="page-hero-kicker">Beacon AI trend system</div>
-                <div class="page-hero-title">The signal, ahead of the crowd.</div>
-                <div class="page-hero-copy">{copy}</div>
-                <div class="page-hero-meta">
-                    <span class="tone-chip">Trend Hierarchy</span>
-                    <span class="tone-chip">Momentum</span>
-                    <span class="tone-chip">News Signals</span>
-                    <span class="tone-chip">Drill-Down</span>
-                    <span class="tone-chip">Summary Report</span>
-                    {scope_chip}
-                </div>
-                {stats_html}
-            </section>
-            """
-        ),
-        unsafe_allow_html=True,
-    )
-
-
 st.session_state.setdefault("industry_options", list(INDUSTRY_OPTIONS))
+st.session_state.setdefault("analysis_busy", False)
+st.session_state.setdefault("analysis_request", None)
 
 # ---------------------------------------------------------------------------
 # Sidebar — query inputs
@@ -818,6 +679,7 @@ st.session_state.setdefault("industry_options", list(INDUSTRY_OPTIONS))
 
 with st.sidebar:
     st.markdown("### New Analysis")
+    analysis_busy = bool(st.session_state.get("analysis_busy"))
     openai_key_default = os.getenv("openai_api_key", "") or os.getenv("OPENAI_API_KEY", "")
     newsapi_key_default = os.getenv("NEWSAPI_KEY", "") or os.getenv("NEWS_API_KEY", "")
     serper_key_default = os.getenv("SERPER_API_KEY", "") or os.getenv("serper_api_key", "")
@@ -825,8 +687,8 @@ with st.sidebar:
     tavily_key_default = os.getenv("TAVILY_API_KEY", "") or os.getenv("tavily_api_key", "")
     deepl_key_default = os.getenv("DEEPL_API_KEY", "") or os.getenv("deepl_api_key", "")
 
-    company = st.text_input("Company / Fund", value="", placeholder="e.g. Northstar Micro Fund")
-    detect_clicked = st.button("Detect Industry from Website", use_container_width=True)
+    company = st.text_input("Company / Fund", value="", placeholder="e.g. Northstar Micro Fund", disabled=analysis_busy)
+    detect_clicked = st.button("Detect Industry from Website", use_container_width=True, disabled=analysis_busy)
     if detect_clicked:
         with st.spinner("Looking up their website..."):
             detection = company_sectors.detect_company_sectors(
@@ -854,8 +716,8 @@ with st.sidebar:
             st.session_state["industry_select"] = _slugify(detection.sectors[0])
             st.success(f"Detected sector: {detection.sectors[0].title()}")
 
-    time_range = st.selectbox("Time Range", TIME_RANGE_OPTIONS, index=1)
-    region = st.selectbox("Region", REGION_OPTIONS, index=0)
+    time_range = st.selectbox("Time Range", TIME_RANGE_OPTIONS, index=1, disabled=analysis_busy)
+    region = st.selectbox("Region", REGION_OPTIONS, index=0, disabled=analysis_busy)
     industry_options = st.session_state["industry_options"]
     industry_labels = dict(industry_options)
     industry = st.selectbox(
@@ -863,29 +725,78 @@ with st.sidebar:
         options=[value for value, _ in industry_options],
         format_func=lambda value: industry_labels.get(value, value),
         key="industry_select",
+        disabled=analysis_busy,
     )
-    run_clicked = st.button("Run Analysis", type="primary", use_container_width=True)
+    run_clicked = st.button("Run Analysis", type="primary", use_container_width=True, disabled=analysis_busy)
 
 # ---------------------------------------------------------------------------
 # Header
 # ---------------------------------------------------------------------------
 
 brand_logo = Path(__file__).with_name("assets") / "beacon-ai-logo.png"
-st.image(str(brand_logo), width=320)
+st.image(str(brand_logo), width=260)
 st.caption("Macro trends in the US & China, mapped to India investment signal.")
 
 loading_slot = st.empty()
+
+
+def _analysis_cost_tracker(request: dict) -> CostRunTracker:
+    tracker = st.session_state.get("analysis_cost_tracker")
+    timestamp = request.get("requested_at") or datetime.now().strftime("%Y%m%d_%H%M%S")
+    company = request.get("company") or "Unknown analysis"
+    region = request.get("region") or ""
+    industry = request.get("industry_label") or request.get("industry") or ""
+    time_range = request.get("time_range") or ""
+    if tracker and getattr(tracker, "run_id", "") == f"{re.sub(r'[^a-z0-9]+', '_', str(company).lower()).strip('_') or 'run'}_{timestamp}":
+        return tracker
+    tracker = CostRunTracker(
+        company=company,
+        timestamp=timestamp,
+        region=region,
+        industry=industry,
+        time_range=time_range,
+    )
+    st.session_state["analysis_cost_tracker"] = tracker
+    return tracker
+
 
 # ---------------------------------------------------------------------------
 # Run pipeline
 # ---------------------------------------------------------------------------
 
+analysis_request = st.session_state.get("analysis_request") or {}
 if run_clicked:
+    requested_at = datetime.now().strftime("%Y%m%d_%H%M%S")
+    st.session_state["analysis_request"] = dict(
+        company=company,
+        time_range=time_range,
+        region=region,
+        industry=industry,
+        industry_label=industry_labels.get(industry, industry) or "All sectors",
+        requested_at=requested_at,
+    )
+    st.session_state["analysis_cost_tracker"] = CostRunTracker(
+        company=company or "Unknown analysis",
+        timestamp=requested_at,
+        region=region,
+        industry=industry_labels.get(industry, industry) or "All sectors",
+        time_range=time_range,
+    )
+    st.session_state["analysis_busy"] = True
+    st.rerun()
+
+analysis_busy = bool(st.session_state.get("analysis_busy"))
+if analysis_busy and analysis_request:
     warnings = []
     use_live_llm = bool(openai_key_default)
     use_live_news = bool(newsapi_key_default)
     use_live_research = bool(serper_key_default or serpapi_key_default or tavily_key_default or deepl_key_default)
-    industry_label = industry_labels.get(industry, industry) or "All sectors"
+    company = analysis_request.get("company", company)
+    time_range = analysis_request.get("time_range", time_range)
+    region = analysis_request.get("region", region)
+    industry = analysis_request.get("industry", industry)
+    industry_label = analysis_request.get("industry_label", industry_labels.get(industry, industry) or "All sectors")
+    tracker = _analysis_cost_tracker(analysis_request)
     loading_slot.markdown(
         '<div class="loading-banner">Building research context and trend report...</div>',
         unsafe_allow_html=True,
@@ -894,6 +805,7 @@ if run_clicked:
     research_context = None
     if use_live_research:
         try:
+            research_started = perf_counter()
             research_context = research_search.build_research_context(
                 industry_label,
                 region,
@@ -903,22 +815,69 @@ if run_clicked:
                 tavily_api_key=tavily_key_default or None,
                 deepl_api_key=deepl_key_default or None,
             )
+            if tracker:
+                tracker.add_entry(
+                    feature="research search",
+                    provider="search",
+                    model="n/a",
+                    endpoint="research_search.build_research_context",
+                    status="success",
+                    latency_ms=int((perf_counter() - research_started) * 1000),
+                    tool_calls=len(getattr(research_context, "providers_used", []) or []),
+                    notes=f"providers_used={', '.join(getattr(research_context, 'providers_used', []) or []) or 'none'}",
+                )
         except Exception:  # noqa: BLE001
             warnings.append("We couldn't load the latest research, so this run uses general context instead.")
+            if tracker:
+                tracker.add_entry(
+                    feature="research search",
+                    provider="search",
+                    model="n/a",
+                    endpoint="research_search.build_research_context",
+                    status="error",
+                    latency_ms=int((perf_counter() - research_started) * 1000) if "research_started" in locals() else 0,
+                    error="research context build failed",
+                )
     st.session_state["research_context"] = research_context
 
     trend_data = None
+    report_markdown = None
     if use_live_llm and openai_key_default:
+        # Trend generation and the report that summarizes it used to be two separate,
+        # fully sequential OpenAI calls -- the report call had to re-send the research
+        # context and a fresh summary of the trends from scratch. One streamed call now
+        # produces both, and the raw text is shown live below instead of a blank wait.
+        _stream_progress = {"last_len": 0}
+
+        def _on_stream_text(buf: str) -> None:
+            if len(buf) - _stream_progress["last_len"] < 250:
+                return
+            _stream_progress["last_len"] = len(buf)
+            loading_slot.markdown(
+                '<div class="loading-banner">Generating trend hierarchy and report&hellip;</div>'
+                '<pre style="max-height:240px;overflow:auto;background:rgba(15,23,42,0.04);'
+                'border-radius:8px;padding:10px;font-size:11px;line-height:1.4;'
+                f'white-space:pre-wrap;color:#475569;">{html.escape(buf[-3000:])}</pre>',
+                unsafe_allow_html=True,
+            )
+
         try:
-            trend_data = trends.call_live_trends(
+            trend_data, report_markdown = trend_analysis.call_combined_trends_and_report(
                 time_range,
                 region,
                 industry_label,
                 openai_key_default,
-                research_context.prompt if research_context else None,
+                research_context,
+                on_text=_on_stream_text,
+                cost_tracker=tracker,
             )
         except Exception:  # noqa: BLE001
             warnings.append("We couldn't generate a live trend read, so sample trend data is shown instead.")
+        finally:
+            loading_slot.markdown(
+                '<div class="loading-banner">Building research context and trend report...</div>',
+                unsafe_allow_html=True,
+            )
 
     if trend_data is None:
         try:
@@ -938,6 +897,8 @@ if run_clicked:
             trend_data,
             research_context,
             api_key=openai_key_default or None,
+            cost_tracker=tracker,
+            precomputed_report_markdown=report_markdown,
         )
     except Exception:  # noqa: BLE001
         warnings.append("We couldn't build the final analysis report, so the app will show the trend view only.")
@@ -949,6 +910,7 @@ if run_clicked:
     news_data = None
     if use_live_news and newsapi_key_default:
         try:
+            news_started = perf_counter()
             news_data = news.call_live_news(
                 time_range,
                 industry_label,
@@ -956,8 +918,29 @@ if run_clicked:
                 region=region,
                 count=8,
             )
+            if tracker:
+                tracker.add_entry(
+                    feature="news signals",
+                    provider="news",
+                    model="n/a",
+                    endpoint="news.call_live_news",
+                    status="success",
+                    latency_ms=int((perf_counter() - news_started) * 1000),
+                    tool_calls=1,
+                    notes="live news feed fetched",
+                )
         except Exception as exc:  # noqa: BLE001
             warnings.append("We couldn't fetch live news for this query, so sample articles are shown instead.")
+            if tracker:
+                tracker.add_entry(
+                    feature="news signals",
+                    provider="news",
+                    model="n/a",
+                    endpoint="news.call_live_news",
+                    status="error",
+                    latency_ms=int((perf_counter() - news_started) * 1000) if "news_started" in locals() else 0,
+                    error=str(exc),
+                )
 
     if news_data is None:
         try:
@@ -978,31 +961,14 @@ if run_clicked:
         region=region,
         industry=industry_label,
     )
+    st.session_state["analysis_busy"] = False
+    st.session_state["analysis_request"] = None
     loading_slot.empty()
+    st.rerun()
 
 if "trends" not in st.session_state:
-    render_page_hero(None, None)
-    st.markdown(
-        dedent(
-            """
-            <div class="landing-grid">
-                <div class="landing-card">
-                    <div class="landing-card-title">Set the frame</div>
-                    <div class="landing-card-copy">Choose a company or fund, then pick the time range, region, and sector from the sidebar.</div>
-                </div>
-                <div class="landing-card">
-                    <div class="landing-card-title">Read the hierarchy</div>
-                    <div class="landing-card-copy">The Trend Hierarchy view lands on a compact map of macro, mega, and sub-trends.</div>
-                </div>
-                <div class="landing-card">
-                    <div class="landing-card-title">Open the drill-down</div>
-                    <div class="landing-card-copy">Generate company, social, and product signals from any sub-trend tile.</div>
-                </div>
-            </div>
-            """
-        ),
-        unsafe_allow_html=True,
-    )
+    st.markdown("### Start a new analysis")
+    st.caption("Choose a company or fund in the sidebar, then run the analysis to load the trend hierarchy.")
     st.stop()
 
 ctx = st.session_state["context"]
@@ -1010,8 +976,6 @@ ctx = st.session_state["context"]
 research_context = st.session_state.get("research_context")
 if research_context and research_context.providers_used:
     st.caption("This analysis was informed by live, up-to-date research.")
-
-render_page_hero(ctx, st.session_state.get("trends"))
 
 all_trends = st.session_state["trends"]
 all_news = st.session_state["news"]
@@ -1055,45 +1019,13 @@ def render_trend_card(t: dict, show_drilldown_action: bool = False) -> None:
                 ),
                 unsafe_allow_html=True,
             )
-        with right_col:
-            st.markdown(
-                dedent(
-                    f"""
-                    <div class="trend-stat-grid">
-                        <div class="trend-stat">
-                            <div class="trend-stat-label">Growth</div>
-                            <div class="trend-stat-value">{growth_sign} {t['growth_pct']:+.0f}%</div>
-                        </div>
-                        <div class="trend-stat">
-                            <div class="trend-stat-label">Strength</div>
-                            <div class="trend-stat-value">{t['strength']:.1f}</div>
-                        </div>
-                        <div class="trend-stat">
-                            <div class="trend-stat-label">Horizon</div>
-                            <div class="trend-stat-value">{html.escape(t['time_horizon'])}</div>
-                        </div>
-                    </div>
-                    """
-                ),
-                unsafe_allow_html=True,
-            )
         if show_drilldown_action and t["tier"] == "Sub":
-            st.markdown(
-                dedent(
-                    """
-                    <div class="trend-action-row">
-                        <div class="trend-action-note">Generate the sub-trend drill-down from this tile.</div>
-                    </div>
-                    """
-                ),
-                unsafe_allow_html=True,
-            )
             if st.button("Generate drill-down", key=f"subtrend_generate::{t['id']}", use_container_width=True):
                 selected_sub_id = t["id"]
                 st.session_state["drilldown_subtrend_select"] = selected_sub_id
-                st.session_state["drilldown_product_region"] = _default_product_region()
-                payload = build_drilldown_payload(t, _default_product_region())
-                st.session_state[_drilldown_cache_key(selected_sub_id, _default_product_region())] = payload
+                product_region = _default_product_region()
+                payload = build_drilldown_payload(t, product_region, cost_tracker=st.session_state.get("analysis_cost_tracker"))
+                st.session_state[_drilldown_cache_key(selected_sub_id)] = payload
                 st.session_state["drilldown_last_generated"] = selected_sub_id
 
 
@@ -1213,17 +1145,18 @@ def _default_product_region() -> str:
     return "China" if ctx["region"] == "China" else "United States"
 
 
-def _drilldown_cache_key(subtrend_id: str, product_region: str) -> str:
-    return f"drilldown::{subtrend_id}::{ctx['region']}::{product_region}"
+def _drilldown_cache_key(subtrend_id: str) -> str:
+    return f"drilldown::{ctx['region']}::{subtrend_id}"
 
 
-def build_drilldown_payload(selected_sub: dict, product_region: str) -> dict:
+def build_drilldown_payload(selected_sub: dict, product_region: str, cost_tracker: CostRunTracker | None = None) -> dict:
     use_live = bool(openai_key_default)
     use_live_research_dd = bool(serper_key_default or serpapi_key_default or tavily_key_default or deepl_key_default)
 
     research_prompt = None
     if use_live and use_live_research_dd:
         try:
+            research_started = perf_counter()
             drilldown_research = research_search.build_research_context(
                 f"{selected_sub['name']} ({ctx['industry']})",
                 ctx["region"],
@@ -1234,14 +1167,40 @@ def build_drilldown_payload(selected_sub: dict, product_region: str) -> dict:
                 deepl_api_key=deepl_key_default or None,
             )
             research_prompt = drilldown_research.prompt
+            if cost_tracker:
+                cost_tracker.add_entry(
+                    feature="drilldown research",
+                    provider="search",
+                    model="n/a",
+                    endpoint="research_search.build_research_context",
+                    status="success",
+                    latency_ms=int((perf_counter() - research_started) * 1000),
+                    tool_calls=len(getattr(drilldown_research, "providers_used", []) or []),
+                    notes=f"providers_used={', '.join(getattr(drilldown_research, 'providers_used', []) or []) or 'none'}",
+                )
         except Exception:  # noqa: BLE001
             research_prompt = None
+            if cost_tracker:
+                cost_tracker.add_entry(
+                    feature="drilldown research",
+                    provider="search",
+                    model="n/a",
+                    endpoint="research_search.build_research_context",
+                    status="error",
+                    latency_ms=int((perf_counter() - research_started) * 1000) if "research_started" in locals() else 0,
+                    error="research context build failed",
+                )
 
     companies, companies_is_sample = None, True
     if use_live:
         try:
             companies = growth_companies.call_live_companies(
-                selected_sub["name"], ctx["industry"], ctx["region"], openai_key_default, research_prompt
+                selected_sub["name"],
+                ctx["industry"],
+                ctx["region"],
+                openai_key_default,
+                research_prompt,
+                cost_tracker=cost_tracker,
             )
             companies_is_sample = not companies
         except Exception:  # noqa: BLE001
@@ -1254,7 +1213,12 @@ def build_drilldown_payload(selected_sub: dict, product_region: str) -> dict:
     if use_live:
         try:
             social = growth_companies.call_live_social_signals(
-                selected_sub["name"], ctx["industry"], ctx["region"], openai_key_default, ctx["time_range"]
+                selected_sub["name"],
+                ctx["industry"],
+                ctx["region"],
+                openai_key_default,
+                ctx["time_range"],
+                cost_tracker=cost_tracker,
             )
             social_is_sample = False
         except Exception:  # noqa: BLE001
@@ -1336,10 +1300,7 @@ def render_drilldown_results(cached: dict) -> None:
         )
 
 
-def render_subtrend_explorer(sub_trends: list[dict]) -> None:
-    st.caption(
-        "Pick a sub-trend to generate the company, social, and product drill-down for this region."
-    )
+def render_subtrend_explorer(sub_trends: list[dict], cost_tracker: CostRunTracker | None = None) -> None:
     if not sub_trends:
         render_empty_state("No drill-down content is available yet. Run an analysis to populate it.")
         return
@@ -1352,23 +1313,18 @@ def render_subtrend_explorer(sub_trends: list[dict]) -> None:
         key="drilldown_subtrend_select",
     )
     selected_sub = sub_trend_by_id[selected_sub_id]
-    st.caption(selected_sub["description"])
+    product_region = _default_product_region()
 
-    product_region = st.radio(
-        "Trending-products region",
-        ["United States", "China"],
-        index=1 if ctx["region"] == "China" else 0,
-        horizontal=True,
-        key="drilldown_product_region",
-    )
-
-    cache_key = _drilldown_cache_key(selected_sub_id, product_region)
-    generate_clicked = st.button("Generate drill-down", key=f"drilldown_generate::{selected_sub_id}::{product_region}")
+    cache_key = _drilldown_cache_key(selected_sub_id)
+    generate_clicked = st.button("Generate drill-down", key=f"drilldown_generate::{selected_sub_id}")
 
     if generate_clicked:
         st.session_state["drilldown_subtrend_select"] = selected_sub_id
-        st.session_state["drilldown_product_region"] = product_region
-        st.session_state[cache_key] = build_drilldown_payload(selected_sub, product_region)
+        st.session_state[cache_key] = build_drilldown_payload(
+            selected_sub,
+            product_region,
+            cost_tracker=cost_tracker,
+        )
 
     cached = st.session_state.get(cache_key)
     if not cached:
@@ -1395,8 +1351,8 @@ def render_trend_hierarchy_overview(trends_data: list[dict]) -> None:
             <div class="hierarchy-overview">
                 <div class="hierarchy-overview-title">Trend Hierarchy</div>
                 <div class="hierarchy-overview-subtitle">
-                    A compact landing page for the current macro, mega, and sub-trends. Open the Sub-Trend Drill-Down from
-                    any sub-trend tile when you want to research companies and signals.
+                    A compact landing surface for the current macro, mega, and sub-trend stack. The detailed tabs below stay
+                    available for deeper exploration.
                 </div>
             </div>
             """
@@ -1407,10 +1363,43 @@ def render_trend_hierarchy_overview(trends_data: list[dict]) -> None:
     st.markdown(
         dedent(
             f"""
-            <div class="hierarchy-metric-grid">
-                <div class='hierarchy-metric'><div class='hierarchy-metric-label'>Macro trends</div><div class='hierarchy-metric-value'>{len(macro_trends)}</div></div>
-                <div class='hierarchy-metric'><div class='hierarchy-metric-label'>Mega trends</div><div class='hierarchy-metric-value'>{len(mega_trends)}</div></div>
-                <div class='hierarchy-metric'><div class='hierarchy-metric-label'>Sub-trends</div><div class='hierarchy-metric-value'>{len(sub_trends)}</div></div>
+            <div class="hierarchy-board">
+                <div class="hierarchy-stage-card macro">
+                    <div class="hierarchy-stage-kicker">Layer 1</div>
+                    <div class="hierarchy-stage-title">Macro-Trends</div>
+                    <div class="hierarchy-stage-count">{len(macro_trends)} forces</div>
+                    <div class="hierarchy-stage-desc">Long-horizon drivers setting the direction of the market.</div>
+                    <div class="hierarchy-stage-list">
+                        {''.join(f"<span class='hierarchy-stage-item'>{html.escape(m['name'])}</span>" for m in macro_trends[:4])}
+                        {"<span class='hierarchy-stage-item hierarchy-stage-item-muted'>More in the Macro-Trends tab</span>" if len(macro_trends) > 4 else ""}
+                    </div>
+                </div>
+                <div class="hierarchy-stage-card mega">
+                    <div class="hierarchy-stage-kicker">Layer 2</div>
+                    <div class="hierarchy-stage-title">Mega-Trends</div>
+                    <div class="hierarchy-stage-count">{len(mega_trends)} tension points</div>
+                    <div class="hierarchy-stage-desc">Where macro forces start shaping category dynamics and investment themes.</div>
+                    <div class="hierarchy-stage-list">
+                        {''.join(
+                            f"<span class='hierarchy-stage-item'>{html.escape(mega['name'])}</span>"
+                            for mega in mega_trends[:4]
+                        )}
+                        {"<span class='hierarchy-stage-item hierarchy-stage-item-muted'>Grouped by parent macro trend</span>" if mega_trends else ""}
+                    </div>
+                </div>
+                <div class="hierarchy-stage-card sub">
+                    <div class="hierarchy-stage-kicker">Layer 3</div>
+                    <div class="hierarchy-stage-title">Sub-Trends</div>
+                    <div class="hierarchy-stage-count">{len(sub_trends)} actionable tiles</div>
+                    <div class="hierarchy-stage-desc">Market behaviors and signals that feed the drill-down workflow.</div>
+                    <div class="hierarchy-stage-list">
+                        {''.join(
+                            f"<span class='hierarchy-stage-item'>{html.escape(sub['name'])}</span>"
+                            for sub in sub_trends[:4]
+                        )}
+                        {"<span class='hierarchy-stage-item hierarchy-stage-item-muted'>Generate drill-down from any sub-trend tile</span>" if sub_trends else ""}
+                    </div>
+                </div>
             </div>
             """
         ),
@@ -1420,7 +1409,7 @@ def render_trend_hierarchy_overview(trends_data: list[dict]) -> None:
     for macro in macro_trends:
         megas = mega_by_parent.get(macro["name"], [])
         with st.container(border=True):
-            left_col, right_col = st.columns([3, 1], vertical_alignment="top")
+            left_col = st.container()
             with left_col:
                 st.markdown(
                     f"<div class='hierarchy-macro-title'>{html.escape(macro['name'])}</div>",
@@ -1434,49 +1423,36 @@ def render_trend_hierarchy_overview(trends_data: list[dict]) -> None:
                     f"<div class='hierarchy-macro-desc'>{html.escape(macro['description'])}</div>",
                     unsafe_allow_html=True,
                 )
-            with right_col:
-                st.markdown(
-                    dedent(
-                        f"""
-                        <div class="trend-stat">
-                            <div class="trend-stat-label">Mega trends</div>
-                            <div class="trend-stat-value">{len(megas)}</div>
-                        </div>
-                        <div style="height:8px"></div>
-                        <div class="trend-stat">
-                            <div class="trend-stat-label">Sub-trends</div>
-                            <div class="trend-stat-value">{len(sub_by_parent.get(macro["name"], []))}</div>
-                        </div>
-                        """
-                    ),
-                    unsafe_allow_html=True,
-                )
             if not megas:
                 continue
             st.markdown("**Building blocks underneath this macro trend**")
             mega_cols = st.columns(min(max(len(megas), 1), 3))
             for i, mega in enumerate(megas):
                 with mega_cols[i % len(mega_cols)]:
-                    st.markdown(
-                        f"<div class='hierarchy-mega-label'>{html.escape(mega['name'])}</div>",
-                        unsafe_allow_html=True,
-                    )
-                    st.markdown(
-                        f"<div class='hierarchy-macro-meta'>Strength {mega['strength']:.1f} · {html.escape(mega['time_horizon'])}</div>",
-                        unsafe_allow_html=True,
-                    )
-                    st.markdown(
-                        f"<div class='hierarchy-mega-desc'>{html.escape(mega['description'])}</div>",
-                        unsafe_allow_html=True,
-                    )
                     sub_items = sub_by_parent.get(mega["name"], [])
                     if sub_items:
-                        chip_html = "".join(
+                        footer_html = "".join(
                             f"<span class='hierarchy-chip'>{html.escape(sub['name'])}</span>" for sub in sub_items
                         )
-                        st.markdown(f"<div class='hierarchy-chip-row'>{chip_html}</div>", unsafe_allow_html=True)
                     else:
-                        st.caption("No sub-trends available.")
+                        footer_html = "<span class='hierarchy-chip hierarchy-chip-empty'>No sub-trends available.</span>"
+                    st.markdown(
+                        dedent(
+                            f"""
+                            <div class="hierarchy-mega-card">
+                                <div class="hierarchy-mega-card-body">
+                                    <div class='hierarchy-mega-label'>{html.escape(mega['name'])}</div>
+                                    <div class='hierarchy-macro-meta'>Strength {mega['strength']:.1f} · {html.escape(mega['time_horizon'])}</div>
+                                    <div class='hierarchy-mega-desc'>{html.escape(mega['description'])}</div>
+                                </div>
+                                <div class="hierarchy-mega-card-footer">
+                                    <div class='hierarchy-chip-row'>{footer_html}</div>
+                                </div>
+                            </div>
+                            """
+                        ),
+                        unsafe_allow_html=True,
+                    )
 
 
 def render_hashtags(hashtags: list[str]) -> None:
@@ -1512,6 +1488,9 @@ def render_empty_state(message: str) -> None:
 
 
 def _analysis_pdf_bytes(result: object) -> bytes:
+    pdf_bytes = getattr(result, "pdf_bytes", b"") or b""
+    if pdf_bytes:
+        return pdf_bytes
     pdf_path = getattr(result, "pdf_path", "")
     if pdf_path:
         path = Path(pdf_path)
@@ -1521,7 +1500,9 @@ def _analysis_pdf_bytes(result: object) -> bytes:
             data = path.read_bytes()
             if data:
                 return data
-    return getattr(result, "pdf_bytes", b"") or b""
+    report_markdown = getattr(result, "combined_markdown", "") or getattr(result, "report_markdown", "")
+    title = f"Beacon AI final analysis - {ctx['industry']} in {ctx['region']}"
+    return markdown_to_pdf_bytes(report_markdown, title=title) if report_markdown else b""
 
 
 def _is_public_share_url(url: str | None) -> bool:
@@ -1531,12 +1512,115 @@ def _is_public_share_url(url: str | None) -> bool:
     return parsed.scheme in {"http", "https"} and parsed.netloc in {"0x0.st", "transfer.sh"}
 
 
+def _safe_dataframe_rows(tracker: CostRunTracker | None) -> list[dict]:
+    if not tracker:
+        return []
+    rows = []
+    for entry in getattr(tracker, "entries", []) or []:
+        rows.append(
+            {
+                "Request ID": entry.request_id,
+                "Timestamp": entry.timestamp,
+                "Feature": entry.feature,
+                "Provider": entry.provider,
+                "Model": entry.model,
+                "Endpoint": entry.endpoint,
+                "Status": entry.status,
+                "Input tokens": entry.input_tokens,
+                "Cached tokens": entry.cached_tokens,
+                "Output tokens": entry.output_tokens,
+                "Retries": entry.retries,
+                "Tool calls": entry.tool_calls,
+                "Latency ms": entry.latency_ms,
+                "Estimated cost (USD)": round(float(entry.estimated_cost_usd), 6),
+                "Error": entry.error or "",
+                "Notes": entry.notes or "",
+            }
+        )
+    return rows
+
+
+def render_admin_dashboard(cost_tracker: CostRunTracker | None) -> None:
+    st.markdown("### Admin dashboard")
+    if not cost_tracker:
+        render_empty_state("No analysis run has been tracked yet.")
+        return
+
+    summary = cost_tracker._totals() if hasattr(cost_tracker, "_totals") else {}
+    top_cols = st.columns([1.2, 1.2, 1.6, 1])
+    top_cols[0].metric("Company", cost_tracker.company)
+    top_cols[1].metric("Run timestamp", cost_tracker.timestamp)
+    top_cols[2].metric("Run folder", cost_tracker.run_dir.name)
+    top_cols[3].metric("Estimated cost", f"${summary.get('estimated_cost_usd', 0.0):.4f}")
+
+    st.caption(f"Current run folder: {cost_tracker.run_dir}")
+
+    action_cols = st.columns(3)
+    with action_cols[0]:
+        st.download_button(
+            "Download cost log JSON",
+            data=cost_tracker.json_path.read_bytes(),
+            file_name=cost_tracker.json_path.name,
+            mime="application/json",
+            use_container_width=True,
+        )
+    with action_cols[1]:
+        st.download_button(
+            "Download cost log CSV",
+            data=cost_tracker.csv_path.read_bytes(),
+            file_name=cost_tracker.csv_path.name,
+            mime="text/csv",
+            use_container_width=True,
+        )
+    with action_cols[2]:
+        st.markdown(
+            f"<div class='sample-banner'>Folder path: <code>{html.escape(str(cost_tracker.run_dir))}</code></div>",
+            unsafe_allow_html=True,
+        )
+
+    st.markdown("#### Cost estimates by request")
+    rows = _safe_dataframe_rows(cost_tracker)
+    if not rows:
+        render_empty_state("The current run has no recorded cost rows yet.")
+        return
+    st.dataframe(
+        rows,
+        hide_index=True,
+        use_container_width=True,
+        column_config={
+            "Request ID": st.column_config.TextColumn(width="medium"),
+            "Timestamp": st.column_config.TextColumn(width="medium"),
+            "Feature": st.column_config.TextColumn(width="medium"),
+            "Provider": st.column_config.TextColumn(width="small"),
+            "Model": st.column_config.TextColumn(width="small"),
+            "Endpoint": st.column_config.TextColumn(width="medium"),
+            "Status": st.column_config.TextColumn(width="small"),
+            "Input tokens": st.column_config.NumberColumn(width="small"),
+            "Cached tokens": st.column_config.NumberColumn(width="small"),
+            "Output tokens": st.column_config.NumberColumn(width="small"),
+            "Retries": st.column_config.NumberColumn(width="small"),
+            "Tool calls": st.column_config.NumberColumn(width="small"),
+            "Latency ms": st.column_config.NumberColumn(width="small"),
+            "Estimated cost (USD)": st.column_config.NumberColumn(format="%.6f", width="small"),
+            "Error": st.column_config.TextColumn(width="medium"),
+            "Notes": st.column_config.TextColumn(width="large"),
+        },
+    )
+
+    st.markdown("#### Run summary")
+    summary_cols = st.columns(4)
+    summary_cols[0].metric("Requests", summary.get("requests", 0))
+    summary_cols[1].metric("Input tokens", summary.get("input_tokens", 0))
+    summary_cols[2].metric("Output tokens", summary.get("output_tokens", 0))
+    summary_cols[3].metric("Tool calls", summary.get("tool_calls", 0))
+
+
 # ---------------------------------------------------------------------------
 # Navigation
 # ---------------------------------------------------------------------------
 
-tab_hierarchy, tab_momentum, tab_news, tab_drilldown, tab_analysis = st.tabs(
-    ["Trend Hierarchy", "Momentum", "News Signals", "Sub-Trend Drill-Down", "Summary Report"]
+tab_hierarchy, tab_momentum, tab_news, tab_analysis, tab_admin = st.tabs(
+    ["Trend Hierarchy", "Momentum", "News Signals", "Summary Report", "Admin dashboard"]
 )
 
 with tab_hierarchy:
@@ -1547,8 +1631,8 @@ with tab_hierarchy:
                 unsafe_allow_html=True,
             )
 
-        overview_tab, macro_tab, mega_tab, sub_tab = st.tabs(
-            ["Overview", "Macro-Trends", "Mega-Trends", "Sub-Trends"]
+        overview_tab, macro_tab, mega_tab, sub_tab, drilldown_tab = st.tabs(
+            ["Overview", "Macro-Trends", "Mega-Trends", "Sub-Trends", "Sub-Trend Drill-Down"]
         )
         with overview_tab:
             render_trend_hierarchy_overview(all_trends)
@@ -1568,21 +1652,23 @@ with tab_hierarchy:
                     f'<div class="drilldown-ready">Drill-down ready for <b>{html.escape(last_name)}</b>. Open the Sub-Trend Drill-Down tab to review the generated companies, social signals, and product signals.</div>',
                     unsafe_allow_html=True,
                 )
+        with drilldown_tab:
+            try:
+                if st.session_state.get("is_mock_trends"):
+                    st.markdown(
+                        '<div class="sample-banner">Sample drill-down. Add an OpenAI key to .env for a live read.</div>',
+                        unsafe_allow_html=True,
+                    )
+                render_subtrend_explorer(
+                    [t for t in all_trends if t["tier"] == "Sub"],
+                    cost_tracker=st.session_state.get("analysis_cost_tracker"),
+                )
+            except Exception as exc:  # noqa: BLE001
+                page_errors.append("Sub-trend drill-down is unavailable right now.")
+                render_empty_state("The sub-trend drill-down is unavailable right now. Run a new analysis to try again.")
     except Exception as exc:  # noqa: BLE001
         page_errors.append("Trend hierarchy is unavailable right now.")
         render_empty_state("The trend hierarchy is unavailable right now. Run a new analysis to try again.")
-
-with tab_drilldown:
-    try:
-        if st.session_state.get("is_mock_trends"):
-            st.markdown(
-                '<div class="sample-banner">Sample drill-down. Add an OpenAI key to .env for a live read.</div>',
-                unsafe_allow_html=True,
-            )
-        render_subtrend_explorer([t for t in all_trends if t["tier"] == "Sub"])
-    except Exception as exc:  # noqa: BLE001
-        page_errors.append("Sub-trend drill-down is unavailable right now.")
-        render_empty_state("The sub-trend drill-down is unavailable right now. Run a new analysis to try again.")
 
 with tab_momentum:
     try:
@@ -1626,13 +1712,12 @@ with tab_analysis:
             render_empty_state("No final analysis is available yet. Run an analysis to generate this tab.")
         else:
             share_target = analysis_result.share_url if _is_public_share_url(analysis_result.share_url) else None
-            if not share_target:
-                pdf_bytes = _analysis_pdf_bytes(analysis_result)
-                if pdf_bytes:
-                    share_target = trend_analysis._upload_public_pdf(
-                        pdf_bytes,
-                        Path(analysis_result.pdf_path).name,
-                    )
+            pdf_bytes = _analysis_pdf_bytes(analysis_result)
+            if not share_target and pdf_bytes:
+                share_target = trend_analysis._upload_public_pdf(
+                    pdf_bytes,
+                    Path(analysis_result.pdf_path).name,
+                )
             html_report = getattr(analysis_result, "html_report", None)
             if not html_report:
                 html_report = render_final_analysis_html(
@@ -1648,7 +1733,7 @@ with tab_analysis:
             with button_cols[0]:
                 st.download_button(
                     "Download PDF",
-                    data=_analysis_pdf_bytes(analysis_result),
+                    data=pdf_bytes,
                     file_name=Path(analysis_result.pdf_path).name,
                     mime="application/pdf",
                     use_container_width=True,
@@ -1697,10 +1782,19 @@ with tab_analysis:
                 )
             else:
                 st.caption("The report has a public URL. Use Copy link to share it.")
+            st.caption("Open the Admin dashboard tab for the current run folder and cost log.")
             components.html(html_report, height=1200, scrolling=True)
     except Exception as exc:  # noqa: BLE001
         page_errors.append("Final analysis is unavailable right now.")
         render_empty_state("The final analysis is unavailable right now. Run a new analysis to try again.")
+
+with tab_admin:
+    try:
+        st.caption("Open this tab to inspect the current run folder, cost estimates, and request-level usage.")
+        render_admin_dashboard(st.session_state.get("analysis_cost_tracker"))
+    except Exception as exc:  # noqa: BLE001
+        page_errors.append("Admin dashboard is unavailable right now.")
+        render_empty_state("The admin dashboard is unavailable right now. Run a new analysis to try again.")
 
 bottom_messages = st.session_state.get("warnings", []) + page_errors
 if bottom_messages:

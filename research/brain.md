@@ -25,6 +25,5 @@ For sub-trends in a specific industry, sector, drill down further
     - Give reasons why the companies are growing. What is driving growth?
     - Find trending hashtags on tiktok and instagram
     - Find reddit posts related to the topic 
-- to find top 20 trending products in <region> selected by the user
-
-
+- to find top 20 trending products in <region> selected by the user (from reports based on the sector)
+- Find top 20 lookalike companies in India for that sector, sub-trend who are solving the exact same problem, launched problems that address the same use case. For example 

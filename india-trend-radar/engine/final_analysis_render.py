@@ -28,7 +28,6 @@ ALLOWED_TAGS = [
     "li",
     "ol",
     "p",
-    "section",
     "span",
     "strong",
     "table",
@@ -146,6 +145,48 @@ def _render_table(rows: list[list[str]]) -> str:
     return "".join(parts)
 
 
+def _render_weak_signals_fragment(markdown_text: str) -> str:
+    items: list[str] = []
+    intro_lines: list[str] = []
+    trailing_lines: list[str] = []
+    in_items = True
+
+    for raw_line in markdown_text.splitlines():
+        line = raw_line.strip()
+        if not line:
+            continue
+        if line in {"---", "***", "___"}:
+            in_items = False
+            continue
+        if line.startswith(("- ", "* ")):
+            items.append(line[2:].strip())
+            in_items = True
+            continue
+        if in_items and not items:
+            intro_lines.append(line)
+        else:
+            trailing_lines.append(line)
+
+    parts: list[str] = []
+    if intro_lines:
+        parts.append(f"<p>{_render_inline(' '.join(intro_lines))}</p>")
+    if items:
+        cards = []
+        for item in items:
+            cards.append(
+                f"""
+                <div class="weak-signal-item">
+                    <div class="weak-signal-badge">Weak Signal</div>
+                    <div class="weak-signal-text">{_render_inline(item)}</div>
+                </div>
+                """
+            )
+        parts.append(f'<div class="weak-signal-list">{"".join(cards)}</div>')
+    if trailing_lines:
+        parts.append(f"<p>{_render_inline(' '.join(trailing_lines))}</p>")
+    return _sanitize_html("".join(parts) or _render_markdown_fragment(markdown_text))
+
+
 def _render_markdown_fragment(markdown_text: str) -> str:
     lines = markdown_text.splitlines()
     parts: list[str] = []
@@ -172,6 +213,13 @@ def _render_markdown_fragment(markdown_text: str) -> str:
         if not stripped:
             flush_paragraph()
             close_list()
+            i += 1
+            continue
+
+        if stripped in {"---", "***", "___"}:
+            flush_paragraph()
+            close_list()
+            parts.append("<hr>")
             i += 1
             continue
 
@@ -301,7 +349,7 @@ def render_final_analysis_html(
 
     section_cards = []
     for title, body in sections:
-        body_html = _render_markdown_fragment(body)
+        body_html = _render_weak_signals_fragment(body) if title == "Weak Signals" else _render_markdown_fragment(body)
         card_class = "section-card section-card-wide" if title in {"Trend Hierarchy From trends.py", "Sources"} else "section-card"
         section_cards.append(
             f"""
@@ -587,6 +635,41 @@ def render_final_analysis_html(
     .section-body p {{ margin: 0 0 10px; }}
     .section-body ul, .section-body ol {{ margin: 0 0 12px 20px; padding: 0; }}
     .section-body li {{ margin: 0 0 6px; }}
+    .section-body hr {{
+      border: 0;
+      border-top: 1px solid #dbe4ee;
+      margin: 14px 0;
+    }}
+
+    .weak-signal-list {{
+      display: grid;
+      gap: 10px;
+      margin: 6px 0 14px;
+    }}
+
+    .weak-signal-item {{
+      border: 1px solid #dbe4ee;
+      background: #f8fbff;
+      border-radius: 16px;
+      padding: 12px 14px;
+    }}
+
+    .weak-signal-badge {{
+      display: inline-block;
+      background: #eef2ff;
+      color: var(--blue);
+      border-radius: 999px;
+      padding: 4px 8px;
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }}
+
+    .weak-signal-text {{
+      color: var(--slate);
+    }}
 
     .section-body table {{
       width: 100%;

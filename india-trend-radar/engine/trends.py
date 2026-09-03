@@ -29,6 +29,9 @@ import hashlib
 import json
 import random
 import re
+from time import perf_counter
+
+from engine.cost_tracking import CostRunTracker
 
 RECOMMENDATIONS = ["Invest", "Strategize", "Watch", "Stay away"]
 
@@ -585,35 +588,9 @@ exact shape:
 """
 
 
-def call_live_trends(
-    time_range: str,
-    region: str,
-    industry: str,
-    api_key: str,
-    research_context: str | None = None,
-) -> list[dict]:
-    """Calls the OpenAI API to generate the trend hierarchy. Raises on failure."""
-    from openai import OpenAI
-
-    client = OpenAI(api_key=api_key)
-    prompt = LIVE_PROMPT_TEMPLATE.format(
-        time_range=time_range,
-        region=region,
-        industry=industry or "General",
-        research_context=research_context or "- Not available",
-    )
-    # Up to 6 Macro-Trends x 7 items (1 macro + 2 mega + 4 sub) = 42 JSON objects; 4000 tokens was
-    # cutting the response off mid-string on anything but the most terse output. 12000 leaves
-    # comfortable headroom (~280 tokens/object) without being unreasonably large for gpt-4.1-mini.
-    response = client.responses.create(
-        model="gpt-4.1-mini",
-        input=prompt,
-        max_output_tokens=12000,
-    )
-    if getattr(response, "status", None) == "incomplete":
-        reason = getattr(getattr(response, "incomplete_details", None), "reason", "unknown")
-        raise RuntimeError(f"response truncated by the API before it finished ({reason})")
-
+def extract_response_text(response) -> str:
+    """Pulls the plain text out of an OpenAI Responses API result, working around
+    output_text sometimes being empty even though `output` has the content."""
     text = getattr(response, "output_text", "")
     if not text:
         chunks = []
@@ -622,6 +599,12 @@ def call_live_trends(
                 if getattr(content, "type", "") == "output_text":
                     chunks.append(getattr(content, "text", ""))
         text = "".join(chunks)
+    return text.strip()
+
+
+def parse_live_trends_json(text: str) -> list[dict]:
+    """Parses+normalizes a trend-hierarchy JSON array from the model's raw text into this
+    module's schema. Shared by call_live_trends and the combined trends+report call."""
     text = text.strip()
     if text.startswith("```"):
         text = text.strip("`")
@@ -651,3 +634,89 @@ def call_live_trends(
             )
         )
     return normalized
+
+
+def call_live_trends(
+    time_range: str,
+    region: str,
+    industry: str,
+    api_key: str,
+    research_context: str | None = None,
+    cost_tracker: CostRunTracker | None = None,
+) -> list[dict]:
+    """Calls the OpenAI API to generate the trend hierarchy. Raises on failure."""
+    from openai import OpenAI
+
+    client = OpenAI(api_key=api_key)
+    prompt = LIVE_PROMPT_TEMPLATE.format(
+        time_range=time_range,
+        region=region,
+        industry=industry or "General",
+        research_context=research_context or "- Not available",
+    )
+    started = perf_counter()
+    # Up to 6 Macro-Trends x 7 items (1 macro + 2 mega + 4 sub) = 42 JSON objects; 4000 tokens was
+    # cutting the response off mid-string on anything but the most terse output. 12000 leaves
+    # comfortable headroom (~280 tokens/object) without being unreasonably large for gpt-4.1-mini.
+    try:
+        response = client.responses.create(
+            model="gpt-4.1-mini",
+            input=prompt,
+            max_output_tokens=12000,
+        )
+    except Exception as exc:  # noqa: BLE001
+        elapsed_ms = int((perf_counter() - started) * 1000)
+        if cost_tracker:
+            cost_tracker.add_entry(
+                feature="trend generation",
+                provider="openai",
+                model="gpt-4.1-mini",
+                endpoint="responses.create",
+                status="error",
+                latency_ms=elapsed_ms,
+                error=f"{type(exc).__name__}: {exc}",
+            )
+        raise
+    elapsed_ms = int((perf_counter() - started) * 1000)
+    if getattr(response, "status", None) == "incomplete":
+        reason = getattr(getattr(response, "incomplete_details", None), "reason", "unknown")
+        if cost_tracker:
+            cost_tracker.add_entry(
+                feature="trend generation",
+                provider="openai",
+                model="gpt-4.1-mini",
+                endpoint="responses.create",
+                status="error",
+                response=response,
+                latency_ms=elapsed_ms,
+                error=f"truncated: {reason}",
+            )
+        raise RuntimeError(f"response truncated by the API before it finished ({reason})")
+    text = extract_response_text(response)
+    try:
+        result = parse_live_trends_json(text)
+    except Exception as exc:
+        if cost_tracker:
+            cost_tracker.add_entry(
+                feature="trend generation",
+                provider="openai",
+                model="gpt-4.1-mini",
+                endpoint="responses.create",
+                status="error",
+                response=response,
+                latency_ms=elapsed_ms,
+                error=f"{type(exc).__name__}: {exc}",
+            )
+        raise
+
+    if cost_tracker:
+        cost_tracker.add_entry(
+            feature="trend generation",
+            provider="openai",
+            model="gpt-4.1-mini",
+            endpoint="responses.create",
+            status="success",
+            response=response,
+            latency_ms=elapsed_ms,
+        )
+    return result

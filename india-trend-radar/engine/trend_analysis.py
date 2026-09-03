@@ -13,9 +13,11 @@ import re
 from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
+from time import perf_counter
 
 import requests
 
+from engine.cost_tracking import CostRunTracker
 from engine.final_analysis_render import render_final_analysis_html
 from engine.pdf_export import markdown_to_pdf_bytes
 
@@ -275,6 +277,7 @@ def _live_report_markdown(
     industry: str,
     research_context: object | None,
     trend_data: list[dict],
+    cost_tracker: CostRunTracker | None = None,
 ) -> str:
     from openai import OpenAI
 
@@ -286,13 +289,40 @@ def _live_report_markdown(
         research_context=getattr(research_context, "prompt", "- Not available"),
         trend_summary=_format_trend_summary(trend_data),
     )
-    response = client.responses.create(
-        model="gpt-4.1-mini",
-        input=prompt,
-        max_output_tokens=7000,
-    )
+    started = perf_counter()
+    try:
+        response = client.responses.create(
+            model="gpt-4.1-mini",
+            input=prompt,
+            max_output_tokens=7000,
+        )
+    except Exception as exc:  # noqa: BLE001
+        elapsed_ms = int((perf_counter() - started) * 1000)
+        if cost_tracker:
+            cost_tracker.add_entry(
+                feature="final analysis report",
+                provider="openai",
+                model="gpt-4.1-mini",
+                endpoint="responses.create",
+                status="error",
+                latency_ms=elapsed_ms,
+                error=f"{type(exc).__name__}: {exc}",
+            )
+        raise
+    elapsed_ms = int((perf_counter() - started) * 1000)
     if getattr(response, "status", None) == "incomplete":
         reason = getattr(getattr(response, "incomplete_details", None), "reason", "unknown")
+        if cost_tracker:
+            cost_tracker.add_entry(
+                feature="final analysis report",
+                provider="openai",
+                model="gpt-4.1-mini",
+                endpoint="responses.create",
+                status="error",
+                response=response,
+                latency_ms=elapsed_ms,
+                error=f"truncated: {reason}",
+            )
         raise RuntimeError(f"response truncated by the API before it finished ({reason})")
 
     text = getattr(response, "output_text", "").strip()
@@ -307,7 +337,204 @@ def _live_report_markdown(
         text = text.strip("`")
         if text.startswith("json"):
             text = text[4:]
+    if cost_tracker:
+        cost_tracker.add_entry(
+            feature="final analysis report",
+            provider="openai",
+            model="gpt-4.1-mini",
+            endpoint="responses.create",
+            status="success",
+            response=response,
+            latency_ms=elapsed_ms,
+        )
     return text or _sample_report_markdown(time_range, region, industry, research_context, trend_data)
+
+
+COMBINED_PROMPT_TEMPLATE = """You are a research analyst for an India-focused micro-VC fund partner. \
+The partner tracks trends emerging in the US and China to find investable signal for India.
+
+Query context:
+- Time range: {time_range}
+- Region focus: {region}
+- Industry / Sector: {industry}
+
+Research context:
+{research_context}
+
+You will produce two pieces of work in this single response: a trend hierarchy, then an analysis \
+report built on that same hierarchy. Do both in one pass -- write the report using the trends you \
+yourself just produced, not a separate or shortened version of them.
+
+PART 1 -- TREND HIERARCHY
+Produce a trend hierarchy with exactly three tiers, using this working definition for each tier:
+
+Macro-Trends: long-term, macro changes that play out across many years or decades with large-scale \
+impact, summarizing major forces across society, technology, economy, ecology, and politics.
+
+Mega-Trends: the building blocks of the arena — points of tension that macro-trends create when they \
+intersect with consumers' or businesses' basic needs.
+
+Sub-Trends: emerging, actionable trends arising from that tension, highlighting how an investor could \
+act on emerging expectations today, with explicit relevance to India as an investment destination \
+given developments in the US and China.
+
+Return 4-6 Macro-Trends. Each Macro-Trend has 2 Mega-Trends. Each Mega-Trend has 2 Sub-Trends.
+
+PART 2 -- ANALYSIS REPORT
+Using the trend hierarchy from Part 1, write a concise markdown report with these sections:
+# Trend Analysis: {industry} in {region}
+## Executive Summary
+## PESTEL Macro Scan
+## Key Trends
+## Weak Signals
+## Scenarios
+## Strategic Implications
+## Assumptions & Limitations
+
+Rules for the report:
+- Be concrete and concise.
+- Ground the narrative in the supplied context and the Part 1 trend hierarchy.
+- Use markdown tables where they help readability.
+- Do not invent citations or external facts that are not already implied by the input.
+- If evidence is thin, state that clearly.
+
+OUTPUT FORMAT -- follow exactly, no commentary before, between, or after the two parts:
+
+===TRENDS_JSON===
+A JSON array of trend objects, ONLY valid JSON (no markdown fences), each shaped exactly:
+{{
+  "tier": "Macro" | "Mega" | "Sub",
+  "parent": string or null (the exact name of the parent trend, null for Macro tier),
+  "category": string (a short cluster label shared by a Macro-Trend and its children, e.g. "Energy & Climate"),
+  "name": string (trend name, concise),
+  "description": string (2-3 sentences, specific and non-generic),
+  "strength": number from 0 to 10 (current momentum/strength of the trend),
+  "growth_pct": number (year-over-year mention/interest growth, can be negative),
+  "time_horizon": string (e.g. "<1y", "1-2y", "2-5y", "5-10y", "10y+"),
+  "recommendation": "Invest" | "Strategize" | "Watch" | "Stay away"
+}}
+===REPORT_MARKDOWN===
+The Part 2 markdown report.
+"""
+
+
+def parse_combined_response(text: str) -> tuple[list[dict], str]:
+    """Splits a COMBINED_PROMPT_TEMPLATE response into (trend_data, report_markdown)."""
+    from engine import trends as trends_module
+
+    if "===REPORT_MARKDOWN===" not in text:
+        raise RuntimeError("combined response was missing the ===REPORT_MARKDOWN=== section")
+    trends_part, report_part = text.split("===REPORT_MARKDOWN===", 1)
+    trends_part = trends_part.replace("===TRENDS_JSON===", "").strip()
+    report_markdown = report_part.strip()
+    if not report_markdown:
+        raise RuntimeError("combined response had an empty report section")
+    trend_data = trends_module.parse_live_trends_json(trends_part)
+    return trend_data, report_markdown
+
+
+def call_combined_trends_and_report(
+    time_range: str,
+    region: str,
+    industry: str,
+    api_key: str,
+    research_context: object | None = None,
+    on_text: "callable | None" = None,
+    cost_tracker: CostRunTracker | None = None,
+) -> tuple[list[dict], str]:
+    """Single streamed OpenAI call that produces both the trend hierarchy and the report
+    built from it, replacing two sequential round-trips (call_live_trends, then
+    _live_report_markdown) with one -- the second call previously had to re-send the research
+    context and a summary of the just-generated trends from scratch as a fresh prompt; doing
+    both in one pass skips that repeated prompt processing and the extra network round-trip.
+
+    `on_text`, if given, is called with the accumulated raw response text after each chunk so
+    a caller can render live progress instead of a blank wait. Raises on failure -- callers
+    should fall back to the separate call_live_trends / build_trend_analysis_report path."""
+    from openai import OpenAI
+
+    from engine import trends as trends_module
+
+    client = OpenAI(api_key=api_key)
+    prompt = COMBINED_PROMPT_TEMPLATE.format(
+        time_range=time_range or "Past 1 week",
+        region=region or "Global",
+        industry=industry or "General",
+        research_context=getattr(research_context, "prompt", None) or "- Not available",
+    )
+    started = perf_counter()
+    accumulated = []
+    try:
+        with client.responses.stream(
+            model="gpt-4.1-mini",
+            input=prompt,
+            # Same combined headroom as the two separate calls this replaces (12000 for
+            # trends + 7000 for the report).
+            max_output_tokens=19000,
+        ) as stream:
+            for event in stream:
+                if getattr(event, "type", "") == "response.output_text.delta":
+                    accumulated.append(event.delta)
+                    if on_text is not None:
+                        on_text("".join(accumulated))
+            response = stream.get_final_response()
+    except Exception as exc:  # noqa: BLE001
+        elapsed_ms = int((perf_counter() - started) * 1000)
+        if cost_tracker:
+            cost_tracker.add_entry(
+                feature="trend generation + final analysis report (combined)",
+                provider="openai",
+                model="gpt-4.1-mini",
+                endpoint="responses.stream",
+                status="error",
+                latency_ms=elapsed_ms,
+                error=f"{type(exc).__name__}: {exc}",
+            )
+        raise
+    elapsed_ms = int((perf_counter() - started) * 1000)
+
+    if getattr(response, "status", None) == "incomplete":
+        reason = getattr(getattr(response, "incomplete_details", None), "reason", "unknown")
+        if cost_tracker:
+            cost_tracker.add_entry(
+                feature="trend generation + final analysis report (combined)",
+                provider="openai",
+                model="gpt-4.1-mini",
+                endpoint="responses.stream",
+                status="error",
+                response=response,
+                latency_ms=elapsed_ms,
+                error=f"truncated: {reason}",
+            )
+        raise RuntimeError(f"response truncated by the API before it finished ({reason})")
+
+    text = trends_module.extract_response_text(response)
+    try:
+        result = parse_combined_response(text)
+    except Exception as exc:  # noqa: BLE001
+        if cost_tracker:
+            cost_tracker.add_entry(
+                feature="trend generation + final analysis report (combined)",
+                provider="openai",
+                model="gpt-4.1-mini",
+                endpoint="responses.stream",
+                status="error",
+                response=response,
+                latency_ms=elapsed_ms,
+                error=f"{type(exc).__name__}: {exc}",
+            )
+        raise
+    if cost_tracker:
+        cost_tracker.add_entry(
+            feature="trend generation + final analysis report (combined)",
+            provider="openai",
+            model="gpt-4.1-mini",
+            endpoint="responses.stream",
+            status="success",
+            response=response,
+            latency_ms=elapsed_ms,
+        )
+    return result
 
 
 def _combined_markdown(
@@ -373,6 +600,8 @@ def build_trend_analysis_report(
     research_context: object | None,
     api_key: str | None = None,
     output_dir: Path | None = None,
+    precomputed_report_markdown: str | None = None,
+    cost_tracker: CostRunTracker | None = None,
 ) -> TrendAnalysisResult:
     output_root = output_dir or DEFAULT_OUTPUT_DIR
     output_root.mkdir(parents=True, exist_ok=True)
@@ -385,9 +614,21 @@ def build_trend_analysis_report(
     combined_path = output_root / f"{base_name}_final.md"
     pdf_path = output_root / f"{base_name}_final.pdf"
 
-    if api_key:
+    if precomputed_report_markdown:
+        # Caller already has a report -- e.g. from call_combined_trends_and_report, which
+        # generates it alongside trend_data in one pass. Skip the extra OpenAI round-trip.
+        report_markdown = precomputed_report_markdown
+    elif api_key:
         try:
-            report_markdown = _live_report_markdown(api_key, time_range, region, industry, research_context, trend_data)
+            report_markdown = _live_report_markdown(
+                api_key,
+                time_range,
+                region,
+                industry,
+                research_context,
+                trend_data,
+                cost_tracker=cost_tracker,
+            )
         except Exception:
             report_markdown = _sample_report_markdown(time_range, region, industry, research_context, trend_data)
     else:

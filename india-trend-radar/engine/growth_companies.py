@@ -21,6 +21,9 @@ import hashlib
 import json
 import random
 from datetime import date, timedelta
+from time import perf_counter
+
+from engine.cost_tracking import CostRunTracker
 
 MODEL = "gpt-4.1-mini"
 
@@ -214,6 +217,7 @@ def call_live_companies(
     api_key: str,
     research_context: str | None = None,
     count: int = 20,
+    cost_tracker: CostRunTracker | None = None,
 ) -> list[dict]:
     """Calls the OpenAI API for a live list of growing companies. Raises on failure --
     callers should fall back to generate_mock_companies, matching trends.py's pattern."""
@@ -227,8 +231,48 @@ def call_live_companies(
         research_context=research_context or "- Not available",
         count=count,
     )
-    response = client.responses.create(model=MODEL, input=prompt, max_output_tokens=4000)
-    data = _parse_json(_extract_text(response), list)
+    started = perf_counter()
+    try:
+        response = client.responses.create(model=MODEL, input=prompt, max_output_tokens=4000)
+    except Exception as exc:  # noqa: BLE001
+        elapsed_ms = int((perf_counter() - started) * 1000)
+        if cost_tracker:
+            cost_tracker.add_entry(
+                feature="drilldown companies",
+                provider="openai",
+                model=MODEL,
+                endpoint="responses.create",
+                status="error",
+                latency_ms=elapsed_ms,
+                error=f"{type(exc).__name__}: {exc}",
+            )
+        raise
+    elapsed_ms = int((perf_counter() - started) * 1000)
+    try:
+        data = _parse_json(_extract_text(response), list)
+    except Exception as exc:
+        if cost_tracker:
+            cost_tracker.add_entry(
+                feature="drilldown companies",
+                provider="openai",
+                model=MODEL,
+                endpoint="responses.create",
+                status="error",
+                response=response,
+                latency_ms=elapsed_ms,
+                error=f"{type(exc).__name__}: {exc}",
+            )
+        raise
+    if cost_tracker:
+        cost_tracker.add_entry(
+            feature="drilldown companies",
+            provider="openai",
+            model=MODEL,
+            endpoint="responses.create",
+            status="success",
+            response=response,
+            latency_ms=elapsed_ms,
+        )
 
     normalized = []
     for item in data:
@@ -257,7 +301,12 @@ _TIME_RANGE_DAYS = {
 
 
 def call_live_social_signals(
-    sub_trend_name: str, industry: str, region: str, api_key: str, time_range: str = "Past 1 month"
+    sub_trend_name: str,
+    industry: str,
+    region: str,
+    api_key: str,
+    time_range: str = "Past 1 month",
+    cost_tracker: CostRunTracker | None = None,
 ) -> dict:
     """Calls the OpenAI API for estimated social-media signal color. Raises on failure --
     callers should fall back to generate_mock_social_signals."""
@@ -274,8 +323,48 @@ def call_live_social_signals(
         time_range=time_range or "Past 1 month",
         window_start=window_start.isoformat(),
     )
-    response = client.responses.create(model=MODEL, input=prompt, max_output_tokens=1500)
-    data = _parse_json(_extract_text(response), dict)
+    started = perf_counter()
+    try:
+        response = client.responses.create(model=MODEL, input=prompt, max_output_tokens=1500)
+    except Exception as exc:  # noqa: BLE001
+        elapsed_ms = int((perf_counter() - started) * 1000)
+        if cost_tracker:
+            cost_tracker.add_entry(
+                feature="drilldown social",
+                provider="openai",
+                model=MODEL,
+                endpoint="responses.create",
+                status="error",
+                latency_ms=elapsed_ms,
+                error=f"{type(exc).__name__}: {exc}",
+            )
+        raise
+    elapsed_ms = int((perf_counter() - started) * 1000)
+    try:
+        data = _parse_json(_extract_text(response), dict)
+    except Exception as exc:
+        if cost_tracker:
+            cost_tracker.add_entry(
+                feature="drilldown social",
+                provider="openai",
+                model=MODEL,
+                endpoint="responses.create",
+                status="error",
+                response=response,
+                latency_ms=elapsed_ms,
+                error=f"{type(exc).__name__}: {exc}",
+            )
+        raise
+    if cost_tracker:
+        cost_tracker.add_entry(
+            feature="drilldown social",
+            provider="openai",
+            model=MODEL,
+            endpoint="responses.create",
+            status="success",
+            response=response,
+            latency_ms=elapsed_ms,
+        )
 
     return dict(
         tiktok_hashtags=[str(t).strip() for t in data.get("tiktok_hashtags", []) if str(t).strip()],

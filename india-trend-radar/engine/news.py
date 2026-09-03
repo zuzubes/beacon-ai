@@ -185,6 +185,38 @@ def _region_keywords(region: str) -> list[str]:
     return ["china", "chinese", "us", "u.s.", "united states", "american", "america"]
 
 
+# Other well-covered countries/regions NewsAPI frequently returns for a generic industry
+# query. Used only to softly penalize a result that is clearly anchored to one of these
+# and mentions none of the selected region's own terms -- e.g. a Russia-to-India trade
+# story surfacing under "US & China (Both)" with no US/China angle at all. Kept separate
+# from _region_keywords() so the "prefer this region" boost and "this is a different,
+# specific region" penalty can't both fire for the same term.
+_OTHER_REGION_TERMS_BY_COUNTRY = {
+    "china": ["china", "chinese"],
+    "united states": ["us", "u.s.", "united states", "american", "america"],
+    "russia": ["russia", "russian"],
+    "india": ["india", "indian"],
+    "united kingdom": ["uk", "u.k.", "britain", "british"],
+    "japan": ["japan", "japanese"],
+    "germany": ["germany", "german"],
+    "france": ["france", "french"],
+    "brazil": ["brazil", "brazilian"],
+    "australia": ["australia", "australian"],
+    "canada": ["canada", "canadian"],
+    "south korea": ["korea", "korean"],
+    "mexico": ["mexico", "mexican"],
+}
+
+
+def _other_region_keywords(region: str) -> list[str]:
+    target = set(_region_keywords(region))
+    terms: list[str] = []
+    for words in _OTHER_REGION_TERMS_BY_COUNTRY.values():
+        if not (set(words) & target):
+            terms.extend(words)
+    return terms
+
+
 def _fetch_newsapi_page(query: str, from_date: str, to_date: str, sort_by: str, page_size: int, api_key: str, domains: str | None) -> list[dict]:
     params = {
         "q": query,
@@ -262,6 +294,7 @@ def call_live_news(
     keyword = " ".join(industry_words)
     domains = _parse_domains(source_domains)
     region_terms = _region_keywords(region)
+    other_region_terms = _other_region_keywords(region)
 
     # Fetch a larger pool sorted two different ways, then combine ranks -- an article that
     # shows up near the top of BOTH lists is both relevant and popular, so it should surface
@@ -309,7 +342,7 @@ def call_live_news(
             details = "; ".join(errors) if errors else "NewsAPI returned no results and Currents returned no results"
             raise RuntimeError(details)
 
-        return _normalize_currents_articles(currentnews_articles, industry_label, count)
+        return _normalize_currents_articles(currentnews_articles, industry_label, count, region)
 
     def combined_score(entry: dict) -> float:
         ranks = entry["ranks"]
@@ -318,10 +351,16 @@ def call_live_news(
         # articles appearing in both lists get a bonus (favors relevant AND popular)
         if len(ranks) > 1:
             score -= 2
-        # soft preference for articles that actually mention the selected region
+        # soft preference for articles that actually mention the selected region; if it
+        # mentions none of the region's terms but is clearly anchored to a different,
+        # specific country instead (e.g. Russia/India for a US & China query), push it
+        # down rather than leaving it neutral -- region isn't a hard search filter (see
+        # _region_keywords), so this is the only thing keeping off-region stories out.
         text = f"{item.get('title', '')} {item.get('description', '')}".lower()
         if any(term in text for term in region_terms):
             score -= 1
+        elif any(term in text for term in other_region_terms):
+            score += 8
         # NewsAPI's "+word" operator matches full article body text, so a piece that only
         # mentions the industry deep in its body (not in the title/description a reader
         # actually sees) can still outrank genuinely on-topic articles -- push those down.
@@ -388,15 +427,17 @@ def call_live_news(
         details = "; ".join(errors) if errors else "NewsAPI returned no results and Currents returned no results"
         raise RuntimeError(details)
 
-    return _normalize_currents_articles(currentnews_articles, industry_label, count)
+    return _normalize_currents_articles(currentnews_articles, industry_label, count, region)
 
 
-def _normalize_currents_articles(currents_articles: list[dict], industry: str, count: int) -> list[dict]:
+def _normalize_currents_articles(currents_articles: list[dict], industry: str, count: int, region: str = "") -> list[dict]:
     now = datetime.now(timezone.utc)
     # Currents' /search keyword matching is loose and can surface completely off-topic
     # results (e.g. "safari tents" for "Food & Beverages"), so filter for on-topic articles
     # first and only fall back to the raw pool if nothing actually mentions the industry.
     relevance_words = [w.lower() for w in re.findall(r"[\w&-]+", industry) if re.search(r"\w", w)]
+    region_terms = _region_keywords(region) if region else []
+    other_region_terms = _other_region_keywords(region) if region else []
     on_topic = []
     off_topic = []
     for index, item in enumerate(currents_articles):
@@ -429,12 +470,21 @@ def _normalize_currents_articles(currents_articles: list[dict], industry: str, c
             is_sample=False,
         )
         text = f"{title} {description or ''}".lower()
+        # anchored to a different, specific country and not the selected region at all
+        # (e.g. a Russia-India story under a US & China query) -- sort after, don't hide
+        entry["_off_region"] = bool(
+            other_region_terms
+            and any(term in text for term in other_region_terms)
+            and not any(term in text for term in region_terms)
+        )
         if relevance_words and any(word in text for word in relevance_words):
             on_topic.append(entry)
         else:
             off_topic.append(entry)
     articles = on_topic or off_topic
-    articles.sort(key=lambda a: a["hours_ago"])
+    articles.sort(key=lambda a: (a["_off_region"], a["hours_ago"]))
+    for article in articles:
+        del article["_off_region"]
     deduped = []
     seen = set()
     for article in articles:
