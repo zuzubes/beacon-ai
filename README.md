@@ -32,6 +32,8 @@ streamlit run streamlit_app.py
 
 Requires Python 3.9+.
 
+Live deployment (Render): https://beacon-ai-4ijx.onrender.com/
+
 ### Data modes
 
 The app works with **zero configuration** out of the box, using deterministic sample data (clearly
@@ -80,11 +82,13 @@ Top level:
     honesty (groundedness), and helpfulness
 - `feedback/`
   - `round1_decision.md` — keep or change industry/use case + why
+- `deliverables/` — round-by-round presentation decks:
+  - [`Beacon AI-Round1-Presentation.pdf`](deliverables/Beacon%20AI-Round1-Presentation.pdf)
+  - [`BeaconAI-Round2-Presentation.pdf`](deliverables/BeaconAI-Round2-Presentation.pdf)
 
 `india-trend-radar/` (the app):
 
 ```
-app.py                 Vercel landing page entrypoint
 streamlit_app.py       Main Streamlit app: layout, navigation, cards
 engine/
   trends.py             Macro/Mega/Sub trend generation (mock + live OpenAI)
