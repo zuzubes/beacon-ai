@@ -37,6 +37,15 @@ REGION_FILENAME_PATTERNS = {
 YEAR_PATTERN = re.compile(r"(20\d{2})")
 _LIST_ITEM_RE = re.compile(r"^\*\*(\d+)\.\s+(.+?)\*\*\s*$")
 _CATEGORY_HEADING_RE = re.compile(r"^###\s+(.+?)\s*\(\d+\)\s*$")
+_MARKDOWN_BOLD_RE = re.compile(r"\*\*(.+?)\*\*")
+
+
+def _strip_markdown_emphasis(text: str) -> str:
+    """Source reports use **bold** to call out headline stats inline (e.g. "**+7,043%
+    YoY**"). That's meant for markdown rendering, but signal_and_source is displayed as
+    plain text (st.dataframe's TextColumn doesn't render markdown), so left alone the
+    literal "**" markers show up in the UI. Strip them, keeping the wrapped text."""
+    return _MARKDOWN_BOLD_RE.sub(r"\1", text).replace("**", "")
 
 
 def _discover_report_files(region: str, report_dir: Path | None = None) -> list[Path]:
@@ -80,7 +89,7 @@ def _parse_table_format(text: str) -> list[dict]:
         product = cells[1] if len(cells) > 1 else ""
         if not product:
             continue
-        detail = " | ".join(c for c in cells[2:] if c)
+        detail = _strip_markdown_emphasis(" | ".join(c for c in cells[2:] if c))
         rows.append(
             dict(rank=int(cells[0]), product=product, category=None, signal_and_source=detail)
         )
@@ -99,7 +108,9 @@ def _parse_category_list_format(text: str) -> list[dict]:
 
     def flush(item: dict | None, detail_lines: list[str]) -> None:
         if item is not None:
-            item["signal_and_source"] = " ".join(l.strip(" -") for l in detail_lines if l.strip())
+            item["signal_and_source"] = _strip_markdown_emphasis(
+                " ".join(l.strip(" -") for l in detail_lines if l.strip())
+            )
             rows.append(item)
 
     for raw_line in body.splitlines():
