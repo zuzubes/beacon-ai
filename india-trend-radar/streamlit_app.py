@@ -1322,11 +1322,7 @@ with st.sidebar:
                     st.info("We will let you know once the email setup is ready.")
 
     st.divider()
-    with st.expander("Admin dashboard", expanded=False):
-        try:
-            render_admin_dashboard(st.session_state.get("analysis_cost_tracker"))
-        except Exception:  # noqa: BLE001
-            render_empty_state("The admin dashboard is unavailable right now. Run a new analysis to try again.")
+    st.caption("Open the Admin dashboard tab in the main view for full usage details.")
 
 # ---------------------------------------------------------------------------
 # Header
@@ -1480,7 +1476,7 @@ if analysis_busy and analysis_request:
 
     if trend_data is None:
         try:
-            trend_data = trends.generate_mock_trends(time_range, region, industry)
+            trend_data = trends.generate_mock_trends(time_range, region, industry_label)
         except Exception:  # noqa: BLE001
             # Last-resort fallback so a bug here can never leave the page silently stuck on
             # "No analysis yet" -- session_state always gets populated by the end of this block.
@@ -2177,8 +2173,8 @@ def _render_admin_table(rows: list[dict]) -> str:
 # Navigation
 # ---------------------------------------------------------------------------
 
-tab_hierarchy, tab_momentum, tab_news, tab_analysis = st.tabs(
-    ["Trend Hierarchy", "Momentum", "News Signals", "Summary Report"]
+tab_hierarchy, tab_momentum, tab_news, tab_analysis, tab_admin = st.tabs(
+    ["Trend Hierarchy", "Momentum", "News Signals", "Summary Report", "Admin dashboard"]
 )
 
 with tab_hierarchy:
@@ -2339,6 +2335,12 @@ with tab_analysis:
     except Exception as exc:  # noqa: BLE001
         page_errors.append("Final analysis is unavailable right now.")
         render_empty_state("The final analysis is unavailable right now. Run a new analysis to try again.")
+
+with tab_admin:
+    try:
+        render_admin_dashboard(st.session_state.get("analysis_cost_tracker"))
+    except Exception:  # noqa: BLE001
+        render_empty_state("The admin dashboard is unavailable right now. Run a new analysis to try again.")
 
 bottom_messages = st.session_state.get("warnings", []) + page_errors
 if bottom_messages:

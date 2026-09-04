@@ -3,10 +3,10 @@
 Every engine module that calls the OpenAI API resolves its key list via
 `resolve_openai_keys()` and wraps the actual call in `call_with_failover()`
 instead of calling `OpenAI(api_key=...)` with a single key directly. That way,
-if the primary key hits a rate limit or has run out of quota, the same call is
-retried once against the backup key (OPENAI_API_KEY_2) with no user-visible
-failure -- any other kind of error (bad request, network issue, etc.) is not
-retried, since a different key wouldn't fix it.
+if a key hits a rate limit or has run out of quota, the same call is retried
+against each backup key in turn (OPENAI_API_KEY_2, then OPENAI_API_KEY_3) with
+no user-visible failure -- any other kind of error (bad request, network
+issue, etc.) is not retried, since a different key wouldn't fix it.
 """
 
 from __future__ import annotations
@@ -19,14 +19,16 @@ T = TypeVar("T")
 
 def resolve_openai_keys(primary: str | None = None) -> list[str]:
     """Ordered keys to try: `primary` (or OPENAI_API_KEY from the environment)
-    first, then OPENAI_API_KEY_2 if set and different from the first."""
+    first, then OPENAI_API_KEY_2 and OPENAI_API_KEY_3, each only if set and not
+    already in the list."""
     keys: list[str] = []
     first = (primary or os.getenv("OPENAI_API_KEY", "")).strip()
     if first:
         keys.append(first)
-    second = os.getenv("OPENAI_API_KEY_2", "").strip()
-    if second and second not in keys:
-        keys.append(second)
+    for env_name in ("OPENAI_API_KEY_2", "OPENAI_API_KEY_3"):
+        key = os.getenv(env_name, "").strip()
+        if key and key not in keys:
+            keys.append(key)
     return keys
 
 

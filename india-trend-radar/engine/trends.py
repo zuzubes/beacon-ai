@@ -645,8 +645,8 @@ def call_live_trends(
     cost_tracker: CostRunTracker | None = None,
 ) -> list[dict]:
     """Calls the OpenAI API to generate the trend hierarchy. Raises on failure. Retries
-    once against OPENAI_API_KEY_2 (see engine.openai_keys) if the primary key is
-    rate-limited or out of quota."""
+    against OPENAI_API_KEY_2, then OPENAI_API_KEY_3 (see engine.openai_keys) if the
+    prior key is rate-limited or out of quota."""
     from openai import OpenAI
 
     from engine.openai_keys import call_with_failover, resolve_openai_keys

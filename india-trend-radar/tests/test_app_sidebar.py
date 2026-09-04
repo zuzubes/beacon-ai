@@ -128,4 +128,4 @@ def test_run_analysis_does_not_pass_company_to_trend_generation(monkeypatch):
     at.sidebar.button[1].click().run()  # "Run Analysis"
 
     assert not at.exception
-    assert captured["trends_args"] == ("Past 1 week", "US & China (Both)", "apparel_and_fashion")
+    assert captured["trends_args"] == ("Past 1 week", "US & China (Both)", "Apparel & Fashion")
