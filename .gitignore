@@ -6,6 +6,11 @@ __pycache__/
 .vscode/
 data/raw/*
 !data/raw/vc_trend_data.csv
+# Runtime data the app reads on every deploy -- these must ship with the repo or a
+# fresh checkout (Render) starts with an empty industry taxonomy and no report
+# grounding, which the code degrades past silently.
+!data/raw/Inspirations/
+!data/raw/reports/
 data/interim/
 data/processed/
 

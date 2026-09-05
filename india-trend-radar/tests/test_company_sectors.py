@@ -124,3 +124,18 @@ def test_detect_company_sectors_success(monkeypatch):
     monkeypatch.setattr(company_sectors, "_extract_sectors", lambda *a, **k: ["financial services"])
     result = company_sectors.detect_company_sectors("Acme", None, None, None, "key")
     assert (result.website, result.sectors, result.error) == ("https://acme.com", ["financial services"], None)
+
+
+def test_detect_company_sectors_reports_a_missing_taxonomy_honestly(monkeypatch):
+    """Without the industry list every answer is [], which is not the same thing as
+    'this company has no sector focus' -- saying so sent us chasing the wrong bug."""
+    monkeypatch.setattr(company_sectors, "INDUSTRY_TAXONOMY", [])
+    called = []
+    monkeypatch.setattr(company_sectors, "find_official_website", lambda *a, **k: called.append("search"))
+
+    result = company_sectors.detect_company_sectors("Acme", "s", "sa", "t", "key")
+
+    assert result.sectors == []
+    assert "industry list" in result.error
+    assert result.error != "We couldn't tell which sector they focus on. Please choose a sector from the list."
+    assert called == [], "should not spend search/scrape calls when no answer is possible"

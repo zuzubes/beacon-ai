@@ -197,6 +197,17 @@ def detect_company_sectors(
         f"serper={bool(serper_api_key)} serpapi={bool(serp_api_key)} tavily={bool(tavily_api_key)}; "
         f"openai={bool(openai_api_key)}",
     )
+    if not INDUSTRY_TAXONOMY:
+        # Every sector has to match this list, so without it the answer is always []
+        # -- which is NOT the same as "the page shows no sector focus". Bail out before
+        # spending search and scrape calls that cannot produce an answer, and say why.
+        _note(diagnostics, f"industry taxonomy is empty; looked in {INDUSTRY_TAXONOMY_PATH}")
+        return SectorDetectionResult(
+            None,
+            [],
+            "Sector detection isn't available right now: the industry list is missing on this server.",
+            diagnostics,
+        )
     if not openai_api_key:
         return SectorDetectionResult(None, [], "Sector detection isn't available right now.", diagnostics)
 
