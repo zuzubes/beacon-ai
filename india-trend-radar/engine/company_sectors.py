@@ -8,6 +8,7 @@ constrained to the taxonomy in data/raw/Inspirations/industry.txt.
 from __future__ import annotations
 
 import json
+import logging
 from dataclasses import dataclass, field
 from pathlib import Path
 from urllib.parse import urljoin
@@ -15,6 +16,8 @@ from urllib.parse import urljoin
 import requests
 
 from engine.research_search import find_official_website
+
+logger = logging.getLogger(__name__)
 
 INDUSTRY_TAXONOMY_PATH = (
     Path(__file__).resolve().parent.parent.parent / "data" / "raw" / "Inspirations" / "industry.txt"
@@ -51,6 +54,13 @@ class SectorDetectionResult:
     website: str | None
     sectors: list[str] = field(default_factory=list)
     error: str | None = None  # plain-language; safe to show the user as-is
+    diagnostics: list[str] = field(default_factory=list)
+
+
+def _note(diagnostics: list[str] | None, message: str) -> None:
+    if diagnostics is not None:
+        diagnostics.append(message)
+    logger.warning("sector detection: %s", message)
 
 
 def _fetch_soup(url: str):
@@ -75,12 +85,13 @@ def _find_about_link(soup, base_url: str) -> str | None:
     return None
 
 
-def _fetch_company_text(url: str) -> str | None:
+def _fetch_company_text(url: str, diagnostics: list[str] | None = None) -> str | None:
     """Homepage text, plus an About/Focus/Portfolio page's text if one can be found linked
     from the homepage -- that's usually where a fund's stated sector focus actually lives."""
     try:
         soup, final_url = _fetch_soup(url)
-    except Exception:  # noqa: BLE001
+    except Exception as exc:  # noqa: BLE001
+        _note(diagnostics, f"homepage fetch failed for {url}: {type(exc).__name__}: {exc}")
         return None
 
     about_url = _find_about_link(soup, final_url)
@@ -91,17 +102,25 @@ def _fetch_company_text(url: str) -> str | None:
         try:
             about_soup, _ = _fetch_soup(about_url)
             about_text = _visible_text(about_soup)
-        except Exception:  # noqa: BLE001
-            pass
+        except Exception as exc:  # noqa: BLE001
+            _note(diagnostics, f"about-page fetch failed for {about_url}: {type(exc).__name__}: {exc}")
 
+    _note(
+        diagnostics,
+        f"read page: final_url={final_url} homepage_chars={len(homepage_text)} "
+        f"about_url={about_url} about_chars={len(about_text)}",
+    )
     combined = f"{homepage_text[:4000]} {about_text[:4000]}".strip()
     return combined[:8000] or None
 
 
-def _extract_sectors(company_name: str, page_text: str, api_key: str) -> list[str]:
+def _extract_sectors(
+    company_name: str, page_text: str, api_key: str, diagnostics: list[str] | None = None
+) -> list[str]:
     from openai import OpenAI
 
     if not INDUSTRY_TAXONOMY:
+        _note(diagnostics, f"industry taxonomy is empty; looked in {INDUSTRY_TAXONOMY_PATH}")
         return []
 
     taxonomy_list = "\n".join(f"- {name}" for name in INDUSTRY_TAXONOMY)
@@ -124,27 +143,39 @@ def _extract_sectors(company_name: str, page_text: str, api_key: str) -> list[st
     try:
         from engine.openai_keys import call_with_failover, resolve_openai_keys
 
+        keys = resolve_openai_keys(api_key)
+        _note(diagnostics, f"openai keys resolved: {len(keys)}; model={MODEL}; prompt_chars={len(prompt)}")
         response = call_with_failover(
-            resolve_openai_keys(api_key),
+            keys,
             lambda key: OpenAI(api_key=key).responses.create(model=MODEL, input=prompt, max_output_tokens=200),
         )
         text = (getattr(response, "output_text", "") or "").strip()
+        _note(diagnostics, f"model raw output ({len(text)} chars): {text[:300]!r}")
         if text.startswith("```"):
             text = text.strip("`")
             if text.startswith("json"):
                 text = text[4:]
         data = json.loads(text)
-    except Exception:  # noqa: BLE001
+    except Exception as exc:  # noqa: BLE001
+        _note(diagnostics, f"openai sector extraction failed: {type(exc).__name__}: {exc}")
         return []
     if not isinstance(data, list):
+        _note(diagnostics, f"model returned {type(data).__name__}, expected a JSON array")
         return []
 
     valid = {name.lower(): name for name in INDUSTRY_TAXONOMY}
     matched: list[str] = []
+    unmatched: list[str] = []
     for item in data:
         canonical = valid.get(str(item).strip().lower())
         if canonical and canonical not in matched:
             matched.append(canonical)
+        elif not canonical:
+            unmatched.append(str(item))
+    if unmatched:
+        _note(diagnostics, f"model returned {len(unmatched)} label(s) not in the taxonomy: {unmatched}")
+    if not data:
+        _note(diagnostics, "model returned an empty array -- it found no sector focus on the page text")
     return matched[:5]
 
 
@@ -156,21 +187,42 @@ def detect_company_sectors(
     openai_api_key: str | None,
 ) -> SectorDetectionResult:
     """Best-effort, always returns a plain-language `error` instead of raising."""
+    diagnostics: list[str] = []
     if not company_name or not company_name.strip():
-        return SectorDetectionResult(None, [], "Please enter a company or fund name first.")
+        return SectorDetectionResult(None, [], "Please enter a company or fund name first.", diagnostics)
+
+    _note(
+        diagnostics,
+        "search keys present -- "
+        f"serper={bool(serper_api_key)} serpapi={bool(serp_api_key)} tavily={bool(tavily_api_key)}; "
+        f"openai={bool(openai_api_key)}",
+    )
     if not openai_api_key:
-        return SectorDetectionResult(None, [], "Sector detection isn't available right now.")
+        return SectorDetectionResult(None, [], "Sector detection isn't available right now.", diagnostics)
 
     website = find_official_website(company_name, serper_api_key, serp_api_key, tavily_api_key)
+    _note(diagnostics, f"top search hit used as official website: {website}")
     if not website:
-        return SectorDetectionResult(None, [], "We couldn't find their website. Please choose a sector from the list.")
+        return SectorDetectionResult(
+            None, [], "We couldn't find their website. Please choose a sector from the list.", diagnostics
+        )
 
-    page_text = _fetch_company_text(website)
+    page_text = _fetch_company_text(website, diagnostics)
     if not page_text:
-        return SectorDetectionResult(website, [], "We found their website but couldn't read it. Please choose a sector from the list.")
+        return SectorDetectionResult(
+            website,
+            [],
+            "We found their website but couldn't read it. Please choose a sector from the list.",
+            diagnostics,
+        )
 
-    sectors = _extract_sectors(company_name, page_text, openai_api_key)
+    sectors = _extract_sectors(company_name, page_text, openai_api_key, diagnostics)
     if not sectors:
-        return SectorDetectionResult(website, [], "We couldn't tell which sector they focus on. Please choose a sector from the list.")
+        return SectorDetectionResult(
+            website,
+            [],
+            "We couldn't tell which sector they focus on. Please choose a sector from the list.",
+            diagnostics,
+        )
 
-    return SectorDetectionResult(website, sectors, None)
+    return SectorDetectionResult(website, sectors, None, diagnostics)

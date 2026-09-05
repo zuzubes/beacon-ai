@@ -12,6 +12,7 @@ from __future__ import annotations
 
 import hashlib
 import html
+import logging
 import os
 import re
 import json
@@ -40,26 +41,34 @@ from engine.final_analysis_render import render_final_analysis_html
 from engine.pdf_export import markdown_to_pdf_bytes
 
 
-def _load_env_file() -> None:
-    for env_path in (
-        Path(__file__).with_name(".env"),
-        Path(__file__).resolve().parent.parent / ".env",
-    ):
-        if not env_path.exists():
-            continue
+logger = logging.getLogger(__name__)
 
-        for line in env_path.read_text(encoding="utf-8").splitlines():
-            stripped = line.strip()
-            if not stripped or stripped.startswith("#") or "=" not in stripped:
-                continue
-            key, value = stripped.split("=", 1)
-            key = key.strip()
-            if not key or key in os.environ:
-                continue
-            os.environ[key] = value.strip().strip('"').strip("'")
-
+# Single implementation, shared with the engine modules: it reads the same .env
+# locations and refreshes values it previously loaded, so rotating a key in .env
+# takes effect on the next rerun instead of requiring a server restart.
+_load_env_file = research_search._load_env_file
 
 _load_env_file()
+
+
+def _failure_reason(exc: Exception, limit: int = 160) -> str:
+    """Short, user-readable cause for a fallback message. Recognises the API failures
+    that actually happen here so the message names the fix, not just the symptom."""
+    message = str(exc).strip() or type(exc).__name__
+    lowered = message.lower()
+    status_code = getattr(exc, "status_code", None)
+    if "spend limit" in lowered or "insufficient_quota" in lowered:
+        return "every OpenAI key is out of quota or over its spend limit"
+    if status_code == 401 or "incorrect api key" in lowered or "invalid_api_key" in lowered:
+        return "the OpenAI key was rejected -- it may have been rotated or revoked"
+    if status_code == 429 or "rate limit" in lowered:
+        return "every OpenAI key is rate limited"
+    if "truncated" in lowered:
+        return "the model's response was cut off before it finished"
+    if isinstance(exc, (ImportError, ModuleNotFoundError)):
+        return f"a dependency is missing ({message})"
+    collapsed = " ".join(message.split())
+    return f"{type(exc).__name__}: {collapsed}"[:limit]
 
 st.set_page_config(
     page_title="Beacon AI",
@@ -1252,6 +1261,9 @@ with st.sidebar:
                 tavily_key_default or None,
                 openai_key_default or None,
             )
+        if detection.diagnostics:
+            with st.expander("Detection diagnostics"):
+                st.code("\n".join(detection.diagnostics))
         if detection.error:
             st.warning(detection.error)
         else:
@@ -1422,8 +1434,12 @@ if analysis_busy and analysis_request:
                     tool_calls=len(getattr(research_context, "providers_used", []) or []),
                     notes=f"providers_used={', '.join(getattr(research_context, 'providers_used', []) or []) or 'none'}",
                 )
-        except Exception:  # noqa: BLE001
-            warnings.append("We couldn't load the latest research, so this run uses general context instead.")
+        except Exception as exc:  # noqa: BLE001
+            logger.exception("research context build failed")
+            warnings.append(
+                "We couldn't load the latest research, so this run uses general context instead. "
+                f"({_failure_reason(exc)})"
+            )
             if tracker:
                 tracker.add_entry(
                     feature="research search",
@@ -1466,8 +1482,15 @@ if analysis_busy and analysis_request:
                 on_text=_on_stream_text,
                 cost_tracker=tracker,
             )
-        except Exception:  # noqa: BLE001
-            warnings.append("We couldn't generate a live trend read, so sample trend data is shown instead.")
+        except Exception as exc:  # noqa: BLE001
+            # The reason matters: a dead/rotated API key, an exhausted spend cap and a
+            # truncated response all used to surface as this one sentence, leaving no way
+            # to tell them apart from the UI. Log the full traceback, show the short reason.
+            logger.exception("combined trend + report call failed")
+            warnings.append(
+                "We couldn't generate a live trend read, so sample trend data is shown instead. "
+                f"({_failure_reason(exc)})"
+            )
         finally:
             loading_slot.markdown(
                 '<div class="loading-banner">Building research context and trend report...</div>',
@@ -1495,8 +1518,12 @@ if analysis_busy and analysis_request:
             cost_tracker=tracker,
             precomputed_report_markdown=report_markdown,
         )
-    except Exception:  # noqa: BLE001
-        warnings.append("We couldn't build the final analysis report, so the app will show the trend view only.")
+    except Exception as exc:  # noqa: BLE001
+        logger.exception("final analysis report build failed")
+        warnings.append(
+            "We couldn't build the final analysis report, so the app will show the trend view only. "
+            f"({_failure_reason(exc)})"
+        )
 
     loading_slot.markdown(
         '<div class="loading-banner">Scanning macro, mega, and sub-trends...</div>',

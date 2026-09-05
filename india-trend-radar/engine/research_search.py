@@ -9,6 +9,7 @@ local research reports for sub-trend grounding.
 from __future__ import annotations
 
 import json
+import logging
 import os
 import re
 from collections import Counter
@@ -16,8 +17,11 @@ from dataclasses import dataclass
 from datetime import date, timedelta
 from pathlib import Path
 from typing import Iterable
+from urllib.parse import urlparse
 
 import requests
+
+logger = logging.getLogger(__name__)
 
 ROOT_DIR = Path(__file__).resolve().parent.parent
 REPO_ROOT_DIR = ROOT_DIR.parent
@@ -72,11 +76,27 @@ STOPWORDS = {
 }
 
 
+ENV_FILE_PATHS = (
+    Path(__file__).with_name(".env"),
+    ROOT_DIR / ".env",
+    REPO_ROOT_DIR / ".env",
+)
+
+# What this loader last wrote into os.environ, per key. A rotated key in .env has to
+# be able to replace the stale value a long-running process loaded at startup, but a
+# value set by anyone else -- exported in the launching shell, or assigned at runtime --
+# must still win. Comparing against what we wrote distinguishes the two: if the current
+# value is still ours, it is safe to refresh; if it changed, someone else owns it now.
+_ENV_VALUES_FROM_FILE: dict[str, str] = {}
+
+
 def _load_env_file() -> None:
-    for env_path in (
-        Path(__file__).with_name(".env"),
-        ROOT_DIR / ".env",
-    ):
+    """Loads .env into os.environ, refreshing values this loader previously set.
+
+    Called at import and again on each Streamlit rerun, so editing .env (e.g.
+    rotating an OpenAI key) takes effect without restarting the server.
+    """
+    for env_path in ENV_FILE_PATHS:
         if not env_path.exists():
             continue
 
@@ -86,9 +106,16 @@ def _load_env_file() -> None:
                 continue
             key, value = stripped.split("=", 1)
             key = key.strip()
-            if not key or key in os.environ:
+            if not key:
                 continue
-            os.environ[key] = value.strip().strip('"').strip("'")
+            current = os.environ.get(key)
+            if current is not None and current != _ENV_VALUES_FROM_FILE.get(key):
+                continue  # set by the shell or at runtime -- that value wins over the file
+            value = value.strip().strip('"').strip("'")
+            if current != value:
+                logger.info("env: loaded %s from %s", key, env_path)
+            os.environ[key] = value
+            _ENV_VALUES_FROM_FILE[key] = value
 
 
 _load_env_file()
@@ -326,6 +353,57 @@ def _parse_hits(payload: dict, country: str, provider: str) -> list[SearchHit]:
     return hits
 
 
+# Directory, social, and data-vendor domains that rank highly for "<company> official
+# website" but are never the company's own site. Reading one of these yields a profile
+# page with no stated sector focus (or a login wall), which downstream looks identical
+# to "this company has no sector focus" -- so they are skipped as candidates.
+AGGREGATOR_DOMAINS = frozenset({
+    "angel.co", "apollo.io", "bloomberg.com", "cbinsights.com", "craft.co",
+    "crunchbase.com", "dnb.com", "f6s.com", "facebook.com", "forbes.com",
+    "glassdoor.com", "indeed.com", "instagram.com", "linkedin.com", "medium.com",
+    "owler.com", "pitchbook.com", "privateequityinternational.com", "producthunt.com",
+    "reddit.com", "rocketreach.co", "signalhire.com", "t.co", "tracxn.com",
+    "twitter.com", "wellfound.com", "wikipedia.org", "x.com", "yahoo.com",
+    "youtube.com", "zaubacorp.com", "zoominfo.com",
+})
+
+
+def _registrable_domain(url: str) -> str:
+    netloc = urlparse(url).netloc.lower().split("@")[-1].split(":")[0]
+    return netloc[4:] if netloc.startswith("www.") else netloc
+
+
+def _is_aggregator(url: str) -> bool:
+    domain = _registrable_domain(url)
+    return any(domain == known or domain.endswith(f".{known}") for known in AGGREGATOR_DOMAINS)
+
+
+def _alphanumeric(value: str) -> str:
+    return re.sub(r"[^a-z0-9]", "", value.lower())
+
+
+def _looks_like_company_site(url: str, company_name: str) -> bool:
+    """True when the domain plausibly belongs to the company (e.g. '12flags' ->
+    12flags.com), which is a much stronger signal than search rank alone."""
+    name = _alphanumeric(company_name)
+    if not name:
+        return False
+    label = _alphanumeric(_registrable_domain(url).split(".")[0])
+    if not label:
+        return False
+    return name in label or label in name
+
+
+def _pick_official_website(hits: list[SearchHit], company_name: str) -> str | None:
+    """Best candidate from one provider's hits, or None if it offered nothing usable
+    (so the caller can fall through to the next provider)."""
+    candidates = [hit.url for hit in hits if hit.url and not _is_aggregator(hit.url)]
+    for url in candidates:
+        if _looks_like_company_site(url, company_name):
+            return url
+    return candidates[0] if candidates else None
+
+
 def find_official_website(
     company_name: str,
     serper_api_key: str | None = None,
@@ -333,7 +411,10 @@ def find_official_website(
     tavily_api_key: str | None = None,
 ) -> str | None:
     """Best-effort company-name -> official homepage URL lookup, trying Serper, then
-    SerpApi, then Tavily (same default provider priority used elsewhere in this module)."""
+    SerpApi, then Tavily (same default provider priority used elsewhere in this module).
+
+    Falls through to the next provider both when a provider errors and when it returns
+    nothing usable -- a page of directory/profile links is as useless as no answer."""
     query = f"{company_name.strip()} official website"
     attempts = []
     if serper_api_key:
@@ -345,10 +426,19 @@ def find_official_website(
     for attempt in attempts:
         try:
             hits = attempt()
-        except Exception:  # noqa: BLE001
+        except Exception as exc:  # noqa: BLE001
+            logger.warning("find_official_website: provider call failed for %r: %s: %s", query, type(exc).__name__, exc)
             continue
-        if hits and hits[0].url:
-            return hits[0].url
+        chosen = _pick_official_website(hits, company_name)
+        logger.warning(
+            "find_official_website: %r returned %d hits %s -> chose %s",
+            query,
+            len(hits),
+            [hit.url for hit in hits[:5]],
+            chosen or "nothing usable (all aggregator/profile links); trying next provider",
+        )
+        if chosen:
+            return chosen
     return None
 
 
@@ -617,28 +707,27 @@ def build_research_context(
             )
             hits.extend(kg_hits)
 
-        use_fallbacks = not hits
-
-        # Priority 2: Serper
-        if use_fallbacks and serper_api_key:
+        # Priority 2: Serper -- only if the step above produced nothing. `not hits` is
+        # re-evaluated at each step so the chain stops at the first provider that answers;
+        # computing it once would let a later provider run even after an earlier one
+        # succeeded, spending its quota for results already in hand.
+        if not hits and serper_api_key:
             hits.extend(_try_serper(serper_api_key, query, countries, language, raw_payloads, providers_used))
 
         # Priority 3: Tavily
-        if use_fallbacks and tavily_api_key:
+        if not hits and tavily_api_key:
             hits.extend(_try_tavily(tavily_api_key, query, countries, time_range, raw_payloads, providers_used))
     else:
         # Priority 1: Serper
         if serper_api_key:
             hits.extend(_try_serper(serper_api_key, query, countries, language, raw_payloads, providers_used))
 
-        use_fallbacks = not hits
-
         # Priority 2: SerpApi (Google)
-        if use_fallbacks and serp_api_key:
+        if not hits and serp_api_key:
             hits.extend(_try_serpapi_google(serp_api_key, query, countries, language, raw_payloads, providers_used))
 
         # Priority 3: Tavily
-        if use_fallbacks and tavily_api_key:
+        if not hits and tavily_api_key:
             hits.extend(_try_tavily(tavily_api_key, query, countries, time_range, raw_payloads, providers_used))
 
     hits = sorted(hits, key=lambda item: item.position)

@@ -3,7 +3,6 @@
 import json
 
 from engine import company_sectors
-from engine.company_sectors import SectorDetectionResult
 
 
 def test_industry_taxonomy_loads_from_data_file():
@@ -105,7 +104,7 @@ def test_detect_company_sectors_no_website_found(monkeypatch):
 
 def test_detect_company_sectors_unreadable_website(monkeypatch):
     monkeypatch.setattr(company_sectors, "find_official_website", lambda *a, **k: "https://acme.com")
-    monkeypatch.setattr(company_sectors, "_fetch_company_text", lambda url: None)
+    monkeypatch.setattr(company_sectors, "_fetch_company_text", lambda *a, **k: None)
     result = company_sectors.detect_company_sectors("Acme", None, None, None, "key")
     assert result.website == "https://acme.com"
     assert result.error == "We found their website but couldn't read it. Please choose a sector from the list."
@@ -113,7 +112,7 @@ def test_detect_company_sectors_unreadable_website(monkeypatch):
 
 def test_detect_company_sectors_no_signal(monkeypatch):
     monkeypatch.setattr(company_sectors, "find_official_website", lambda *a, **k: "https://acme.com")
-    monkeypatch.setattr(company_sectors, "_fetch_company_text", lambda url: "some text")
+    monkeypatch.setattr(company_sectors, "_fetch_company_text", lambda *a, **k: "some text")
     monkeypatch.setattr(company_sectors, "_extract_sectors", lambda *a, **k: [])
     result = company_sectors.detect_company_sectors("Acme", None, None, None, "key")
     assert result.error == "We couldn't tell which sector they focus on. Please choose a sector from the list."
@@ -121,7 +120,7 @@ def test_detect_company_sectors_no_signal(monkeypatch):
 
 def test_detect_company_sectors_success(monkeypatch):
     monkeypatch.setattr(company_sectors, "find_official_website", lambda *a, **k: "https://acme.com")
-    monkeypatch.setattr(company_sectors, "_fetch_company_text", lambda url: "some text")
+    monkeypatch.setattr(company_sectors, "_fetch_company_text", lambda *a, **k: "some text")
     monkeypatch.setattr(company_sectors, "_extract_sectors", lambda *a, **k: ["financial services"])
     result = company_sectors.detect_company_sectors("Acme", None, None, None, "key")
-    assert result == SectorDetectionResult("https://acme.com", ["financial services"], None)
+    assert (result.website, result.sectors, result.error) == ("https://acme.com", ["financial services"], None)
